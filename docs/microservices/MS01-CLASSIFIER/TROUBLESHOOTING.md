@@ -68,7 +68,7 @@ kubectl top pod ms01-classifier-pod --containers
 
 # 5. Database connectivity
 kubectl exec -it ms01-classifier-pod -- \
-  psql -h postgres -U classifier_service -d zendata_classifier \
+  psql -h postgres -U classifier_service -d zenia_classifier \
   -c "SELECT version();"
 
 # 6. Redis connectivity
@@ -111,7 +111,7 @@ docker exec ms01-classifier redis-cli ping
 Controllare le connessioni al database:
 ```sql
 SELECT count(*) FROM pg_stat_activity
-WHERE datname = 'zendata_classifier';
+WHERE datname = 'zenia_classifier';
 ```
 
 Monitorare l'utilizzo delle risorse:
@@ -253,7 +253,7 @@ Ottimizzare la cache:
 Verificare l'integrità del database:
 ```
 kubectl exec -it ms01-classifier-pod -- \
-  psql -h postgres -U classifier_service -d zendata_classifier \
+  psql -h postgres -U classifier_service -d zenia_classifier \
   -c "SELECT version();"
 ```
 

@@ -101,7 +101,7 @@ metadata:
   type: Opaque
 
 stringData:
-  database-url: "postgresql://classifier_service:classifier_pass@postgres.zendata:5432/zendata_classifier"
+  database-url: "postgresql://classifier_service:classifier_pass@postgres.zendata:5432/zenia_classifier"
   username: "classifier_service"
   password: "classifier_pass"
 
@@ -143,13 +143,13 @@ data:
     To apply the schema:
 
     Local Development:
-      psql -h localhost -U classifier_service -d zendata_classifier < init-schema.sql
+      psql -h localhost -U classifier_service -d zenia_classifier < init-schema.sql
 
     Docker Compose:
-      docker-compose exec postgres psql -U classifier_service -d zendata_classifier < init-schema.sql
+      docker-compose exec postgres psql -U classifier_service -d zenia_classifier < init-schema.sql
 
     Kubernetes:
-      kubectl exec -it postgres-pod -- psql -U classifier_service -d zendata_classifier < init-schema.sql
+      kubectl exec -it postgres-pod -- psql -U classifier_service -d zenia_classifier < init-schema.sql
 
     Or mount init-schema.sql as a volume in postgres init container:
       volumes:

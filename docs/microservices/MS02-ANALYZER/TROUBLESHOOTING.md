@@ -68,7 +68,7 @@ kubectl top pod ms02-analyzer-pod --containers
 
 # 5. Database connectivity
 kubectl exec -it ms02-analyzer-pod -- \
-  psql -h postgres -U analyzer_service -d zendata_analyzer \
+  psql -h postgres -U analyzer_service -d zenia_analyzer \
   -c "SELECT version();"
 
 # 6. Redis connectivity
@@ -111,7 +111,7 @@ docker exec ms02-analyzer redis-cli ping
 Controllare le connessioni al database:
 ```json
 {
-  "query": "SELECT count(*) FROM pg_stat_activity WHERE datname = 'zendata_analyzer';"
+  "query": "SELECT count(*) FROM pg_stat_activity WHERE datname = 'zenia_analyzer';"
 }
 ```
 

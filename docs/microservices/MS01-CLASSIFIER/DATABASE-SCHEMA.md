@@ -22,7 +22,7 @@ MS01 utilizza PostgreSQL per l'archiviazione persistente dei risultati di classi
 ```
 Host: postgres.namespace
 Port: 5432
-Database: zendata_classifier
+Database: zenia_classifier
 User: classifier_service
 SSL: Required
 ```

@@ -22,7 +22,7 @@ MS02 utilizza PostgreSQL per l'archiviazione persistente dei risultati di analis
 ```
 Host: postgres.namespace
 Port: 5432
-Database: zendata_analyzer
+Database: zenia_analyzer
 User: analyzer_service
 SSL: Required
 ```

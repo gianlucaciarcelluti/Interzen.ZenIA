@@ -24,7 +24,7 @@ services:
       BATCH_SIZE: 32
 
       # Database
-      DATABASE_URL: postgresql://classifier_service:classifier_pass@postgres:5432/zendata_classifier
+      DATABASE_URL: postgresql://classifier_service:classifier_pass@postgres:5432/zenia_classifier
       DB_POOL_SIZE: 20
       DB_POOL_RECYCLE: 3600
 
@@ -81,7 +81,7 @@ services:
     image: postgres:16-alpine
     container_name: classifier-postgres
     environment:
-      POSTGRES_DB: zendata_classifier
+      POSTGRES_DB: zenia_classifier
       POSTGRES_USER: classifier_service
       POSTGRES_PASSWORD: classifier_pass
       POSTGRES_INITDB_ARGS: "-c max_connections=100"
@@ -94,7 +94,7 @@ services:
       - ./init-db.sql:/docker-entrypoint-initdb.d/init.sql:ro
 
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U classifier_service -d zendata_classifier"]
+      test: ["CMD-SHELL", "pg_isready -U classifier_service -d zenia_classifier"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -191,7 +191,7 @@ volumes:
 #   Password: admin
 #
 # Connect to PostgreSQL from CLI:
-#   docker-compose exec postgres psql -U classifier_service -d zendata_classifier
+#   docker-compose exec postgres psql -U classifier_service -d zenia_classifier
 #
 # Monitor Redis:
 #   docker-compose exec redis redis-cli MONITOR

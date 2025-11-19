@@ -19,7 +19,7 @@ services:
       CACHE_TTL_ANALYSIS: 86400
 
       # Database
-      DATABASE_URL: postgresql://analyzer_service:analyzer_pass@postgres:5432/zendata_analyzer
+      DATABASE_URL: postgresql://analyzer_service:analyzer_pass@postgres:5432/zenia_analyzer
 
       # Cache (Redis)
       REDIS_URL: redis://redis:6379/2
@@ -46,7 +46,7 @@ services:
     image: postgres:16-alpine
     container_name: analyzer-postgres
     environment:
-      POSTGRES_DB: zendata_analyzer
+      POSTGRES_DB: zenia_analyzer
       POSTGRES_USER: analyzer_service
       POSTGRES_PASSWORD: analyzer_pass
 
@@ -54,7 +54,7 @@ services:
       - "5433:5432"
 
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U analyzer_service -d zendata_analyzer"]
+      test: ["CMD-SHELL", "pg_isready -U analyzer_service -d zenia_analyzer"]
       interval: 10s
       timeout: 5s
       retries: 5

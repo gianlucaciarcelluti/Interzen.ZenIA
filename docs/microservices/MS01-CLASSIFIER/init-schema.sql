@@ -1,7 +1,7 @@
 --
 -- MS01 - Classifier Database Schema
 -- PostgreSQL 14+
--- Schema initialization for zendata_classifier database
+-- Schema initialization for zenia_classifier database
 --
 
 -- Create schema

@@ -252,10 +252,10 @@ kubectl logs -f pod/ms01-classifier-xxx -n zendata --previous  # Pod crashato
 ### Accesso Database
 ```bash
 # Docker Compose
-docker-compose exec postgres psql -U classifier_service -d zendata_classifier
+docker-compose exec postgres psql -U classifier_service -d zenia_classifier
 
 # Kubernetes
-kubectl exec -it postgres-0 -- psql -U classifier_service -d zendata_classifier
+kubectl exec -it postgres-0 -- psql -U classifier_service -d zenia_classifier
 ```
 
 ### Controlla Ambiente
