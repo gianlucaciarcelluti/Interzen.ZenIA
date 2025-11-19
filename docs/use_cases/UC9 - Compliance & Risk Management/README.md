@@ -35,15 +35,15 @@ Questo UC copre tutti gli aspetti della **Compliance & Risk Management**, inclus
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
 | Architettura Generale | `00 Architettura UC9.md` | Architecture | ✅ | [Vai](./00 Architettura UC9.md) |
-| SP42 - Policy Engine | `01 SP42 - Policy Engine.md` | Specification | ✅ | [Vai](./01 SP42 - Policy Engine.md) |
-| SP43 - Risk Assessment Engine | `01 SP43 - Risk Assessment Engine.md` | Specification | ✅ | [Vai](./01 SP43 - Risk Assessment Engine.md) |
-| SP44 - Compliance Monitoring System | `01 SP44 - Compliance Monitoring System.md` | Specification | ✅ | [Vai](./01 SP44 - Compliance Monitoring System.md) |
-| SP45 - Regulatory Intelligence Hub | `01 SP45 - Regulatory Intelligence Hub.md` | Specification | ✅ | [Vai](./01 SP45 - Regulatory Intelligence Hub.md) |
-| SP46 - Compliance Automation Platform | `01 SP46 - Compliance Automation Platform.md` | Specification | ✅ | [Vai](./01 SP46 - Compliance Automation Platform.md) |
-| SP47 - Compliance Analytics & Reporting | `01 SP47 - Compliance Analytics & Reporting.md` | Specification | ✅ | [Vai](./01 SP47 - Compliance Analytics & Reporting.md) |
-| SP48 - Compliance Intelligence Platform | `01 SP48 - Compliance Intelligence Platform.md` | Specification | ✅ | [Vai](./01 SP48 - Compliance Intelligence Platform.md) |
-| SP49 - Regulatory Change Management | `01 SP49 - Regulatory Change Management.md` | Specification | ✅ | [Vai](./01 SP49 - Regulatory Change Management.md) |
-| SP50 - Compliance Training & Certification | `01 SP50 - Compliance Training & Certification.md` | Specification | ✅ | [Vai](./01 SP50 - Compliance Training & Certification.md) |
+| SP42 - Policy Engine | `01 SP42 - Motore Politiche.md` | Specification | ✅ | [Vai](./01 SP42 - Motore Politiche.md) |
+| SP43 - Risk Assessment Engine | `01 SP43 - Motore Valutazione Rischi.md` | Specification | ✅ | [Vai](./01 SP43 - Motore Valutazione Rischi.md) |
+| SP44 - Compliance Monitoring System | `01 SP44 - Sistema Monitoraggio Conformità.md` | Specification | ✅ | [Vai](./01 SP44 - Sistema Monitoraggio Conformità.md) |
+| SP45 - Regulatory Intelligence Hub | `01 SP45 - Hub Intelligenza Normativa.md` | Specification | ✅ | [Vai](./01 SP45 - Hub Intelligenza Normativa.md) |
+| SP46 - Compliance Automation Platform | `01 SP46 - Piattaforma Automazione Conformità.md` | Specification | ✅ | [Vai](./01 SP46 - Piattaforma Automazione Conformità.md) |
+| SP47 - Compliance Analytics & Reporting | `01 SP47 - Analitiche Conformità e Reporting.md` | Specification | ✅ | [Vai](./01 SP47 - Analitiche Conformità e Reporting.md) |
+| SP48 - Compliance Intelligence Platform | `01 SP48 - Piattaforma Intelligenza Conformità.md` | Specification | ✅ | [Vai](./01 SP48 - Piattaforma Intelligenza Conformità.md) |
+| SP49 - Regulatory Change Management | `01 SP49 - Gestione Cambiamenti Normativi.md` | Specification | ✅ | [Vai](./01 SP49 - Gestione Cambiamenti Normativi.md) |
+| SP50 - Compliance Training & Certification | `01 SP50 - Formazione Conformità e Certificazione.md` | Specification | ✅ | [Vai](./01 SP50 - Formazione Conformità e Certificazione.md) |
 | Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | [Vai](./01 Sequence diagrams.md) |
 
 ---
@@ -52,24 +52,24 @@ Questo UC copre tutti gli aspetti della **Compliance & Risk Management**, inclus
 
 ### Policy
 
-- **[SP42](./01 SP42 - Policy Engine.md)** - Policy Engine
+- **[SP42](./01 SP42 - Motore Politiche.md)** - Policy Engine
 
 ### Risk
 
-- **[SP43](./01 SP43 - Risk Assessment Engine.md)** - Risk Assessment Engine
+- **[SP43](./01 SP43 - Motore Valutazione Rischi.md)** - Risk Assessment Engine
 
 ### Compliance
 
-- **[SP44](./01 SP44 - Compliance Monitoring System.md)** - Compliance Monitoring System
-- **[SP46](./01 SP46 - Compliance Automation Platform.md)** - Compliance Automation Platform
-- **[SP47](./01 SP47 - Compliance Analytics & Reporting.md)** - Compliance Analytics & Reporting
-- **[SP48](./01 SP48 - Compliance Intelligence Platform.md)** - Compliance Intelligence Platform
-- **[SP50](./01 SP50 - Compliance Training & Certification.md)** - Compliance Training & Certification
+- **[SP44](./01 SP44 - Sistema Monitoraggio Conformità.md)** - Compliance Monitoring System
+- **[SP46](./01 SP46 - Piattaforma Automazione Conformità.md)** - Compliance Automation Platform
+- **[SP47](./01 SP47 - Analitiche Conformità e Reporting.md)** - Compliance Analytics & Reporting
+- **[SP48](./01 SP48 - Piattaforma Intelligenza Conformità.md)** - Compliance Intelligence Platform
+- **[SP50](./01 SP50 - Formazione Conformità e Certificazione.md)** - Compliance Training & Certification
 
 ### Regulatory
 
-- **[SP45](./01 SP45 - Regulatory Intelligence Hub.md)** - Regulatory Intelligence Hub
-- **[SP49](./01 SP49 - Regulatory Change Management.md)** - Regulatory Change Management
+- **[SP45](./01 SP45 - Hub Intelligenza Normativa.md)** - Regulatory Intelligence Hub
+- **[SP49](./01 SP49 - Gestione Cambiamenti Normativi.md)** - Regulatory Change Management
 
 ---
 
@@ -98,15 +98,15 @@ Mappa completa: [COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md)
 UC9 - Compliance & Risk Management/
 ├── 00 INDEX.md                          ← START HERE
 ├── 00 Architettura UC9.md       ← Architecture
-├── 01 SP42 - Policy Engine.md
-├── 01 SP43 - Risk Assessment Engine.md
-├── 01 SP44 - Compliance Monitoring System.md
-├── 01 SP45 - Regulatory Intelligence Hub.md
-├── 01 SP46 - Compliance Automation Platform.md
-├── 01 SP47 - Compliance Analytics & Reporting.md
-├── 01 SP48 - Compliance Intelligence Platform.md
-├── 01 SP49 - Regulatory Change Management.md
-├── 01 SP50 - Compliance Training & Certification.md
+├── 01 SP42 - Motore Politiche.md
+├── 01 SP43 - Motore Valutazione Rischi.md
+├── 01 SP44 - Sistema Monitoraggio Conformità.md
+├── 01 SP45 - Hub Intelligenza Normativa.md
+├── 01 SP46 - Piattaforma Automazione Conformità.md
+├── 01 SP47 - Analitiche Conformità e Reporting.md
+├── 01 SP48 - Piattaforma Intelligenza Conformità.md
+├── 01 SP49 - Gestione Cambiamenti Normativi.md
+├── 01 SP50 - Formazione Conformità e Certificazione.md
 ├── 01 Sequence diagrams.md
 ```
 

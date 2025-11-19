@@ -35,10 +35,10 @@ Questo UC copre tutti gli aspetti della **Firma Digitale Integrata**, incluse:
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
 | Architettura Generale | `00 Architettura UC6.md` | Architecture | ✅ | [Vai](./00 Architettura UC6.md) |
-| SP29 - Digital Signature Engine | `01 SP29 - Digital Signature Engine.md` | Specification | ✅ | [Vai](./01 SP29 - Digital Signature Engine.md) |
-| SP30 - Certificate Manager | `01 SP30 - Certificate Manager.md` | Specification | ✅ | [Vai](./01 SP30 - Certificate Manager.md) |
-| SP31 - Signature Workflow | `01 SP31 - Signature Workflow.md` | Specification | ✅ | [Vai](./01 SP31 - Signature Workflow.md) |
-| SP32 - Timestamp Authority & Temporal Marking | `01 SP32 - Timestamp Authority & Temporal Marking.md` | Specification | ✅ | [Vai](./01 SP32 - Timestamp Authority & Temporal Marking.md) |
+| SP29 - Digital Signature Engine | `01 SP29 - Motore Firma Digitale.md` | Specification | ✅ | [Vai](./01 SP29 - Motore Firma Digitale.md) |
+| SP30 - Certificate Manager | `01 SP30 - Gestore Certificati.md` | Specification | ✅ | [Vai](./01 SP30 - Gestore Certificati.md) |
+| SP31 - Signature Workflow | `01 SP31 - Workflow Firma.md` | Specification | ✅ | [Vai](./01 SP31 - Workflow Firma.md) |
+| SP32 - Timestamp Authority & Temporal Marking | `01 SP32 - Autorità Timestamp e Marcatura Temporale.md` | Specification | ✅ | [Vai](./01 SP32 - Autorità Timestamp e Marcatura Temporale.md) |
 | Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | [Vai](./01 Sequence diagrams.md) |
 
 ---
@@ -47,19 +47,19 @@ Questo UC copre tutti gli aspetti della **Firma Digitale Integrata**, incluse:
 
 ### Digital
 
-- **[SP29](./01 SP29 - Digital Signature Engine.md)** - Digital Signature Engine
+- **[SP29](./01 SP29 - Motore Firma Digitale.md)** - Digital Signature Engine
 
 ### Certificate
 
-- **[SP30](./01 SP30 - Certificate Manager.md)** - Certificate Manager
+- **[SP30](./01 SP30 - Gestore Certificati.md)** - Certificate Manager
 
 ### Signature
 
-- **[SP31](./01 SP31 - Signature Workflow.md)** - Signature Workflow
+- **[SP31](./01 SP31 - Workflow Firma.md)** - Signature Workflow
 
 ### Timestamp
 
-- **[SP32](./01 SP32 - Timestamp Authority & Temporal Marking.md)** - Timestamp Authority & Temporal Marking
+- **[SP32](./01 SP32 - Autorità Timestamp e Marcatura Temporale.md)** - Timestamp Authority & Temporal Marking
 
 ---
 
@@ -88,10 +88,10 @@ Mappa completa: [COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md)
 UC6 - Firma Digitale Integrata/
 ├── 00 INDEX.md                          ← START HERE
 ├── 00 Architettura UC6.md       ← Architecture
-├── 01 SP29 - Digital Signature Engine.md
-├── 01 SP30 - Certificate Manager.md
-├── 01 SP31 - Signature Workflow.md
-├── 01 SP32 - Timestamp Authority & Temporal Marking.md
+├── 01 SP29 - Motore Firma Digitale.md
+├── 01 SP30 - Gestore Certificati.md
+├── 01 SP31 - Workflow Firma.md
+├── 01 SP32 - Autorità Timestamp e Marcatura Temporale.md
 ├── 01 Sequence diagrams.md
 ```
 

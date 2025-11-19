@@ -34,10 +34,10 @@ Questo UC copre tutti gli aspetti della **Protocollo Informatico**, incluse:
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| SP16 - Correspondence Classifier | `01 SP16 - Correspondence Classifier.md` | Specification | ✅ | [Vai](./01 SP16 - Correspondence Classifier.md) |
-| SP17 - Registry Suggester | `01 SP17 - Registry Suggester.md` | Specification | ✅ | [Vai](./01 SP17 - Registry Suggester.md) |
-| SP18 - Anomaly Detector | `01 SP18 - Anomaly Detector.md` | Specification | ✅ | [Vai](./01 SP18 - Anomaly Detector.md) |
-| SP19 - Protocol Workflow Orchestrator | `01 SP19 - Protocol Workflow Orchestrator.md` | Specification | ✅ | [Vai](./01 SP19 - Protocol Workflow Orchestrator.md) |
+| SP16 - Correspondence Classifier | `01 SP16 - Classificatore Corrispondenza.md` | Specification | ✅ | [Vai](./01 SP16 - Classificatore Corrispondenza.md) |
+| SP17 - Registry Suggester | `01 SP17 - Suggeritore Registro.md` | Specification | ✅ | [Vai](./01 SP17 - Suggeritore Registro.md) |
+| SP18 - Anomaly Detector | `01 SP18 - Rilevatore Anomalie.md` | Specification | ✅ | [Vai](./01 SP18 - Rilevatore Anomalie.md) |
+| SP19 - Protocol Workflow Orchestrator | `01 SP19 - Orchestratore Workflow Protocollo.md` | Specification | ✅ | [Vai](./01 SP19 - Orchestratore Workflow Protocollo.md) |
 | Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | [Vai](./01 Sequence diagrams.md) |
 
 ---
@@ -47,19 +47,19 @@ Questo UC copre tutti gli aspetti della **Protocollo Informatico**, incluse:
 
 ### Correspondence
 
-- **[SP16](./01 SP16 - Correspondence Classifier.md)** - Correspondence Classifier
+- **[SP16](./01 SP16 - Classificatore Corrispondenza.md)** - Correspondence Classifier
 
 ### Registry
 
-- **[SP17](./01 SP17 - Registry Suggester.md)** - Registry Suggester
+- **[SP17](./01 SP17 - Suggeritore Registro.md)** - Registry Suggester
 
 ### Anomaly
 
-- **[SP18](./01 SP18 - Anomaly Detector.md)** - Anomaly Detector
+- **[SP18](./01 SP18 - Rilevatore Anomalie.md)** - Anomaly Detector
 
 ### Protocol
 
-- **[SP19](./01 SP19 - Protocol Workflow Orchestrator.md)** - Protocol Workflow Orchestrator
+- **[SP19](./01 SP19 - Orchestratore Workflow Protocollo.md)** - Protocol Workflow Orchestrator
 
 ---
 
@@ -88,11 +88,11 @@ Mappa completa: [COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md)
 UC2 - Protocollo Informatico/
 ├── 00 INDEX.md                          ← START HERE
 ├── 00 Architettura UC2.md       ← Architecture
-├── 01 SP01 - EML Parser & Email Intelligence (UC2 Protocol).md
-├── 01 SP16 - Correspondence Classifier.md
-├── 01 SP17 - Registry Suggester.md
-├── 01 SP18 - Anomaly Detector.md
-├── 01 SP19 - Protocol Workflow Orchestrator.md
+├── 01 SP01 - Parser EML e Intelligenza Email (Protocollo UC2).md
+├── 01 SP16 - Classificatore Corrispondenza.md
+├── 01 SP17 - Suggeritore Registro.md
+├── 01 SP18 - Rilevatore Anomalie.md
+├── 01 SP19 - Orchestratore Workflow Protocollo.md
 ├── 01 Sequence diagrams.md
 ```
 

@@ -527,9 +527,9 @@ SP27 (Analytics) → Dashboard
 
 - [SP-MS-MAPPING-MASTER.md](../../SP-MS-MAPPING-MASTER.md) - Full mapping
 - [UC4 - BPM](../../README.md) - Parent use case overview
-- [SP24 - Process Mining](./01 SP24 - Process Mining Engine.md) - Upstream data source
-- [SP26 - Workflow Designer](./01 SP26 - Intelligent Workflow Designer.md) - Consumer
-- [SP27 - Process Analytics](./01 SP27 - Process Analytics.md) - Consumer
+- [SP24 - Process Mining](./01 SP24 - Motore Process Mining.md) - Upstream data source
+- [SP26 - Workflow Designer](./01 SP26 - Progettista Workflow Intelligente.md) - Consumer
+- [SP27 - Process Analytics](./01 SP27 - Analitiche Processi.md) - Consumer
 - [MS02 - Analyzer](../../microservices/MS02-ANALYZER/README.md) - Primary MS
 - [MS10 - Logger](../../microservices/MS10-LOGGER/README.md) - Support MS
 

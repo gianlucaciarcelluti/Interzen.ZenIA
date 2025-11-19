@@ -34,12 +34,12 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Documentale**, inc
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| SP02 - Document Extractor & Attachment Classifier | `01 SP02 - Document Extractor & Attachment Classifier.md` | Specification | ✅ | [Vai](./01 SP02 - Document Extractor & Attachment Classifier.md) |
-| SP07 - Content Classifier | `01 SP07 - Content Classifier.md` | Specification | ✅ | [Vai](./01 SP07 - Content Classifier.md) |
-| SP12 - Semantic Search & Q&A Engine | `01 SP12 - Semantic Search & Q&A Engine.md` | Specification | ✅ | [Vai](./01 SP12 - Semantic Search & Q&A Engine.md) |
-| SP13 - Document Summarizer | `01 SP13 - Document Summarizer.md` | Specification | ✅ | [Vai](./01 SP13 - Document Summarizer.md) |
-| SP14 - Metadata Indexer | `01 SP14 - Metadata Indexer.md` | Specification | ✅ | [Vai](./01 SP14 - Metadata Indexer.md) |
-| SP15 - Document Workflow Orchestrator | `01 SP15 - Document Workflow Orchestrator.md` | Specification | ✅ | [Vai](./01 SP15 - Document Workflow Orchestrator.md) |
+| SP02 - Document Extractor & Attachment Classifier | `01 SP02 - Estrattore Documenti e Classificatore Allegati.md` | Specification | ✅ | [Vai](./01 SP02 - Estrattore Documenti e Classificatore Allegati.md) |
+| SP07 - Content Classifier | `01 SP07 - Classificatore Contenuti.md` | Specification | ✅ | [Vai](./01 SP07 - Classificatore Contenuti.md) |
+| SP12 - Semantic Search & Q&A Engine | `01 SP12 - Ricerca Semantica e Motore Q&A.md` | Specification | ✅ | [Vai](./01 SP12 - Ricerca Semantica e Motore Q&A.md) |
+| SP13 - Document Summarizer | `01 SP13 - Sintetizzatore Documenti.md` | Specification | ✅ | [Vai](./01 SP13 - Sintetizzatore Documenti.md) |
+| SP14 - Metadata Indexer | `01 SP14 - Indicizzatore Metadati.md` | Specification | ✅ | [Vai](./01 SP14 - Indicizzatore Metadati.md) |
+| SP15 - Document Workflow Orchestrator | `01 SP15 - Orchestratore Workflow Documenti.md` | Specification | ✅ | [Vai](./01 SP15 - Orchestratore Workflow Documenti.md) |
 | Sequence - Document Processing Completo | `01 Sequence - Document Processing Completo.md` | Diagram | ✅ | [Vai](./01 Sequence - Document Processing Completo.md) |
 | Sequence - Overview Semplificato | `01 Sequence - Overview Semplificato.md` | Diagram | ✅ | [Vai](./01 Sequence - Overview Semplificato.md) |
 | Sequence - Ultra Semplificato | `01 Sequence - Ultra Semplificato.md` | Diagram | ✅ | [Vai](./01 Sequence - Ultra Semplificato.md) |
@@ -50,21 +50,21 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Documentale**, inc
 
 ### Document
 
-- **[SP02](./01 SP02 - Document Extractor & Attachment Classifier.md)** - Document Extractor & Attachment Classifier
-- **[SP13](./01 SP13 - Document Summarizer.md)** - Document Summarizer
-- **[SP15](./01 SP15 - Document Workflow Orchestrator.md)** - Document Workflow Orchestrator
+- **[SP02](./01 SP02 - Estrattore Documenti e Classificatore Allegati.md)** - Document Extractor & Attachment Classifier
+- **[SP13](./01 SP13 - Sintetizzatore Documenti.md)** - Document Summarizer
+- **[SP15](./01 SP15 - Orchestratore Workflow Documenti.md)** - Document Workflow Orchestrator
 
 ### Content
 
-- **[SP07](./01 SP07 - Content Classifier.md)** - Content Classifier
+- **[SP07](./01 SP07 - Classificatore Contenuti.md)** - Content Classifier
 
 ### Semantic
 
-- **[SP12](./01 SP12 - Semantic Search & Q&A Engine.md)** - Semantic Search & Q&A Engine
+- **[SP12](./01 SP12 - Ricerca Semantica e Motore Q&A.md)** - Semantic Search & Q&A Engine
 
 ### Metadata
 
-- **[SP14](./01 SP14 - Metadata Indexer.md)** - Metadata Indexer
+- **[SP14](./01 SP14 - Indicizzatore Metadati.md)** - Metadata Indexer
 
 ---
 
@@ -93,12 +93,12 @@ Mappa completa: [COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md)
 UC1 - Sistema di Gestione Documentale/
 ├── 00 INDEX.md                          ← START HERE
 ├── 00 Architettura UC1.md       ← Architecture
-├── 01 SP02 - Document Extractor & Attachment Classifier.md
-├── 01 SP07 - Content Classifier.md
-├── 01 SP12 - Semantic Search & Q&A Engine.md
-├── 01 SP13 - Document Summarizer.md
-├── 01 SP14 - Metadata Indexer.md
-├── 01 SP15 - Document Workflow Orchestrator.md
+├── 01 SP02 - Estrattore Documenti e Classificatore Allegati.md
+├── 01 SP07 - Classificatore Contenuti.md
+├── 01 SP12 - Ricerca Semantica e Motore Q&A.md
+├── 01 SP13 - Sintetizzatore Documenti.md
+├── 01 SP14 - Indicizzatore Metadati.md
+├── 01 SP15 - Orchestratore Workflow Documenti.md
 ├── 01 Sequence - Document Processing Completo.md
 ├── 01 Sequence - Overview Semplificato.md
 ├── 01 Sequence - Ultra Semplificato.md

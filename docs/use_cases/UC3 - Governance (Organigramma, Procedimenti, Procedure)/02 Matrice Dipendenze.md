@@ -302,10 +302,10 @@ graph TD
 
 ## Documentazione Correlata
 
-- [SP20 - Organization Chart Manager](./01 SP20 - Organization Chart Manager.md)
-- [SP21 - Procedure Manager](./01 SP21 - Procedure Manager.md)
-- [SP22 - Process Governance](./01 SP22 - Process Governance.md)
-- [SP23 - Compliance Monitor](./01 SP23 - Compliance Monitor.md)
+- [SP20 - Organization Chart Manager](./01 SP20 - Gestione Organigramma.md)
+- [SP21 - Procedure Manager](./01 SP21 - Gestore Procedure.md)
+- [SP22 - Process Governance](./01 SP22 - Governance Processi.md)
+- [SP23 - Compliance Monitor](./01 SP23 - Monitor Conformità.md)
 - [00 Architettura UC3](./00 Architettura UC3.md)
 - [SP-MS-MAPPING-MASTER.md](../../SP-MS-MAPPING-MASTER.md)
 
