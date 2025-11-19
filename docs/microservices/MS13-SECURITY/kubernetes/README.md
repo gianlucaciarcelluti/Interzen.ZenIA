@@ -291,7 +291,7 @@ kubectl rollout restart deployment/ms13-security-keycloak
 
 ## 🐛 Troubleshooting
 
-Vedi [TROUBLESHOUTING.md](../TROUBLESHOUTING.md)
+Vedi [TROUBLESHOOTING.md](../TROUBLESHOOTING.md)
 
 ---
 

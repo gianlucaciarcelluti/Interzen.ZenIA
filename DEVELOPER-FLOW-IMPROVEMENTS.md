@@ -170,7 +170,7 @@ Deploy (5 min)
 
 ```
 BEFORE:
-1. Leggi INDEX.md → ricerca "microservices"
+1. Leggi README.md → ricerca "microservices"
 2. Vai a docs/microservices/
 3. Leggi MS-ARCHITECTURE-MASTER.md (lungo!)
 4. Cerca il tuo MS nella tabella
@@ -390,7 +390,7 @@ AFTER:
 
 ### Medium-term (This Month)
 1. Replicate patterns for MS02-MS16 (template structure)
-2. Update INDEX.md with new entry points
+2. Update README.md with new entry points
 3. Train team on new patterns
 
 ### Long-term (This Quarter)

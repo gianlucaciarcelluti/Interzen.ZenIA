@@ -42,4 +42,4 @@ MS13-SECURITY implementa un Identity Provider centralizzato (Keycloak) per auten
 
 ---
 
-**Vedi anche**: [README.md](./README.md) | [API.md](./API.md) | [DATABASE-SCHEMA.md](./DATABASE-SCHEMA.md) | [TROUBLESHOUTING.md](./TROUBLESHOUTING.md)
+**Vedi anche**: [README.md](./README.md) | [API.md](./API.md) | [DATABASE-SCHEMA.md](./DATABASE-SCHEMA.md) | [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)

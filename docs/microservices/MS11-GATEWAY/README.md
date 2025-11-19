@@ -309,7 +309,7 @@ MS11-GATEWAY/
 ├── SPECIFICATION.md            # Specifiche tecniche
 ├── API.md                      # Documentazione API
 ├── DATABASE-SCHEMA.md          # Schema database
-├── TROUBLESHOUTING.md          # Guida risoluzione problemi
+├── TROUBLESHOOTING.md          # Guida risoluzione problemi
 ├── docker-compose.yml          # Ambiente sviluppo
 ├── examples/                   # Esempi utilizzo
 │   ├── README.md
@@ -325,11 +325,11 @@ MS11-GATEWAY/
 
 ## 🔗 Risorse Correlate
 
-- **[MS13-SECURITY](MS13-SECURITY/README.md)** - Sicurezza API
-- **[MS08-MONITOR](MS08-MONITOR/README.md)** - Monitoraggio infrastruttura
-- **[MS10-LOGGER](MS10-LOGGER/README.md)** - Logging centralizzato
-- **[MS16-REGISTRY](MS16-REGISTRY/README.md)** - Service discovery
+- **[MS13-SECURITY](../MS13-SECURITY/README.md)** - Sicurezza API
+- **[MS08-MONITOR](../MS08-MONITOR/README.md)** - Monitoraggio infrastruttura
+- **[MS10-LOGGER](../MS10-LOGGER/README.md)** - Logging centralizzato
+- **[MS16-REGISTRY](../MS16-REGISTRY/README.md)** - Service discovery
 
 ---
 
-**📖 Approfondimenti**: [SPECIFICATION.md](SPECIFICATION.md) | [API.md](API.md) | [TROUBLESHOUTING.md](TROUBLESHOUTING.md)
+**📖 Approfondimenti**: [SPECIFICATION.md](SPECIFICATION.md) | [API.md](API.md) | [TROUBLESHOOTING.md](TROUBLESHOOTING.md)

@@ -270,7 +270,7 @@ kubectl rollout restart deployment/ms14-audit-api
 
 ## 🐛 Troubleshooting
 
-Vedi [TROUBLESHOUTING.md](../TROUBLESHOUTING.md)
+Vedi [TROUBLESHOOTING.md](../TROUBLESHOOTING.md)
 
 ---
 

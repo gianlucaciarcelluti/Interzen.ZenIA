@@ -1,6 +1,6 @@
 # Microservizi ZenIA - Guida Rapida
 
-**Navigazione**: [← ../INDEX.md](../INDEX.md) | [Microservices README](README.md) | [MS-ARCHITECTURE-MASTER →](MS-ARCHITECTURE-MASTER.md)
+**Navigazione**: [← ../README.md](../README.md) | [Microservices README](README.md) | [MS-ARCHITECTURE-MASTER →](MS-ARCHITECTURE-MASTER.md)
 
 ---
 
@@ -277,4 +277,4 @@ Ogni microservice ha **9 elementi** documentati:
 **Status**: ✅ Ready for developers
 **Maintainers**: ZenIA Documentation Team
 
-Navigazione: [← ../INDEX.md](../INDEX.md) | [Microservices README](README.md) | [MS-ARCHITECTURE-MASTER →](MS-ARCHITECTURE-MASTER.md)
+Navigazione: [← ../README.md](../README.md) | [Microservices README](README.md) | [MS-ARCHITECTURE-MASTER →](MS-ARCHITECTURE-MASTER.md)

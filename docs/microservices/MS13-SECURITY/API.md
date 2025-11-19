@@ -65,4 +65,4 @@ Content-Type: application/json
 
 ---
 
-**Vedi anche**: [README.md](./README.md) | [SPECIFICATION.md](./SPECIFICATION.md) | [DATABASE-SCHEMA.md](./DATABASE-SCHEMA.md) | [TROUBLESHOUTING.md](./TROUBLESHOUTING.md)
+**Vedi anche**: [README.md](./README.md) | [SPECIFICATION.md](./SPECIFICATION.md) | [DATABASE-SCHEMA.md](./DATABASE-SCHEMA.md) | [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)

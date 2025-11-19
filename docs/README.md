@@ -335,7 +335,7 @@ MSxx-NAME/
 - Controlla **[DEVELOPMENT-GUIDE.md - Debugging](DEVELOPMENT-GUIDE.md#-debugging)**
 
 ### Documentation Questions
-- Controlla **[INDEX.md](INDEX.md)** (questo file)
+- Controlla **[README.md](README.md)** (questo file)
 - Cerca nella documentazione per parola chiave
 
 ### Compliance Questions

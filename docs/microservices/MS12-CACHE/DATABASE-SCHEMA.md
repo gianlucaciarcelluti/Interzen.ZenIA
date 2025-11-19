@@ -51,4 +51,4 @@
 
 ---
 
-**Vedi anche**: [README.md](./README.md) | [SPECIFICATION.md](./SPECIFICATION.md) | [API.md](./API.md) | [TROUBLESHOUTING.md](./TROUBLESHOUTING.md)
+**Vedi anche**: [README.md](./README.md) | [SPECIFICATION.md](./SPECIFICATION.md) | [API.md](./API.md) | [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)

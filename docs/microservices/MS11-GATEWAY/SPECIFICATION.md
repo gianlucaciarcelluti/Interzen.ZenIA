@@ -689,4 +689,4 @@ spec:
 
 ---
 
-**📖 Documentazione Correlata**: [API.md](API.md) | [DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOUTING.md](TROUBLESHOUTING.md)
+**📖 Documentazione Correlata**: [API.md](API.md) | [DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOOTING.md](TROUBLESHOOTING.md)

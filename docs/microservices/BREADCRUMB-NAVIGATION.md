@@ -16,7 +16,7 @@ Oppure per documenti nello stesso livello:
 
 ```markdown
 **Back**: [← MS-ARCHITECTURE-MASTER.md](MS-ARCHITECTURE-MASTER.md)
-**Home**: [📚 INDEX](../INDEX.md)
+**Home**: [📚 README](../README.md)
 ```
 
 ---
@@ -27,7 +27,7 @@ Oppure per documenti nello stesso livello:
 
 #### MS-ARCHITECTURE-MASTER.md
 ```markdown
-**Navigazione**: [← INDEX](../INDEX.md) | [MS-ARCHITECTURE-MASTER](MS-ARCHITECTURE-MASTER.md) | [DEVELOPER-WORKFLOW](DEVELOPER-WORKFLOW.md) →
+**Navigazione**: [← README](../README.md) | [MS-ARCHITECTURE-MASTER](MS-ARCHITECTURE-MASTER.md) | [DEVELOPER-WORKFLOW](DEVELOPER-WORKFLOW.md) →
 ```
 
 #### DEVELOPER-WORKFLOW.md
@@ -68,7 +68,7 @@ Oppure per documenti nello stesso livello:
 
 ```
 docs/
-├── INDEX.md
+├── README.md
 ├── ARCHITECTURE-OVERVIEW.md
 ├── DEVELOPMENT-GUIDE.md
 ├── COMPLIANCE-MATRIX.md
@@ -90,7 +90,7 @@ docs/
 ```
 
 **Navigation Flow:**
-1. Start: INDEX.md → microservices/MS-ARCHITECTURE-MASTER.md
+1. Start: README.md → microservices/MS-ARCHITECTURE-MASTER.md
 2. Learn: DEVELOPER-WORKFLOW.md
 3. Pick MS: MS01-CLASSIFIER/README.md
 4. Read sequence: README → SPECIFICATION → API → DATABASE-SCHEMA → TROUBLESHOOTING

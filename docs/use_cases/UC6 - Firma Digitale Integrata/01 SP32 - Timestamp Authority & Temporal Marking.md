@@ -479,11 +479,8 @@ sp31_provider_availability{provider}
 ## 14. Documentazione Correlata
 
 - [SP-MS-MAPPING-MASTER.md](../../SP-MS-MAPPING-MASTER.md) - Full mapping
-- [UC6 - Firma Digitale](../../use_cases/riepilogo_casi_uso.md) - Parent use case
-- [SP31 - Digital Signature Engine](./01 SP31 - Digital Signature Engine.md) - Upstream
-- [SP31 - Signature Workflow](./01 SP31 - Signature Workflow.md) - Upstream
-- [SP32 - Post-Signature Auditor](./01 SP32 - Post-Signature Auditor.md) - Downstream (when created)
-- [MS13 - Generic Security Engine](../../microservices/MS13-Generic-Security-Engine.md) - Primary MS
-- [MS04 - Generic Validator Engine](../../microservices/MS04-Generic-Validator-Engine.md) - Support MS
-- [MS14 - Generic Audit Engine](../../microservices/MS14-Generic-Audit-Engine.md) - Support MS
+- [UC6 - Firma Digitale](../../README.md) - Parent use case overview
+- [MS13 - Security](../../microservices/MS13-SECURITY/README.md) - Primary MS
+- [MS04 - Validator](../../microservices/MS04-VALIDATOR/README.md) - Support MS
+- [MS14 - Audit](../../microservices/MS14-AUDIT/README.md) - Support MS
 

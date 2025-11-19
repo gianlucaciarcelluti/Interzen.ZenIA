@@ -260,7 +260,7 @@ La **FASE 1** del refactoring documentazione ZenIA è stata completata con succe
 3. **Creazione Glossario**
    - Decidi: "Flusso di lavoro" vs "Workflow"
    - Crea `docs/GLOSSARIO.md` con 50+ termini
-   - Aggiorna `docs/INDEX.md` con link
+   - Aggiorna `docs/README.md` con link
 
 ### FASE 3 - Navigazione (Settimana 5-6)
 

@@ -348,7 +348,6 @@ Audit & Security (SP11, SP49) via MS13, MS14
 
 | File | Scopo |
 |---|---|
-| [riepilogo_casi_uso.md](./use_cases/riepilogo_casi_uso.md) | Descrizione UC, listing SP, matrice MS per UC |
 | [SP-MS-MAPPING-MASTER.md](./SP-MS-MAPPING-MASTER.md) | Mapping completo SP↔MS, analisi gap, raccomandazioni |
 | [GAP-RESOLUTION.md](./GAP-RESOLUTION.md) | Dettagli gap SP25, SP33, SP57 e piano risoluzione |
 | [SP-DOCUMENTATION-TEMPLATE.md](./SP-DOCUMENTATION-TEMPLATE.md) | Template standard per documentazione SP |

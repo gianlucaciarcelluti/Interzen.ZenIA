@@ -103,7 +103,7 @@ La documentazione è stata **riorganizzata per massima chiarezza e navigabilità
 ---
 
 ### 4. Index Updates
-**Localizzazione**: `/docs/INDEX.md`
+**Localizzazione**: `/docs/README.md`
 **Modifiche**:
 - Aggiunto link a DOCUMENTATION-STRUCTURE-GUIDE.md
 - Aggiunto link a DOCUMENTATION-STRUCTURE-VISUAL.md
@@ -188,7 +188,7 @@ La documentazione è stata **riorganizzata per massima chiarezza e navigabilità
 
 ```
 docs/
-├── INDEX.md ⭐
+├── README.md ⭐
 │   ├── ARCHITECTURE-OVERVIEW.md
 │   ├── DEVELOPMENT-GUIDE.md
 │   ├── COMPLIANCE-MATRIX.md
@@ -332,7 +332,7 @@ grep -A 20 "UC5" docs/COMPLIANCE-MATRIX.md
 | **DOCUMENTATION-STRUCTURE-GUIDE.md** | /docs | ⭐⭐⭐ | Standard completo |
 | **DOCUMENTATION-STRUCTURE-VISUAL.md** | /docs | ⭐⭐⭐ | Guida visuale |
 | **TEMPLATE_SP_STRUCTURE.md** | /docs/use_cases/UC5/ | ⭐⭐⭐ | Esempio concreto |
-| INDEX.md | /docs | ⭐⭐⭐ | Entry point |
+| README.md | /docs | ⭐⭐⭐ | Entry point |
 
 ---
 

@@ -1,6 +1,6 @@
 # MS03 - Orchestratore - Troubleshooting
 
-**Navigazione**: [← DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOOTING](TROUBLESHOOTING.md) | [docker-compose.yml →](../docker-compose.yml)
+**Navigazione**: [← DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOOTING](TROUBLESHOOTING.md) | [docker-compose.yml →](./docker-compose.yml)
 
 ## Indice
 
@@ -779,4 +779,4 @@ curl -X GET "http://localhost:8003/api/v1/debug/workflow/{workflow_id}" \
 
 ---
 
-**Navigazione**: [← DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOOTING](TROUBLESHOOTING.md) | [docker-compose.yml →](../docker-compose.yml)
+**Navigazione**: [← DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOOTING](TROUBLESHOOTING.md) | [docker-compose.yml →](./docker-compose.yml)

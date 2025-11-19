@@ -260,7 +260,7 @@ kubectl rollout restart statefulset/ms12-cache
 
 ## 🐛 Troubleshooting
 
-Vedi [TROUBLESHOUTING.md](../TROUBLESHOUTING.md)
+Vedi [TROUBLESHOOTING.md](../TROUBLESHOOTING.md)
 
 ---
 

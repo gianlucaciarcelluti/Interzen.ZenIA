@@ -25,9 +25,9 @@ Durante la pianificazione iniziale dell'architettura ZenIA, la numerazione dei S
 ### Decisione Architetturale
 
 La riserva di SP28 è documentata in:
-- [QUICK-REFERENCE-ARCHITECTURE.md](QUICK-REFERENCE-ARCHITECTURE.md#sp-distribution) - Sezione SP Distribution
-- [riepilogo_casi_uso.md](riepilogo_casi_uso.md#sp28-reserved) - Nota su SP28
-- [GAP-RESOLUTION.md](GAP-RESOLUTION.md#sp28-intenzionalmente-skipped) - Documentazione gap
+- [QUICK-REFERENCE-ARCHITECTURE.md](../../QUICK-REFERENCE-ARCHITECTURE.md) - Guida architetturale
+- [GAP-RESOLUTION.md](../../GAP-RESOLUTION.md) - Documentazione gap
+- [README.md](../README.md) - Overview UC4
 
 ---
 

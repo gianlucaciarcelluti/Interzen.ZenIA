@@ -1,6 +1,6 @@
 # Specifiche Tecniche - MS10-LOGGER
 
-**Navigazione**: [README.md](README.md) | [← SPECIFICATION.md](SPECIFICATION.md) | [API.md](API.md) | [DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOUTING.md](TROUBLESHOUTING.md) | [Back to MS →](../MS-ARCHITECTURE-MASTER.md#ms10--logger)
+**Navigazione**: [README.md](README.md) | [← SPECIFICATION.md](SPECIFICATION.md) | [API.md](API.md) | [DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | [Back to MS →](../MS-ARCHITECTURE-MASTER.md#ms10--logger)
 
 ## 1. Panoramica Architetturale
 

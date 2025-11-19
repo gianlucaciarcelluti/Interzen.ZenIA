@@ -42,4 +42,4 @@ MS12-CACHE implementa un cluster Redis distribuito per caching, session manageme
 
 ---
 
-**Vedi anche**: [README.md](./README.md) | [API.md](./API.md) | [DATABASE-SCHEMA.md](./DATABASE-SCHEMA.md) | [TROUBLESHOUTING.md](./TROUBLESHOUTING.md)
+**Vedi anche**: [README.md](./README.md) | [API.md](./API.md) | [DATABASE-SCHEMA.md](./DATABASE-SCHEMA.md) | [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)

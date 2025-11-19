@@ -1,6 +1,6 @@
 # MS08 - MONITOR
 
-**Navigazione**: [← SPECIFICATION.md](SPECIFICATION.md) | [README](README.md) | [API.md](API.md) | [DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOUTING.md](TROUBLESHOUTING.md) | [Back to MS →](../MS-ARCHITECTURE-MASTER.md#ms08--monitor)
+**Navigazione**: [← SPECIFICATION.md](SPECIFICATION.md) | [README](README.md) | [API.md](API.md) | [DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | [Back to MS →](../MS-ARCHITECTURE-MASTER.md#ms08--monitor)
 
 ## Panoramica
 

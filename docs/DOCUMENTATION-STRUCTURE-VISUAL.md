@@ -9,7 +9,7 @@ Questa pagina mostra visualmente come è organizzata la documentazione per massi
 ```
 docs/
 ├── GOVERNANCE LAYER (Root)
-│   ├── INDEX.md ⭐ ENTRY POINT
+│   ├── README.md ⭐ ENTRY POINT
 │   ├── ARCHITECTURE-OVERVIEW.md
 │   ├── DEVELOPMENT-GUIDE.md
 │   ├── COMPLIANCE-MATRIX.md
@@ -247,7 +247,7 @@ References:
 **Audience**: Everyone
 
 ```
-INDEX.md ⭐
+README.md ⭐
 ├─ ARCHITECTURE-OVERVIEW.md (system design)
 ├─ DEVELOPMENT-GUIDE.md (workflow)
 ├─ COMPLIANCE-MATRIX.md (regulatory)
@@ -426,7 +426,7 @@ MS02-ANALYZER/
 All files link to each other in a web:
 
 ```
-INDEX.md
+README.md
   ├─ ARCHITECTURE-OVERVIEW.md
   ├─ DEVELOPMENT-GUIDE.md
   ├─ DOCUMENTATION-STRUCTURE-GUIDE.md ← Start here

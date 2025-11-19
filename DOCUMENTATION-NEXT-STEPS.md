@@ -7,7 +7,7 @@ Questo documento descrive come procedere dalla **struttura definita** all'**impl
 ## 📌 Cosa è stato completato
 
 ✅ **Governance Foundation**
-- INDEX.md (primary navigation hub)
+- README.md (primary navigation hub)
 - ARCHITECTURE-OVERVIEW.md
 - DEVELOPMENT-GUIDE.md
 - COMPLIANCE-MATRIX.md

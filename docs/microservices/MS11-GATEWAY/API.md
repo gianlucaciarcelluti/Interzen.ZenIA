@@ -822,4 +822,4 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains
 
 ---
 
-**📖 Documentazione Correlata**: [SPECIFICATION.md](SPECIFICATION.md) | [DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOUTING.md](TROUBLESHOUTING.md)
+**📖 Documentazione Correlata**: [SPECIFICATION.md](SPECIFICATION.md) | [DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOOTING.md](TROUBLESHOOTING.md)

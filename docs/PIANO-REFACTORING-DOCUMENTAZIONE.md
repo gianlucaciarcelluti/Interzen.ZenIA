@@ -247,7 +247,7 @@ flowchart TD
     B -->|Yes| C[Return: True]
     B -->|No| D[Return: False]
 ```
-Vedi [SPECIFICATION.md](../SPECIFICATION.md#permission-logic) per dettagli implementativi.
+Vedi [COMPLIANCE-MATRIX.md](./COMPLIANCE-MATRIX.md#sp11) per dettagli implementativi.
 ```
 
 **Deliverables**:
@@ -415,7 +415,7 @@ Vedi [SPECIFICATION.md](../SPECIFICATION.md#permission-logic) per dettagli imple
    ### CAD Art. 24
    - ✅ Audit log immutabile per controlli accesso
 
-   **Riferimento**: Vedi [COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md#sp11)
+   **Riferimento**: Vedi [COMPLIANCE-MATRIX.md](./COMPLIANCE-MATRIX.md#sp11)
    ```
 
 **Deliverables**:

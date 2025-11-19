@@ -626,4 +626,4 @@ tls-auth-clients optional
 
 ---
 
-**📖 Documentazione Correlata**: [SPECIFICATION.md](SPECIFICATION.md) | [API.md](API.md) | [TROUBLESHOUTING.md](TROUBLESHOUTING.md)
+**📖 Documentazione Correlata**: [SPECIFICATION.md](SPECIFICATION.md) | [API.md](API.md) | [TROUBLESHOOTING.md](TROUBLESHOOTING.md)

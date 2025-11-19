@@ -269,7 +269,7 @@ kubectl rollout restart deployment/ms16-registry-api
 
 ## 🐛 Troubleshooting
 
-Vedi [TROUBLESHOUTING.md](../TROUBLESHOUTING.md)
+Vedi [TROUBLESHOOTING.md](../TROUBLESHOOTING.md)
 
 ---
 

@@ -649,7 +649,7 @@ curl -X POST http://localhost:8001/api/v1/classify/batch \
 
 ## Esempi di Richiesta/Risposta
 
-Vedi la cartella [examples/](../examples/) per campioni dettagliati:
+Vedi la cartella [examples/](examples/) per campioni dettagliati:
 - `request.json`: Richiesta di classificazione completa
 - `response.json`: Risposta di classificazione completa
 - `batch_request.json`: Esempio di elaborazione batch

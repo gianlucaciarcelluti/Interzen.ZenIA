@@ -1,6 +1,6 @@
 # MS09-MANAGER - Gestore Workflow e Orchestrazione
 
-**Navigazione**: [← MS08-MONITOR](../MS08/README.md) | [SPECIFICATION.md](SPECIFICATION.md) | [API.md](API.md) | [DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOUTING.md](TROUBLESHOUTING.md) | [Back to MS →](../MS-ARCHITECTURE-MASTER.md#ms09--manager)
+**Navigazione**: [← MS08-MONITOR](../MS08-MONITOR/README.md) | [SPECIFICATION.md](SPECIFICATION.md) | [API.md](API.md) | [DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | [Back to MS →](../MS-ARCHITECTURE-MASTER.md#ms09--manager)
 
 ## Panoramica
 

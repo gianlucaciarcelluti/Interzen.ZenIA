@@ -233,7 +233,7 @@ X-RateLimit-Reset: 1700318400
 
 ## Esempi di Richiesta/Risposta
 
-Vedi la cartella [examples/](../examples/) per campioni dettagliati.
+Vedi la cartella [examples/](examples/) per campioni dettagliati.
 
 [↑ Torna al Indice](#indice)
 

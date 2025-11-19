@@ -1,6 +1,6 @@
 # MS04 - Validatore - Troubleshooting
 
-**Navigazione**: [← DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOOTING](TROUBLESHOOTING.md) | [docker-compose.yml →](../docker-compose.yml)
+**Navigazione**: [← DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOOTING](TROUBLESHOOTING.md) | [docker-compose.yml →](docker-compose.yml)
 
 ## Indice
 
@@ -722,4 +722,4 @@ curl -X GET "http://localhost:8004/api/v1/debug/validation/{validation_id}" \
 
 ---
 
-**Navigazione**: [← DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOOTING](TROUBLESHOOTING.md) | [docker-compose.yml →](../docker-compose.yml)
+**Navigazione**: [← DATABASE-SCHEMA.md](DATABASE-SCHEMA.md) | [TROUBLESHOOTING](TROUBLESHOOTING.md) | [docker-compose.yml →](docker-compose.yml)
