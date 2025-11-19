@@ -1,87 +1,25 @@
-# VALUTAZIONE QUALITÀ DOCUMENTAZIONE ZenIA - RAPPORTO COMPLETO
+# VALUTAZIONE QUALITÀ DOCUMENTAZIONE ZenIA — Sintesi qualitativa e punti da sistemare
 
 **Data Valutazione**: 2025-11-19
 **Versione**: 2.2
-**Stato**: PHASE 2 A1 COMPLETATO - Conformità Normativa ✅
-**Completezza Attuale**: 98.5% (aggiornato post-A1 Conformità Normativa)
+**Nota**: Questa versione è ridotta: sono stati rimossi gli elenchi dei work items già risolti. Rimangono le valutazioni qualitative e l'elenco delle aree da sistemare/prioritizzare.
 
 ---
 
-## EXECUTIVE SUMMARY
+## EXECUTIVE SUMMARY (sintesi qualitativa)
 
-La documentazione ZenIA **ha raggiunto 98.5% di completezza** grazie a due sessioni di lavoro intensive:
+La documentazione ZenIA mostra alta maturità: struttura coerente, linguaggio professionale nelle sezioni critiche, ampia copertura tramite diagrammi Mermaid e payload JSON validi. Le attività di refactoring e conformità hanno ridotto rischi e migliorato navigabilità.
 
-**Phase 1 (Completato)**: Refactoring infrastrutturale sistematico - 97.5% completezza
-**Phase 2 A1 (Completato)**: Conformità Normativa con HITL e Guardrail - 98.5% completezza
+Punti di forza principali:
+- Completezza strutturale elevata e navigazione ottimizzata per GitHub.
+- Conformità normativa documentata per le aree critiche.
+- Automazione per validazione link e controlli JSON.
 
-La documentazione **eccelle in completezza strutturale**, **qualità contenuti** (professionalità, chiarezza, conformità normativa), **coerenza infrastrutturale end-to-end** e ora presenta **sezioni Conformità Normativa standardizzate per tutti i 71 SubProjekti**.
-
-### Refactoring Completati (Sessione Novembre 2025)
-
-#### ✅ Work Item C - COMPLETATO
-1. **C1 - Naming Coerenza Infrastrutturale**: zendata → zenia (79 cambiamenti, 4 commits)
-   - Database schemas: zendata_* → zenia_*
-   - Kubernetes namespaces: zendata → zenia
-   - Docker registries: zendata/ → zenia/
-   - Domain names: *.zendata.local → *.zenia.local
-   - Email/Slack channels: @zendata → @zenia
-
-2. **C2 - Link Rotti Risolti**: 63 → 0 broken links
-   - Fixed 54 escaped ampersands nel markdown
-   - Rimosse 11 riferimenti a file deprecati/non-existenti
-   - Aggiornate path nei template
-
-3. **C3 - Standardizzazione Naming**: 00 INDEX.md → README.md
-   - Rinominate 11 UC INDEX files
-   - Aggiornati 26 riferimenti interni
-   - Creato script di automazione `rename_index_to_readme.py`
-
-#### ✅ Work Item A1 - COMPLETATO (Phase 2)
-**A1 - Conformità Normativa con HITL e Guardrail**
-
-1. **Template Standard Creato** (TEMPLATE-CONFORMITA-NORMATIVA.md)
-   - 7 sezioni strutturate per CAD, GDPR, eIDAS, AGID
-   - 6 HITL checkpoints integrati (decisioni umane critiche)
-   - Guardrail per contenimento contesto (max 10 KB/section)
-   - RACI matrix per responsabilità chiare
-   - KPI e monitoring schedule
-
-2. **SP Categorization** (A1-SP-CATEGORIZATION.md)
-   - 71 SP categorizzati: CRITICAL (10), HIGH (45), MEDIUM (15)
-   - Compliance matrix completa (CAD 100%, GDPR 87%, eIDAS 7%, AGID 15%)
-   - Mapping UC di appartenenza per ogni SP
-
-3. **71 SubProjekti Aggiornati**
-   - SP01: 230+ linee deep-dive manuale (eIDAS + GDPR + CAD)
-   - SP02-SP72: Template standardizzato personalizzato per ogni SP
-   - Tutti gli SP hanno sezioni Conformità Normativa complete
-   - 3 script di automazione creati per manutenzione
-
-4. **Terminologia Standardizzata**
-   - 74 SP file aggiornati per conformità al GLOSSARIO-TERMINOLOGICO.md
-   - 100% termini italianizzati nella sezione Conformità
-   - 50+ EN/IT term mappings nel Glossario
-   - Zero riferimenti in inglese (eccetto termini tecnici accettati)
-
-**Impact**:
-- Completeness: 97.5% → **98.5% (+1%)**
-- Quality Score: 93.5% → **95-96% (+1.5-2.5%)**
-- Regulatory Risk: Significantly reduced (71/71 SP con conformità documentata)
-
-### Score Aggiornato (Post-A1 Conformità Normativa)
-
-| Categoria | Score | Status |
-|-----------|-------|--------|
-| **Struttura & Completezza** | 98.5% | ✅ Eccellente |
-| **Qualità Linguistica** | 95% | ✅ Eccellente (100% italianizzato sezioni Conformità) |
-| **Conformità Normativa** | 100% | ✅ Completo (71/71 SP con sezioni dedicate) |
-| **Accessibilità & Navigazione** | 92% | ✅ Ottimo (template standardizzati) |
-| **Automazione & Validazione** | 100% | ✓ Completo (8 script: 5 + 3 nuovi) |
-| **SCORE COMPLESSIVO** | **97.1%** | ✅✅ ECCELLENTE PLUS |
+Obiettivo di questo file: mantenere la visione qualitativa e concentrare l'attenzione sulle aree residue che richiedono intervento.
 
 ---
 
-## ANALISI DETTAGLIATA PER CATEGORIA
+## ANALISI DETTAGLIATA PER CATEGORIA (valutazioni qualitative e raccomandazioni)
 
 ### 1. PSEUDO-CODICE E ESEMPI ESECUTIVI
 
@@ -175,301 +113,43 @@ La documentazione **eccelle in completezza strutturale**, **qualità contenuti**
   "options": {}
 }
 ```
-✓ **Campo obbligatorio** + **ID tracciabilità** + **Opzioni**
 
-**Response Pattern**:
-```json
-{
-  "email_id": "EMAIL-67890",
-  "workflow_id": "WF-12345",
-  "parsing_status": "success",
-  "metadata": {},
-  "attachments": []
-}
-```
-✓ **ID univoco** + **Tracciabilità** + **Status** + **Strutture nidificate** + **Array per liste**
+## PUNTI DA SISTEMARE (sintesi e priorità)
 
-**Schema Consistency Score**: 70% (ottimo)
+Di seguito le aree ancora attive o raccomandate, ordinate per priorità e con stima di effort.
 
-**Problemi Identificati**:
-1. ⚠️ **Alternanza EN/IT nel naming**: "parsing_status", "metadata" (EN) vs "pec_validation" (EN misto). Potrebbe essere standardizzato.
-2. ⚠️ **Mancanza JSON Schema formale**: Nessun file `.schema.json` trovato
-3. ⚠️ **Error payloads**: Non tutti gli SP documentano errori (400, 422, 503)
+- **A2 — Standardizzare diagrammi Mermaid per SP critici** (PRIORITÀ: ALTA/Media)
+  - Obiettivo: ogni SP critico deve avere almeno 1 flowchart architetturale e 1 sequence diagram; aggiungere state diagram dove applicabile.
+  - Ambito stimato: ~15-20 SP
+  - Effort stimato: 3-4 giorni (tech writer + architect)
 
-#### Raccomandazione
-- **Priorità**: MEDIA
-- **Azione 1**: Creare file `docs/templates/json-payload-standard.md` con pattern standardizzati
-- **Azione 2**: Aggiungere JSON Schema formale (file `.schema.json`) per SP critici
-- **Azione 3**: Standardizzare naming: decidere EN vs IT per campi (es. "status" vs "stato")
-- **Effort**: 2-3 giorni
+- **A3 / M1 — JSON: template e schema formale** (PRIORITÀ: MEDIA)
+  - Create `docs/templates/json-payload-standard.md` + aggiungere `.schema.json` per SP critici (SP01, SP07, SP12, SP29, SP42).
+  - Effort stimato: 2-4 giorni (writer + developer)
 
----
+- **Lingua & Terminologia** (PRIORITÀ: MEDIA)**
+  - Correggere titoli ancora in inglese, uniformare EN/IT (es. usare "IA" per Intelligenza Artificiale) e aggiornare il glossario con abbreviazioni standard.
+  - Effort stimato: 1-2 giorni
 
-### 4. LINGUAGGIO: ITALIANO PROFESSIONALE
+- **Controllo link residui / verifica periodica** (PRIORITÀ: ALTA)
+  - Anche se il report attuale non riporta link rotti, mantenere esecuzioni periodiche di `scripts/verify_links.py` e sistemare eventuali nuovi riferimenti mancanti.
+  - Automazione consigliata in CI (GitHub Actions).
 
-**Stato**: ✓ Buono (85%)
+- **Indici e esempi mancanti** (PRIORITÀ: BASSA-MEDIA)
+  - Aggiungere eventuali `00 INDEX.md` mancanti per UC residui e verificare folder `examples/` referenziati.
+  - Effort stimato: 1 giorno
 
-#### Analisi Campioni (5 file analizzati)
-
-**Campione 1: SP01 - EML Parser** ⭐⭐⭐⭐
-```
-"SP01 è il gateway di ingresso che riceve email PEC, estrae metadata,
-valida firme digitali e classifica intent..."
-```
-- ✓ Italiano professionale
-- ⚠️ "intent" (EN) non tradotto → potrebbe essere "intento" o "proposito"
-- ✓ Chiarezza eccellente
-- **Score**: 90%
-
-**Campione 2: SP07 - Content Classifier** ⭐⭐⭐⭐
-```
-"SP07 abilita la ricerca intelligente utilizzando AI avanzata per
-comprendere il significato semantico..."
-```
-- ✓ Italiano professionale
-- ⚠️ "AI" (EN) → dovrebbe essere "IA" (Intelligenza Artificiale)
-- ⚠️ "query" non tradotto → "ricerca" o "interrogazione"
-- **Score**: 85%
-
-**Campione 3: SP29 - Digital Signature Engine** ⭐⭐⭐⭐⭐
-```
-"SP29 esegue operazioni di firma digitale, gestendo l'integrazione
-con provider esterni e garantendo sicurezza crittografica..."
-```
-- ✓ Italiano impeccabile
-- ✓ Tecnicismi (CAdES, PAdES, XAdES) giustificati
-- ✓ Chiarezza ottima
-- **Score**: 95%
-
-**Campione 4: SP12 - Semantic Search** ⭐⭐⭐
-```
-TITOLO: "SP12 - Semantic Search & Q&A Engine"
-```
-- ✗ **TITOLO COMPLETAMENTE INGLESE** (problema principale!)
-- ⚠️ Body è italiano, ma titolo incoerente
-- **Score**: 70%
-
-**Campione 5: SP42 - Policy Engine** ⭐⭐⭐⭐
-```
-"SP42 è il motore centrale per gestione, enforcement e monitoraggio
-delle policy normative..."
-```
-- ✓ Italiano professionale
-- ⚠️ "enforcement", "policy", "authoring", "framework" (4 termini EN in una frase)
-- ⚠️ Potrebbe essere "applicazione", "politiche", etc.
-- **Score**: 80%
-
-#### Problemi Identificati
-
-| Problema | Frequenza | Esempi | Impatto |
-|----------|-----------|--------|--------|
-| **Titoli in inglese** | 5-10 file | "Semantic Search & Q&A", "Registry Suggester" | ALTO - primo contatto |
-| **Alternanza EN/IT** | 20+ file | "policy"/"politica", "enforcement"/"applicazione" | MEDIO - confusione lessicale |
-| **Acronimi non localizzati** | 10 file | "AI" invece di "IA", "Q&A" invece di "D&R" | BASSO-MEDIO - usanza accettata |
-| **Termini non tradotti** | Ubiquitario | "intent", "query", "workflow", "dashboard" | BASSO - alcuni sono tecnici standard |
-
-#### Raccomandazione
-- **Priorità**: MEDIA-ALTA
-- **Azione 1**: Creare `docs/GLOSSARIO-TERMINOLOGICO.md` con decisioni EN/IT (vedere Fase 2 piano)
-- **Azione 2**: **URGENTE** - Standardizzare titoli SP: devono essere in italiano
-  - "SP12 - Semantic Search & Q&A Engine" → "SP12 - Ricerca Semantica e Motore Q&A"
-  - Sforzo: 1 giorno
-- **Azione 3**: Aggiungere abbreviazioni standard nel glossario
-  - "AI/IA" → usare "IA" in italiano, "AI" in contesti tecnici EN
-- **Effort**: 2-3 giorni
+- **Nice-to-have**: badge MS, changelog automatico per ogni microservizio (PRIORITÀ: BASSA)
 
 ---
 
-### 5. LINK TESTUALI E NAVIGAZIONE
+Se vuoi, applico subito le seguenti operazioni (scegli una o più opzioni):
+1. Creo branch `docs/quality/fix-items` con questo aggiornamento e preparo PR.
+2. Eseguo le modifiche automatiche per i titoli SP ancora in inglese (lista rapida e patch).
+3. Creo `docs/templates/json-payload-standard.md` iniziale con struttura proposta.
+4. Configuro job CI per esecuzione periodica di `scripts/verify_links.py` (aggiunta GitHub Actions skeleton).
 
-**Stato**: ✓ Corretto (75%)
-
-#### Risultati
-- **Link testuali sciolti rilevati**: 0 (nessun "SP02" non linkato trovato)
-- **Referimenti in Mermaid**: Presenti e corretti (es. `SP01 -->|metadata| SP02`)
-- **Link markdown**: 1,152 link totali (541 validi, 56 rotti)
-- **Tasso validità**: 90% ✓
-
-#### Problemi Residui
-
-**Ancora da risolvere**:
-1. **56 link rotti** (principalmente TROUBLESHOOTING.md typo):
-   - 33 link → `TROUBLESHOOTING.md` (dovrebbe essere `TROUBLESHOOTING.md`)
-   - ~23 link → file effettivamente mancanti (template examples, etc.)
-
-2. **Link a file generici non specifici**:
-   - `../MS-ARCHITECTURE-MASTER.md` (generico, andrebbe a specifico MS)
-   - `SPECIFICATION.md` (generico, dovrebbe essere `/path/to/MS##/SPECIFICATION.md`)
-
-3. **Link testuali dentro diagrammi Mermaid** (non clicabili):
-   - Frequenti ma corretti dal punto di vista semantico
-   - Non sono "link rotti" perché sono etichette, non URL
-
-#### Raccomandazione
-- **Priorità**: ALTA (link rotti sono problema critico)
-- **Azione 1**: Correggere typo TROUBLESHOOTING → TROUBLESHOOTING (6 MS affetti)
-  - Effort: 1 giorno (già identificato nel piano originale)
-- **Azione 2**: Verificare 23 link mancanti
-  - Alcuni sono template intenzionali (es. `../examples/`, `path/to/SP02.md`)
-  - Effort: 0.5 giorni
-- **Azione 3**: Standardizzare link generici → specifici
-  - Effort: 1 giorno
-- **Total Effort**: 2-3 giorni
-
----
-
-### 6. CONFORMITÀ NORMATIVA
-
-**Stato**: ✓ Eccellente (95%)
-
-#### Normative Identificate
-
-| Norma | Occorrenze | File UC/SP | Descrizione |
-|-------|-----------|-----------|------------|
-| **CAD** (Codice Amministrazione Digitale) | 5+ | UC2, UC6, UC7, UC9, UC11 | Legislazione PA italiana |
-| **GDPR/RGPD** | 3+ | UC7, UC9, UC11 | Data Protection EU |
-| **eIDAS** | 4+ | UC6, UC7, UC8 | Electronic Signatures standard EU |
-| **AGID** (Linee guida) | 4+ | UC2, UC7, UC8, UC9 | Agenzia Italia Digitale |
-| **ETSI EN 319 142** | 2+ | UC6 | Signature formats |
-| **RFC 3161** | 2+ | UC6, UC7 | Timestamp Authority |
-| **ISO 14721** | 1+ | UC7 | OAIS reference model |
-
-#### Campioni Eccellenti
-
-**UC7 - Conservazione Digitale**:
-```
-"Il sistema garantisce integrità, autenticità e reperibilità conformemente
-a CAD, AGID linee guida, eIDAS, GDPR, ISO 14721..."
-```
-✓ **Eccellente**: cita norma + decreto + linee guida + standard EU + standard ISO
-
-**UC6 - Firma Digitale**:
-```
-"Compliance: ETSI EN 319 142 (signature formats), RFC 3161 (timestamp),
-CAD, AGID, eIDAS, linee guida nazionali..."
-```
-✓ **Eccellente**: standard tecnici + normativi + locali
-
-**SP37 - Archive Metadata Manager**:
-```json
-{
-  "legal_context": {
-    "normativa_principale": [
-      { "riferimento": "L. 241/1990", "articolo": "Art. 5", "testo": "..." }
-    ],
-    "compliance": ["CAD", "eIDAS", "GDPR", "AgID"]
-  }
-}
-```
-✓ **Eccellente**: Tracciabilità normativa strutturata in JSON
-
-#### Valutazione
-- ✓ Almeno 5 UC/SP referenciano normative
-- ✓ Copertura equilibrata tra locali (CAD, AGID) e internazionali (eIDAS, GDPR)
-- ✓ Specifità buona (articoli citati per L. 241/1990)
-- ⚠️ Completezza media: ~60% degli SP menzionano normative (ideale sarebbe 90%+)
-
-#### Raccomandazione
-- **Priorità**: MEDIA
-- **Azione**: Aggiungere sezione "Conformità Normativa" in OGNI SP/UC (template standardizzato)
-  - Dovrebbe includere: CAD, GDPR, eIDAS, AGID dove applicabile
-  - Effort: 3-4 giorni
-
----
-
-## STATO IMPLEMENTAZIONE PIANO ORIGINALE
-
-### Fase 1: Fondamenta - Stato Implementazione
-
-| Task | Status | Note |
-|------|--------|------|
-| 1.1 Script di Verifica Automatica | ✅ COMPLETATO | 5 script creati: verify_sp_references.py, verify_json_examples.py, verify_links.py, fix_escaped_ampersand.py, clean_deleted_references.py |
-| 1.2 Correzione TROUBLESHOOTING | ⏳ PENDING | Identificati 11 MS da correggere; typo ancora presente (priorità media) |
-| 1.3 Documentazione SP28 | ⏳ PENDING | Gap non ancora documentato ufficialmente |
-| **1.4 Infrastructure Naming Coherence** | ✅ COMPLETATO | Completato: zendata → zenia (79 changes, 4 commits) |
-| **1.5 Broken Links Resolution** | ✅ COMPLETATO | Completato: 63 → 0 broken links (2 commits) |
-| **1.6 UC INDEX → README Standardization** | ✅ COMPLETATO | Completato: 11 renames, 26 references updated (1 commit) |
-
-### Fase 2: Qualità Contenuti - Stato Implementazione
-
-| Task | Status | Note |
-|------|--------|------|
-| 2.1 Pseudo-codice → Flowchart | ✅ COMPLETATO | Solo 5 blocchi Python in file deprecato; pratica corretta |
-| 2.2 Glossario Terminologico | ✅ COMPLETATO | 50+ termini EN/IT standardizzati; glossario completo con 14 sezioni |
-| 2.3 Standardizzazione Payload JSON | ⏳ PENDING | 519 JSON validi; standardizzazione mancante |
-
-### Fase 3: Navigazione - Stato Implementazione
-
-| Task | Status | Note |
-|------|--------|------|
-| 3.1 Conversione Riferimenti Testuali | ✅ COMPLETATO | Nessun riferimento sciolto trovato; link corretti |
-| 3.2 Indici Centrali UC | ✅ COMPLETATO | Tutti gli 11 UC hanno README.md (precedentemente 00 INDEX.md); Navigazione ottimizzata per GitHub |
-
-### Fase 4: Miglioramenti Avanzati - Stato Implementazione
-
-| Task | Status | Note |
-|------|--------|------|
-| 4.1 Badge MS | ⏳ PENDING | Non implementato |
-| 4.2 Changelog MS | ⏳ PENDING | Non implementato |
-| 4.3 Tracciabilità Normativa | ⏳ IN PROGRESS | Normative citate; struttura JSON mancante |
-
-### Fase 5: Validazione - Stato Implementazione
-
-| Task | Status | Note |
-|------|--------|------|
-| 5.1 Verifiche Automatiche | ✅ COMPLETATO | CI/CD pipeline integrata; GitHub Actions funzionante |
-| 5.2 Review Qualità | ⏳ IN PROGRESS | Review in corso (questo rapporto) |
-| 5.3 Update Checklist | ⏳ PENDING | VALIDATION-CHECKLIST.md da aggiornare |
-| 5.4 Guida Manutenzione | ⏳ PENDING | Mancante |
-
----
-
-## STATO WORK ITEMS - AGGIORNAMENTO POST-REFACTORING
-
-L'ultima sessione ha completato con successo **TUTTI I 6 Critical items (C1-C6)** della Phase 1. Ecco lo stato aggiornato:
-
-### ✅ COMPLETATI (Sessione 19 Nov 2025)
-
-| Item | Completamento | Impact |
-|------|----------------|--------|
-| **C1 - Naming Coerenza** | 100% | +1.5% completezza documentale |
-| **C2 - Link Rotti** | 100% | 0 broken links (da 63) |
-| **C3 - README Standard** | 100% | Miglior GitHub discoverability |
-| **C4 - TROUBLESHOOTING Typo** | 100% | 44 typo fixes, 0 occorrenze rimaste |
-| **C5 - SP Titoli Italiano** | 100% | 49 SP files renamed, 100% Italian titles |
-| **C6 - Glossario Terminologico** | 100% | 50+ termini, 14 sezioni, decision framework |
-| **Total Commits** | 8 commits | 500+ changes, production-ready |
-| **Phase 1 Completion** | 100% (6/6) | Tutti i critical items ✅ |
-
----
-
-## PIANO AGGIORNATO - WORK ITEMS RIMANENTI
-
-Basato su refactoring completato, ecco i work items ancora pendenti per i prossimi step.
-
-### 🔴 CRITICI (Rimanenti - FASE 2)
-
-#### [DONE] C1. Naming Coerenza Infrastrutturale
-- ✅ **COMPLETATO**: zendata → zenia (79 changes)
-- Database, K8s, Docker, domains
-
-#### [DONE] C2. Link Rotti
-- ✅ **COMPLETATO**: 63 → 0 broken links
-- Fixed escaped ampersands + deprecated references
-
-#### [DONE] C3. UC INDEX → README Standard
-- ✅ **COMPLETATO**: 11 files renamed, 26 refs updated
-- GitHub-standard naming convention
-
-#### [DONE] C4. Correggere Typo TROUBLESHOOTING → TROUBLESHOOTING
-- ✅ **COMPLETATO**: 44 occorrenze corrette in 10 file
-- **Microservizi affetti**: MS07, MS12, MS13 (tutti corretti)
-- **Effort**: 1 giorno (completato)
-- **Impact**: 0 typo rimasti, link validi
-
-#### [DONE] C5. Standardizzare Titoli SP in Italiano
-- ✅ **COMPLETATO**: 49 SP files renamed, 100% Italian titles
-- **Titoli corretti**: SP01-SP72 (tutti in italiano)
+Fammi sapere quale preferisci e procedo. 
 - **Effort**: 1 giorno (completato)
 - **Impact**: +1.5% completezza, coerenza visiva 100%
 - **Broken links fixed**: 12 link aggiornati, 0 broken links
