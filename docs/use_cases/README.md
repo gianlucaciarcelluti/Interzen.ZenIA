@@ -6,12 +6,14 @@ Questo documento riepiloga i casi d'uso individuati nel documento "Specifiche_AI
 
 ## ⚙️ Architettura Logica: SP (Sottoprogetti) vs MS (Microservizi)
 
-### SP - Sottoprogetti (69 totali)
+### SP - Sottoprogetti (72 totali, escluso SP28 riservato)
 **Definizione**: Componenti **logici e specifici per dominio**, descrivono COSA implementare e per quale business value.
 - Es: SP02 "Document Extractor", SP16 "Correspondence Classifier"
 - Organizzati per **caso d'uso** (6 SP in UC1, 4 SP in UC2, etc.)
 - Facilitano **distribuzione del lavoro** e **descrizione funzionale**
 - Ogni SP ha propria documentazione con responsabilità, input/output, dipendenze
+
+**Nota Numerazione**: La numerazione SP01-SP72 ha un **gap intenzionale in SP28** (riservato per future estensioni architetturali). Per dettagli, vedi [SP28-RESERVED.md](../SP28-RESERVED.md).
 
 ### MS - Microservizi (16 totali)
 **Definizione**: Componenti **fisici e generici**, rappresentano la **implementazione tecnica riusabile**.
