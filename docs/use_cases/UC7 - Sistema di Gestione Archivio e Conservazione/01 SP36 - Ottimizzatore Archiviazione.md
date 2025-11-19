@@ -183,7 +183,7 @@ La pianificazione predittiva della capacità anticipa le esigenze future di stor
 - Raccomandazioni per espansione o ottimizzazione
 - Report periodici per capacity planning
 
-## Performance Monitoring
+## Monitoraggio Prestazioni
 
 ### Storage Performance Metrics
 
@@ -326,7 +326,7 @@ performance_thresholds:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -340,7 +340,7 @@ performance_thresholds:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -425,7 +425,7 @@ performance_thresholds:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -439,7 +439,7 @@ performance_thresholds:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

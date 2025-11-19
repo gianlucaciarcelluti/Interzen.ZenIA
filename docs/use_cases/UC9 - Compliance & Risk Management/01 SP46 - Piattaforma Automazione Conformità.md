@@ -31,7 +31,7 @@ Il **SP46 Compliance Automation Platform** è la piattaforma centrale per l'auto
 │  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
 │  │  │  - Impact Analysis│    │  - Parallel Exec│   │  - Outcome│ │
 │  │  │  - Dependency Mgmt│    │  - Rollback     │   │  - Verification│ │
-│  │  │  - Risk Assessment│    │  - Error Handling│   │  - Audit Trail │ │
+│  │  │  - Risk Assessment│    │  - Error Handling│   │  - Registro di Audit │ │
 │  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
 └─────────────────────────────────────────────────────────────┘
 │                    CONTROL AUTOMATION LAYER                 │
@@ -39,8 +39,8 @@ Il **SP46 Compliance Automation Platform** è la piattaforma centrale per l'auto
 │  │  Preventive Controls  Detective Controls  Corrective Ctrl│ │
 │  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
 │  │  │  - Input Validation│    │  - Monitoring   │   │  - Auto │ │
-│  │  │  - Access Control │    │  - Alerting     │   │  - Remediation│ │
-│  │  │  - Encryption     │    │  - Thresholds   │   │  - Recovery    │ │
+│  │  │  - Controllo Accesso │    │  - Alerting     │   │  - Remediation│ │
+│  │  │  - Crittografia     │    │  - Thresholds   │   │  - Recovery    │ │
 │  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -104,7 +104,7 @@ Il **SP46 Compliance Automation Platform** è la piattaforma centrale per l'auto
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -131,7 +131,7 @@ Il **SP46 Compliance Automation Platform** è la piattaforma centrale per l'auto
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -145,7 +145,7 @@ Il **SP46 Compliance Automation Platform** è la piattaforma centrale per l'auto
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -221,7 +221,7 @@ Il **SP46 Compliance Automation Platform** è la piattaforma centrale per l'auto
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -248,7 +248,7 @@ Il **SP46 Compliance Automation Platform** è la piattaforma centrale per l'auto
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -262,7 +262,7 @@ Il **SP46 Compliance Automation Platform** è la piattaforma centrale per l'auto
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

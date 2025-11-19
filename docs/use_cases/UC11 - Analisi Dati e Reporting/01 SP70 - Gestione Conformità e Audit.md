@@ -9,7 +9,7 @@ Il **SP70 Compliance & Audit Management System** fornisce una piattaforma comple
 ## Responsabilità
 
 - **Compliance Monitoring**: Monitoraggio conformità CAD, GDPR, linee guida AgID
-- **Audit Trail**: Tracciamento completo di tutte le attività per forensics e audit
+- **Registro di Audit**: Tracciamento completo di tutte le attività per forensics e audit
 - **Compliance Reporting**: Generazione report compliance per stakeholder e auditor
 - **Policy Tracking**: Monitoraggio aderenza a policy e procedure
 - **Violation Detection**: Identificazione e alert su violazioni normative
@@ -298,9 +298,9 @@ CREATE TABLE sla_tracking (
 
 ## Security & Compliance
 
-- **Data Protection**: Encryption at-rest (PII redaction)
-- **Access Control**: Role-based incident access
-- **Audit Trail**: Immutable event log
+- **Data Protection**: Crittografia at-rest (PII redaction)
+- **Controllo Accesso**: Role-based incident access
+- **Registro di Audit**: Immutable event log
 - **Compliance**: Incident documentation for regulatory requirements
 - **Privacy**: GDPR-compliant incident data handling
 
@@ -351,7 +351,7 @@ CREATE TABLE sla_tracking (
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -378,7 +378,7 @@ CREATE TABLE sla_tracking (
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -392,7 +392,7 @@ CREATE TABLE sla_tracking (
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -468,7 +468,7 @@ CREATE TABLE sla_tracking (
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -495,7 +495,7 @@ CREATE TABLE sla_tracking (
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -509,7 +509,7 @@ CREATE TABLE sla_tracking (
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

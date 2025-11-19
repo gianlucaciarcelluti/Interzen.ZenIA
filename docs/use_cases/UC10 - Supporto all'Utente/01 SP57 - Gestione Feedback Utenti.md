@@ -66,7 +66,7 @@ Il **SP57 User Feedback Management System** fornisce una piattaforma completa pe
 │  │ │ Auto-generation  │ │ Email/SMS    │ │ Status   │     ││
 │  │ │ Suggested Replies│ │ Push Notif   │ │ Timeline │     ││
 │  │ │ KB Integration   │ │ Multi-channel│ │ SLA      │     ││
-│  │ │ Escalation Path  │ │ Personalized │ │ Analytics│     ││
+│  │ │ Percorso di Escalation  │ │ Personalized │ │ Analytics│     ││
 │  │ └──────────────────┘ └──────────────┘ └──────────┘     ││
 └─────────────────────────────────────────────────────────────┘
 │            DASHBOARD & REPORTING                            │
@@ -249,7 +249,7 @@ Il **SP57 User Feedback Management System** fornisce una piattaforma completa pe
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -276,7 +276,7 @@ Il **SP57 User Feedback Management System** fornisce una piattaforma completa pe
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -290,7 +290,7 @@ Il **SP57 User Feedback Management System** fornisce una piattaforma completa pe
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -366,7 +366,7 @@ Il **SP57 User Feedback Management System** fornisce una piattaforma completa pe
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -393,7 +393,7 @@ Il **SP57 User Feedback Management System** fornisce una piattaforma completa pe
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -407,7 +407,7 @@ Il **SP57 User Feedback Management System** fornisce una piattaforma completa pe
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

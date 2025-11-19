@@ -86,7 +86,7 @@ graph LR
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -113,7 +113,7 @@ graph LR
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -127,7 +127,7 @@ graph LR
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -203,7 +203,7 @@ graph LR
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -230,7 +230,7 @@ graph LR
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -244,7 +244,7 @@ graph LR
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -273,7 +273,7 @@ graph TD
 
 | Componente | Tecnologia | Versione | Scopo |
 |------------|------------|----------|--------|
-| Data Processing | Apache Spark | 3.5 | Distributed processing |
+| Elaborazione Dati | Apache Spark | 3.5 | Distributed processing |
 | Analytics DB | ClickHouse | 23.8 | Fast aggregations |
 | Process Mining | PM4Py | 2.3 | Mining algorithms |
 | Object Storage | MinIO | 2023 | Event log storage |
@@ -361,9 +361,9 @@ sp24:
 ### Sicurezza
 
 - **Data Privacy**: Anonimizzazione automatica PII
-- **Access Control**: RBAC per mining results
-- **Audit Trail**: Logging completo accessi
-- **Data Encryption**: Crittografia at rest/transit
+- **Controllo Accesso**: RBAC per mining results
+- **Registro di Audit**: Logging completo accessi
+- **Data Crittografia**: Crittografia at rest/transit
 
 ### Evoluzione
 

@@ -28,7 +28,7 @@ Il **SP55 Self-Service Portal** è la piattaforma web-based che fornisce agli ut
 └─────────────────────────────────────────────────────────────┘
 │                    SERVICE CATALOG ENGINE                    │
 │  ┌─────────────────────────────────────────────────────────┐ │
-│  │  Service Discovery    Category Management  Access Control│ │
+│  │  Service Discovery    Category Management  Controllo Accesso│ │
 │  │  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐   │ │
 │  │  │  - Search     │    │  - Taxonomy  │    │  - RBAC     │ │
 │  │  │  - Filter     │    │  - Tags      │    │  - Permissions│ │
@@ -88,7 +88,7 @@ Il motore del catalogo servizi permette agli utenti di trovare e accedere facilm
 - User-driven tagging per community contribution
 - Category analytics per usage patterns
 
-**Access Control**:
+**Controllo Accesso**:
 - Role-based access control per visibilità servizi
 - Permission management per azioni consentite
 - Self-service enrollment per servizi disponibili
@@ -182,7 +182,7 @@ Il testing garantisce affidabilità e usabilità del portale self-service:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -223,7 +223,7 @@ Il testing garantisce affidabilità e usabilità del portale self-service:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -237,7 +237,7 @@ Il testing garantisce affidabilità e usabilità del portale self-service:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -315,7 +315,7 @@ Il testing garantisce affidabilità e usabilità del portale self-service:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -356,7 +356,7 @@ Il testing garantisce affidabilità e usabilità del portale self-service:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -370,7 +370,7 @@ Il testing garantisce affidabilità e usabilità del portale self-service:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

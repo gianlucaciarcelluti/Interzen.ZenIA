@@ -9,7 +9,7 @@ Il **SP40 SIEM Storage** è il sistema di archiviazione scalabile e ad alte pres
 - **Event Storage**: Archiviazione eventi sicurezza strutturati
 - **Metrics Storage**: Storage metriche e KPI sicurezza
 - **Analytics Data**: Dati per analisi e reporting avanzati
-- **Data Retention**: Gestione lifecycle dati con policy retention
+- **Conservazione Dati**: Gestione lifecycle dati con policy retention
 - **Search & Retrieval**: Query veloci su dati storici
 
 ## Architettura Interna
@@ -122,7 +122,7 @@ L'archivio a lungo termine preserva dati per compliance e audit:
 **Glacier Integration**:
 - Storage a basso costo per dati raramente accessiti
 - Retrieval options per diversi livelli di urgency
-- Encryption at rest per data protection
+- Crittografia at rest per data protection
 - Audit logging per access tracking
 
 **Archive Management**:
@@ -327,7 +327,7 @@ storage:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -354,7 +354,7 @@ storage:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -368,7 +368,7 @@ storage:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -446,7 +446,7 @@ storage:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -473,7 +473,7 @@ storage:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -487,7 +487,7 @@ storage:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

@@ -54,7 +54,7 @@ Il **SP72 Incident Management & Escalation System** fornisce una piattaforma int
 └─────────────────────────────────────────────────────────────┘
 │            SLA & ESCALATION ENGINE                          │
 │  ┌─────────────────────────────────────────────────────────┐│
-│  │ SLA Calculation    Escalation Rules   Escalation Paths  ││
+│  │ SLA Calculation    Escalation Rules   Percorso di Escalations  ││
 │  │ ┌──────────────────┐ ┌────────────┐ ┌──────────────────┐││
 │  │ │ SLA target time  │ │ Time based │ │ Severity Path    ││
 │  │ │ Elapsed tracking │ │ Priority   │ │ Component Path   ││
@@ -275,7 +275,7 @@ Il **SP72 Incident Management & Escalation System** fornisce una piattaforma int
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -289,7 +289,7 @@ Il **SP72 Incident Management & Escalation System** fornisce una piattaforma int
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -373,7 +373,7 @@ Il **SP72 Incident Management & Escalation System** fornisce una piattaforma int
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -387,7 +387,7 @@ Il **SP72 Incident Management & Escalation System** fornisce una piattaforma int
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

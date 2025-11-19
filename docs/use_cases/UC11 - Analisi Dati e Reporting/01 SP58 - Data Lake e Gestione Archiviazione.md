@@ -65,7 +65,7 @@ graph TB
 L'infrastruttura del data lake viene configurata utilizzando Terraform per garantire provisioning automatizzato e gestione dell'infrastruttura as-code. Il setup include:
 
 - **S3 Bucket**: Bucket principale per lo storage dei dati con versioning abilitato
-- **Encryption**: Crittografia server-side AES256 per tutti i dati a riposo
+- **Crittografia**: Crittografia server-side AES256 per tutti i dati a riposo
 - **Lifecycle Policies**: Regole automatiche per il tiering dei dati attraverso Standard, IA, Glacier e Deep Archive
 - **Versioning**: Gestione delle versioni per protezione contro eliminazioni accidentali
 - **IAM Roles**: Ruoli e policy per controllo accessi sicuro ai dati
@@ -185,7 +185,7 @@ Il sistema include monitoraggio completo delle performance e health del data lak
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -212,7 +212,7 @@ Il sistema include monitoraggio completo delle performance e health del data lak
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -226,7 +226,7 @@ Il sistema include monitoraggio completo delle performance e health del data lak
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -302,7 +302,7 @@ Il sistema include monitoraggio completo delle performance e health del data lak
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -329,7 +329,7 @@ Il sistema include monitoraggio completo delle performance e health del data lak
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -343,7 +343,7 @@ Il sistema include monitoraggio completo delle performance e health del data lak
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -354,21 +354,21 @@ Il sistema include monitoraggio completo delle performance e health del data lak
 
 ## Sicurezza e Compliance
 
-### Data Encryption
+### Data Crittografia
 
 La sicurezza dei dati è garantita attraverso crittografia end-to-end:
 
-**Encryption at Rest**:
+**Crittografia at Rest**:
 - AES256 per tutti i dati in S3
 - Chiavi KMS per envelope encryption
 - Rotazione automatica delle chiavi
 
-**Encryption in Transit**:
+**Crittografia in Transit**:
 - TLS 1.3 per tutte le comunicazioni
 - Crittografia dei dati in movimento
 - Sicurezza dei canali di ingestion
 
-### Access Control
+### Controllo Accesso
 
 Il controllo accessi implementa un modello fine-grained multi-layer:
 

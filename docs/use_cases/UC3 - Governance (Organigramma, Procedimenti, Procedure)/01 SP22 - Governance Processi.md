@@ -91,7 +91,7 @@ graph LR
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -105,7 +105,7 @@ graph LR
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -190,7 +190,7 @@ graph LR
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -204,7 +204,7 @@ graph LR
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -332,8 +332,8 @@ sp22:
 
 - **Process Isolation**: Sandboxing esecuzione
 - **Data Protection**: Crittografia dati processo
-- **Audit Trail**: Log completo esecuzione
-- **Access Control**: RBAC per processi/tasks
+- **Registro di Audit**: Log completo esecuzione
+- **Controllo Accesso**: RBAC per processi/tasks
 
 ### Evoluzione
 

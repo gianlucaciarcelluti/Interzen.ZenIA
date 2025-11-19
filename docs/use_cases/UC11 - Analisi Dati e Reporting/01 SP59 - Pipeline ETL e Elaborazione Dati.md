@@ -1,12 +1,12 @@
-# SP59 - ETL & Data Processing Pipelines
+# SP59 - ETL & Elaborazione Dati Pipelines
 
 ## Descrizione Componente
 
-**SP56 - ETL & Data Processing Pipelines** rappresenta il motore di processamento dati di UC11, fornendo pipeline scalabili e robuste per l'estrazione, trasformazione e caricamento dei dati. Implementa architetture moderne basate su Apache Airflow, Spark e Kafka per gestire flussi di dati complessi e garantire qualità e affidabilità del processamento.
+**SP56 - ETL & Elaborazione Dati Pipelines** rappresenta il motore di processamento dati di UC11, fornendo pipeline scalabili e robuste per l'estrazione, trasformazione e caricamento dei dati. Implementa architetture moderne basate su Apache Airflow, Spark e Kafka per gestire flussi di dati complessi e garantire qualità e affidabilità del processamento.
 
 ## Obiettivi
 
-- **Scalable Data Processing**: Pipeline che scalano automaticamente con il volume dei dati
+- **Scalable Elaborazione Dati**: Pipeline che scalano automaticamente con il volume dei dati
 - **Data Quality Assurance**: Validazione e pulizia automatica dei dati durante il processamento
 - **Real-Time & Batch Processing**: Supporto sia per processamento real-time che batch
 - **Fault Tolerance**: Resilienza ai fallimenti con recovery automatico
@@ -68,7 +68,7 @@ graph TB
     subgraph "Monitoring Layer"
         MON1[Pipeline Metrics]
         MON2[Data Quality KPIs]
-        MON3[Performance Monitoring]
+        MON3[Monitoraggio Prestazioni]
         MON4[Alert Management]
     end
 
@@ -127,7 +127,7 @@ graph TB
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -154,7 +154,7 @@ graph TB
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -168,7 +168,7 @@ graph TB
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -244,7 +244,7 @@ graph TB
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -271,7 +271,7 @@ graph TB
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -285,7 +285,7 @@ graph TB
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -377,4 +377,4 @@ La resilienza del sistema è garantita attraverso meccanismi avanzati di fault t
 - Disaster recovery con multi-region replication
 
 Questo componente SP56 fornisce una pipeline ETL completa e robusta con capacità avanzate di processamento dati, qualità, monitoraggio e fault tolerance per supportare tutti i requisiti di UC11.</content>
-<parameter name="filePath">/Users/giangio/Documents/GitHub/Interzen/Interzen.POC/ZenIA/docs/use_cases/UC11 - Analisi Dati e Reporting/01 SP56 - ETL & Data Processing Pipelines.md
+<parameter name="filePath">/Users/giangio/Documents/GitHub/Interzen/Interzen.POC/ZenIA/docs/use_cases/UC11 - Analisi Dati e Reporting/01 SP56 - ETL & Elaborazione Dati Pipelines.md

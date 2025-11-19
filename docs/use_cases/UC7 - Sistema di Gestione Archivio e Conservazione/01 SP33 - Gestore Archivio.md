@@ -9,7 +9,7 @@ Il **SP33 Archive Manager** è il componente core del sistema di gestione archiv
 - **Gestione Ciclo Vita**: Implementazione policy retention e lifecycle management
 - **Classificazione Automatica**: Determinazione tier di storage basato su metadata
 - **Orchestrazione Workflow**: Coordinamento processi archiviazione e retrieval
-- **Access Control**: Gestione autorizzazioni e audit trail
+- **Controllo Accesso**: Gestione autorizzazioni e audit trail
 - **Integration Gateway**: Interfaccia con altri UC per ingestion documenti
 
 ## Architettura Interna
@@ -65,7 +65,7 @@ POST   /api/v1/lifecycle/migrate
 POST   /api/v1/lifecycle/dispose
 ```
 
-### Access Control
+### Controllo Accesso
 ```http
 POST   /api/v1/acl/grant
 POST   /api/v1/acl/revoke
@@ -186,10 +186,10 @@ graph TD
 - **JWT Tokens**: Per autenticazione stateless
 - **RBAC**: Role-based access control
 - **ABAC**: Attribute-based permissions
-- **Audit Trail**: Logging completo di tutti gli accessi
+- **Registro di Audit**: Logging completo di tutti gli accessi
 
 ### Data Protection
-- **Encryption**: AES-256 at rest
+- **Crittografia**: AES-256 at rest
 - **Hashing**: SHA-256 per integrità
 - **Digital Signatures**: Per documenti critici
 - **Secure Deletion**: Multi-pass wiping
@@ -378,7 +378,7 @@ spec:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -405,7 +405,7 @@ spec:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -419,7 +419,7 @@ spec:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -495,7 +495,7 @@ spec:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -522,7 +522,7 @@ spec:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -536,7 +536,7 @@ spec:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

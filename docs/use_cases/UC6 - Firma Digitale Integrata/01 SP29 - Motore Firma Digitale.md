@@ -12,10 +12,10 @@ graph LR
 
     SP31 --> SIGNED[Signed Documents]
     SP31 --> METADATA[Signature Metadata]
-    SP31 --> AUDIT[Audit Trail]
+    SP31 --> AUDIT[Registro di Audit]
 
     SP31 --> SP32[SP32<br/>Signature Workflow]
-    SP31 --> SP32[SP32<br/>Timestamp Authority]
+    SP31 --> SP32[SP32<br/>Autorità di Marca Temporale]
     SP31 --> SP10[SP10<br/>Dashboard]
 
     SP31 -.-> HSM[(Hardware Security<br/>Module)]
@@ -83,7 +83,7 @@ graph LR
 **Elementi chiave**:
 - Firma Qualificata: CAdES/XAdES con timestamp RFC 3161
 - Livello Assicurazione: Identificazione ALTO, Autenticazione SOSTANZIALE
-- TSP (Trusted Service Provider): Provider autorizzati AGID (InfoCert, Aruba, etc.)
+- TSP (Provider di Servizi Fiduciari): Provider autorizzati AGID (InfoCert, Aruba, etc.)
 - Certificati X.509: Chain validation fino a trusted root CA
 - Non-repudiation: Timestamp marca temporale opponibile in giudizio
 
@@ -114,7 +114,7 @@ graph LR
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -128,7 +128,7 @@ graph LR
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -198,7 +198,7 @@ graph LR
 **Elementi chiave**:
 - Firma Qualificata: CAdES/XAdES con timestamp RFC 3161
 - Livello Assicurazione: Identificazione ALTO, Autenticazione SOSTANZIALE
-- TSP (Trusted Service Provider): Provider autorizzati AGID (InfoCert, Aruba, etc.)
+- TSP (Provider di Servizi Fiduciari): Provider autorizzati AGID (InfoCert, Aruba, etc.)
 - Certificati X.509: Chain validation fino a trusted root CA
 - Non-repudiation: Timestamp marca temporale opponibile in giudizio
 
@@ -229,7 +229,7 @@ graph LR
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -243,7 +243,7 @@ graph LR
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

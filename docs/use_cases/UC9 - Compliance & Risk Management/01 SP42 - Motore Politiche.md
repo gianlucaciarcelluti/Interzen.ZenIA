@@ -10,7 +10,7 @@ Il **SP42 Policy Engine** è il motore centrale per la gestione, enforcement e m
 - **Rule Engine**: Esecuzione regole business complesse per policy enforcement
 - **Policy Deployment**: Distribuzione sicura e versionata delle policy
 - **Compliance Monitoring**: Monitoraggio continuo dell'adherence alle policy
-- **Audit Trail**: Tracciabilità completa di tutte le operazioni policy
+- **Registro di Audit**: Tracciabilità completa di tutte le operazioni policy
 
 ## Architettura Interna
 
@@ -40,7 +40,7 @@ Il **SP42 Policy Engine** è il motore centrale per la gestione, enforcement e m
 │  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
 │  │  │  - Zero-downtime│    │  - Git-based   │   │  - Auto   │ │
 │  │  │  - Incremental  │    │  - Approval WF │   │  - Manual │ │
-│  │  │  - Validation   │    │  - Audit Trail │   │  - Safe   │ │
+│  │  │  - Validation   │    │  - Registro di Audit │   │  - Safe   │ │
 │  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -224,7 +224,7 @@ Il caching delle policy ottimizza performance per high-throughput scenarios:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -251,7 +251,7 @@ Il caching delle policy ottimizza performance per high-throughput scenarios:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -265,7 +265,7 @@ Il caching delle policy ottimizza performance per high-throughput scenarios:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -341,7 +341,7 @@ Il caching delle policy ottimizza performance per high-throughput scenarios:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -368,7 +368,7 @@ Il caching delle policy ottimizza performance per high-throughput scenarios:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -382,7 +382,7 @@ Il caching delle policy ottimizza performance per high-throughput scenarios:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

@@ -286,8 +286,8 @@ CREATE TABLE compliance_certificates (
 ## Security & Compliance
 
 - **Data Protection**: GDPR-compliant data handling
-- **Access Control**: Role-based access to courses/certifications
-- **Audit Trail**: Complete logging of all training activities
+- **Controllo Accesso**: Role-based access to courses/certifications
+- **Registro di Audit**: Complete logging of all training activities
 - **Certificate Authenticity**: Digital signatures on certificates
 - **Platform Security**: SOC 2 Type II compliance
 
@@ -339,7 +339,7 @@ CREATE TABLE compliance_certificates (
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -380,7 +380,7 @@ CREATE TABLE compliance_certificates (
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -394,7 +394,7 @@ CREATE TABLE compliance_certificates (
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -471,7 +471,7 @@ CREATE TABLE compliance_certificates (
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -512,7 +512,7 @@ CREATE TABLE compliance_certificates (
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -526,7 +526,7 @@ CREATE TABLE compliance_certificates (
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

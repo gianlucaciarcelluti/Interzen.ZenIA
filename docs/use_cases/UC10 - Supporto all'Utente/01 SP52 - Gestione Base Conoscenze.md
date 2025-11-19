@@ -19,7 +19,7 @@ Il **SP52 Knowledge Base Management** è il sistema centrale per la creazione, g
 ┌─────────────────────────────────────────────────────────────┐
 │                    CONTENT MANAGEMENT ENGINE                │
 │  ┌─────────────────────────────────────────────────────────┐ │
-│  │  Content Creation   Version Control     Access Control   │ │
+│  │  Content Creation   Version Control     Controllo Accesso   │ │
 │  │  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐   │ │
 │  │  │  - Rich Text  │    │  - Git-like   │    │  - RBAC       │ │
 │  │  │  - Templates  │    │  - History    │    │  - Permissions│ │
@@ -80,7 +80,7 @@ Il sistema di controllo versione garantisce integrità e tracciabilità dei cont
 - Branching per contenuti alternativi o draft
 - Merge capabilities per consolidamento modifiche
 
-**Audit Trail**:
+**Registro di Audit**:
 - Logging completo di tutte le operazioni sui contenuti
 - User attribution per responsabilità delle modifiche
 - Timestamp tracking per compliance e audit
@@ -192,7 +192,7 @@ Il testing garantisce affidabilità e performance della knowledge base:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -233,7 +233,7 @@ Il testing garantisce affidabilità e performance della knowledge base:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -247,7 +247,7 @@ Il testing garantisce affidabilità e performance della knowledge base:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -323,7 +323,7 @@ Il testing garantisce affidabilità e performance della knowledge base:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -364,7 +364,7 @@ Il testing garantisce affidabilità e performance della knowledge base:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -378,7 +378,7 @@ Il testing garantisce affidabilità e performance della knowledge base:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

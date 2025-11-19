@@ -83,7 +83,7 @@ graph LR
 **Elementi chiave**:
 - Firma Qualificata: CAdES/XAdES con timestamp RFC 3161
 - Livello Assicurazione: Identificazione ALTO, Autenticazione SOSTANZIALE
-- TSP (Trusted Service Provider): Provider autorizzati AGID (InfoCert, Aruba, etc.)
+- TSP (Provider di Servizi Fiduciari): Provider autorizzati AGID (InfoCert, Aruba, etc.)
 - Certificati X.509: Chain validation fino a trusted root CA
 - Non-repudiation: Timestamp marca temporale opponibile in giudizio
 
@@ -114,7 +114,7 @@ graph LR
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -128,7 +128,7 @@ graph LR
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -198,7 +198,7 @@ graph LR
 **Elementi chiave**:
 - Firma Qualificata: CAdES/XAdES con timestamp RFC 3161
 - Livello Assicurazione: Identificazione ALTO, Autenticazione SOSTANZIALE
-- TSP (Trusted Service Provider): Provider autorizzati AGID (InfoCert, Aruba, etc.)
+- TSP (Provider di Servizi Fiduciari): Provider autorizzati AGID (InfoCert, Aruba, etc.)
 - Certificati X.509: Chain validation fino a trusted root CA
 - Non-repudiation: Timestamp marca temporale opponibile in giudizio
 
@@ -229,7 +229,7 @@ graph LR
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -243,7 +243,7 @@ graph LR
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -429,8 +429,8 @@ sp30:
 
 - **Signer Authentication**: Multi-factor per firme critiche
 - **Workflow Integrity**: Immutabilità definizione workflow
-- **Audit Trail**: Log completo tutte azioni workflow
-- **Access Control**: RBAC per operazioni workflow
+- **Registro di Audit**: Log completo tutte azioni workflow
+- **Controllo Accesso**: RBAC per operazioni workflow
 
 ### Evoluzione
 

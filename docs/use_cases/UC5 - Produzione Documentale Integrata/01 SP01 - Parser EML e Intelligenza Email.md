@@ -446,7 +446,7 @@ sequenceDiagram
     ASN1->>ASN1: Decode ASN.1 DER encoding
     ASN1-->>Crypto: {content, certificates[], signerInfos[]}
     
-    Note over API,CRL: Step 2: Extract Certificate Chain
+    Note over API,CRL: Step 2: Extract Catena di Certificati
     Crypto->>Crypto: Extract X.509 certificates
     Crypto->>Crypto: Build certificate chain<br/>(end-entity → intermediate → root CA)
     
@@ -839,14 +839,14 @@ services:
 
 ### 1. Quadro Normativo di Riferimento
 
-**HITL Checkpoint #1 - Completezza Normativa**
+**Checkpoint HITL #1 - Completezza Normativa**
 
 Framework applicabili a SP01:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21, 22, 62, 71
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32, 35
 - **eIDAS** (Regolamento 2014/910): Art. 3, 8, 26, 27
 - **D.Lgs 241/1990** (Procedimento Amministrativo): Art. 1-10
-- **RFC 3161** (Timestamp Authority): Per validazione marca temporale PEC
+- **RFC 3161** (Autorità di Marca Temporale): Per validazione marca temporale PEC
 
 **Applicabilità**: CRITICA per SP01 data handling di:
 - Email PEC (richiede eIDAS compliance per validazione firma)
@@ -857,7 +857,7 @@ Framework applicabili a SP01:
 
 ### 2. Conformità CAD (Codice Amministrazione Digitale)
 
-**HITL Checkpoint #2 - CAD Compliance Review**
+**Checkpoint HITL #2 - CAD Revisione Conformità**
 
 #### Articoli CAD Applicabili
 
@@ -878,7 +878,7 @@ Framework applicabili a SP01:
 
 ### 3. Conformità GDPR (General Data Protection Regulation)
 
-**HITL Checkpoint #3 - GDPR Data Protection**
+**Checkpoint HITL #3 - GDPR Data Protection**
 
 #### Dati Personali Gestiti
 
@@ -895,8 +895,8 @@ SP01 elabora i seguenti dati personali:
 #### Misure di Sicurezza (Art. 32 GDPR)
 
 **Misure tecniche implementate**:
-- ✅ Encryption in transit: TLS 1.3 per tutti gli endpoint
-- ✅ Encryption at rest: AES-256 per dati in PostgreSQL + MinIO
+- ✅ Crittografia in transit: TLS 1.3 per tutti gli endpoint
+- ✅ Crittografia at rest: AES-256 per dati in PostgreSQL + MinIO
 - ✅ Hash SHA-256: Per integrità allegati
 - ✅ Access control: Database user con permessi minimali (least privilege)
 - ✅ Audit logging: Tutti gli accessi tracciati in PostgreSQL (hitl_interactions table)
@@ -918,13 +918,13 @@ SP01 elabora i seguenti dati personali:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta per SP01 data il processing di email con PEC signature + GDPR data. DPA completato 2025-10-15.
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
 ### 4. Conformità eIDAS (Electronic IDentification, Authentication and trust Services)
 
-**HITL Checkpoint #4 - eIDAS Trust Services**
+**Checkpoint HITL #4 - eIDAS Trust Services**
 
 SP01 valida firme digitali su email PEC secondo eIDAS art. 3-27.
 
@@ -939,7 +939,7 @@ SP01 valida firme digitali su email PEC secondo eIDAS art. 3-27.
   - Timestamp RFC 3161 non-repudiation
   - Validazione contro TSA pubblici autorizzati
 
-**TSP (Trusted Service Providers) Supportati**:
+**TSP (Provider di Servizi Fiduciaris) Supportati**:
 - ✅ InfoCert S.p.A.
 - ✅ Aruba PEC
 - ✅ Legalmail
@@ -962,7 +962,7 @@ SP01 valida firme digitali su email PEC secondo eIDAS art. 3-27.
 
 ### 5. Conformità AGID (Agenzia per l'Italia Digitale)
 
-**HITL Checkpoint #5 - AGID Alignment**
+**Checkpoint HITL #5 - AGID Alignment**
 
 SP01 si allinea alle Linee Guida AGID 2024:
 
@@ -985,9 +985,9 @@ SP01 si allinea alle Linee Guida AGID 2024:
 
 ### 6. Mappatura Responsabilità
 
-**RACI Matrix Conformità SP01**:
+**Matrice RACI Conformità SP01**:
 
-| Aspetto Conformità | Responsible | Accountable | Consulted | Informed |
+| Aspetto Conformità | Responsabile | Responsabile (Accountable) | Consultato | Informato |
 |--------------------|------------|-----------|----------|---------|
 | CAD compliance mapping | Backend Lead | Compliance Manager | Legal | Dev Team |
 | GDPR DPA review | DPO | Compliance Manager | Legal | All Staff |
@@ -1003,7 +1003,7 @@ SP01 si allinea alle Linee Guida AGID 2024:
 
 ### 7. Monitoraggio Conformità Continuo
 
-**HITL Checkpoint #6 - Compliance Monitoring**
+**Checkpoint HITL #6 - Compliance Monitoring**
 
 #### Schedule di Review
 
@@ -1036,7 +1036,7 @@ Se normativa cambia (es. eIDAS 2.0 published):
 
 ### Status: ✅ COMPLIANT
 
-| Framework | Compliance | Responsible | Last Review |
+| Framework | Compliance | Responsabile | Last Review |
 |-----------|-----------|-------------|------------|
 | CAD | ✅ 100% | Backend Lead | 2025-11-19 |
 | GDPR | ✅ 100% | DPO | 2025-11-19 |
@@ -1046,9 +1046,9 @@ Se normativa cambia (es. eIDAS 2.0 published):
 ### Critical Success Factors
 
 1. **PEC Signature Validation**: Must-have per legal non-repudiation
-2. **Audit Trail Completeness**: Required per GDPR art. 5(f) accountability
-3. **Certificate Chain Validation**: Mandatory per eIDAS art. 24-25
-4. **Data Retention**: Automated cleanup nach 3 anni per GDPR compliance
+2. **Registro di Audit Completeness**: Required per GDPR art. 5(f) accountability
+3. **Catena di Certificati Validation**: Mandatory per eIDAS art. 24-25
+4. **Conservazione Dati**: Automated cleanup nach 3 anni per GDPR compliance
 
 ### Known Limitations
 
@@ -1056,7 +1056,7 @@ Se normativa cambia (es. eIDAS 2.0 published):
 2. **NER Confidence**: ML-based entity extraction <90% confidence per edge cases
 3. **CRL/OCSP**: Fallback to cached cert validation se servizi unavailable
 
-### Next Review
+### Prossima Review
 
 **Prossima review programmata**: 2026-02-19 (3 mesi)
 

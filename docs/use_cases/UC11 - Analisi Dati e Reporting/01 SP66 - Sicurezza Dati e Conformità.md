@@ -7,7 +7,7 @@
 ## Obiettivi
 
 - **Data Protection**: Crittografia end-to-end e protezione dei dati sensibili
-- **Access Control**: Controlli di accesso basati su ruoli e attributi
+- **Controllo Accesso**: Controlli di accesso basati su ruoli e attributi
 - **Audit Logging**: Logging completo di tutte le attività di sistema
 - **Compliance Management**: Gestione conformità GDPR, SOX, HIPAA
 - **Data Masking**: Mascheramento dati per ambienti di sviluppo/test
@@ -18,15 +18,15 @@
 ```mermaid
 graph TB
     subgraph "Data Protection Layer"
-        ENCRYPTION[Data Encryption]
+        ENCRYPTION[Data Crittografia]
         MASKING[Data Masking]
         TOKENIZATION[Tokenization]
         KEYMGMT[Key Management]
     end
 
-    subgraph "Access Control Layer"
-        RBAC[Role-Based Access Control]
-        ABAC[Attribute-Based Access Control]
+    subgraph "Controllo Accesso Layer"
+        RBAC[Role-Based Controllo Accesso]
+        ABAC[Attribute-Based Controllo Accesso]
         MFA[Multi-Factor Authentication]
         SSO[Single Sign-On]
     end
@@ -129,7 +129,7 @@ graph TB
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -143,7 +143,7 @@ graph TB
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -227,7 +227,7 @@ graph TB
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -241,7 +241,7 @@ graph TB
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -252,31 +252,31 @@ graph TB
 
 ## Implementazione Tecnica
 
-### Data Encryption & Protection System
+### Data Crittografia & Protection System
 
 Il sistema di encryption garantisce la protezione dei dati end-to-end:
 
-**Encryption at Rest**:
+**Crittografia at Rest**:
 - AES-256 encryption per tutti i dati stored
 - Envelope encryption con KMS
 - Key rotation automatica
 - Secure key storage e management
 
-**Encryption in Transit**:
+**Crittografia in Transit**:
 - TLS 1.3 per tutte le comunicazioni
 - Perfect forward secrecy
 - Certificate pinning per API
 - VPN obbligatoria per accessi interni
 
-### Access Control & Authorization System
+### Controllo Accesso & Authorization System
 
 Il sistema di controllo accessi implementa sicurezza a livelli multipli:
 
 **Identity Management**:
 - Single Sign-On (SSO) integrato
 - Multi-Factor Authentication (MFA)
-- Role-Based Access Control (RBAC)
-- Attribute-Based Access Control (ABAC)
+- Role-Based Controllo Accesso (RBAC)
+- Attribute-Based Controllo Accesso (ABAC)
 
 **Data Protection**:
 - Data masking per sensitive information
@@ -295,7 +295,7 @@ Il sistema di audit garantisce tracciabilità completa e compliance:
 - Automated compliance reporting
 
 **GDPR & Privacy Compliance**:
-- Data Subject Access Requests (DSAR)
+- Interessato Access Requests (DSAR)
 - Right to erasure implementation
 - Consent management system
 - Data Protection Impact Assessment (DPIA)

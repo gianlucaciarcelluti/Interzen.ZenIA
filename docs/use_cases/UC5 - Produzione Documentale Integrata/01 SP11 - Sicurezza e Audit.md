@@ -1,6 +1,6 @@
 # SP11 - Security & Audit
 
-## Security, Autenticazione e Audit Trail
+## Security, Autenticazione e Registro di Audit
 
 Questo diagramma mostra tutte le interazioni del **Security & Audit (SP11)** per la sicurezza e tracciabilità.
 
@@ -72,7 +72,7 @@ sequenceDiagram
         end
     end
     
-    Note over U,BLOCKCHAIN: Fase 9: Audit Trail Completo
+    Note over U,BLOCKCHAIN: Fase 9: Registro di Audit Completo
     
     WF->>SEC: POST /audit-log<br/>{workflow_complete, actions_log}
     
@@ -90,7 +90,7 @@ sequenceDiagram
     
     SEC-->>WF: Audit log stored successfully
     
-    Note over U,BLOCKCHAIN: Accesso Audit Trail
+    Note over U,BLOCKCHAIN: Accesso Registro di Audit
     
     U->>UI: Richiedi audit trail<br/>workflow WF-12345
     
@@ -119,7 +119,7 @@ sequenceDiagram
     UI-->>U: Visualizza audit trail<br/>con verifica blockchain
     
     rect rgb(200, 255, 200)
-        Note over SEC: Security & Audit<br/>JWT Authentication<br/>Immutable Audit Trail<br/>GDPR Compliance<br/>Blockchain Verification
+        Note over SEC: Security & Audit<br/>JWT Authentication<br/>Immutable Registro di Audit<br/>GDPR Compliance<br/>Blockchain Verification
     end
 ```
 ## 🏛️ Conformità Normativa - SP11
@@ -162,7 +162,7 @@ sequenceDiagram
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -189,7 +189,7 @@ sequenceDiagram
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -203,7 +203,7 @@ sequenceDiagram
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -279,7 +279,7 @@ sequenceDiagram
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -306,7 +306,7 @@ sequenceDiagram
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -320,7 +320,7 @@ sequenceDiagram
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -384,7 +384,7 @@ flowchart TD
     style E fill:#f8d7da
 ```
 
-### Audit Trail
+### Registro di Audit
 
 #### Audit Record Structure
 
@@ -508,8 +508,8 @@ flowchart TD
       "right_to_object": true
     },
     "data_protection_measures": [
-      "Encryption at rest (AES-256)",
-      "Encryption in transit (TLS 1.3)",
+      "Crittografia at rest (AES-256)",
+      "Crittografia in transit (TLS 1.3)",
       "Access control (RBAC)",
       "Audit logging (immutable)",
       "Anonymization after retention period"
@@ -520,7 +520,7 @@ flowchart TD
 }
 ```
 
-#### Data Minimization
+#### Minimizzazione Dati
 
 ```json
 {
@@ -529,7 +529,7 @@ flowchart TD
     "implementation": {
       "classification_model": "No personal data stored",
       "knowledge_base": "No personal data in normativa",
-      "generation": "Personal data only from user input",
+      "generation": "dati personali only from user input",
       "validation": "No additional personal data collected"
     },
     "storage": {
@@ -687,7 +687,7 @@ flowchart TD
 }
 ```
 
-### Data Retention
+### Conservazione Dati
 
 ```json
 {
@@ -717,8 +717,8 @@ flowchart TD
 ### Tecnologie
 
 - **Authentication**: JWT (RS256)
-- **Authorization**: RBAC (Role-Based Access Control)
-- **Encryption**: AES-256 (at rest), TLS 1.3 (in transit)
+- **Authorization**: RBAC (Role-Based Controllo Accesso)
+- **Crittografia**: AES-256 (at rest), TLS 1.3 (in transit)
 - **Hashing**: SHA-256 for blockchain
 - **Blockchain**: Private Ethereum / Hyperledger Fabric
 - **Anomaly Detection**: Isolation Forest (scikit-learn)

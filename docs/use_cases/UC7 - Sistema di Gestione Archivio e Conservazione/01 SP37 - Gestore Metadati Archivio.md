@@ -9,7 +9,7 @@ Il **SP37 Archive Metadata Manager** è il gestore centralizzato di metadati per
 - **Metadata Extraction**: Estrazione automatica e manuale di metadati da documenti
 - **Metadata Validation**: Validazione conformità a schemi standard (Dublin Core, MIAOU, XAdES)
 - **Lifecycle Management**: Gestione dell'evoluzione metadati nel tempo
-- **Audit Trail**: Tracciamento completo modifiche metadati
+- **Registro di Audit**: Tracciamento completo modifiche metadati
 - **Compliance Reporting**: Verificazione conformità normativa
 - **Search Indexing**: Indicizzazione per ricerca semantica
 
@@ -29,7 +29,7 @@ Il **SP37 Archive Metadata Manager** è il gestore centralizzato di metadati per
 └─────────────────────────────────────────────────────────────┘
 │               ANALYSIS & GOVERNANCE LAYER                   │
 │  ┌─────────────────────────────────────────────────────────┐│
-│  │ Compliance Checker   Audit Trail Manager   Indexing    ││
+│  │ Compliance Checker   Registro di Audit Manager   Indexing    ││
 │  │ ┌──────────────────┐  ┌──────────────────┐ ┌──────────┐││
 │  │ │ - CAD Check      │  │ - Change Track   │ │ - Sematic││
 │  │ │ - eIDAS Check    │  │ - Immutable Log  │ │ - Full  ││
@@ -59,7 +59,7 @@ Il **SP37 Archive Metadata Manager** è il gestore centralizzato di metadati per
 ### Output
 - **Extracted Metadata**: Metadati strutturati in JSON/XML
 - **Validation Results**: Report conformità
-- **Audit Trail**: Traccia immutabile di modifiche
+- **Registro di Audit**: Traccia immutabile di modifiche
 - **Search Index**: Documenti indicizzati per ricerca
 - **Compliance Report**: Certificato conformità
 
@@ -268,13 +268,13 @@ sp37:
 | **Search Latency (p99)** | < 2 sec |
 | **Indexing Throughput** | 1000 docs/min |
 | **Validation Accuracy** | > 95% |
-| **Audit Trail Completeness** | 100% |
+| **Registro di Audit Completeness** | 100% |
 
 ## Security & Compliance
 
 - **Data Protection**: Encrypted at-rest (AES-256) and in-transit (TLS 1.3)
-- **Access Control**: RBAC with audit logging
-- **Audit Trail**: Immutable, tamper-proof, complete event log
+- **Controllo Accesso**: RBAC with audit logging
+- **Registro di Audit**: Immutable, tamper-proof, complete event log
 - **Compliance**: CAD, eIDAS, AgID, GDPR ready
 - **Retention**: Configurable retention policies per document type
 
@@ -325,7 +325,7 @@ sp37:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -352,7 +352,7 @@ sp37:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -366,7 +366,7 @@ sp37:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -442,7 +442,7 @@ sp37:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -469,7 +469,7 @@ sp37:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -483,7 +483,7 @@ sp37:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

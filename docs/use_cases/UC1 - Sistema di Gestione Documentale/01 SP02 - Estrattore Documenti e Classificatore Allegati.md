@@ -328,8 +328,8 @@ sp02:
 
 ### Sicurezza
 
-- **Data Encryption**: AES-256 at rest, TLS 1.3 in transit
-- **Access Control**: JWT tokens, role-based permissions
+- **Data Crittografia**: AES-256 at rest, TLS 1.3 in transit
+- **Controllo Accesso**: JWT tokens, role-based permissions
 - **Audit Logging**: Ogni operazione tracciata in ELK
 - **PII Handling**: Mascheramento dati sensibili nei log
 
@@ -378,7 +378,7 @@ sp02:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -405,7 +405,7 @@ sp02:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -419,7 +419,7 @@ sp02:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -496,7 +496,7 @@ sp02:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -523,7 +523,7 @@ sp02:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -537,7 +537,7 @@ sp02:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

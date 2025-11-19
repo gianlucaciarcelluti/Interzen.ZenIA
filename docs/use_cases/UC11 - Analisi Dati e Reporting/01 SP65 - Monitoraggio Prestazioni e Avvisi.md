@@ -1,8 +1,8 @@
-# SP65 - Performance Monitoring & Alerting
+# SP65 - Monitoraggio Prestazioni & Alerting
 
 ## Descrizione Componente
 
-**SP63 - Performance Monitoring & Alerting** rappresenta il sistema di monitoraggio delle performance e alerting intelligente di UC11, fornendo monitoraggio real-time delle metriche di sistema, rilevamento anomalie e generazione automatica di alert per garantire l'affidabilità e le performance ottimali della piattaforma di analisi dati.
+**SP63 - Monitoraggio Prestazioni & Alerting** rappresenta il sistema di monitoraggio delle performance e alerting intelligente di UC11, fornendo monitoraggio real-time delle metriche di sistema, rilevamento anomalie e generazione automatica di alert per garantire l'affidabilità e le performance ottimali della piattaforma di analisi dati.
 
 ## Obiettivi
 
@@ -86,7 +86,7 @@ graph TB
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP65 (Performance Monitoring)**:
+**Framework applicabili a SP65 (Monitoraggio Prestazioni)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
@@ -122,7 +122,7 @@ graph TB
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -149,7 +149,7 @@ graph TB
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -163,7 +163,7 @@ graph TB
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -203,7 +203,7 @@ graph TB
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP65 (Performance Monitoring)**:
+**Framework applicabili a SP65 (Monitoraggio Prestazioni)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
@@ -239,7 +239,7 @@ graph TB
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -266,7 +266,7 @@ graph TB
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -280,7 +280,7 @@ graph TB
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -304,7 +304,7 @@ Il sistema di raccolta metriche monitora tutti gli aspetti delle performance:
 **Application Metrics**:
 - Query performance e throughput
 - Error rates e response times
-- Data processing volumes
+- elaborazione dati volumes
 - Model accuracy e drift detection
 
 ### Anomaly Detection Engine
@@ -356,4 +356,4 @@ Il sistema di remediation automatica risolve problemi autonomamente:
 - Model retraining per accuracy drift
 
 Questo componente SP63 fornisce un sistema completo di monitoraggio delle performance e alerting intelligente per UC11, abilitando il rilevamento proattivo di problemi, notifiche automatiche e remediation self-healing per garantire l'affidabilità e le performance ottimali della piattaforma di analisi dati.</content>
-<parameter name="filePath">/Users/giangio/Documents/GitHub/Interzen/Interzen.POC/ZenIA/docs/use_cases/UC11 - Analisi Dati e Reporting/01 SP63 - Performance Monitoring & Alerting.md
+<parameter name="filePath">/Users/giangio/Documents/GitHub/Interzen/Interzen.POC/ZenIA/docs/use_cases/UC11 - Analisi Dati e Reporting/01 SP63 - Monitoraggio Prestazioni & Alerting.md

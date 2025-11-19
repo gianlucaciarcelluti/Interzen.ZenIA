@@ -44,7 +44,7 @@ Questo documento è una **specializzazione UC2** che enfatizza gli aspetti speci
    - PEC envelope validation (timestamp, signer validation)
    - DKIM/SPF/DMARC verification per email regolari
    - Malware scanning allegati
-   - Encryption handling (S/MIME, PGP)
+   - Crittografia handling (S/MIME, PGP)
 
 ## Input/Output (UC2)
 
@@ -95,7 +95,7 @@ Email Input (POP3/IMAP/PEC)
 │  │ - PEC envelope check       │  │
 │  │ - Signature verification   │  │
 │  │ - Malware scan             │  │
-│  │ - Encryption handling      │  │
+│  │ - Crittografia handling      │  │
 │  └────────────────────────────┘  │
 └──────────────────────────────────┘
   ↓
@@ -104,7 +104,7 @@ Structured Protocol Data (JSON)
   ├→ SP16 (Classifier)
   ├→ SP17 (Registry Suggester)
   ├→ SP19 (Workflow Orchestrator)
-  └→ Audit Trail (SP11)
+  └→ Registro di Audit (SP11)
 ```
 
 ## API Endpoints (UC2)

@@ -85,7 +85,7 @@ graph LR
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -112,7 +112,7 @@ graph LR
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -126,7 +126,7 @@ graph LR
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -202,7 +202,7 @@ graph LR
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -229,7 +229,7 @@ graph LR
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -243,7 +243,7 @@ graph LR
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -365,13 +365,13 @@ sp23:
 - **Assessment Speed**: <500ms per valutazione
 - **Alert Latency**: <5s per alert critico
 - **Report Generation**: <30s per report complesso
-- **Data Retention**: 7 anni audit logs
+- **Conservazione Dati**: 7 anni audit logs
 
 ### Sicurezza
 
 - **Data Integrity**: Hash verification audit logs
-- **Access Control**: Restricted access compliance data
-- **Encryption**: End-to-end encryption sensitive data
+- **Controllo Accesso**: Restricted access compliance data
+- **Crittografia**: End-to-end encryption sensitive data
 - **Immutability**: WORM storage audit trails
 
 ### Evoluzione

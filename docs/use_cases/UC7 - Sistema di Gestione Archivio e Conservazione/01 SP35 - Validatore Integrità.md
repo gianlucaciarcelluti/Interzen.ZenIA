@@ -131,7 +131,7 @@ Il logging degli eventi traccia completamente la catena di custodia:
 - Identificazione univoca degli utenti e sistemi
 - Contesto completo delle operazioni eseguite
 
-**Audit Trail**:
+**Registro di Audit**:
 - Sequenza temporale completa delle operazioni
 - Immutabilità attraverso tecniche crittografiche
 - Ricerca e filtering avanzati per audit
@@ -324,7 +324,7 @@ alert_thresholds:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -338,7 +338,7 @@ alert_thresholds:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -423,7 +423,7 @@ alert_thresholds:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -437,7 +437,7 @@ alert_thresholds:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

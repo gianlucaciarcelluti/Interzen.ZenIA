@@ -36,7 +36,7 @@ Il **SP44 Compliance Monitoring System** è il sistema centrale per il monitorag
 └─────────────────────────────────────────────────────────────┘
 │                    AUDIT AUTOMATION LAYER                   │
 │  ┌─────────────────────────────────────────────────────────┐ │
-│  │  Evidence Collection Auto Report Gen   Audit Trail Mgmt │ │
+│  │  Evidence Collection Auto Report Gen   Registro di Audit Mgmt │ │
 │  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
 │  │  │  - Log Collection│    │  - Template    │   │  - Immutable│ │
 │  │  │  - Data Extraction│    │  - Auto Fill   │   │  - Chain of│ │
@@ -128,7 +128,7 @@ Il framework di testing compliance implementa metodologie complete per validare 
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -155,7 +155,7 @@ Il framework di testing compliance implementa metodologie complete per validare 
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -169,7 +169,7 @@ Il framework di testing compliance implementa metodologie complete per validare 
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -246,7 +246,7 @@ Il framework di testing compliance implementa metodologie complete per validare 
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -273,7 +273,7 @@ Il framework di testing compliance implementa metodologie complete per validare 
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -287,7 +287,7 @@ Il framework di testing compliance implementa metodologie complete per validare 
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

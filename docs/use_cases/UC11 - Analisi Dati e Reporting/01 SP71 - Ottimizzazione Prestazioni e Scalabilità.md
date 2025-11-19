@@ -6,7 +6,7 @@ Il **SP71 Performance Optimization & Scaling System** fornisce una piattaforma c
 
 ## Responsabilità
 
-- **Performance Monitoring**: Monitoraggio real-time metriche performance (latency, throughput, CPU, memoria)
+- **Monitoraggio Prestazioni**: Monitoraggio real-time metriche performance (latency, throughput, CPU, memoria)
 - **Bottleneck Identification**: Identificazione automatica colli di bottiglia e hot-spots
 - **Query Optimization**: Analisi e ottimizzazione query database, caching strategies
 - **Infrastructure Tuning**: Tuning VM, container resources, network configuration
@@ -159,7 +159,7 @@ Il **SP71 Performance Optimization & Scaling System** fornisce una piattaforma c
 
 | KPI | Target | Descrizione |
 |---|---|---|
-| **Performance Monitoring Latency** | < 30 secondi | Time from metric generation to dashboard |
+| **Monitoraggio Prestazioni Latency** | < 30 secondi | Time from metric generation to dashboard |
 | **Bottleneck Detection Accuracy** | > 90% | Precision of identified bottlenecks |
 | **Forecast Accuracy** | > 85% | Capacity forecast vs actual (30-day) |
 | **Auto-scaling Trigger Latency** | < 2 minuti | Time from metric threshold to scale action |

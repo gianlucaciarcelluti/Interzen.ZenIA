@@ -200,7 +200,7 @@ graph TD
 | ML Framework | Scikit-learn + Custom | Latest | Classical ML models |
 | Time Series | pmdarima, Prophet, TensorFlow | Latest | ARIMA, SARIMA, LSTM |
 | API | FastAPI | 0.104+ | REST endpoints |
-| Data Processing | Pandas + NumPy | Latest | Feature engineering |
+| Elaborazione Dati | Pandas + NumPy | Latest | Feature engineering |
 | Database | TimescaleDB | 2.13+ | Time-series data |
 | Analytics | ClickHouse | 23.x | Aggregated analytics |
 | Cache | Redis | 7.2+ | Prediction caching |
@@ -391,7 +391,7 @@ sp25:
 - **PII**: No PII in predictions (only process metrics)
 - **Audit**: All predictions logged with lineage
 
-### Access Control
+### Controllo Accesso
 - **Authentication**: JWT token
 - **Authorization**: RBAC (only process owners can see their forecasts)
 - **API Rate Limiting**: 100 req/min per user
@@ -535,7 +535,7 @@ SP27 (Analytics) → Dashboard
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -549,7 +549,7 @@ SP27 (Analytics) → Dashboard
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -634,7 +634,7 @@ SP27 (Analytics) → Dashboard
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -648,7 +648,7 @@ SP27 (Analytics) → Dashboard
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

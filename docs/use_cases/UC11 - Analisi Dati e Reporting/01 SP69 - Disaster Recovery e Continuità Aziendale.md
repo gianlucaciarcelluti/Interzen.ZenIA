@@ -122,7 +122,7 @@ SP68 (DevOps & CI/CD) → SP69
   SLA: < 5 min propagation
 
 SP66 (Data Security & Compliance) → SP69
-  Data: Encryption keys, security policies
+  Data: Crittografia keys, security policies
   Timing: Configuration updates
   SLA: < 10 min sync
 ```
@@ -205,7 +205,7 @@ SP69 → SP72 (Incident Management & Escalation)
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -232,7 +232,7 @@ SP69 → SP72 (Incident Management & Escalation)
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -246,7 +246,7 @@ SP69 → SP72 (Incident Management & Escalation)
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -322,7 +322,7 @@ SP69 → SP72 (Incident Management & Escalation)
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -349,7 +349,7 @@ SP69 → SP72 (Incident Management & Escalation)
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -363,7 +363,7 @@ SP69 → SP72 (Incident Management & Escalation)
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

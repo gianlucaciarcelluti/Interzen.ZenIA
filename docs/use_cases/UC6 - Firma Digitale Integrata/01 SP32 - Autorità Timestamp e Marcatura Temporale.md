@@ -1,11 +1,11 @@
-# SP32 - Timestamp Authority & Temporal Marking
+# SP32 - Autorità di Marca Temporale & Temporal Marking
 
 ## 1. Informazioni Generali
 
 | Proprietà | Valore |
 |---|---|
 | **Numero SP** | SP32 |
-| **Nome** | Timestamp Authority & Temporal Marking Manager |
+| **Nome** | Autorità di Marca Temporale & Temporal Marking Manager |
 | **Caso d'Uso** | UC6 - Firma Digitale Integrata |
 | **Categoria** | Core Security |
 | **MS Primario** | **MS13** Generic Security Engine |
@@ -18,7 +18,7 @@
 
 ```mermaid
 graph LR
-    SIGNED_DOC[Signed Documents<br/>from SP29] --> SP32[SP32<br/>Timestamp Authority]
+    SIGNED_DOC[Signed Documents<br/>from SP29] --> SP32[SP32<br/>Autorità di Marca Temporale]
     TSA_READY[TSA Ready Docs<br/>from SP31] --> SP32
 
     SP32 --> MARKED[Timestamped Documents]
@@ -35,7 +35,7 @@ graph LR
 **Business Value**:
 - **Legal Validity**: Marcatura temporale obbligatoria per conformità CAD/eIDAS
 - **Non-Repudiation**: Prove legale del timestamp della firma
-- **Audit Trail**: Tracciabilità completa per conservazione digitale
+- **Registro di Audit**: Tracciabilità completa per conservazione digitale
 - **Compliance**: Soddisfa requisiti AgID per conservazione documenti
 
 ## 3. Responsabilità Principali
@@ -79,7 +79,7 @@ graph LR
 | Nome | Tipo | Destinazione | Formato | Note |
 |---|---|---|---|---|
 | **Timestamped Document** | Signed PDF/XML | Archive, SP32 Auditor | PDF-A + XAdES-T | With embedded timestamp |
-| **TSA Proof** | RFC 3161 Response | Audit Trail, Archive | DER/Base64 | Legally valid timestamp proof |
+| **TSA Proof** | RFC 3161 Response | Registro di Audit, Archive | DER/Base64 | Legally valid timestamp proof |
 | **Timestamp Metadata** | Metadata | PostgreSQL Log | JSON | Timestamp details + validation |
 | **Compliance Report** | Report | Dashboard, Compliance | JSON/PDF | Timestamp validity confirmation |
 | **Validation Receipt** | Receipt | User, Workflow | JSON | Proof of timestamping |
@@ -121,14 +121,14 @@ SP32 → External Systems
 
 ### Componenti Core
 ```
-SP32 Timestamp Authority Manager
+SP32 Autorità di Marca Temporale Manager
 ├── TSA Client Layer
 │   ├── RFC 3161 Protocol Handler
 │   ├── Provider Adapter (multi-provider support)
 │   ├── Request Composer
 │   └── Response Validator
 ├── Certificate Management
-│   ├── Certificate Chain Validator
+│   ├── Catena di Certificati Validator
 │   ├── CRL/OCSP Checker
 │   ├── Certificate Pinning
 │   └── Trust Store Manager
@@ -479,7 +479,7 @@ sp31_provider_availability{provider}
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP32 (Timestamp Authority)**:
+**Framework applicabili a SP32 (Autorità di Marca Temporale)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **eIDAS** (Regolamento 2014/910): Art. 3, 8, 24-27
 
@@ -509,7 +509,7 @@ sp31_provider_availability{provider}
 **Elementi chiave**:
 - Firma Qualificata: CAdES/XAdES con timestamp RFC 3161
 - Livello Assicurazione: Identificazione ALTO, Autenticazione SOSTANZIALE
-- TSP (Trusted Service Provider): Provider autorizzati AGID (InfoCert, Aruba, etc.)
+- TSP (Provider di Servizi Fiduciari): Provider autorizzati AGID (InfoCert, Aruba, etc.)
 - Certificati X.509: Chain validation fino a trusted root CA
 - Non-repudiation: Timestamp marca temporale opponibile in giudizio
 
@@ -540,7 +540,7 @@ sp31_provider_availability{provider}
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -554,7 +554,7 @@ sp31_provider_availability{provider}
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -595,7 +595,7 @@ sp31_provider_availability{provider}
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP32 (Timestamp Authority)**:
+**Framework applicabili a SP32 (Autorità di Marca Temporale)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **eIDAS** (Regolamento 2014/910): Art. 3, 8, 24-27
 
@@ -625,7 +625,7 @@ sp31_provider_availability{provider}
 **Elementi chiave**:
 - Firma Qualificata: CAdES/XAdES con timestamp RFC 3161
 - Livello Assicurazione: Identificazione ALTO, Autenticazione SOSTANZIALE
-- TSP (Trusted Service Provider): Provider autorizzati AGID (InfoCert, Aruba, etc.)
+- TSP (Provider di Servizi Fiduciari): Provider autorizzati AGID (InfoCert, Aruba, etc.)
 - Certificati X.509: Chain validation fino a trusted root CA
 - Non-repudiation: Timestamp marca temporale opponibile in giudizio
 
@@ -656,7 +656,7 @@ sp31_provider_availability{provider}
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ❌ No | N/A | - |
@@ -670,7 +670,7 @@ sp31_provider_availability{provider}
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 

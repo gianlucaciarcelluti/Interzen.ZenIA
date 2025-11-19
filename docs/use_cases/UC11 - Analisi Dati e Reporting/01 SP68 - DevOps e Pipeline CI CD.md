@@ -117,7 +117,7 @@ Il **SP68 DevOps & CI/CD Pipeline** fornisce una piattaforma completa per automa
 
 ### Upstream
 ```
-SP65 (Performance Monitoring & Alerting) → SP68
+SP65 (Monitoraggio Prestazioni & Alerting) → SP68
   Data: Deployment health metrics, incident alerts
   Timing: Real-time monitoring
   SLA: < 1 min visibility
@@ -130,7 +130,7 @@ SP67 (API Gateway & Integration) → SP68
 
 ### Downstream
 ```
-SP68 → SP65 (Performance Monitoring)
+SP68 → SP65 (Monitoraggio Prestazioni)
   Data: Build/deployment metrics, health status
   Timing: Real-time reporting
   SLA: < 30 sec
@@ -283,7 +283,7 @@ Response:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -310,7 +310,7 @@ Response:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -324,7 +324,7 @@ Response:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
@@ -400,7 +400,7 @@ Response:
 
 **DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
 
-**Responsabile**: DPO (Data Protection Officer)
+**Responsabile**: DPO (Responsabile della Protezione dei Dati (DPO))
 
 ---
 
@@ -427,7 +427,7 @@ Response:
 
 **Status**: ✅ COMPLIANT
 
-| Framework | Applicabile | Status | Responsible |
+| Framework | Applicabile | Status | Responsabile |
 |-----------|-----------|--------|-------------|
 | CAD | ✅ Sì | ✅ Compliant | CTO |
 | GDPR | ✅ Sì | ✅ Compliant | DPO |
@@ -441,7 +441,7 @@ Response:
 4. Regular monitoring and review schedule established
 5. Clear responsibility assignments (RACI)
 
-**Next Review**: 2026-02-17
+**Prossima Review**: 2026-02-17
 
 ---
 
