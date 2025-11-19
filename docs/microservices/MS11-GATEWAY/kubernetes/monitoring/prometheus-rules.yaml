@@ -1,0 +1,151 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: kong-gateway-alerts
+  namespace: zenia
+  labels:
+    app: kong-gateway
+    component: alerting
+spec:
+  groups:
+  - name: kong-gateway
+    rules:
+    # Pod Health Alerts
+    - alert: KongGatewayPodDown
+      expr: up{job="kong-gateway"} == 0
+      for: 5m
+      labels:
+        severity: critical
+        service: kong-gateway
+      annotations:
+        summary: "Kong Gateway pod is down"
+        description: "Kong Gateway pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has been down for more than 5 minutes."
+        runbook_url: "https://zenia.local/docs/troubleshooting/kong-gateway-pod-down"
+
+    - alert: KongGatewayPodRestarting
+      expr: increase(kube_pod_container_status_restarts_total{container="kong", namespace="zenia"}[5m]) > 0
+      for: 2m
+      labels:
+        severity: warning
+        service: kong-gateway
+      annotations:
+        summary: "Kong Gateway pod is restarting"
+        description: "Kong Gateway pod {{ $labels.pod }} has restarted {{ $value }} times in the last 5 minutes."
+        runbook_url: "https://zenia.local/docs/troubleshooting/kong-gateway-restarting"
+
+    # Performance Alerts
+    - alert: KongHighErrorRate
+      expr: rate(kong_http_requests_total{status=~"5.."}[5m]) / rate(kong_http_requests_total[5m]) > 0.05
+      for: 5m
+      labels:
+        severity: warning
+        service: kong-gateway
+      annotations:
+        summary: "High error rate on Kong Gateway"
+        description: "Kong Gateway error rate is {{ $value | humanizePercentage }} for service {{ $labels.service }}."
+        runbook_url: "https://zenia.local/docs/troubleshooting/kong-high-error-rate"
+
+    - alert: KongHighLatency
+      expr: histogram_quantile(0.95, rate(kong_http_request_duration_ms_bucket[5m])) > 5000
+      for: 5m
+      labels:
+        severity: warning
+        service: kong-gateway
+      annotations:
+        summary: "High latency on Kong Gateway"
+        description: "Kong Gateway 95th percentile latency is {{ $value }}ms for service {{ $labels.service }}."
+        runbook_url: "https://zenia.local/docs/troubleshooting/kong-high-latency"
+
+    # Rate Limiting Alerts
+    - alert: KongRateLimitExceeded
+      expr: rate(kong_ratelimit_usage_total[5m]) > 0.9
+      for: 2m
+      labels:
+        severity: info
+        service: kong-gateway
+      annotations:
+        summary: "Kong rate limit nearly exceeded"
+        description: "Kong rate limit usage is at {{ $value | humanizePercentage }} for service {{ $labels.service }}."
+        runbook_url: "https://zenia.local/docs/troubleshooting/kong-rate-limit"
+
+    # Database Connection Alerts
+    - alert: KongPostgresConnectionError
+      expr: kong_datastore_reachable == 0
+      for: 2m
+      labels:
+        severity: critical
+        service: kong-gateway
+      annotations:
+        summary: "Kong cannot connect to PostgreSQL"
+        description: "Kong Gateway cannot reach PostgreSQL database."
+        runbook_url: "https://zenia.local/docs/troubleshooting/kong-postgres-connection"
+
+    # Redis Connection Alerts
+    - alert: KongRedisConnectionError
+      expr: up{job="kong-redis"} == 0
+      for: 3m
+      labels:
+        severity: warning
+        service: kong-gateway
+      annotations:
+        summary: "Kong Redis connection error"
+        description: "Kong Gateway cannot connect to Redis cache."
+        runbook_url: "https://zenia.local/docs/troubleshooting/kong-redis-connection"
+
+    # Upstream Service Alerts
+    - alert: KongUpstreamUnhealthy
+      expr: kong_upstream_target_health{health="unhealthy"} == 1
+      for: 5m
+      labels:
+        severity: warning
+        service: kong-gateway
+      annotations:
+        summary: "Kong upstream service unhealthy"
+        description: "Kong upstream target {{ $labels.target }} for service {{ $labels.service }} is unhealthy."
+        runbook_url: "https://zenia.local/docs/troubleshooting/kong-upstream-unhealthy"
+
+    # Resource Usage Alerts
+    - alert: KongHighMemoryUsage
+      expr: (container_memory_usage_bytes{container="kong", namespace="zenia"} / container_spec_memory_limit_bytes) > 0.85
+      for: 5m
+      labels:
+        severity: warning
+        service: kong-gateway
+      annotations:
+        summary: "Kong Gateway high memory usage"
+        description: "Kong Gateway memory usage is {{ $value | humanizePercentage }}."
+        runbook_url: "https://zenia.local/docs/troubleshooting/kong-high-memory"
+
+    - alert: KongHighCPUUsage
+      expr: rate(container_cpu_usage_seconds_total{container="kong", namespace="zenia"}[5m]) > 0.8
+      for: 5m
+      labels:
+        severity: warning
+        service: kong-gateway
+      annotations:
+        summary: "Kong Gateway high CPU usage"
+        description: "Kong Gateway CPU usage is {{ $value | humanizePercentage }}."
+        runbook_url: "https://zenia.local/docs/troubleshooting/kong-high-cpu"
+
+    # Security Alerts
+    - alert: KongAuthFailures
+      expr: rate(kong_auth_failures_total[5m]) > 10
+      for: 2m
+      labels:
+        severity: warning
+        service: kong-gateway
+      annotations:
+        summary: "High authentication failures on Kong Gateway"
+        description: "Kong Gateway authentication failures rate is {{ $value }}/second."
+        runbook_url: "https://zenia.local/docs/troubleshooting/kong-auth-failures"
+
+    - alert: KongBlockedRequests
+      expr: rate(kong_blocked_requests_total[5m]) > 5
+      for: 2m
+      labels:
+        severity: info
+        service: kong-gateway
+      annotations:
+        summary: "Kong Gateway blocking requests"
+        description: "Kong Gateway is blocking {{ $value }} requests per second."
+        runbook_url: "https://zenia.local/docs/troubleshooting/kong-blocked-requests"

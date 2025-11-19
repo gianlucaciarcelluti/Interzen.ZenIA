@@ -1,0 +1,156 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: classifier-config
+  namespace: zendata
+  labels:
+    app: ms01-classifier
+
+data:
+  # Service Configuration
+  service.name: "MS01-CLASSIFIER"
+  service.port: "8001"
+  service.environment: "production"
+
+  # Model Configuration
+  model.version: "v2.1"
+  model.cache-dir: "/models"
+
+  # Classification Settings
+  classification.threshold: "0.60"
+  classification.confidence-required: "0.85"
+  classification.enable-ml: "true"
+
+  # Performance Tuning
+  cache.ttl-hours: "24"
+  cache.max-size-mb: "512"
+  batch.size: "32"
+
+  # Database Connection Pool
+  db.pool-size: "20"
+  db.pool-recycle: "3600"
+  db.statement-timeout-ms: "30000"
+
+  # Cache (Redis)
+  redis.socket-timeout: "5"
+  redis.socket-connect-timeout: "5"
+
+  # File Processing
+  max.file-size-mb: "100"
+  max.batch-files: "100"
+  supported.formats: "application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/vnd.ms-excel"
+
+  # Quality Checks
+  quality.enable-checks: "true"
+  quality.enable-malware-scan: "true"
+  quality.enable-format-validation: "true"
+
+  # Logging
+  log.level: "INFO"
+  log.format: "json"
+  log.output: "/var/log/classifier"
+
+  # Security
+  security.enable-audit-log: "true"
+  security.encrypt-sensitive-data: "true"
+
+  # Monitoring
+  monitoring.enable-metrics: "true"
+  monitoring.prometheus-port: "9090"
+  monitoring.metrics-prefix: "classifier_"
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: classifier-models
+  namespace: zendata
+  labels:
+    app: ms01-classifier
+
+data:
+  # Model metadata stored here
+  model-versions.txt: |
+    v2.1 - Current Active Model
+    - Training Date: 2024-10-15
+    - Accuracy: 94.5%
+    - F1 Score: 93.2%
+    - Training Samples: 50000
+
+    v2.0 - Previous Model
+    - Training Date: 2024-09-01
+    - Accuracy: 92.8%
+    - Status: Deprecated
+
+    Supported Classes:
+    - invoice (financial)
+    - contract (legal)
+    - report (business)
+    - correspondence (communication)
+    - memo (internal)
+    - form (administrative)
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: classifier-db-secret
+  namespace: zendata
+  type: Opaque
+
+stringData:
+  database-url: "postgresql://classifier_service:classifier_pass@postgres.zendata:5432/zendata_classifier"
+  username: "classifier_service"
+  password: "classifier_pass"
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: classifier-jwt-secret
+  namespace: zendata
+  type: Opaque
+
+stringData:
+  secret-key: "your-super-secret-jwt-key-change-in-production"
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: classifier-init-sql
+  namespace: zendata
+  labels:
+    app: ms01-classifier
+
+data:
+  # MS01 Classifier Database Initialization
+  # Complete schema is defined in init-schema.sql file (separate from this ConfigMap)
+  # See: docs/microservices/MS01-CLASSIFIER/init-schema.sql
+
+  init-reference.txt: |
+    MS01 Database Initialization Guide
+
+    The complete PostgreSQL schema for MS01 Classifier is defined in:
+    - File: init-schema.sql (in the microservices documentation folder)
+    - Tables: 6 core tables with indexes and constraints
+    - Schema: classifier (isolated namespace)
+
+    To apply the schema:
+
+    Local Development:
+      psql -h localhost -U classifier_service -d zendata_classifier < init-schema.sql
+
+    Docker Compose:
+      docker-compose exec postgres psql -U classifier_service -d zendata_classifier < init-schema.sql
+
+    Kubernetes:
+      kubectl exec -it postgres-pod -- psql -U classifier_service -d zendata_classifier < init-schema.sql
+
+    Or mount init-schema.sql as a volume in postgres init container:
+      volumes:
+        - ./init-schema.sql:/docker-entrypoint-initdb.d/init-schema.sql

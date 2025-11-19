@@ -1,0 +1,34 @@
+{
+  "job_id": "550e8400-e29b-41d4-a716-446655440001",
+  "status": "COMPLETED",
+  "result": {
+    "document_id": "550e8400-e29b-41d4-a716-446655440002",
+    "original_format": "PDF",
+    "target_format": "DOCX",
+    "file_size": 245760,
+    "processing_time": 15.7,
+    "compression_ratio": 0.85,
+    "pages_processed": 12,
+    "quality_score": 0.96,
+    "warnings": [],
+    "errors": [],
+    "download_url": "http://ms05-transformer:8005/api/v1/download/550e8400-e29b-41d4-a716-446655440002",
+    "expires_at": "2025-11-25T10:30:45Z"
+  },
+  "metadata": {
+    "request_id": "req-2025-11-18-001",
+    "client_id": "comune-milano",
+    "transformation_engine": "LibreOffice-7.6",
+    "processing_node": "worker-03",
+    "checksum_sha256": "b665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae4"
+  },
+  "processing_stats": {
+    "queue_wait_time": 2.3,
+    "transformation_time": 13.4,
+    "validation_time": 1.2,
+    "storage_time": 0.8,
+    "total_time": 17.7
+  },
+  "created_at": "2025-11-18T10:15:00Z",
+  "completed_at": "2025-11-18T10:30:45Z"
+}

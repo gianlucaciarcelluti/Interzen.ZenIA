@@ -1,0 +1,152 @@
+version: '3.8'
+
+# Override configuration for development environment
+# Use with: docker-compose -f docker-compose.yml -f docker-compose.override.yml up
+
+services:
+  kong-gateway:
+    environment:
+      # Development overrides
+      KONG_LOG_LEVEL: debug
+      KONG_ENFORCE_RBAC: off
+      KONG_ADMIN_GUI_AUTH: basic-auth
+      KONG_ADMIN_GUI_URL: http://localhost:8002
+
+    volumes:
+      # Mount local config for development
+      - ./config/kong.dev.yml:/etc/kong/kong.yml:ro
+      - ./ssl/dev/:/etc/ssl/:ro
+
+    # Development ports
+    ports:
+      - "8000:8000"    # HTTP proxy
+      - "8443:8443"    # HTTPS proxy
+      - "8001:8001"    # Admin API HTTP
+      - "8444:8444"    # Admin API HTTPS
+      - "8100:8100"    # Status page
+      - "9145:9145"    # Metrics
+
+  kong-admin-gui:
+    environment:
+      KONG_PORTAL_GUI_LISTEN: 0.0.0.0:8002
+      KONG_PORTAL_AUTH: basic-auth
+      KONG_PORTAL_SESSION_CONF: |
+        {
+          "cookie_name": "kong_portal_session",
+          "secret": "dev-secret-key",
+          "storage": "kong"
+        }
+
+  kong-postgres:
+    ports:
+      - "5432:5432"  # Expose for development tools
+
+  kong-redis:
+    ports:
+      - "6379:6379"  # Expose for development tools
+
+  # Development database management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: zenia-pgadmin
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@zenia.local
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - kong-postgres
+    networks:
+      - zenia-network
+
+  # Redis Commander for Redis management
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: zenia-redis-commander
+    ports:
+      - "8085:8081"
+    environment:
+      REDIS_HOSTS: local:kong-redis:6379:0:secure_redis_password_2024
+    depends_on:
+      - kong-redis
+    networks:
+      - zenia-network
+
+  # Mock services with more detailed responses
+  mock-ms01-classifier:
+    build:
+      context: ./mock-services/ms01-classifier
+      dockerfile: Dockerfile
+    environment:
+      MOCK_DELAY: 100  # ms delay for realistic response times
+      MOCK_ERROR_RATE: 0.01  # 1% error rate for testing
+
+  mock-ms02-analyzer:
+    build:
+      context: ./mock-services/ms02-analyzer
+      dockerfile: Dockerfile
+    environment:
+      MOCK_DELAY: 200
+      MOCK_ERROR_RATE: 0.02
+
+  mock-ms03-orchestrator:
+    build:
+      context: ./mock-services/ms03-orchestrator
+      dockerfile: Dockerfile
+    environment:
+      MOCK_DELAY: 150
+      MOCK_ERROR_RATE: 0.015
+
+  # Additional monitoring for development
+  prometheus:
+    volumes:
+      - ./monitoring/prometheus.dev.yml:/etc/prometheus/prometheus.yml:ro
+
+  grafana:
+    environment:
+      GF_LOG_LEVEL: debug
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+
+  # ELK Stack for development
+  elasticsearch:
+    environment:
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      discovery.type: single-node
+      xpack.security.enabled: false
+      xpack.monitoring.enabled: false
+      xpack.graph.enabled: false
+      xpack.watcher.enabled: false
+      xpack.ml.enabled: false
+
+  kibana:
+    environment:
+      XPACK_SECURITY_ENABLED: false
+      XPACK_MONITORING_ENABLED: false
+
+  # Logstash for log processing (optional)
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.0
+    container_name: zenia-logstash
+    ports:
+      - "5044:5044"
+      - "9600:9600"
+    volumes:
+      - ./config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+    networks:
+      - zenia-network
+
+volumes:
+  pgadmin_data:
+    driver: local
+
+networks:
+  zenia-network:
+    driver: bridge

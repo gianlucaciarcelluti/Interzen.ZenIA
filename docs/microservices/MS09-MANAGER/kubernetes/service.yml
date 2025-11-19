@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms09-manager-service
+  namespace: zenia
+  labels:
+    app: ms09-manager
+    component: workflow-engine
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  - name: https
+    port: 443
+    targetPort: 8443
+    protocol: TCP
+  - name: management
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: ms09-manager
+  sessionAffinity: None
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms09-manager-headless
+  namespace: zenia
+  labels:
+    app: ms09-manager
+    component: workflow-engine
+spec:
+  clusterIP: None
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: ms09-manager

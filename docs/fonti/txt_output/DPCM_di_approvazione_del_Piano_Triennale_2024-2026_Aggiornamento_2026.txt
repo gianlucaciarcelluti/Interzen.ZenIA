@@ -1,0 +1,108 @@
+Il Presidente del Consiglio dei Ministri
+VISTO il decreto legislativo 7 marzo 2005, n. 82, recante "Codice dell'amministrazione digitale" e
+
+successive modifiche ed integrazioni;
+VISTO in particolare, l'articolo 14-bis, comma 2, lettera b), del decreto legislativo 7 marzo 2005, n.
+
+82, recante "Codice dell'amministrazione digitale" e successive modifiche ed integrazioni ai sensi
+del quale l'Agenzia per 1'Italia Digitale (AgID) svolge le funzioni di "programmazione e
+coordinamento delle attività delle amministrazioni per l'uso delle tecnologie dell'informazione e
+della comunicazione, mediante la redazione e la successiva verifica del/ 'attuazione del Piano
+triennale per l'informatica nella pubblica amministrazione contenente la fissazione degli obiettivi
+e l'individuazione dei principali interventi di sviluppo e gestione dei sistemi informativi delle
+amministrazioni pubbliche, il predetto Piano è elaborato dall'AgID, anche sulla base dei dati e
+delle informazioni acquisiti dai soggetti di cui all'articolo 2, comma 2, ed è approvato dal
+Presidente del Consiglio dei ministri o dal Ministro delegato entro il 30 settembre di ogni
+anno";
+VISTO il decreto-legge 9 febbraio 2012, n. 5, convertito, con modificazioni, dalla legge 4 aprile
+
+2012, n. 35, recante "Disposizioni urgenti in materia di semplificazione e sviluppo" e, in particolar
+modo, l'articolo 47, concernente I’ “Agenda digitale italiana”;
+VISTO il decreto-legge 22 giugno 2012, n. 83, recante "Misure urgenti per la crescita del Paese",
+
+convertito, con modificazioni, dalla legge 7 agosto 2012, n. 134, e, in particolare, gli articoli 19, 21
+e 22, riguardanti l'Agenzia per l'Italia Digitale;
+VISTO il decreto-legge 18 ottobre 2012, n. 179, convertito, con modificazioni, dalla legge 17
+
+dicembre 2012, n. 221, recante "Ulteriori misure urgenti per la crescita del Paese";
+VISTO il decreto legislativo 26 agosto 2016, n. 179, recante "Modifiche ed integrazioni al Codice
+
+dell'amministrazione digitale, di cui al decreto legislativo 7 marzo 2005, n. 82, ai sensi dell’articolo
+1 della legge 7 agosto 2015, n. 124, in materia di riorganizzazione delle amministrazioni pubbliche";
+VISTO lo Statuto dell'Agenzia per l'Italia Digitale, approvato con decreto del Presidente del
+
+Consiglio dei Ministri dell'8 gennaio 2014;
+VISTO il decreto-legge 24 giugno 2014, n. 90, convertito, con modificazioni, dalla legge 11 agosto
+
+2014, n. 114, recante "Misure urgenti per la semplificazione e la trasparenza amministrativa e per
+l'efficienza degli uffici giudiziari", e, in particolare, l'articolo 24-ter, concernente "Regole tecniche
+per l'attuazione dell'Agenda digitale italiana";
+VISTO il decreto del Presidente della Repubblica 31 ottobre 2022, con il quale il Sen. Alessio Butti
+
+Il Presidente del Consiglio dei Ministri
+è stato nominato Sottosegretario di Stato alla Presidenza del Consiglio dei Ministri;
+VISTO il decreto del Presidente del Consiglio dei Ministri 25 novembre 2022, con il quale al predetto
+
+Sottosegretario di Stato sono state assegnate le deleghe in materia di innovazione tecnologica e
+transizione digitale e, in particolare, le funzioni attribuite al Presidente del Consiglio dei Ministri
+relative all'Agenzia per l'Italia digitale;
+VISTI i Piani triennali per l'informatica nella pubblica amministrazione 2017-2019, 2019-2021,
+2020-2022, 2021-2023 e 2022-2024 approvati, rispettivamente, con decreti del Presidente del
+Consiglio dei ministri del 31 maggio 2017, del 21 febbraio 2019, del 17 luglio 2020 e del 24
+febbraio 2022 e del 22 dicembre 2022;
+VISTO il Piano triennale per l'informatica nella pubblica amministrazione 2024-2026 approvato
+con decreto del Presidente del Consiglio dei Ministri del 12 gennaio 2024;
+VISTO l’Aggiornamento 2025 del Piano triennale per l'informatica nella pubblica amministrazione
+2024-2026 approvato con decreto del Presidente del Consiglio dei Ministri del 3 dicembre 2024;
+VISTO il decreto del Presidente del Consiglio dei Ministri 19 giugno 2019, con cui è stato istituito
+il Dipartimento per la trasformazione digitale quale struttura generale della Presidenza del Consiglio
+dei Ministri;
+VISTO il Decreto del Presidente del Consiglio dei Ministri del 23 marzo 2023, a firma del
+Sottosegretario per l'innovazione tecnologica e la digitalizzazione Sen. Alessio Butti, registrato dalla
+Corte dei Conti in data 3 aprile 2023 al n. 945, con cui l'lng. Mario Nobile è stato nominato, per la
+durata di un triennio, Direttore Generale dell'Agenzia per l'Italia Digitale;
+VISTE le Direttive 10 giugno 2020, 30 giugno 2021, 30 marzo 2022, 19 settembre 2023 e 5 aprile
+2024 con cui sono stati fissati gli obiettivi che l’Agenzia per l’Italia digitale doveva perseguire, in
+via prioritaria, rispettivamente negli anni 2020, 2021, 2022, 2023 e 2024;
+VISTO il decreto del Sottosegretario di Stato all’innovazione tecnologica e alla transizione digitale,
+Senatore Alessio Butti, del 19 marzo 2025 di adozione della Direttiva di definizione degli obiettivi
+dell’Agenzia per l’Italia Digitale per l’anno 2025;
+VISTA la nota AgID n. prot. 14143 del 7 agosto 2025, acquisita al protocollo del Dipartimento in
+pari data al n. 5073-A, con la quale il direttore dell'Agenzia per l'Italia Digitale ha trasmesso
+l’Aggiornamento 2026 del Piano triennale per l'informatica nella pubblica amministrazione 20242026, consolidato a seguito del confronto avviato all'inizio del mese di maggio 2025 con il
+Dipartimento per la Trasformazione Digitale (DTD), l'Agenzia per la Cybersicurezza Nazionale
+
+Il Presidente del Consiglio dei Ministri
+(ACN), Associazione Nazionale Comuni Italiani (ANCI), la Commissione per l'Innovazione
+tecnologica e la Digitalizzazione della Conferenza delle Regioni e delle Province autonome, il
+Dipartimento della Funzione Pubblica (DFP), l’Istituto nazionale Assicurazione Infortuni sul Lavoro
+(INAIL), l’Istituto Nazionale per la Previdenza Sociale (INPS), l’Istituto Poligrafico e Zecca dello
+Stato (IPZS), l’Istituto Nazionale di Statistica (ISTAT), il Ministero dell'Economia e delle Finanze
+(MEF), pagoPA, l’Unione Province d'Italia (UPI);
+CONSIDERATA la necessità di garantire la realizzazione degli obiettivi dell'Agenda digitale
+italiana in coerenza con l'Agenda digitale europea, assicurando, altresì, lo svolgimento dei compiti
+necessari per l'adempimento degli obblighi internazionali assunti in materia di innovazione
+tecnologica e digitale;
+DECRETA
+Art. 1 (Approvazione dell’Aggiornamento 2026 del Piano Triennale 2024-2026)
+1. Ai sensi dell'articolo 14-bis, comma 2, lettera b) del decreto legislativo 7 marzo 2005, n. 82 è
+approvato l’"Aggiornamento 2026 del Piano triennale per l'informatica nella pubblica
+amministrazione 2024-2026", allegato al presente decreto di cui ne costituisce parte integrante.
+2. L’Aggiornamento 2026 del Piano Triennale 2024-2026 di cui al comma 1 è pubblicato sui siti
+istituzionali del Dipartimento per la Trasformazione Digitale e dell'Agenzia per l'Italia Digitale.
+Dell'avvenuta approvazione è data notizia mediante pubblicazione di un comunicato nella Gazzetta
+ufficiale della Repubblica italiana.
+Il presente decreto è trasmesso ai competenti organi di controllo.
+
+p. Il Presidente del Consiglio dei Ministri
+Il Sottosegretario di Stato
+Sen. Alessio Butti
+BUTTI ALESSIO
+PRESIDENZA
+CONSIGLIO
+DEI MINISTRI
+04.09.2025
+12:56:18
+GMT+02:00
+
+

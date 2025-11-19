@@ -1,0 +1,6 @@
+--
+-- MS14 - Audit Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for audit database
+-- No SQL code as per instructions, only diagrams in documentation
+--

@@ -1,0 +1,676 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template encoding-version="1.3">
+    <description>SP02 - Document Extractor &amp; Attachment Classifier - OCR ed estrazione testo da allegati</description>
+    <groupId>root</groupId>
+    <name>SP02_Document_Extractor</name>
+    <snippet>
+        <processors>
+            
+            <processor>
+                <id>df3a4b9e-b7be-4314-86fc-65bba564fdbd</id>
+                <name>GetAttachment</name>
+                <type>org.apache.nifi.processors.standard.GetFile</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Acquisisce allegati dalla cartella attachments</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Input Directory</key>
+                            <value>./input/attachments</value>
+                        </entry>
+                        <entry>
+                            <key>File Filter</key>
+                            <value>.*\.(pdf|jpg|jpeg|png|tiff|doc|docx)</value>
+                        </entry>
+                        <entry>
+                            <key>Keep Source File</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Recurse Subdirectories</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Polling Interval</key>
+                            <value>10 sec</value>
+                        </entry>
+                        <entry>
+                            <key>Batch Size</key>
+                            <value>10</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>082458c8-603c-4441-a0f7-17f9fda7f486</id>
+                <name>IdentifyFileType</name>
+                <type>org.apache.nifi.processors.standard.IdentifyMimeType</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="350.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Identifica il MIME type del file</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Mime Type Attribute Name</key>
+                            <value>mime.type</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>a7296165-a42e-4ac7-92ea-db27875d3499</id>
+                <name>RouteByFileType</name>
+                <type>org.apache.nifi.processors.standard.RouteOnAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="600.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Instrada in base al tipo di file</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Routing Strategy</key>
+                            <value>Route to Property name</value>
+                        </entry>
+                        <entry>
+                            <key>PDF</key>
+                            <value>${mime.type:equals('application/pdf')}</value>
+                        </entry>
+                        <entry>
+                            <key>IMAGE</key>
+                            <value>${mime.type:contains('image/')}</value>
+                        </entry>
+                        <entry>
+                            <key>DOCUMENT</key>
+                            <value>${mime.type:contains('application/vnd.openxmlformats-officedocument') or ${mime.type:contains('application/msword')}}</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>unmatched</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>62b40c2e-0305-4323-9642-e2232a1a179c</id>
+                <name>PrepareFileForExtraction</name>
+                <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-update-attribute-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="850.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Prepara metadata per upload al servizio SP02</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>sp02.url</key>
+                            <value>http://sp02-document-extractor:5002/api/v1/extract-text</value>
+                        </entry>
+                        <entry>
+                            <key>workflow.step</key>
+                            <value>SP02_DOCUMENT_EXTRACTION</value>
+                        </entry>
+                        <entry>
+                            <key>original.filename</key>
+                            <value>${filename}</value>
+                        </entry>
+                        <entry>
+                            <key>original.mimetype</key>
+                            <value>${mime.type}</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>50727e2f-1c96-4fe5-821c-c5d7293df923</id>
+                <name>InvokeSP02Extractor</name>
+                <type>org.apache.nifi.processors.standard.InvokeHTTP</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Chiama SP02 per estrazione testo (OCR se necessario)</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>HTTP Method</key>
+                            <value>POST</value>
+                        </entry>
+                        <entry>
+                            <key>Remote URL</key>
+                            <value>${sp02.url}</value>
+                        </entry>
+                        <entry>
+                            <key>Connection Timeout</key>
+                            <value>60 sec</value>
+                        </entry>
+                        <entry>
+                            <key>Read Timeout</key>
+                            <value>120 sec</value>
+                        </entry>
+                        <entry>
+                            <key>Include Date Header</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Follow Redirects</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Content-Type</key>
+                            <value>multipart/form-data</value>
+                        </entry>
+                        <entry>
+                            <key>send-message-body</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Use Chunked Encoding</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Penalize on "No Retry"</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Attributes to Send</key>
+                            <value>filename,mime.type,workflow.id</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>Retry</relationship>
+                        <relationship>No Retry</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>8c07002e-60d1-42d3-b35c-249fc832d448</id>
+                <name>ParseExtractionResponse</name>
+                <type>org.apache.nifi.processors.standard.EvaluateJsonPath</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1350.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Estrae dati dalla risposta JSON di SP02</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Destination</key>
+                            <value>flowfile-attribute</value>
+                        </entry>
+                        <entry>
+                            <key>Return Type</key>
+                            <value>auto-detect</value>
+                        </entry>
+                        <entry>
+                            <key>Path Not Found Behavior</key>
+                            <value>warn</value>
+                        </entry>
+                        <entry>
+                            <key>document.type</key>
+                            <value>$.classification.document_type</value>
+                        </entry>
+                        <entry>
+                            <key>document.confidence</key>
+                            <value>$.classification.confidence</value>
+                        </entry>
+                        <entry>
+                            <key>document.category</key>
+                            <value>$.classification.category</value>
+                        </entry>
+                        <entry>
+                            <key>document.text</key>
+                            <value>$.text_content</value>
+                        </entry>
+                        <entry>
+                            <key>document.page_count</key>
+                            <value>$.page_count</value>
+                        </entry>
+                        <entry>
+                            <key>document.word_count</key>
+                            <value>$.word_count</value>
+                        </entry>
+                        <entry>
+                            <key>document.ocr_applied</key>
+                            <value>$.ocr_applied</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>unmatched</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>afb0c4a3-a76e-44ca-8f2c-fae7f645e056</id>
+                <name>ExtractStructuredData</name>
+                <type>org.apache.nifi.processors.standard.EvaluateJsonPath</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1600.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Estrae dati strutturati (date, importi, nomi, ecc.)</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Destination</key>
+                            <value>flowfile-attribute</value>
+                        </entry>
+                        <entry>
+                            <key>Return Type</key>
+                            <value>json</value>
+                        </entry>
+                        <entry>
+                            <key>Path Not Found Behavior</key>
+                            <value>ignore</value>
+                        </entry>
+                        <entry>
+                            <key>extracted.dates</key>
+                            <value>$.extracted_data.dates</value>
+                        </entry>
+                        <entry>
+                            <key>extracted.amounts</key>
+                            <value>$.extracted_data.amounts</value>
+                        </entry>
+                        <entry>
+                            <key>extracted.names</key>
+                            <value>$.extracted_data.names</value>
+                        </entry>
+                        <entry>
+                            <key>extracted.codes</key>
+                            <value>$.extracted_data.codes</value>
+                        </entry>
+                        <entry>
+                            <key>extracted.references</key>
+                            <value>$.extracted_data.references</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>unmatched</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>60fda199-b01f-4fa2-ad01-3262eefb5218</id>
+                <name>RouteByDocumentType</name>
+                <type>org.apache.nifi.processors.standard.RouteOnAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1850.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Instrada in base al tipo di documento classificato</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Routing Strategy</key>
+                            <value>Route to Property name</value>
+                        </entry>
+                        <entry>
+                            <key>PLANIMETRIA</key>
+                            <value>${document.type:contains('PLANIMETRIA')}</value>
+                        </entry>
+                        <entry>
+                            <key>RELAZIONE_TECNICA</key>
+                            <value>${document.type:contains('RELAZIONE')}</value>
+                        </entry>
+                        <entry>
+                            <key>DOCUMENTO_IDENTITA</key>
+                            <value>${document.type:contains('IDENTITA')}</value>
+                        </entry>
+                        <entry>
+                            <key>VISURA</key>
+                            <value>${document.type:contains('VISURA')}</value>
+                        </entry>
+                        <entry>
+                            <key>ALTRO</key>
+                            <value>${document.confidence:ge(0.5)}</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>unmatched</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>a715a656-fd7e-4641-b679-cc303f732503</id>
+                <name>SaveExtractedText</name>
+                <type>org.apache.nifi.processors.standard.PutSQL</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="2100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Salva testo estratto e metadata in database</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>JDBC Connection Pool</key>
+                            <value>PostgreSQL-ConnectionPool</value>
+                        </entry>
+                        <entry>
+                            <key>SQL Statement</key>
+                            <value>INSERT INTO extracted_documents (
+    workflow_id,
+    filename,
+    mime_type,
+    document_type,
+    document_category,
+    confidence,
+    text_content,
+    page_count,
+    word_count,
+    ocr_applied,
+    extracted_dates,
+    extracted_amounts,
+    extracted_names,
+    extracted_codes,
+    extracted_references,
+    created_at
+) VALUES (
+    '${workflow.id}',
+    '${original.filename}',
+    '${original.mimetype}',
+    '${document.type}',
+    '${document.category}',
+    ${document.confidence},
+    '${document.text}',
+    ${document.page_count},
+    ${document.word_count},
+    ${document.ocr_applied},
+    '${extracted.dates}',
+    '${extracted.amounts}',
+    '${extracted.names}',
+    '${extracted.codes}',
+    '${extracted.references}',
+    CURRENT_TIMESTAMP
+)</value>
+                        </entry>
+                        <entry>
+                            <key>Batch Size</key>
+                            <value>1</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>2cab2b72-fef9-4b80-b6e0-86d420c77551</id>
+                <name>StoreOriginalInMinIO</name>
+                <type>org.apache.nifi.processors.standard.PutFile</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="2350.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Salva file originale su storage MinIO</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Directory</key>
+                            <value>./storage/documents/${workflow.id}</value>
+                        </entry>
+                        <entry>
+                            <key>Conflict Resolution Strategy</key>
+                            <value>replace</value>
+                        </entry>
+                        <entry>
+                            <key>Create Missing Directories</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Maximum File Count</key>
+                            <value>-1</value>
+                        </entry>
+                        <entry>
+                            <key>Permissions</key>
+                            <value>rw-r--r--</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>7cfb6a0d-9b42-4926-9bca-b9ebca3f4298</id>
+                <name>LogExtractionSuccess</name>
+                <type>org.apache.nifi.processors.standard.LogAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="2600.0" y="200.0" />
+                <config>
+                    <bulletinLevel>INFO</bulletinLevel>
+                    <comments>Log successo estrazione documento</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Log Level</key>
+                            <value>info</value>
+                        </entry>
+                        <entry>
+                            <key>Log Payload</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Attributes to Log</key>
+                            <value>document.type,document.category,document.page_count,document.ocr_applied</value>
+                        </entry>
+                        <entry>
+                            <key>Attributes to Log by Regular Expression</key>
+                            <value>document\..*,extracted\..*</value>
+                        </entry>
+                        <entry>
+                            <key>Log prefix</key>
+                            <value>SP02-DOCUMENT-EXTRACTOR:</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>success</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+        </processors>
+
+        
+        <connections>
+            <connection>
+                <id>032c7edc-cf64-4397-9f0a-0e08df905ad4</id>
+                <name>GetAttachment → IdentifyType</name>
+                <sourceId>df3a4b9e-b7be-4314-86fc-65bba564fdbd</sourceId>
+                <destinationId>082458c8-603c-4441-a0f7-17f9fda7f486</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>6b45425e-629c-4bf0-b8da-2f0a8faf9ca4</id>
+                <name>IdentifyType → RouteByFileType</name>
+                <sourceId>082458c8-603c-4441-a0f7-17f9fda7f486</sourceId>
+                <destinationId>a7296165-a42e-4ac7-92ea-db27875d3499</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>68698ea5-c92c-4cea-9352-90ae183d147d</id>
+                <name>RouteByFileType → PrepareUpload (PDF)</name>
+                <sourceId>a7296165-a42e-4ac7-92ea-db27875d3499</sourceId>
+                <destinationId>62b40c2e-0305-4323-9642-e2232a1a179c</destinationId>
+                <sourceRelationship>PDF</sourceRelationship>
+            </connection>
+            <connection>
+                <id>63860edc-be17-43eb-9166-b0f356faba74</id>
+                <name>RouteByFileType → PrepareUpload (IMAGE)</name>
+                <sourceId>a7296165-a42e-4ac7-92ea-db27875d3499</sourceId>
+                <destinationId>62b40c2e-0305-4323-9642-e2232a1a179c</destinationId>
+                <sourceRelationship>IMAGE</sourceRelationship>
+            </connection>
+            <connection>
+                <id>5f9745fb-54f9-4b2d-9423-54ec352a5252</id>
+                <name>RouteByFileType → PrepareUpload (DOC)</name>
+                <sourceId>a7296165-a42e-4ac7-92ea-db27875d3499</sourceId>
+                <destinationId>62b40c2e-0305-4323-9642-e2232a1a179c</destinationId>
+                <sourceRelationship>DOCUMENT</sourceRelationship>
+            </connection>
+            <connection>
+                <id>f2d2d4db-c29d-4a0d-9062-0f270d7b4f19</id>
+                <name>PrepareUpload → InvokeSP02</name>
+                <sourceId>62b40c2e-0305-4323-9642-e2232a1a179c</sourceId>
+                <destinationId>50727e2f-1c96-4fe5-821c-c5d7293df923</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>43d4d78c-edb2-4e18-9593-f588733ba129</id>
+                <name>InvokeSP02 → ParseResponse</name>
+                <sourceId>50727e2f-1c96-4fe5-821c-c5d7293df923</sourceId>
+                <destinationId>8c07002e-60d1-42d3-b35c-249fc832d448</destinationId>
+                <sourceRelationship>Response</sourceRelationship>
+            </connection>
+            <connection>
+                <id>430e91ad-a284-47c6-b8d8-8a5f95aa2034</id>
+                <name>ParseResponse → ExtractStructured</name>
+                <sourceId>8c07002e-60d1-42d3-b35c-249fc832d448</sourceId>
+                <destinationId>afb0c4a3-a76e-44ca-8f2c-fae7f645e056</destinationId>
+                <sourceRelationship>matched</sourceRelationship>
+            </connection>
+            <connection>
+                <id>1f7994d2-6ee5-479f-bda6-a6253e9eb15a</id>
+                <name>ExtractStructured → RouteByDocType</name>
+                <sourceId>afb0c4a3-a76e-44ca-8f2c-fae7f645e056</sourceId>
+                <destinationId>60fda199-b01f-4fa2-ad01-3262eefb5218</destinationId>
+                <sourceRelationship>matched</sourceRelationship>
+            </connection>
+            <connection>
+                <id>b6c9ec3d-c159-4a05-95e1-2fd7b863b9e9</id>
+                <name>RouteByDocType → SaveText (PLANIMETRIA)</name>
+                <sourceId>60fda199-b01f-4fa2-ad01-3262eefb5218</sourceId>
+                <destinationId>a715a656-fd7e-4641-b679-cc303f732503</destinationId>
+                <sourceRelationship>PLANIMETRIA</sourceRelationship>
+            </connection>
+            <connection>
+                <id>c5a61101-d967-4e2a-9e08-678a49cb379e</id>
+                <name>RouteByDocType → SaveText (RELAZIONE)</name>
+                <sourceId>60fda199-b01f-4fa2-ad01-3262eefb5218</sourceId>
+                <destinationId>a715a656-fd7e-4641-b679-cc303f732503</destinationId>
+                <sourceRelationship>RELAZIONE_TECNICA</sourceRelationship>
+            </connection>
+            <connection>
+                <id>276d7049-822b-44da-a33f-a5576902559c</id>
+                <name>RouteByDocType → SaveText (ALTRO)</name>
+                <sourceId>60fda199-b01f-4fa2-ad01-3262eefb5218</sourceId>
+                <destinationId>a715a656-fd7e-4641-b679-cc303f732503</destinationId>
+                <sourceRelationship>ALTRO</sourceRelationship>
+            </connection>
+            <connection>
+                <id>99716bd8-1eca-42e4-bf75-d92bc2a317f5</id>
+                <name>SaveText → StoreMinIO</name>
+                <sourceId>a715a656-fd7e-4641-b679-cc303f732503</sourceId>
+                <destinationId>2cab2b72-fef9-4b80-b6e0-86d420c77551</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>7eaa9079-1354-48ad-9602-f663c585117e</id>
+                <name>StoreMinIO → LogSuccess</name>
+                <sourceId>2cab2b72-fef9-4b80-b6e0-86d420c77551</sourceId>
+                <destinationId>7cfb6a0d-9b42-4926-9bca-b9ebca3f4298</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+        </connections>
+
+    </snippet>
+</template>

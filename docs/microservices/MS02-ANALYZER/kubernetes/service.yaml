@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms02-analyzer-service
+  namespace: zen-ia
+spec:
+  selector:
+    app: ms02-analyzer
+  ports:
+  - port: 8002
+    targetPort: 8002
+  type: ClusterIP

@@ -1,0 +1,1367 @@
+{
+  "info": {
+    "name": "ZenIA API Collection",
+    "description": "Collection completa per testare e controllare tutti i servizi del progetto ZenIA - Architettura aggiornata con 11 template NiFi e Registry versioning. SP01 EML Parser completamente implementato con parsing email, estrazione allegati, validazione PEC e classificazione AI.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "provvedimento-assistant-v2",
+    "version": "2.1.0",
+    "updatedAt": "2025-11-04T12:00:00.000Z"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "localhost",
+      "type": "string"
+    },
+    {
+      "key": "nifi_user",
+      "value": "admin",
+      "type": "string"
+    },
+    {
+      "key": "nifi_password",
+      "value": "adminadminadmin",
+      "type": "string"
+    },
+    {
+      "key": "postgres_password",
+      "value": "postgrespassword",
+      "type": "string"
+    },
+    {
+      "key": "bucket_id",
+      "value": "cde1eb8b-e5b2-4914-be83-33d6890b04cd",
+      "type": "string"
+    },
+    {
+      "key": "bucket_name",
+      "value": "ProvvedimentoAssistant",
+      "type": "string"
+    },
+    {
+      "key": "nifi_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "registry_url",
+      "value": "http://localhost:18080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Checks",
+      "item": [
+        {
+          "name": "NiFi Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:8080/nifi-api/flow/status",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "8080",
+              "path": ["nifi-api", "flow", "status"]
+            },
+            "description": "Verifica lo stato generale del flow in NiFi"
+          }
+        },
+        {
+          "name": "NiFi System Diagnostics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:8080/nifi-api/system-diagnostics",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "8080",
+              "path": ["nifi-api", "system-diagnostics"]
+            },
+            "description": "Diagnostica completa del sistema NiFi"
+          }
+        },
+        {
+          "name": "NiFi Registry Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:18080/nifi-registry-api/buckets",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "18080",
+              "path": ["nifi-registry-api", "buckets"]
+            },
+            "description": "Verifica connessione a NiFi Registry"
+          }
+        },
+        {
+          "name": "PostgreSQL Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:5432/",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5432",
+              "path": [""]
+            },
+            "description": "Test connessione PostgreSQL (potrebbe richiedere autenticazione)"
+          }
+        },
+        {
+          "name": "Redis Ping",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:6379/",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "6379",
+              "path": [""]
+            },
+            "description": "Test connessione Redis"
+          }
+        },
+        {
+          "name": "Neo4j Status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bmVvNGo6bmVvNGpwYXNzd29yZA==",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://{{base_url}}:7474/db/neo4j/tx/commit",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "7474",
+              "path": ["db", "neo4j", "tx", "commit"]
+            },
+            "description": "Test connessione Neo4j"
+          }
+        },
+        {
+          "name": "MinIO Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:9000/minio/health/ready",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "9000",
+              "path": ["minio", "health", "ready"]
+            },
+            "description": "Verifica stato MinIO"
+          }
+        },
+        {
+          "name": "SP01 EML Parser",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:5001/health",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5001",
+              "path": ["health"]
+            },
+            "description": "Test servizio SP01 EML Parser - Parsing email completo con estrazione allegati, validazione PEC e classificazione AI"
+          }
+        },
+        {
+          "name": "SP02 Document Extractor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:5002/health",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5002",
+              "path": ["health"]
+            },
+            "description": "Test servizio SP02 Document Extractor"
+          }
+        },
+        {
+          "name": "SP03 Procedural Classifier",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:5003/health",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5003",
+              "path": ["health"]
+            },
+            "description": "Test servizio SP03 Procedural Classifier"
+          }
+        },
+        {
+          "name": "SP04 Knowledge Base",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:5004/health",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5004",
+              "path": ["health"]
+            },
+            "description": "Test servizio SP04 Knowledge Base"
+          }
+        },
+        {
+          "name": "SP03 Knowledge Base",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:5003/health",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5003",
+              "path": ["health"]
+            },
+            "description": "Test servizio SP03 Knowledge Base"
+          }
+        },
+        {
+          "name": "HITL Manager",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:5009/health",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5009",
+              "path": ["health"]
+            },
+            "description": "Test servizio HITL Manager"
+          }
+        }
+      ]
+    },
+    {
+      "name": "NiFi Templates Management",
+      "item": [
+        {
+          "name": "List All Templates",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{nifi_url}}/nifi-api/flow/templates",
+              "host": ["{{nifi_url}}"],
+              "path": ["nifi-api", "flow", "templates"]
+            },
+            "description": "Lista tutti i template caricati in NiFi (11 template disponibili)"
+          }
+        },
+        {
+          "name": "Get Template Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{nifi_url}}/nifi-api/templates/{template_id}",
+              "host": ["{{nifi_url}}"],
+              "path": ["nifi-api", "templates", "{template_id}"]
+            },
+            "description": "Ottieni dettagli di un template specifico (sostituisci {template_id})"
+          }
+        },
+        {
+          "name": "Upload Template",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "template",
+                  "type": "file",
+                  "src": "nifi-templates/SP01-EML-Parser.xml"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{nifi_url}}/nifi-api/process-groups/root/templates/upload",
+              "host": ["{{nifi_url}}"],
+              "path": ["nifi-api", "process-groups", "root", "templates", "upload"]
+            },
+            "description": "Carica un nuovo template XML in NiFi"
+          }
+        },
+        {
+          "name": "Delete Template",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{nifi_url}}/nifi-api/templates/{template_id}",
+              "host": ["{{nifi_url}}"],
+              "path": ["nifi-api", "templates", "{template_id}"]
+            },
+            "description": "Elimina un template (sostituisci {template_id})"
+          }
+        },
+        {
+          "name": "Download Template",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{nifi_url}}/nifi-api/templates/{template_id}/download",
+              "host": ["{{nifi_url}}"],
+              "path": ["nifi-api", "templates", "{template_id}", "download"]
+            },
+            "description": "Scarica un template in formato XML (sostituisci {template_id})"
+          }
+        },
+        {
+          "name": "Instantiate Template - SP01",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"originX\": 200.0,\n  \"originY\": 200.0,\n  \"templateId\": \"{sp01_template_id}\"\n}"
+            },
+            "url": {
+              "raw": "{{nifi_url}}/nifi-api/process-groups/root/template-instance",
+              "host": ["{{nifi_url}}"],
+              "path": ["nifi-api", "process-groups", "root", "template-instance"]
+            },
+            "description": "Crea un Process Group dal template SP01_EML_Parser (sostituisci {sp01_template_id})"
+          }
+        },
+        {
+          "name": "Instantiate Template - SP02",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"originX\": 400.0,\n  \"originY\": 200.0,\n  \"templateId\": \"{sp02_template_id}\"\n}"
+            },
+            "url": {
+              "raw": "{{nifi_url}}/nifi-api/process-groups/root/template-instance",
+              "host": ["{{nifi_url}}"],
+              "path": ["nifi-api", "process-groups", "root", "template-instance"]
+            },
+            "description": "Crea un Process Group dal template SP02_Document_Extractor (sostituisci {sp02_template_id})"
+          }
+        },
+        {
+          "name": "Instantiate Template - Orchestrator",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"originX\": 600.0,\n  \"originY\": 200.0,\n  \"templateId\": \"{orchestrator_template_id}\"\n}"
+            },
+            "url": {
+              "raw": "{{nifi_url}}/nifi-api/process-groups/root/template-instance",
+              "host": ["{{nifi_url}}"],
+              "path": ["nifi-api", "process-groups", "root", "template-instance"]
+            },
+            "description": "Crea un Process Group dal template WORKFLOW-GLOBALE-Orchestrator (sostituisci {orchestrator_template_id})"
+          }
+        }
+      ]
+    },
+    {
+      "name": "NiFi API",
+      "item": [
+        {
+          "name": "Get Root Process Group",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:8080/nifi-api/flow/process-groups/root",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "8080",
+              "path": ["nifi-api", "flow", "process-groups", "root"]
+            },
+            "description": "Ottieni informazioni sul process group root"
+          }
+        },
+        {
+          "name": "List All Processors",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:8080/nifi-api/flow/process-groups/root/processors",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "8080",
+              "path": ["nifi-api", "flow", "process-groups", "root", "processors"]
+            },
+            "description": "Lista tutti i processor nel process group root"
+          }
+        },
+        {
+          "name": "Create Process Group",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"revision\": {\n    \"version\": 0\n  },\n  \"component\": {\n    \"name\": \"SP00-ProcessGroup\",\n    \"position\": {\n      \"x\": 0,\n      \"y\": 0\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:8080/nifi-api/process-groups/root/process-groups",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "8080",
+              "path": ["nifi-api", "process-groups", "root", "process-groups"]
+            },
+            "description": "Crea un nuovo process group"
+          }
+        },
+        {
+          "name": "Start Processor",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"revision\": {\n    \"version\": 0\n  },\n  \"component\": {\n    \"state\": \"RUNNING\"\n  }\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:8080/nifi-api/processors/{processor_id}",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "8080",
+              "path": ["nifi-api", "processors", "{processor_id}"]
+            },
+            "description": "Avvia un processor specifico (sostituisci {processor_id})"
+          }
+        },
+        {
+          "name": "Stop Processor",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"revision\": {\n    \"version\": 0\n  },\n  \"component\": {\n    \"state\": \"STOPPED\"\n  }\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:8080/nifi-api/processors/{processor_id}",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "8080",
+              "path": ["nifi-api", "processors", "{processor_id}"]
+            },
+            "description": "Ferma un processor specifico (sostituisci {processor_id})"
+          }
+        },
+        {
+          "name": "Trigger Processor Execution",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:8080/nifi-api/processors/{processor_id}/threads",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "8080",
+              "path": ["nifi-api", "processors", "{processor_id}", "threads"]
+            },
+            "description": "Triggera esecuzione manuale di un processor (sostituisci {processor_id})"
+          }
+        },
+        {
+          "name": "Get Processor Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:8080/nifi-api/processors/{processor_id}",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "8080",
+              "path": ["nifi-api", "processors", "{processor_id}"]
+            },
+            "description": "Ottieni lo stato di un processor specifico (sostituisci {processor_id})"
+          }
+        },
+        {
+          "name": "Create Flow File",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attributes\": {\n    \"filename\": \"test-input.json\"\n  },\n  \"content\": \"{\\\"message\\\": \\\"Test data for SP00\\\", \\\"timestamp\\\": \\\"{{timestamp}}\\\"}\"\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:8080/nifi-api/process-groups/{process_group_id}/flowfiles",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "8080",
+              "path": ["nifi-api", "process-groups", "{process_group_id}", "flowfiles"]
+            },
+            "description": "Crea un flow file programmaticamente in un process group (sostituisci {process_group_id})"
+          }
+        }
+      ]
+    },
+    {
+      "name": "NiFi Registry API",
+      "item": [
+        {
+          "name": "List Buckets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:18080/nifi-registry-api/buckets",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "18080",
+              "path": ["nifi-registry-api", "buckets"]
+            },
+            "description": "Lista tutti i bucket in NiFi Registry"
+          }
+        },
+        {
+          "name": "Get Bucket Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:18080/nifi-registry-api/buckets/{{bucket_id}}",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "18080",
+              "path": ["nifi-registry-api", "buckets", "{{bucket_id}}"]
+            },
+            "description": "Ottieni dettagli del bucket specifico"
+          }
+        },
+        {
+          "name": "List Flows in Bucket",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:18080/nifi-registry-api/buckets/{{bucket_id}}/flows",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "18080",
+              "path": ["nifi-registry-api", "buckets", "{{bucket_id}}", "flows"]
+            },
+            "description": "Lista tutti i flow nel bucket"
+          }
+        },
+        {
+          "name": "Get Flow Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:18080/nifi-registry-api/buckets/{{bucket_id}}/flows/{flow_id}",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "18080",
+              "path": ["nifi-registry-api", "buckets", "{{bucket_id}}", "flows", "{flow_id}"]
+            },
+            "description": "Ottieni dettagli di un flow specifico (sostituisci {flow_id})"
+          }
+        },
+        {
+          "name": "Download Flow Version",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:18080/nifi-registry-api/buckets/{{bucket_id}}/flows/{flow_id}/versions/{version}",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "18080",
+              "path": ["nifi-registry-api", "buckets", "{{bucket_id}}", "flows", "{flow_id}", "versions", "{version}"]
+            },
+            "description": "Scarica una versione specifica di un flow (sostituisci {flow_id} e {version})"
+          }
+        },
+        {
+          "name": "Create New Flow",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Flow\",\n  \"description\": \"Descrizione del nuovo flow\"\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:18080/nifi-registry-api/buckets/{{bucket_id}}/flows",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "18080",
+              "path": ["nifi-registry-api", "buckets", "{{bucket_id}}", "flows"]
+            },
+            "description": "Crea un nuovo flow nel bucket"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Database Services",
+      "item": [
+        {
+          "name": "PostgreSQL Connection Test",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"SELECT version();\"\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:5432/query",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5432",
+              "path": ["query"]
+            },
+            "description": "Test connessione PostgreSQL (richiede pgAdmin o client specifico)"
+          }
+        },
+        {
+          "name": "Redis Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:6379/info",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "6379",
+              "path": ["info"]
+            },
+            "description": "Ottieni informazioni su Redis"
+          }
+        },
+        {
+          "name": "Neo4j Cypher Query",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic bmVvNGo6bmVvNGpwYXNzd29yZA==",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"statements\": [\n    {\n      \"statement\": \"MATCH (n) RETURN count(n) as nodeCount\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:7474/db/neo4j/tx/commit",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "7474",
+              "path": ["db", "neo4j", "tx", "commit"]
+            },
+            "description": "Esegui query Cypher su Neo4j"
+          }
+        }
+      ]
+    },
+    {
+      "name": "SP01 EML Parser API",
+      "item": [
+        {
+          "name": "SP01 - Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:5001/health",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5001",
+              "path": ["health"]
+            },
+            "description": "Health check del servizio SP01 con informazioni su Groq AI e directory allegati"
+          }
+        },
+        {
+          "name": "SP01 - Service Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:5001/",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5001",
+              "path": [""]
+            },
+            "description": "Informazioni complete sul servizio SP01 e capabilities disponibili"
+          }
+        },
+        {
+          "name": "SP01 - Parse EML Content",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eml_content\": \"RnJvbTogc2VuZGVyQGV4YW1wbGUuY29tClRvOiByZWNpcGllbnRAZXhhbXBsZS5jb20KU3ViamVjdDogUmljaGllc3RhIGF1dG9yaXp6YXppb25lIHNjYXJpY28gYWNxdWUKRGF0ZTogTW9uLCA0IE5vdiAyMDI1IDEyOjAwOjAwICswMDAwCgoKSWxjb21tdW5lIHJpY2hpZWRlIGxhIHJpY2hpZXN0YSBkaSBhdXRvcml6emF6aW9uZSBwZXIgc2NhcmljbyBhY3F1ZSByZWZsdWUgc2Vjb25kbyBsZSBub3JtYXRpdmUgZWNvbG9naWNoZS4=\",\n  \"workflow_id\": \"wf_env_001\"\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:5001/parse",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5001",
+              "path": ["parse"]
+            },
+            "description": "Parsing completo email EML - Estrae metadata, corpo, allegati, valida PEC e classifica con AI"
+          }
+        },
+        {
+          "name": "SP01 - Parse EML File Upload",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [],
+                  "description": "Seleziona un file .eml da uploadare"
+                },
+                {
+                  "key": "workflow_id",
+                  "value": "wf_upload_test",
+                  "type": "text",
+                  "description": "ID workflow opzionale per tracking"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://{{base_url}}:5001/parse-file",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5001",
+              "path": ["parse-file"]
+            },
+            "description": "Upload diretto di file .eml per parsing completo con estrazione allegati"
+          }
+        },
+        {
+          "name": "SP01 - Get Email Attachments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:5001/attachments/{email_id}",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5001",
+              "path": ["attachments", "{email_id}"]
+            },
+            "description": "Recupera lista allegati per un'email specifica (sostituisci {email_id} con ID restituito da /parse)"
+          }
+        },
+        {
+          "name": "SP01 - FastAPI Documentation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:5001/docs",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5001",
+              "path": ["docs"]
+            },
+            "description": "Documentazione interattiva FastAPI per SP01 con schema OpenAPI completo"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Microservices API (Direct)",
+      "item": [
+        {
+          "name": "SP02 - Extract Document",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_url\": \"http://example.com/document.pdf\",\n  \"extract_metadata\": true\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:5002/extract",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5002",
+              "path": ["extract"]
+            },
+            "description": "Estrae contenuto e metadata da un documento usando SP02"
+          }
+        },
+        {
+          "name": "SP03 - Classify Procedural",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_text\": \"Delibera comunale per autorizzazione scarico acque\",\n  \"classification_type\": \"procedural\"\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:5003/classify",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5003",
+              "path": ["classify"]
+            },
+            "description": "Classifica un documento procedurale usando SP03"
+          }
+        },
+        {
+          "name": "SP04 - Query Knowledge Base",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"normativa scarico acque reflue\",\n  \"filters\": {\n    \"document_type\": \"provvedimento\"\n  }\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:5004/query",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5004",
+              "path": ["query"]
+            },
+            "description": "Interroga la knowledge base usando SP04"
+          }
+        }
+      ]
+    },
+    {
+      "name": "NiFi Flows (via ListenHTTP)",
+      "item": [
+        {
+          "name": "SP01 - Parse EML (via NiFi)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eml_content\": \"RnJvbTogc2VuZGVyQGV4YW1wbGUuY29tClRvOiByZWNpcGllbnRAZXhhbXBsZS5jb20KU3ViamVjdDogUHJvdm9lZGltZW50byBBdXRvcml6emF6aW9uZSBTY2FyaWNvCkRhdGU6IE1vbiwgNCBOb3YyMDI1IDEyOjAwOjAwICswMDAwCgoKUmVxdWVzdGEgYXV0b3JpemrDr2U=\",\n  \"workflow_id\": \"wf_nifi_001\"\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:9091/sp01",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "9091",
+              "path": ["sp01"]
+            },
+            "description": "Invoca il flow NiFi SP01 tramite ListenHTTP - Parsing email completo integrato nel workflow NiFi (porta 9091)"
+          }
+        },
+        {
+          "name": "SP02 - Document Extractor (via NiFi)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_content\": \"Contenuto del documento da estrarre\",\n  \"filename\": \"documento.pdf\"\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:9092/sp02",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "9092",
+              "path": ["sp02"]
+            },
+            "description": "Invoca il flow NiFi SP02 tramite ListenHTTP (porta 9092)"
+          }
+        },
+        {
+          "name": "SP03 - Procedural Classifier (via NiFi)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workflow_id\": \"wf_123\",\n  \"istanza_metadata\": {\n    \"oggetto\": \"Richiesta autorizzazione\",\n    \"richiedente\": {\n      \"tipo\": \"PERSONA_FISICA\",\n      \"denominazione\": \"Mario Rossi\"\n    },\n    \"descrizione_istanza\": \"Richiesta di autorizzazione per...\"\n  }\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:9093/sp03",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "9093",
+              "path": ["sp03"]
+            },
+            "description": "Invoca il flow NiFi SP03 tramite ListenHTTP (porta 9093)"
+          }
+        },
+        {
+          "name": "SP04 - Knowledge Base (via NiFi)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"normativa ambientale\",\n  \"context\": \"autorizzazione scarico acque\"\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:9094/sp04",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "9094",
+              "path": ["sp04"]
+            },
+            "description": "Invoca il flow NiFi SP04 tramite ListenHTTP (porta 9094)"
+          }
+        },
+        {
+          "name": "SP05 - Template Engine (via NiFi)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"template_type\": \"provvedimento_autorizzazione\",\n  \"metadata\": {\n    \"richiedente\": \"Mario Rossi\",\n    \"oggetto\": \"Autorizzazione scarico acque\",\n    \"normativa\": \"D.Lgs. 152/2006\"\n  }\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:9095/sp05",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "9095",
+              "path": ["sp05"]
+            },
+            "description": "Invoca il flow NiFi SP05 tramite ListenHTTP (porta 9095)"
+          }
+        },
+        {
+          "name": "SP06 - Validator (via NiFi)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_content\": \"Testo del documento da validare\",\n  \"validation_rules\": [\"sintassi\", \"conformita_normativa\"]\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:9096/sp06",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "9096",
+              "path": ["sp06"]
+            },
+            "description": "Invoca il flow NiFi SP06 tramite ListenHTTP (porta 9096)"
+          }
+        },
+        {
+          "name": "SP07 - Content Classifier (via NiFi)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text_content\": \"Contenuto del documento da classificare\",\n  \"document_type\": \"provvedimento\"\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:9097/sp07",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "9097",
+              "path": ["sp07"]
+            },
+            "description": "Invoca il flow NiFi SP07 tramite ListenHTTP (porta 9097)"
+          }
+        },
+        {
+          "name": "SP08 - Quality Checker (via NiFi)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_content\": \"Testo del documento da controllare\",\n  \"quality_checks\": [\"grammatica\", \"completezza\", \"coerenza\"]\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:9098/sp08",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "9098",
+              "path": ["sp08"]
+            },
+            "description": "Invoca il flow NiFi SP08 tramite ListenHTTP (porta 9098)"
+          }
+        },
+        {
+          "name": "SP11 - Security Audit (via NiFi)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event_type\": \"document_access\",\n  \"user_id\": \"user123\",\n  \"document_id\": \"doc456\",\n  \"action\": \"read\",\n  \"timestamp\": \"2025-11-03T10:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:9101/sp11",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "9101",
+              "path": ["sp11"]
+            },
+            "description": "Invoca il flow NiFi SP11 tramite ListenHTTP (porta 9101)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Application Services",
+      "item": [
+        {
+          "name": "SP03 - Classify Document",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_text\": \"Testo del documento da classificare\",\n  \"document_type\": \"provvedimento\"\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:5003/classify",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5003",
+              "path": ["classify"]
+            },
+            "description": "Classifica un documento usando SP03 Knowledge Base"
+          }
+        },
+        {
+          "name": "HITL - Create Review Task",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"task_type\": \"document_review\",\n  \"document_id\": \"doc_123\",\n  \"priority\": \"high\",\n  \"reviewer_notes\": \"Richiesta revisione manuale\"\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:5009/tasks",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "5009",
+              "path": ["tasks"]
+            },
+            "description": "Crea un task di revisione umana nel sistema HITL"
+          }
+        },
+        {
+          "name": "MinIO - List Buckets",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWluaW9hZG1pbjptaW5pb2FkbWlu",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://{{base_url}}:9000/",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "9000",
+              "path": [""]
+            },
+            "description": "Lista i bucket in MinIO (credenziali: minioadmin/minioadmin)"
+          }
+        },
+        {
+          "name": "Gotenberg - Convert HTML to PDF",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data; boundary=----WebKitFormBoundary"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "files",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "html",
+                  "value": "<html><body><h1>Test PDF</h1><p>Generato da Gotenberg</p></body></html>",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://{{base_url}}:3000/forms/chromium/convert/html",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "3000",
+              "path": ["forms", "chromium", "convert", "html"]
+            },
+            "description": "Converti HTML in PDF usando Gotenberg"
+          }
+        }
+      ]
+    },
+    {
+      "name": "SP00 Specific Operations",
+      "item": [
+        {
+          "name": "Check SP00 Flow Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:18080/nifi-registry-api/buckets/{{bucket_id}}/flows/0ad30469-f97d-4bf0-b674-cd5a38c772d9",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "18080",
+              "path": ["nifi-registry-api", "buckets", "{{bucket_id}}", "flows", "0ad30469-f97d-4bf0-b674-cd5a38c772d9"]
+            },
+            "description": "Verifica lo stato del flow SP00 in Registry"
+          }
+        },
+        {
+          "name": "Download SP00 Latest Version",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{base_url}}:18080/nifi-registry-api/buckets/{{bucket_id}}/flows/0ad30469-f97d-4bf0-b674-cd5a38c772d9/versions/latest",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "18080",
+              "path": ["nifi-registry-api", "buckets", "{{bucket_id}}", "flows", "0ad30469-f97d-4bf0-b674-cd5a38c772d9", "versions", "latest"]
+            },
+            "description": "Scarica l'ultima versione del flow SP00"
+          }
+        },
+        {
+          "name": "Trigger SP00 Classification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attributes\": {\n    \"filename\": \"sp00-trigger.json\",\n    \"mime.type\": \"application/json\"\n  },\n  \"content\": \"{\\\"document\\\": \\\"Test document for procedural classification\\\", \\\"type\\\": \\\"provvedimento\\\", \\\"priority\\\": \\\"high\\\"}\"\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}:8080/nifi-api/process-groups/{sp00_process_group_id}/flowfiles",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "port": "8080",
+              "path": ["nifi-api", "process-groups", "{sp00_process_group_id}", "flowfiles"]
+            },
+            "description": "Triggera SP00 creando un flow file con dati da classificare (sostituisci {sp00_process_group_id})"
+          }
+        }
+      ]
+    }
+  ]
+}

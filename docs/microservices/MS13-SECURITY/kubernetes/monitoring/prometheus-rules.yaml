@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: ms13-security-keycloak-alerts
+  namespace: zenia
+spec:
+  groups:
+  - name: ms13-security-keycloak
+    rules:
+    - alert: KeycloakDown
+      expr: up{job="ms13-security-keycloak"} == 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Keycloak is down"
+        description: "Keycloak is not reachable for more than 5 minutes."
+    - alert: KeycloakLoginErrors
+      expr: increase(keycloak_failed_login_attempts_total[5m]) > 10
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "High login error rate"
+        description: "Keycloak failed login attempts > 10 in 5m."

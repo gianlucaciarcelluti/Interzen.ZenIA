@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms15-config-config
+  namespace: zenia
+data:
+  app.conf: |
+    # Configurazione API Config
+    db_url: postgresql://config:$(DB_PASSWORD)@ms15-config-db:5432/config
+    redis_url: redis://:$(REDIS_PASSWORD)@ms15-config-redis:6379/0
+    config_retention_days: 730
+    # ...altre configurazioni...

@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms13-security-keycloak
+  namespace: zenia
+  labels:
+    app: ms13-security-keycloak
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ms13-security-keycloak
+  template:
+    metadata:
+      labels:
+        app: ms13-security-keycloak
+    spec:
+      containers:
+      - name: keycloak
+        image: quay.io/keycloak/keycloak:22.0.5
+        args: ["start"]
+        ports:
+        - containerPort: 8080
+        - containerPort: 8443
+        env:
+        - name: KEYCLOAK_ADMIN
+          valueFrom:
+            secretKeyRef:
+              name: ms13-security-secrets
+              key: admin-user
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ms13-security-secrets
+              key: admin-password
+        - name: KC_DB
+          value: postgres
+        - name: KC_DB_URL
+          value: jdbc:postgresql://ms13-security-db:5432/keycloak
+        - name: KC_DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: ms13-security-secrets
+              key: db-user
+        - name: KC_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ms13-security-secrets
+              key: db-password
+        - name: KC_HOSTNAME
+          value: ms13-security-keycloak.zenia.svc.cluster.local
+        - name: KC_HTTPS_CERTIFICATE_FILE
+          value: /tls/keycloak.crt
+        - name: KC_HTTPS_CERTIFICATE_KEY_FILE
+          value: /tls/keycloak.key
+        volumeMounts:
+        - name: tls
+          mountPath: /tls
+          readOnly: true
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+      volumes:
+      - name: tls
+        secret:
+          secretName: ms13-security-secrets
+          items:
+            - key: tls-cert
+              path: keycloak.crt
+            - key: tls-key
+              path: keycloak.key
+      automountServiceAccountToken: false

@@ -1,0 +1,46 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "up",
+          "job": "zenia-microservices",
+          "service": "ms01-classifier",
+          "instance": "10.0.1.15:8080",
+          "tenant_id": "tenant-pa-roma"
+        },
+        "value": [1642159200, "1"]
+      },
+      {
+        "metric": {
+          "__name__": "up",
+          "job": "zenia-microservices",
+          "service": "ms02-analyzer",
+          "instance": "10.0.1.16:8080",
+          "tenant_id": "tenant-pa-roma"
+        },
+        "value": [1642159200, "1"]
+      },
+      {
+        "metric": {
+          "__name__": "http_requests_total",
+          "method": "POST",
+          "status": "200",
+          "service": "ms01-classifier",
+          "endpoint": "/api/v1/classify",
+          "tenant_id": "tenant-pa-roma"
+        },
+        "value": [1642159200, "1250"]
+      }
+    ]
+  },
+  "stats": {
+    "timings": {
+      "evalTotalTime": 0.001,
+      "resultSortTime": 0.0001,
+      "queryPreparationTime": 0.0002
+    }
+  }
+}

@@ -1,0 +1,6 @@
+--
+-- MS03 - Orchestrator Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for orchestrator database
+-- No SQL code as per instructions, only diagrams in documentation
+--

@@ -1,0 +1,6 @@
+--
+-- MS15 - Config Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for config database
+-- No SQL code as per instructions, only diagrams in documentation
+--

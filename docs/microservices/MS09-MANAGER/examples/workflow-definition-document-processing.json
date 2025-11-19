@@ -1,0 +1,406 @@
+{
+  "$schema": "https://zenia.local/schemas/workflow-definition-v1.0.json",
+  "id": "document-processing-workflow",
+  "version": "1.0.0",
+  "name": "Workflow Elaborazione Documenti PA",
+  "description": "Workflow completo per l'elaborazione di documenti amministrativi nella Pubblica Amministrazione",
+  "metadata": {
+    "author": "Architetto Workflow PA",
+    "created": "2024-01-15T10:00:00Z",
+    "tags": ["documenti", "pa", "elaborazione", "amministrativo"],
+    "category": "business-process",
+    "compliance": ["GDPR", "AGID"],
+    "estimated_duration": "30m"
+  },
+  "variables": {
+    "document_id": {
+      "type": "string",
+      "required": true,
+      "description": "ID univoco del documento nel sistema documentale",
+      "validation": {
+        "pattern": "^DOC-[0-9]{4}-[0-9]{6}-[A-Z]{3}$"
+      }
+    },
+    "tenant_id": {
+      "type": "string",
+      "required": true,
+      "description": "ID del tenant/amministrazione",
+      "default": "tenant-pa-generico"
+    },
+    "priority": {
+      "type": "enum",
+      "values": ["low", "normal", "high", "critical"],
+      "default": "normal",
+      "description": "Priorità di elaborazione del documento"
+    },
+    "document_type": {
+      "type": "enum",
+      "values": ["provvedimento", "autorizzazione", "certificato", "istanza"],
+      "description": "Tipo di documento amministrativo"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "ID dell'utente che ha avviato il processo"
+    },
+    "correlation_id": {
+      "type": "string",
+      "description": "ID di correlazione per tracing end-to-end"
+    }
+  },
+  "steps": [
+    {
+      "id": "initial_validation",
+      "name": "Validazione Iniziale Documento",
+      "type": "service_call",
+      "description": "Valida formato, integrità e metadati del documento",
+      "service": "ms04-validator",
+      "action": "validate_document",
+      "parameters": {
+        "document_id": "${variables.document_id}",
+        "validation_rules": ["format_check", "integrity_check", "metadata_validation"],
+        "tenant_id": "${variables.tenant_id}"
+      },
+      "timeout": "60s",
+      "retry": {
+        "max_attempts": 3,
+        "backoff": {
+          "type": "exponential",
+          "initial_delay": "1s",
+          "max_delay": "30s"
+        }
+      },
+      "on_success": {
+        "next": "classification"
+      },
+      "on_failure": {
+        "action": "fail_workflow",
+        "error_code": "VALIDATION_FAILED",
+        "error_message": "Validazione iniziale documento fallita"
+      }
+    },
+    {
+      "id": "parallel_processing",
+      "name": "Elaborazione Parallela",
+      "type": "parallel",
+      "description": "Esegue classificazione e analisi del contenuto in parallelo",
+      "branches": [
+        {
+          "id": "classification_branch",
+          "name": "Ramo Classificazione",
+          "steps": [
+            {
+              "id": "classification",
+              "name": "Classificazione Automatica Documento",
+              "type": "service_call",
+              "description": "Classifica il documento usando AI/ML",
+              "service": "ms01-classifier",
+              "action": "classify",
+              "depends_on": ["initial_validation"],
+              "parameters": {
+                "document_content": "${steps.initial_validation.output.content}",
+                "classification_model": "pa-documents-v2",
+                "confidence_threshold": 0.8,
+                "categories": ["provvedimento", "autorizzazione", "certificato", "istanza"]
+              },
+              "timeout": "120s",
+              "on_success": {
+                "set_variables": {
+                  "document_type": "${output.classification.category}",
+                  "classification_confidence": "${output.confidence}"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "analysis_branch",
+          "name": "Ramo Analisi",
+          "steps": [
+            {
+              "id": "content_analysis",
+              "name": "Analisi Contenuto Documento",
+              "type": "service_call",
+              "description": "Estrae entità e metadati dal contenuto",
+              "service": "ms02-analyzer",
+              "action": "analyze",
+              "depends_on": ["initial_validation"],
+              "parameters": {
+                "text_content": "${steps.initial_validation.output.text}",
+                "analysis_type": "semantic",
+                "extract_entities": true,
+                "language": "it"
+              },
+              "timeout": "180s"
+            }
+          ]
+        }
+      ],
+      "join_type": "all_success",
+      "join_timeout": "300s"
+    },
+    {
+      "id": "decision_point",
+      "name": "Punto Decisione Elaborazione",
+      "type": "decision",
+      "description": "Decide il flusso successivo basato sulla confidenza della classificazione",
+      "depends_on": ["parallel_processing"],
+      "conditions": [
+        {
+          "expression": "${steps.classification.output.confidence} >= 0.9",
+          "next": "auto_approval",
+          "description": "Alta confidenza - approvazione automatica"
+        },
+        {
+          "expression": "${steps.classification.output.confidence} >= 0.7",
+          "next": "manual_review",
+          "description": "Media confidenza - revisione manuale"
+        }
+      ],
+      "default_next": "expert_review",
+      "default_description": "Bassa confidenza - revisione esperta"
+    },
+    {
+      "id": "auto_approval",
+      "name": "Approvazione Automatica",
+      "type": "service_call",
+      "description": "Approva automaticamente documenti ad alta confidenza",
+      "service": "ms03-orchestrator",
+      "action": "approve_document",
+      "depends_on": ["decision_point"],
+      "parameters": {
+        "document_id": "${variables.document_id}",
+        "approval_reason": "Classificazione automatica ad alta confidenza",
+        "approved_by": "system"
+      },
+      "timeout": "30s"
+    },
+    {
+      "id": "manual_review",
+      "name": "Revisione Manuale",
+      "type": "human_task",
+      "description": "Assegna task di revisione a operatore umano",
+      "depends_on": ["decision_point"],
+      "assignee_group": "document_reviewers",
+      "priority": "${variables.priority}",
+      "form_definition": {
+        "title": "Revisione Documento Amministrativo",
+        "description": "Si prega di revisionare il documento classificato automaticamente",
+        "fields": [
+          {
+            "id": "review_decision",
+            "type": "select",
+            "label": "Decisione di Revisione",
+            "required": true,
+            "options": [
+              {"value": "approve", "label": "Approva"},
+              {"value": "reject", "label": "Rifiuta"},
+              {"value": "escalate", "label": "Escala a supervisore"}
+            ]
+          },
+          {
+            "id": "review_comments",
+            "type": "textarea",
+            "label": "Commenti di Revisione",
+            "max_length": 1000,
+            "placeholder": "Inserire commenti sulla revisione..."
+          },
+          {
+            "id": "review_priority",
+            "type": "select",
+            "label": "Priorità di Revisione",
+            "options": [
+              {"value": "normal", "label": "Normale"},
+              {"value": "urgent", "label": "Urgente"},
+              {"value": "critical", "label": "Critica"}
+            ]
+          }
+        ]
+      },
+      "timeout": "24h",
+      "reminders": [
+        {"delay": "2h", "message": "Ricorda: documento in attesa di revisione"},
+        {"delay": "12h", "message": "Urgente: completare revisione documento"}
+      ],
+      "on_timeout": {
+        "action": "escalate",
+        "escalate_to": "supervisors"
+      }
+    },
+    {
+      "id": "expert_review",
+      "name": "Revisione Esperta",
+      "type": "human_task",
+      "description": "Assegna task di revisione a esperto di dominio",
+      "depends_on": ["decision_point"],
+      "assignee_group": "domain_experts",
+      "priority": "high",
+      "form_definition": {
+        "title": "Revisione Esperta Documento",
+        "description": "Documento richiede revisione da parte di esperto",
+        "fields": [
+          {
+            "id": "expert_analysis",
+            "type": "textarea",
+            "label": "Analisi Esperta",
+            "required": true,
+            "max_length": 2000
+          },
+          {
+            "id": "recommended_action",
+            "type": "select",
+            "label": "Azione Raccomandata",
+            "required": true,
+            "options": [
+              {"value": "approve", "label": "Approva"},
+              {"value": "reject", "label": "Rifiuta"},
+              {"value": "further_analysis", "label": "Richiede ulteriore analisi"}
+            ]
+          }
+        ]
+      },
+      "timeout": "48h"
+    },
+    {
+      "id": "final_processing",
+      "name": "Elaborazione Finale",
+      "type": "sequence",
+      "description": "Elabora il documento approvato per archiviazione",
+      "depends_on": ["auto_approval", "manual_review", "expert_review"],
+      "steps": [
+        {
+          "id": "transformation",
+          "name": "Trasformazione Documento",
+          "type": "service_call",
+          "service": "ms05-transformer",
+          "action": "transform_document",
+          "parameters": {
+            "document_id": "${variables.document_id}",
+            "target_format": "pdf_a",
+            "add_metadata": true,
+            "add_watermark": true
+          },
+          "timeout": "300s"
+        },
+        {
+          "id": "archival",
+          "name": "Archiviazione Documento",
+          "type": "service_call",
+          "service": "ms07-distributor",
+          "action": "archive_document",
+          "depends_on": ["transformation"],
+          "parameters": {
+            "document_id": "${variables.document_id}",
+            "archive_system": "documentale_pa",
+            "retention_period": "10_years",
+            "classification_level": "public"
+          },
+          "timeout": "120s"
+        }
+      ]
+    }
+  ],
+  "error_handling": {
+    "global_timeout": "60m",
+    "max_retries": 5,
+    "retry_backoff": {
+      "type": "exponential",
+      "initial_delay": "5s",
+      "max_delay": "5m"
+    },
+    "compensation_steps": [
+      {
+        "id": "cleanup_temp_files",
+        "service": "ms05-transformer",
+        "action": "cleanup_temp_files",
+        "parameters": {
+          "workflow_id": "${workflow.id}",
+          "tenant_id": "${variables.tenant_id}"
+        }
+      },
+      {
+        "id": "notify_failure",
+        "service": "ms07-distributor",
+        "action": "send_notification",
+        "parameters": {
+          "recipient": "${variables.user_id}",
+          "type": "workflow_failure",
+          "message": "Elaborazione documento ${variables.document_id} fallita",
+          "details": "${error.message}"
+        }
+      }
+    ]
+  },
+  "monitoring": {
+    "metrics": {
+      "enable_detailed_metrics": true,
+      "custom_metrics": [
+        {
+          "name": "document_processing_time",
+          "type": "histogram",
+          "description": "Tempo totale elaborazione documento",
+          "buckets": [60, 300, 600, 1800, 3600]
+        },
+        {
+          "name": "classification_confidence",
+          "type": "gauge",
+          "description": "Confidenza della classificazione automatica"
+        },
+        {
+          "name": "manual_review_rate",
+          "type": "counter",
+          "description": "Tasso di documenti che richiedono revisione manuale"
+        }
+      ]
+    },
+    "alerts": {
+      "enable_default_alerts": true,
+      "custom_alerts": [
+        {
+          "name": "SlowProcessingAlert",
+          "condition": "document_processing_time > 1800",
+          "severity": "warning",
+          "message": "Elaborazione documento lenta (>30 minuti)",
+          "channels": ["email", "slack"]
+        },
+        {
+          "name": "HighManualReviewRate",
+          "condition": "rate(manual_review_rate[1h]) > 0.8",
+          "severity": "warning",
+          "message": "Alto tasso di revisioni manuali (>80%)",
+          "channels": ["email", "pagerduty"]
+        }
+      ]
+    },
+    "tracing": {
+      "enable_distributed_tracing": true,
+      "trace_sampling_rate": 0.1,
+      "tags": {
+        "service": "ms09-manager",
+        "workflow_type": "document-processing",
+        "tenant": "${variables.tenant_id}"
+      }
+    }
+  },
+  "sla": {
+    "total_duration": "60m",
+    "step_slas": {
+      "initial_validation": "2m",
+      "classification": "5m",
+      "content_analysis": "10m",
+      "manual_review": "24h",
+      "expert_review": "48h"
+    },
+    "breach_actions": [
+      {
+        "threshold": "50%",
+        "action": "notify_supervisor",
+        "escalation_time": "15m"
+      },
+      {
+        "threshold": "100%",
+        "action": "escalate_to_management",
+        "escalation_time": "30m"
+      }
+    ]
+  }
+}

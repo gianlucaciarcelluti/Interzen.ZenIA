@@ -1,0 +1,6 @@
+--
+-- MS02 - Analyzer Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for analyzer database
+-- No SQL code as per instructions, only diagrams in documentation
+--

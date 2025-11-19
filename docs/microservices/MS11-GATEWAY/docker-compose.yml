@@ -1,0 +1,281 @@
+version: '3.8'
+
+services:
+  # ==========================================
+  # KONG GATEWAY
+  # ==========================================
+
+  kong-gateway:
+    image: kong:3.5
+    container_name: zenia-kong-gateway
+    ports:
+      - "8000:8000"    # HTTP proxy
+      - "8443:8443"    # HTTPS proxy
+      - "8001:8001"    # Admin API HTTP
+      - "8444:8444"    # Admin API HTTPS
+      - "8100:8100"    # Status page
+    environment:
+      # Database Configuration
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: kong-postgres
+      KONG_PG_PORT: 5432
+      KONG_PG_USER: kong
+      KONG_PG_PASSWORD: secure_postgres_password_2024
+      KONG_PG_DATABASE: kong
+
+      # Redis Configuration
+      KONG_REDIS_HOST: kong-redis
+      KONG_REDIS_PORT: 6379
+      KONG_REDIS_PASSWORD: secure_redis_password_2024
+      KONG_REDIS_DATABASE: 0
+
+      # Kong Configuration
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
+      KONG_PROXY_LISTEN: 0.0.0.0:8000, 0.0.0.0:8443 ssl
+      KONG_STATUS_LISTEN: 0.0.0.0:8100
+      KONG_LOG_LEVEL: info
+      KONG_PLUGINS: bundled,custom-auth,jwt,oauth2,key-auth,rate-limiting,cors,request-transformer,bot-detection,ip-restriction,prometheus
+
+      # SSL Configuration (development)
+      KONG_SSL_CERT: /etc/ssl/certs/kong.crt
+      KONG_SSL_CERT_KEY: /etc/ssl/private/kong.key
+
+      # Performance Configuration
+      KONG_NGINX_WORKER_PROCESSES: 1
+      KONG_NGINX_WORKER_CONNECTIONS: 1024
+      KONG_UPSTREAM_KEEPALIVE: 60
+      KONG_SERVER_TOKENS: off
+      KONG_LATENCY_TOKENS: true
+
+      # Development Configuration
+      KONG_ENFORCE_RBAC: off
+      KONG_ADMIN_GUI_AUTH: basic-auth
+      KONG_ADMIN_GUI_URL: http://localhost:8002
+
+    volumes:
+      - ./config/kong.yml:/etc/kong/kong.yml:ro
+      - ./ssl/kong.crt:/etc/ssl/certs/kong.crt:ro
+      - ./ssl/kong.key:/etc/ssl/private/kong.key:ro
+      - kong_logs:/usr/local/kong/logs
+
+    depends_on:
+      kong-postgres:
+        condition: service_healthy
+      kong-redis:
+        condition: service_started
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8100/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    restart: unless-stopped
+    networks:
+      - zenia-network
+
+  # ==========================================
+  # KONG ADMIN GUI
+  # ==========================================
+
+  kong-admin-gui:
+    image: kong/kong-portal:3.5
+    container_name: zenia-kong-admin-gui
+    ports:
+      - "8002:8002"
+    environment:
+      KONG_ADMIN_API_URL: http://kong-gateway:8001
+      KONG_PORTAL_GUI_HOST: 0.0.0.0:8002
+      KONG_PORTAL_GUI_PROTOCOL: http
+    depends_on:
+      - kong-gateway
+    restart: unless-stopped
+    networks:
+      - zenia-network
+
+  # ==========================================
+  # POSTGRESQL DATABASE
+  # ==========================================
+
+  kong-postgres:
+    image: postgres:15-alpine
+    container_name: zenia-kong-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: kong
+      POSTGRES_USER: kong
+      POSTGRES_PASSWORD: secure_postgres_password_2024
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_INITDB_ARGS: --encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    volumes:
+      - kong_postgres_data:/var/lib/postgresql/data
+      - ./config/postgres-init.sql:/docker-entrypoint-initdb.d/init-kong-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kong -d kong"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - zenia-network
+
+  # ==========================================
+  # REDIS CACHE
+  # ==========================================
+
+  kong-redis:
+    image: redis:7-alpine
+    container_name: zenia-kong-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass secure_redis_password_2024 --maxmemory 256mb --maxmemory-policy allkeys-lru --save 900 1 --save 300 10 --save 60 10000 --appendonly yes --appendfsync everysec
+    volumes:
+      - kong_redis_data:/data
+      - ./config/redis.conf:/etc/redis/redis.conf:ro
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - zenia-network
+
+  # ==========================================
+  # MOCK MICROSERVICES (for development)
+  # ==========================================
+
+  mock-ms01-classifier:
+    image: nginx:alpine
+    container_name: zenia-mock-ms01
+    ports:
+      - "8081:80"
+    volumes:
+      - ./mock-services/ms01-classifier:/usr/share/nginx/html:ro
+    restart: unless-stopped
+    networks:
+      - zenia-network
+
+  mock-ms02-analyzer:
+    image: nginx:alpine
+    container_name: zenia-mock-ms02
+    ports:
+      - "8082:80"
+    volumes:
+      - ./mock-services/ms02-analyzer:/usr/share/nginx/html:ro
+    restart: unless-stopped
+    networks:
+      - zenia-network
+
+  mock-ms03-orchestrator:
+    image: nginx:alpine
+    container_name: zenia-mock-ms03
+    ports:
+      - "8083:80"
+    volumes:
+      - ./mock-services/ms03-orchestrator:/usr/share/nginx/html:ro
+    restart: unless-stopped
+    networks:
+      - zenia-network
+
+  # ==========================================
+  # MONITORING STACK
+  # ==========================================
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: zenia-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    networks:
+      - zenia-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: zenia-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+    restart: unless-stopped
+    networks:
+      - zenia-network
+
+  # ==========================================
+  # LOGGING STACK
+  # ==========================================
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: zenia-elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: false
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    restart: unless-stopped
+    networks:
+      - zenia-network
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: zenia-kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    restart: unless-stopped
+    networks:
+      - zenia-network
+
+# ==========================================
+# VOLUMES
+# ==========================================
+
+volumes:
+  kong_postgres_data:
+    driver: local
+  kong_redis_data:
+    driver: local
+  kong_logs:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  elasticsearch_data:
+    driver: local
+
+# ==========================================
+# NETWORKS
+# ==========================================
+
+networks:
+  zenia-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

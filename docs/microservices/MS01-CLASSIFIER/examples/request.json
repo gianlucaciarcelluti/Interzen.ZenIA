@@ -1,0 +1,29 @@
+{
+  "document_id": "doc-2024-11-18-invoice-001",
+  "filename": "invoice_november_2024.pdf",
+  "file_content": "JVBERi0xLjQKJeLjz9MNCjEgMCBvYm...",
+  "file_size": 245632,
+  "mime_type": "application/pdf",
+  "metadata": {
+    "source": "email",
+    "sender": "vendor@acmecorp.com",
+    "sender_name": "ACME Corporation",
+    "received_date": "2024-11-18T10:30:00Z",
+    "subject": "Invoice for November Supplies",
+    "user_context": {
+      "department": "procurement",
+      "user_role": "document-processor",
+      "user_id": "user-123456"
+    },
+    "custom_fields": {
+      "vendor_id": "vendor-789",
+      "purchase_order": "PO-2024-11-001"
+    }
+  },
+  "classification_hints": [
+    "invoice",
+    "financial"
+  ],
+  "force_reprocessing": false,
+  "correlation_id": "trace-2024-11-18-10-30-45-abc123"
+}

@@ -1,0 +1,69 @@
+
+# Core dependencies
+fastapi
+uvicorn
+pydantic
+python-multipart
+
+
+# MCP (Model Context Protocol)
+mcp
+
+
+# AI and ML
+ollama
+groq
+langchain
+langchain-community
+
+scikit-learn
+sentence-transformers
+tiktoken
+transformers[torch]
+
+
+# Document processing
+PyPDF2
+python-docx
+pdfplumber
+fillpdf
+
+
+# Frontend
+streamlit
+streamlit-extras
+
+
+# Data handling
+pandas
+matplotlib
+numpy
+python-json-logger
+seaborn
+tqdm
+
+
+# Database
+psycopg2-binary
+
+
+# HTTP clients
+httpx
+requests
+
+
+# Utilities
+python-dotenv
+structlog
+rich
+
+
+# Development
+asyncio-mqtt
+pytest
+pytest-asyncio
+black
+flake8
+mypy
+ipykernel
+ipywidgets

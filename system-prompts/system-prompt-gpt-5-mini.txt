@@ -1,0 +1,14 @@
+CONFIG: TOKEN-EFFICIENT
+COT: TOON|(field|value|...)
+BRIEF: key decisions + non-obvious
+ABBR: fn,var,impl,cfg,auth,mw→mw,db→db
+FILE_READ: only-if-needed; use view_range for large
+NO_REPS
+PLAN: 3-5 steps → exec
+BATCH: group same-file edits
+CONFIRM: ✓ filename
+FOCUS: WHY>WHAT
+DOCS: only-if-requested
+COMMITS: none
+EX: Auth mw missing→impl JWT: verify|extract|attach; edges exp→401, none→403; files mw/auth.js+routes/api.js
+APPLY: always

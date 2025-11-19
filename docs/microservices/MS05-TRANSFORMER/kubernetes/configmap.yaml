@@ -1,0 +1,100 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms05-transformer-config
+  namespace: zen-ia
+  labels:
+    app: ms05-transformer
+    version: v2.1.0
+data:
+  # Database Configuration
+  DATABASE_POOL_SIZE: "20"
+  DATABASE_MAX_CONNECTIONS: "50"
+  DATABASE_TIMEOUT: "30"
+
+  # Redis Configuration
+  REDIS_POOL_SIZE: "10"
+  REDIS_TIMEOUT: "5"
+
+  # Transformation Configuration
+  TRANSFORMATION_TIMEOUT_DEFAULT: "300"
+  MAX_DOCUMENT_SIZE: "10485760"
+  MAX_CONCURRENT_TRANSFORMATIONS: "50"
+  TRANSFORMATION_RETRY_MAX: "3"
+  TRANSFORMATION_RETRY_DELAY: "30"
+
+  # Certificate Authority
+  CA_CERTIFICATE_PATH: "/etc/ssl/certs/ca-certificates.crt"
+  CERTIFICATE_VALIDITY_DAYS: "365"
+  CERTIFICATE_RENEWAL_THRESHOLD: "30"
+
+  # Service Discovery
+  MS04_VALIDATOR_URL: "http://ms04-validator.zen-ia.svc.cluster.local:8004"
+  MS06_ENRICHER_URL: "http://ms06-enricher.zen-ia.svc.cluster.local:8006"
+  MS07_SIGNER_URL: "http://ms07-signer.zen-ia.svc.cluster.local:8007"
+  MS08_MONITOR_URL: "http://ms08-monitor.zen-ia.svc.cluster.local:8008"
+
+  # Monitoring & Metrics
+  METRICS_ENABLED: "true"
+  METRICS_INTERVAL: "30"
+  HEALTH_CHECK_INTERVAL: "60"
+  PERFORMANCE_MONITORING: "true"
+
+  # Logging
+  LOG_LEVEL: "INFO"
+  LOG_FORMAT: "json"
+  LOG_MAX_SIZE: "100"
+  LOG_MAX_FILES: "5"
+
+  # Rules Engine
+  RULES_CACHE_TTL: "300"
+  RULES_REFRESH_INTERVAL: "60"
+  RULES_MAX_VERSIONS: "10"
+  RULES_VALIDATION_STRICT: "true"
+
+  # Schema Validation
+  SCHEMA_CACHE_SIZE: "100"
+  SCHEMA_VALIDATION_TIMEOUT: "60"
+  XML_PARSER_SECURITY: "true"
+
+  # Quality Assessment
+  SPELLING_DICTIONARY: "it_IT"
+  GRAMMAR_CHECK_ENABLED: "true"
+  READABILITY_ALGORITHM: "flesch"
+  FORMAT_VALIDATION_STRICT: "false"
+
+  # Environment
+  SERVICE_NAME: "ms05-transformer"
+  SERVICE_VERSION: "2.1.0"
+  ENVIRONMENT: "production"
+
+  # Storage Configuration
+  STORAGE_TYPE: "minio"
+  MINIO_ENDPOINT: "minio.zen-ia.svc.cluster.local:9000"
+  MINIO_BUCKET_TRANSFORMED: "transformed-documents"
+  MINIO_BUCKET_TEMP: "temp-files"
+
+  # Queue Configuration
+  QUEUE_TYPE: "redis"
+  QUEUE_MAX_RETRIES: "3"
+  QUEUE_RETRY_DELAY: "30"
+  QUEUE_PRIORITY_LEVELS: "3"
+
+  # Security
+  JWT_ALGORITHM: "RS256"
+  JWT_ACCESS_TOKEN_EXPIRE_MINUTES: "30"
+  API_KEY_VALIDATION: "true"
+  RATE_LIMIT_REQUESTS: "100"
+  RATE_LIMIT_WINDOW: "60"
+
+  # Performance Tuning
+  GUNICORN_WORKERS: "4"
+  GUNICORN_THREADS: "2"
+  GUNICORN_TIMEOUT: "30"
+  MAX_REQUEST_SIZE: "10485760"
+
+  # Feature Flags
+  ASYNC_TRANSFORMATION_ENABLED: "true"
+  BATCH_TRANSFORMATION_ENABLED: "true"
+  WEBHOOK_NOTIFICATIONS_ENABLED: "true"
+  AUDIT_LOGGING_ENABLED: "true"

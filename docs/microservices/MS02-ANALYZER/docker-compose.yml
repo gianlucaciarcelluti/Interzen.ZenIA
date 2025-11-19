@@ -1,0 +1,91 @@
+version: '3.9'
+
+services:
+  # Main Analyzer Service
+  analyzer:
+    image: zendata/ms02-analyzer:latest
+    container_name: ms02-analyzer
+    ports:
+      - "8002:8002"
+    environment:
+      # Service Configuration
+      SERVICE_NAME: MS02-ANALYZER
+      SERVICE_PORT: 8002
+      LOG_LEVEL: INFO
+
+      # Model Configuration
+      ANALYSIS_MODELS_PATH: /models
+      MAX_ANALYSIS_TIME: 30000
+      CACHE_TTL_ANALYSIS: 86400
+
+      # Database
+      DATABASE_URL: postgresql://analyzer_service:analyzer_pass@postgres:5432/zendata_analyzer
+
+      # Cache (Redis)
+      REDIS_URL: redis://redis:6379/2
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+    networks:
+      - zendata-network
+
+    restart: unless-stopped
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: analyzer-postgres
+    environment:
+      POSTGRES_DB: zendata_analyzer
+      POSTGRES_USER: analyzer_service
+      POSTGRES_PASSWORD: analyzer_pass
+
+    ports:
+      - "5433:5432"
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U analyzer_service -d zendata_analyzer"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - zendata-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: analyzer-redis
+    ports:
+      - "6380:6379"
+
+    command: redis-server --maxmemory 512m --maxmemory-policy allkeys-lru
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - zendata-network
+
+networks:
+  zendata-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local

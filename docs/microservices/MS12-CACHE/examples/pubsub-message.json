@@ -1,0 +1,4 @@
+{
+  "channel": "events",
+  "message": {"type": "update", "entity": "document", "id": "123"}
+}

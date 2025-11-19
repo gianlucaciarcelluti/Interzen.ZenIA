@@ -1,0 +1,6 @@
+--
+-- MS09 - Manager Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for manager database
+-- No SQL code as per instructions, only diagrams in documentation
+--

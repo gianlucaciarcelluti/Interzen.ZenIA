@@ -1,0 +1,15 @@
+# SP04 - Classifier Service Requirements
+fastapi>=0.104.1
+uvicorn>=0.24.0
+pydantic>=2.5.0
+
+# Optional: Uncomment for full implementation with ML models
+# scikit-learn>=1.3.0
+# numpy>=1.24.0
+# pandas>=2.0.0
+# python-multipart>=0.0.6
+
+# Optional: Database and messaging (when needed)
+# psycopg2-binary>=2.9.0
+# redis>=5.0.0
+# kafka-python>=2.0.2

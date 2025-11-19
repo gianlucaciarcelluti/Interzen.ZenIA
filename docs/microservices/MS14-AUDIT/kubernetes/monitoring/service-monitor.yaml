@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ms14-audit-api-monitor
+  namespace: zenia
+spec:
+  selector:
+    matchLabels:
+      app: ms14-audit-exporter
+  endpoints:
+  - port: metrics
+    path: /metrics
+    interval: 30s
+    scrapeTimeout: 10s

@@ -1,0 +1,9 @@
+{
+  "timestamp": "2025-11-19T10:16:00Z",
+  "user": "utente1",
+  "ip": "192.168.1.10",
+  "action": "LOGIN",
+  "resource": "MS11-API-GATEWAY",
+  "outcome": "FAILURE",
+  "details": {"browser": "Chrome", "reason": "wrong password"}
+}

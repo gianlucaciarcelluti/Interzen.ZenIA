@@ -1,0 +1,404 @@
+{
+  "configuration_version": "1.0.0",
+  "gateway_name": "zenia-api-gateway",
+  "environment": "development",
+  "last_updated": "2025-11-18T10:00:00Z",
+  "description": "Configurazione routing MS11-GATEWAY per ambiente di sviluppo",
+
+  "services": [
+    {
+      "name": "classifier-service",
+      "description": "Servizio di classificazione documenti",
+      "url": "http://ms01-classifier:8080",
+      "health_check": {
+        "path": "/health",
+        "interval": 30,
+        "timeout": 5,
+        "successes": 2,
+        "failures": 3
+      },
+      "routes": [
+        {
+          "name": "documents-classify",
+          "description": "Endpoint classificazione documenti",
+          "paths": ["/api/v1/documents/classify"],
+          "methods": ["POST"],
+          "plugins": [
+            {
+              "name": "jwt",
+              "enabled": true,
+              "config": {
+                "claims_to_verify": ["exp", "nbf", "iss"],
+                "key_claim_name": "kid",
+                "run_on_preflight": true
+              }
+            },
+            {
+              "name": "rate-limiting",
+              "enabled": true,
+              "config": {
+                "minute": 100,
+                "hour": 1000,
+                "policy": "redis",
+                "redis_host": "redis",
+                "redis_port": 6379,
+                "fault_tolerant": true
+              }
+            },
+            {
+              "name": "request-transformer",
+              "enabled": true,
+              "config": {
+                "add": {
+                  "headers": [
+                    "X-API-Version:v1",
+                    "X-Source:gateway",
+                    "X-Request-ID:${correlation_id}"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "cors",
+              "enabled": true,
+              "config": {
+                "origins": ["http://localhost:3000", "https://app.zenia.local"],
+                "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+                "headers": ["Authorization", "Content-Type", "X-Correlation-ID"],
+                "credentials": true,
+                "max_age": 86400
+              }
+            },
+            {
+              "name": "prometheus",
+              "enabled": true,
+              "config": {
+                "per_consumer": true,
+                "status_code_metrics": true,
+                "latency_metrics": true,
+                "bandwidth_metrics": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "documents-status",
+          "description": "Status documenti processati",
+          "paths": ["/api/v1/documents/{id}/status"],
+          "methods": ["GET"],
+          "plugins": [
+            {
+              "name": "key-auth",
+              "enabled": true
+            },
+            {
+              "name": "rate-limiting",
+              "enabled": true,
+              "config": {
+                "minute": 300,
+                "hour": 3000
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "analyzer-service",
+      "description": "Servizio di analisi contenuto",
+      "url": "http://ms02-analyzer:8081",
+      "health_check": {
+        "path": "/health",
+        "interval": 30,
+        "timeout": 5,
+        "successes": 2,
+        "failures": 3
+      },
+      "routes": [
+        {
+          "name": "analysis-extract",
+          "description": "Estrazione entità e analisi",
+          "paths": ["/api/v1/analysis/extract"],
+          "methods": ["POST"],
+          "plugins": [
+            {
+              "name": "jwt",
+              "enabled": true
+            },
+            {
+              "name": "request-size-limiting",
+              "enabled": true,
+              "config": {
+                "allowed_payload_size": 10485760
+              }
+            },
+            {
+              "name": "rate-limiting",
+              "enabled": true,
+              "config": {
+                "minute": 50,
+                "hour": 500
+              }
+            },
+            {
+              "name": "response-transformer",
+              "enabled": true,
+              "config": {
+                "add": {
+                  "headers": ["X-Processed-By:gateway"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "orchestrator-service",
+      "description": "Servizio orchestrazione workflow",
+      "url": "http://ms03-orchestrator:8082",
+      "routes": [
+        {
+          "name": "workflow-start",
+          "description": "Avvio workflow",
+          "paths": ["/api/v1/workflow/start"],
+          "methods": ["POST"],
+          "plugins": [
+            {
+              "name": "jwt",
+              "enabled": true
+            },
+            {
+              "name": "rate-limiting",
+              "enabled": true,
+              "config": {
+                "minute": 20,
+                "hour": 200
+              }
+            }
+          ]
+        },
+        {
+          "name": "workflow-status",
+          "description": "Status workflow",
+          "paths": ["/api/v1/workflow/{id}"],
+          "methods": ["GET"],
+          "plugins": [
+            {
+              "name": "key-auth",
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "upstreams": [
+    {
+      "name": "classifier-upstream",
+      "description": "Load balancing per MS01-CLASSIFIER",
+      "algorithm": "round-robin",
+      "hash_on": null,
+      "hash_fallback": null,
+      "hash_on_cookie_path": null,
+      "slots": 10000,
+      "healthchecks": {
+        "active": {
+          "type": "http",
+          "http_path": "/health",
+          "timeout": 5,
+          "interval": 30,
+          "successes": 2,
+          "failures": 3
+        },
+        "passive": {
+          "healthy": {
+            "successes": 0
+          },
+          "unhealthy": {
+            "tcp_failures": 0,
+            "timeouts": 0,
+            "http_failures": 0,
+            "http_statuses": [429, 404, 500, 501, 502, 503, 504, 505]
+          }
+        },
+        "threshold": 0
+      },
+      "targets": [
+        {
+          "target": "ms01-classifier-1:8080",
+          "weight": 100
+        },
+        {
+          "target": "ms01-classifier-2:8080",
+          "weight": 100
+        }
+      ]
+    }
+  ],
+
+  "consumers": [
+    {
+      "username": "zenia-admin",
+      "description": "Consumer amministratore",
+      "custom_id": "admin-001",
+      "tags": ["admin", "internal"],
+      "acls": [
+        {
+          "group": "admin"
+        }
+      ],
+      "jwt_secrets": [
+        {
+          "key": "admin-key",
+          "secret": "admin-secret-hs256",
+          "algorithm": "HS256",
+          "tags": ["admin"]
+        }
+      ],
+      "keyauth_credentials": [
+        {
+          "key": "sk-admin-2025-abc123def456",
+          "tags": ["admin"]
+        }
+      ]
+    },
+    {
+      "username": "zenia-user",
+      "description": "Consumer utente standard",
+      "custom_id": "user-001",
+      "tags": ["user", "external"],
+      "acls": [
+        {
+          "group": "user"
+        }
+      ],
+      "jwt_secrets": [
+        {
+          "key": "user-key",
+          "secret": "user-secret-hs256",
+          "algorithm": "HS256",
+          "tags": ["user"]
+        }
+      ],
+      "keyauth_credentials": [
+        {
+          "key": "sk-user-2025-def789ghi012",
+          "tags": ["user"]
+        }
+      ]
+    },
+    {
+      "username": "ms01-classifier",
+      "description": "Consumer servizio MS01",
+      "custom_id": "service-ms01",
+      "tags": ["service", "internal"],
+      "acls": [
+        {
+          "group": "service"
+        }
+      ],
+      "keyauth_credentials": [
+        {
+          "key": "sk-service-ms01-2025-jkl345mno678",
+          "tags": ["service"]
+        }
+      ]
+    }
+  ],
+
+  "global_plugins": [
+    {
+      "name": "correlation-id",
+      "enabled": true,
+      "config": {
+        "header_name": "X-Correlation-ID",
+        "generator": "uuid",
+        "echo_downstream": true
+      }
+    },
+    {
+      "name": "bot-detection",
+      "enabled": true,
+      "config": {
+        "allow": ["googlebot", "bingbot"],
+        "deny": ["malicious-crawler", "vulnerability-scanner"]
+      }
+    },
+    {
+      "name": "ip-restriction",
+      "enabled": true,
+      "config": {
+        "allow": ["0.0.0.0/0"],
+        "deny": []
+      }
+    }
+  ],
+
+  "certificates": [
+    {
+      "cert": "-----BEGIN CERTIFICATE-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA...\n-----END CERTIFICATE-----",
+      "key": "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg...\n-----END PRIVATE KEY-----",
+      "tags": ["ssl", "development"]
+    }
+  ],
+
+  "snis": [
+    {
+      "name": "api.zenia.local",
+      "certificate": {
+        "id": "cert-001"
+      },
+      "tags": ["ssl", "development"]
+    }
+  ],
+
+  "monitoring": {
+    "prometheus": {
+      "enabled": true,
+      "per_consumer": true,
+      "status_code_metrics": true,
+      "latency_metrics": true,
+      "bandwidth_metrics": true,
+      "upstream_health_metrics": true
+    },
+    "datadog": {
+      "enabled": false,
+      "host": "datadog-agent",
+      "port": 8125,
+      "tags": ["env:development", "service:gateway"]
+    }
+  },
+
+  "caching": {
+    "redis": {
+      "host": "redis",
+      "port": 6379,
+      "password": "${REDIS_PASSWORD}",
+      "database": 1,
+      "timeout": 2000
+    },
+    "proxy_cache": {
+      "enabled": true,
+      "ttl": 300,
+      "memory": {
+        "dictionary_name": "zenia_cache",
+        "max_size": "128m"
+      }
+    }
+  },
+
+  "security": {
+    "ssl": {
+      "protocols": "TLSv1.2 TLSv1.3",
+      "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384"
+    },
+    "headers": {
+      "X-Frame-Options": "DENY",
+      "X-Content-Type-Options": "nosniff",
+      "X-XSS-Protection": "1; mode=block",
+      "Strict-Transport-Security": "max-age=31536000; includeSubDomains"
+    }
+  }
+}

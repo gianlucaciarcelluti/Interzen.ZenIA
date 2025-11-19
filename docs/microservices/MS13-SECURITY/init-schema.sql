@@ -1,0 +1,6 @@
+--
+-- MS13 - Security Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for security database
+-- No SQL code as per instructions, only diagrams in documentation
+--

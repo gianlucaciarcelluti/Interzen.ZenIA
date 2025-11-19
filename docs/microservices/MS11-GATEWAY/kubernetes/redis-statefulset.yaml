@@ -1,0 +1,248 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kong-redis
+  namespace: zenia
+  labels:
+    app: kong-redis
+    component: cache
+    microservice: ms11-gateway
+spec:
+  serviceName: kong-redis
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kong-redis
+  template:
+    metadata:
+      labels:
+        app: kong-redis
+        component: cache
+        microservice: ms11-gateway
+    spec:
+      serviceAccountName: kong-redis-sa
+      automountServiceAccountToken: false
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+          name: redis
+        env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-secrets
+              key: redis-password
+        - name: REDIS_MAXMEMORY
+          value: "256mb"
+        - name: REDIS_MAXMEMORY_POLICY
+          value: "allkeys-lru"
+        - name: REDIS_TCP_KEEPALIVE
+          value: "300"
+        - name: REDIS_TIMEOUT
+          value: "300"
+        command:
+        - redis-server
+        - --requirepass $(REDIS_PASSWORD)
+        - --maxmemory 256mb
+        - --maxmemory-policy allkeys-lru
+        - --tcp-keepalive 300
+        - --timeout 300
+        - --save 900 1
+        - --save 300 10
+        - --save 60 10000
+        - --appendonly yes
+        - --appendfsync everysec
+        - --loglevel notice
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+            ephemeral-storage: "500Mi"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+            ephemeral-storage: "1Gi"
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data
+        - name: redis-config
+          mountPath: /etc/redis
+        livenessProbe:
+          exec:
+            command:
+            - redis-cli
+            - --raw
+            - incr
+            - ping
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 6
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - --raw
+            - incr
+            - ping
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 3
+          successThreshold: 1
+          failureThreshold: 3
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 999
+          runAsGroup: 999
+      securityContext:
+        fsGroup: 999
+      volumes:
+      - name: redis-config
+        configMap:
+          name: kong-redis-config
+  volumeClaimTemplates:
+  - metadata:
+    name: redis-data
+    labels:
+      app: kong-redis
+      component: cache
+    annotations:
+      volume.beta.kubernetes.io/storage-class: "fast-ssd"
+  spec:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 5Gi
+    storageClassName: fast-ssd
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kong-redis-config
+  namespace: zenia
+  labels:
+    app: kong-redis
+    component: cache-config
+data:
+  redis.conf: |
+    # Redis configuration for Kong Gateway
+    bind 0.0.0.0
+    protected-mode yes
+    port 6379
+    tcp-backlog 511
+    timeout 0
+    tcp-keepalive 300
+    daemonize no
+    supervised no
+    loglevel notice
+    logfile ""
+
+    # Memory management
+    maxmemory 256mb
+    maxmemory-policy allkeys-lru
+    maxmemory-samples 5
+
+    # Persistence
+    save 900 1
+    save 300 10
+    save 60 10000
+    stop-writes-on-bgsave-error yes
+    rdbcompression yes
+    rdbchecksum yes
+    dbfilename dump.rdb
+    dir /data
+
+    # Append only file
+    appendonly yes
+    appendfilename "appendonly.aof"
+    appendfsync everysec
+    no-appendfsync-on-rewrite no
+    auto-aof-rewrite-percentage 100
+    auto-aof-rewrite-min-size 64mb
+    aof-load-truncated yes
+    aof-use-rdb-preamble yes
+
+    # Security
+    rename-command FLUSHDB ""
+    rename-command FLUSHALL ""
+    rename-command SHUTDOWN SHUTDOWN_REDIS
+    rename-command CONFIG CONFIG_REDIS
+
+    # Performance
+    hash-max-ziplist-entries 512
+    hash-max-ziplist-value 64
+    list-max-ziplist-size -2
+    list-compress-depth 0
+    set-max-intset-entries 512
+    zset-max-ziplist-entries 128
+    zset-max-ziplist-value 64
+    hll-sparse-max-bytes 3000
+    stream-node-max-bytes 4096
+    stream-node-max-entries 100
+
+    # Disable dangerous commands
+    rename-command DEBUG ""
+    rename-command EVAL ""
+    rename-command EVALSHA ""
+    rename-command SCRIPT ""
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kong-redis
+  namespace: zenia
+  labels:
+    app: kong-redis
+    component: cache
+    microservice: ms11-gateway
+spec:
+  selector:
+    app: kong-redis
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: 6379
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kong-redis-sa
+  namespace: zenia
+  labels:
+    app: kong-redis
+    component: cache
+automountServiceAccountToken: false
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: kong-redis-role
+  namespace: zenia
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kong-redis-role-binding
+  namespace: zenia
+roleRef:
+  apiVersion: rbac.authorization.k8s.io/v1
+  kind: Role
+  name: kong-redis-role
+subjects:
+- kind: ServiceAccount
+  name: kong-redis-sa
+  namespace: zenia

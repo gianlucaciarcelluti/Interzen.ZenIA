@@ -1,0 +1,220 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms08-monitor-config
+  namespace: zenia
+  labels:
+    app: ms08-monitor
+    version: v1.2.3
+data:
+  application-prod.yml: |
+    spring:
+      profiles:
+        active: prod
+      application:
+        name: ms08-monitor
+      datasource:
+        hikari:
+          maximum-pool-size: 20
+          minimum-idle: 5
+          idle-timeout: 300000
+          max-lifetime: 600000
+          connection-timeout: 20000
+      jpa:
+        hibernate:
+          ddl-auto: validate
+        properties:
+          hibernate:
+            dialect: org.hibernate.dialect.PostgreSQLDialect
+            jdbc:
+              lob:
+                non_contextual_creation: true
+      cache:
+        type: redis
+        redis:
+          time-to-live: 3600000
+
+    server:
+      port: 8080
+      servlet:
+        context-path: /api/v1
+      compression:
+        enabled: true
+        mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+        min-response-size: 1024
+
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: health,info,metrics,prometheus,loggers,configprops
+          base-path: /actuator
+      endpoint:
+        health:
+          show-details: when-authorized
+          probes:
+            enabled: true
+      metrics:
+        export:
+          prometheus:
+            enabled: true
+        tags:
+          application: ${spring.application.name}
+          instance: ${random.value}
+
+    logging:
+      level:
+        com.zenia.monitor: INFO
+        org.springframework.security: DEBUG
+        org.hibernate.SQL: DEBUG
+        org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      pattern:
+        console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+        file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+      file:
+        name: /app/logs/ms08-monitor.log
+        max-size: 100MB
+        max-history: 30
+
+    zenia:
+      monitor:
+        prometheus:
+          url: http://prometheus:9090
+          timeout: 30s
+          query-max-samples: 5000000
+        elasticsearch:
+          urls:
+            - http://elasticsearch:9200
+          timeout: 30s
+          index-prefix: zenia-logs
+          retention-days: 30
+        jaeger:
+          url: http://jaeger-query:16686
+          collector-url: http://jaeger-collector:14268/api/traces
+          timeout: 30s
+        grafana:
+          url: http://grafana:3000
+          api-key: ${GRAFANA_API_KEY}
+        alertmanager:
+          urls:
+            - http://alertmanager:9093
+          timeout: 30s
+        database:
+          max-connections: 20
+          connection-timeout: 30s
+        cache:
+          ttl: 3600s
+          max-size: 10000
+        security:
+          jwt:
+            expiration: 86400
+          rate-limit:
+            requests-per-minute: 1000
+            burst-limit: 100
+
+  alert-rules.yml: |
+    groups:
+      - name: zenia.monitor.alerts
+        rules:
+          - alert: MonitorServiceDown
+            expr: up{job="zenia-microservices", service="ms08-monitor"} == 0
+            for: 5m
+            labels:
+              severity: critical
+              service: ms08-monitor
+            annotations:
+              summary: "MS08-MONITOR service is down"
+              description: "MS08-MONITOR has been down for more than 5 minutes"
+              runbook_url: "https://zenia.runbooks/ms08-monitor-down"
+
+          - alert: MonitorHighCPU
+            expr: rate(container_cpu_usage_seconds_total{pod=~"ms08-monitor-.*"}[5m]) > 0.8
+            for: 10m
+            labels:
+              severity: warning
+              service: ms08-monitor
+            annotations:
+              summary: "High CPU usage on MS08-MONITOR"
+              description: "CPU usage is above 80% for 10 minutes"
+
+          - alert: MonitorHighMemory
+            expr: container_memory_usage_bytes{pod=~"ms08-monitor-.*"} / container_spec_memory_limit_bytes > 0.9
+            for: 5m
+            labels:
+              severity: warning
+              service: ms08-monitor
+            annotations:
+              summary: "High memory usage on MS08-MONITOR"
+              description: "Memory usage is above 90% of limit"
+
+          - alert: MonitorDatabaseConnectionError
+            expr: increase(zenia_monitor_database_connection_errors_total[5m]) > 0
+            for: 2m
+            labels:
+              severity: error
+              service: ms08-monitor
+            annotations:
+              summary: "Database connection errors in MS08-MONITOR"
+              description: "MS08-MONITOR is experiencing database connection errors"
+
+  prometheus-scrape-config.yml: |
+    global:
+      scrape_interval: 30s
+      scrape_timeout: 10s
+      evaluation_interval: 30s
+
+    scrape_configs:
+      - job_name: 'ms08-monitor'
+        kubernetes_sd_configs:
+          - role: pod
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            regex: 'ms08-monitor'
+            action: keep
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: pod
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: namespace
+        metrics_path: '/actuator/prometheus'
+        scrape_interval: 30s
+        scrape_timeout: 10s
+
+  logstash-config.conf: |
+    input {
+      beats {
+        port => 5044
+        ssl => false
+      }
+    }
+
+    filter {
+      if [kubernetes] {
+        mutate {
+          add_field => {
+            "service" => "%{[kubernetes][labels][app]}"
+            "namespace" => "%{[kubernetes][namespace_name]}"
+            "pod" => "%{[kubernetes][pod_name]}"
+            "container" => "%{[kubernetes][container_name]}"
+          }
+        }
+      }
+
+      if [service] == "ms08-monitor" {
+        grok {
+          match => { "message" => "%{TIMESTAMP_ISO8601:timestamp} \[%{DATA:thread}\] %{LOGLEVEL:level} %{DATA:logger} - %{GREEDYDATA:message}" }
+        }
+
+        date {
+          match => ["timestamp", "ISO8601"]
+          target => "@timestamp"
+        }
+      }
+    }
+
+    output {
+      elasticsearch {
+        hosts => ["elasticsearch:9200"]
+        index => "zenia-logs-%{+YYYY.MM.dd}"
+        document_type => "_doc"
+      }
+    }

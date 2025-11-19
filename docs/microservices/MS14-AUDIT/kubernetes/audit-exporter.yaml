@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms14-audit-exporter
+  namespace: zenia
+  labels:
+    app: ms14-audit-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms14-audit-exporter
+  template:
+    metadata:
+      labels:
+        app: ms14-audit-exporter
+    spec:
+      containers:
+      - name: audit-exporter
+        image: ghcr.io/interzen/ms14-audit-exporter:1.0.0
+        ports:
+        - containerPort: 8081
+        env:
+        - name: API_URL
+          value: http://ms14-audit-api:8080
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "250m"
+            memory: "512Mi"
+      automountServiceAccountToken: false

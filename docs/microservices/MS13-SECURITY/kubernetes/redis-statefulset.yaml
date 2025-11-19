@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ms13-security-redis
+  namespace: zenia
+  labels:
+    app: ms13-security-redis
+spec:
+  serviceName: ms13-security-redis
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms13-security-redis
+  template:
+    metadata:
+      labels:
+        app: ms13-security-redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+        env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ms13-security-secrets
+              key: redis-password
+        command: ["redis-server", "--requirepass", "$(REDIS_PASSWORD)"]
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data
+      volumes:
+      - name: redis-data
+        persistentVolumeClaim:
+          claimName: ms13-security-redis-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ms13-security-redis-pvc
+  namespace: zenia
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

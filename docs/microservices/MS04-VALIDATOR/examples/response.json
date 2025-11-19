@@ -1,0 +1,122 @@
+{
+  "validation_id": "val-2024-11-18-001",
+  "document_id": "doc-2024-11-18-001",
+  "status": "passed",
+  "overall_score": 0.95,
+  "validation_results": {
+    "structural_validation": {
+      "status": "passed",
+      "score": 1.0,
+      "checks_passed": 8,
+      "checks_failed": 0,
+      "details": {
+        "schema_validation": "passed",
+        "required_fields_present": true,
+        "data_types_valid": true,
+        "xml_well_formed": true
+      }
+    },
+    "business_validation": {
+      "status": "passed",
+      "score": 0.98,
+      "rules_applied": 5,
+      "rules_passed": 5,
+      "rules_failed": 0,
+      "details": {
+        "rule_compliance_check": "passed",
+        "rule_amount_validation": "passed",
+        "execution_time_ms": 245
+      }
+    },
+    "compliance_validation": {
+      "status": "passed",
+      "score": 0.92,
+      "checks_passed": 6,
+      "checks_failed": 0,
+      "details": {
+        "gdpr_compliance": "passed",
+        "tax_validation": "passed",
+        "legal_compliance": "passed",
+        "data_retention_compliant": true
+      }
+    },
+    "integrity_validation": {
+      "status": "passed",
+      "score": 1.0,
+      "details": {
+        "checksum_verification": "passed",
+        "digital_signature_present": true,
+        "signature_valid": true,
+        "certificate_chain_valid": true
+      }
+    },
+    "quality_assessment": {
+      "status": "warning",
+      "score": 0.88,
+      "details": {
+        "spelling_accuracy": 0.99,
+        "grammar_score": 1.0,
+        "format_compliance": 0.95,
+        "completeness_score": 1.0,
+        "readability_score": 85
+      }
+    }
+  },
+  "issues": [
+    {
+      "severity": "warning",
+      "category": "quality",
+      "code": "SPELLING_SUGGESTION",
+      "message": "Spelling suggestion: 'recieved' should be 'received'",
+      "location": {
+        "page": 2,
+        "line": 15,
+        "column": 45
+      },
+      "suggestion": "received",
+      "confidence": 0.95
+    },
+    {
+      "severity": "info",
+      "category": "compliance",
+      "code": "DATA_RETENTION_INFO",
+      "message": "Document contains personal data subject to GDPR retention policies",
+      "details": {
+        "data_types": ["email", "name"],
+        "retention_period_days": 2555,
+        "consent_required": true
+      }
+    }
+  ],
+  "certificates": [
+    {
+      "type": "validation_certificate",
+      "certificate_id": "cert-val-2024-11-18-001",
+      "issued_at": "2024-11-18T10:37:00Z",
+      "valid_until": "2025-11-18T10:37:00Z",
+      "status": "valid",
+      "download_url": "/certificates/cert-val-2024-11-18-001",
+      "verification_url": "/certificates/verify/cert-val-2024-11-18-001"
+    }
+  ],
+  "recommendations": [
+    {
+      "type": "improvement",
+      "category": "quality",
+      "message": "Consider implementing automated spell checking in document generation pipeline",
+      "impact": "medium",
+      "implementation_effort": "low"
+    },
+    {
+      "type": "compliance",
+      "category": "gdpr",
+      "message": "Ensure customer consent is properly documented for personal data processing",
+      "impact": "high",
+      "implementation_effort": "medium"
+    }
+  ],
+  "processing_time_ms": 1250,
+  "validated_at": "2024-11-18T10:37:00Z",
+  "validator_version": "2.1.0",
+  "rules_version": "1.5.2"
+}

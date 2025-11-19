@@ -1,0 +1,247 @@
+# Human in the Loop - Configuration
+# Configurazione centralizzata per tutti i checkpoint HITL
+
+hitl:
+  # Abilita/disabilita completamente il sistema HITL
+  enabled: true
+  
+  # Logging e debug
+  debug_mode: false
+  log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  
+  # Checkpoint Configuration
+  checkpoints:
+    
+    # Checkpoint #1: Procedural Classification
+    procedural_classification:
+      enabled: true
+      required: true  # Se false, può essere saltato
+      timeout_minutes: 5
+      auto_confirm_threshold: null  # SEMPRE richiesta conferma umana esplicita
+      notifications:
+        email: true
+        slack: false
+        in_app: true
+      escalation:
+        enabled: true
+        after_minutes: 10  # Escalation se nessuna decisione dopo 10 min
+        escalate_to: "supervisore@comune.it"
+      
+    # Checkpoint #2: Document Classification  
+    document_classification:
+      enabled: true
+      required: true
+      timeout_minutes: 3
+      auto_confirm_threshold: null  # SEMPRE richiesta conferma umana esplicita
+      notifications:
+        email: true
+        slack: false
+        in_app: true
+      escalation:
+        enabled: false
+      
+    # Checkpoint #3: Draft Review
+    draft_review:
+      enabled: true
+      required: true
+      timeout_minutes: 30
+      auto_confirm_threshold: null  # SEMPRE richiesta review umana esplicita
+      notifications:
+        email: true
+        slack: true
+        in_app: true
+      escalation:
+        enabled: true
+        after_minutes: 60
+        escalate_to: "dirigente@comune.it"
+      features:
+        inline_editing: true
+        track_changes: true
+        suggest_alternatives: true
+        show_ai_confidence: true
+      
+    # Checkpoint #4: Final Approval
+    final_approval:
+      enabled: true
+      required: true
+      timeout_minutes: null  # Nessun timeout (infinito)
+      auto_confirm_threshold: null  # SEMPRE richiesta approvazione umana finale esplicita
+      notifications:
+        email: true
+        slack: true
+        in_app: true
+      escalation:
+        enabled: false
+      features:
+        show_full_diff: true
+        show_compliance_report: true
+        require_approval_notes: true
+  
+  # Permissions - Chi può fare cosa
+  permissions:
+    
+    # Chi può approvare i documenti
+    can_approve:
+      - role: "dirigente"
+        all_checkpoints: true
+      - role: "funzionario_senior"
+        checkpoints: ["procedural_classification", "document_classification", "draft_review"]
+      - role: "responsabile_ufficio"
+        checkpoints: ["draft_review"]
+    
+    # Chi può modificare i documenti  
+    can_modify:
+      - role: "dirigente"
+        all_checkpoints: true
+      - role: "funzionario_senior"
+        all_checkpoints: true
+      - role: "funzionario"
+        checkpoints: ["draft_review"]
+    
+    # Chi può solo visualizzare
+    can_view:
+      - role: "*"  # Tutti
+  
+  # Document Versioning
+  versioning:
+    enabled: true
+    save_full_content: true  # Salva contenuto completo o solo diff
+    calculate_diff: true
+    max_versions_per_workflow: 50
+    retention_days: 365
+    
+  # Tracking and Analytics
+  tracking:
+    store_full_diff: true
+    calculate_statistics: true
+    enable_analytics: true
+    track_user_behavior: true
+    anonymize_after_days: 90  # Anonimizza dati utente dopo 90 giorni
+    
+  # Notifications
+  notifications:
+    email:
+      enabled: true
+      smtp_host: "smtp.comune.it"
+      smtp_port: 587
+      from_address: "noreply-provvedimenti@comune.it"
+      template_path: "/templates/email/"
+    
+    slack:
+      enabled: false
+      webhook_url: "${SLACK_WEBHOOK_URL}"
+      channel: "#provvedimenti-alerts"
+    
+    in_app:
+      enabled: true
+      poll_interval_seconds: 30
+      show_browser_notification: true
+  
+  # UI Configuration
+  ui:
+    theme: "light"  # light, dark, auto
+    language: "it"
+    
+    editor:
+      font_family: "Consolas, Monaco, monospace"
+      font_size: 14
+      line_height: 1.5
+      show_line_numbers: true
+      syntax_highlighting: true
+      
+    diff_viewer:
+      show_inline_diff: true
+      highlight_changes: true
+      colors:
+        added: "#28a745"
+        removed: "#dc3545"
+        modified: "#ffc107"
+  
+  # Performance
+  performance:
+    max_concurrent_checkpoints: 100
+    checkpoint_cache_ttl_minutes: 5
+    version_storage_backend: "postgres"  # postgres, s3, minio
+    
+  # Audit and Compliance
+  audit:
+    enabled: true
+    log_all_actions: true
+    include_ip_address: true
+    include_user_agent: true
+    gdpr_compliant: true
+    data_retention_days: 2555  # 7 anni
+    
+  # Machine Learning Feedback
+  ml_feedback:
+    enabled: true
+    auto_retrain: false  # Se true, riaddestra modelli automaticamente
+    feedback_threshold: 100  # Numero minimo modifiche prima di considerare retrain
+    store_corrections: true
+    
+  # Feature Flags
+  features:
+    # Abilita suggerimenti AI alternativi
+    ai_suggestions: true
+    
+    # Abilita confronto con documenti simili
+    similar_documents: true
+    
+    # Abilita preview tempo reale
+    real_time_preview: true
+    
+    # Abilita collaborazione multi-utente
+    collaborative_editing: false
+    
+    # Abilita commenti inline
+    inline_comments: true
+    
+    # Abilita approvazione multi-livello
+    multi_level_approval: false
+
+# Esempio di override per ambiente specifico
+environments:
+  
+  development:
+    hitl:
+      checkpoints:
+        procedural_classification:
+          timeout_minutes: 60  # Più tempo in dev
+          auto_confirm_threshold: null  # Mai auto-conferma nemmeno in dev
+        draft_review:
+          timeout_minutes: 120
+      notifications:
+        email:
+          enabled: false  # No email in dev
+      
+  staging:
+    hitl:
+      checkpoints:
+        procedural_classification:
+          auto_confirm_threshold: null  # Mai auto-conferma
+        document_classification:
+          auto_confirm_threshold: null  # Mai auto-conferma
+      notifications:
+        email:
+          enabled: true
+        slack:
+          enabled: true
+      
+  production:
+    hitl:
+      checkpoints:
+        procedural_classification:
+          timeout_minutes: 5
+          auto_confirm_threshold: null  # SEMPRE richiesta conferma umana
+        document_classification:
+          timeout_minutes: 3
+          auto_confirm_threshold: null  # SEMPRE richiesta conferma umana
+        draft_review:
+          timeout_minutes: 30
+          auto_confirm_threshold: null  # SEMPRE richiesta review umana
+        final_approval:
+          timeout_minutes: null
+          auto_confirm_threshold: null  # SEMPRE richiesta approvazione umana
+      audit:
+        enabled: true
+        log_all_actions: true

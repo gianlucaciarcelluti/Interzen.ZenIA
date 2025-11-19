@@ -1,0 +1,28 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: ms12-cache-alerts
+  namespace: zenia
+  labels:
+    app: ms12-cache
+    component: alerting
+spec:
+  groups:
+  - name: ms12-cache
+    rules:
+    - alert: RedisDown
+      expr: up{job="ms12-cache"} == 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Redis cluster is down"
+        description: "Redis cluster is not reachable for more than 5 minutes."
+    - alert: RedisHighMemory
+      expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.9
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Redis high memory usage"
+        description: "Redis memory usage is above 90%."

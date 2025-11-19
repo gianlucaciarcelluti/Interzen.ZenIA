@@ -1,0 +1,556 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template encoding-version="1.3">
+    <description>SP04 - Knowledge Base Service - RAG retrieval per contesto normativo e legale</description>
+    <groupId>root</groupId>
+    <name>SP04_Knowledge_Base</name>
+    <snippet>
+        <processors>
+            
+            <processor>
+                <id>1a534a9e-4998-42bd-97b8-257b4dc712e1</id>
+                <name>ReceiveKBQuery</name>
+                <type>org.apache.nifi.processors.standard.ListenHTTP</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Endpoint HTTP per ricevere query alla knowledge base</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Listening Port</key>
+                            <value>8084</value>
+                        </entry>
+                        <entry>
+                            <key>Base Path</key>
+                            <value>kb</value>
+                        </entry>
+                        <entry>
+                            <key>Maximum Data Rate</key>
+                            <value>10 MB/sec</value>
+                        </entry>
+                        <entry>
+                            <key>Allowed Paths</key>
+                            <value>/retrieve,/check-compliance</value>
+                        </entry>
+                        <entry>
+                            <key>HTTP Context Map</key>
+                            <value>HTTP-Context-Map</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>f1f6ba11-5eab-4f8d-b98a-48846b4b6ddd</id>
+                <name>ValidateKBRequest</name>
+                <type>org.apache.nifi.processors.standard.EvaluateJsonPath</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="350.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Estrae parametri dalla query JSON</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Destination</key>
+                            <value>flowfile-attribute</value>
+                        </entry>
+                        <entry>
+                            <key>Return Type</key>
+                            <value>auto-detect</value>
+                        </entry>
+                        <entry>
+                            <key>Path Not Found Behavior</key>
+                            <value>warn</value>
+                        </entry>
+                        <entry>
+                            <key>kb.query</key>
+                            <value>$.query</value>
+                        </entry>
+                        <entry>
+                            <key>kb.context</key>
+                            <value>$.context</value>
+                        </entry>
+                        <entry>
+                            <key>kb.max_results</key>
+                            <value>$.max_results</value>
+                        </entry>
+                        <entry>
+                            <key>workflow.id</key>
+                            <value>$.workflow_id</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>unmatched</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>32abbd4e-16a6-47de-bf49-9911cffbb21d</id>
+                <name>PrepareKBQuery</name>
+                <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-update-attribute-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="600.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Prepara attributi per chiamata a SP04</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>sp04.url</key>
+                            <value>http://sp04-knowledge-base:5004/api/v1/retrieve-context</value>
+                        </entry>
+                        <entry>
+                            <key>workflow.step</key>
+                            <value>SP04_KB_RETRIEVAL</value>
+                        </entry>
+                        <entry>
+                            <key>http.method</key>
+                            <value>POST</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>661f60bb-7be4-4347-b364-635e3c2a9d72</id>
+                <name>CreateKBPayload</name>
+                <type>org.apache.nifi.processors.standard.ReplaceText</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="850.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Costruisce payload JSON per SP04</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Regular Expression</key>
+                            <value>(?s)(.*)</value>
+                        </entry>
+                        <entry>
+                            <key>Replacement Value</key>
+                            <value>{
+  "query": "${kb.query}",
+  "context": "${kb.context}",
+  "max_results": ${kb.max_results:replaceNull('5')},
+  "workflow_id": "${workflow.id}",
+  "timestamp": "${now():format('yyyy-MM-dd HH:mm:ss')}"
+}</value>
+                        </entry>
+                        <entry>
+                            <key>Character Set</key>
+                            <value>UTF-8</value>
+                        </entry>
+                        <entry>
+                            <key>Replacement Strategy</key>
+                            <value>Always Replace</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>fce9bbbe-b58b-4e05-aa0a-79226300d82f</id>
+                <name>InvokeSP04KnowledgeBase</name>
+                <type>org.apache.nifi.processors.standard.InvokeHTTP</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Chiama SP04 per retrieval contesto normativo con RAG</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>HTTP Method</key>
+                            <value>POST</value>
+                        </entry>
+                        <entry>
+                            <key>Remote URL</key>
+                            <value>${sp04.url}</value>
+                        </entry>
+                        <entry>
+                            <key>Connection Timeout</key>
+                            <value>30 sec</value>
+                        </entry>
+                        <entry>
+                            <key>Read Timeout</key>
+                            <value>45 sec</value>
+                        </entry>
+                        <entry>
+                            <key>Include Date Header</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Follow Redirects</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Content-Type</key>
+                            <value>application/json</value>
+                        </entry>
+                        <entry>
+                            <key>send-message-body</key>
+                            <value>true</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>Retry</relationship>
+                        <relationship>No Retry</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>7f1f080f-211f-441d-9a94-0eba18f6455d</id>
+                <name>ParseKBResponse</name>
+                <type>org.apache.nifi.processors.standard.EvaluateJsonPath</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1350.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Estrae risultati dalla knowledge base</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Destination</key>
+                            <value>flowfile-attribute</value>
+                        </entry>
+                        <entry>
+                            <key>Return Type</key>
+                            <value>auto-detect</value>
+                        </entry>
+                        <entry>
+                            <key>Path Not Found Behavior</key>
+                            <value>warn</value>
+                        </entry>
+                        <entry>
+                            <key>kb.status</key>
+                            <value>$.status</value>
+                        </entry>
+                        <entry>
+                            <key>kb.total_found</key>
+                            <value>$.total_found</value>
+                        </entry>
+                        <entry>
+                            <key>kb.results</key>
+                            <value>$.results</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>unmatched</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>283bff1c-b372-4096-98ab-5a7f88b0dfb3</id>
+                <name>EvaluateRelevanceScore</name>
+                <type>org.apache.nifi.processors.standard.RouteOnAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1600.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Filtra risultati per relevance score</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Routing Strategy</key>
+                            <value>Route to Property name</value>
+                        </entry>
+                        <entry>
+                            <key>HIGH_RELEVANCE</key>
+                            <value>${kb.total_found:gt(0)}</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>unmatched</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>904750bc-8f92-4ad7-9076-2432dd2abac0</id>
+                <name>CacheKBResults</name>
+                <type>org.apache.nifi.processors.standard.PutDistributedMapCache</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1850.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Salva risultati KB in Redis cache per riuso</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Distributed Cache Service</key>
+                            <value>Redis-Cache-Service</value>
+                        </entry>
+                        <entry>
+                            <key>Cache Entry Identifier</key>
+                            <value>kb:${kb.query:hash()}</value>
+                        </entry>
+                        <entry>
+                            <key>Cache update strategy</key>
+                            <value>replace</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>d9f4c199-4e51-48f7-b72b-fb619caf80e4</id>
+                <name>PrepareHTTPResponse</name>
+                <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-update-attribute-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="2100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Prepara attributi per risposta HTTP</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>http.status.code</key>
+                            <value>200</value>
+                        </entry>
+                        <entry>
+                            <key>http.context.identifier</key>
+                            <value>${http.context.identifier}</value>
+                        </entry>
+                        <entry>
+                            <key>mime.type</key>
+                            <value>application/json</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>54c28f18-b1b2-485e-9092-3e4d0bf17552</id>
+                <name>SendHTTPResponse</name>
+                <type>org.apache.nifi.processors.standard.HandleHttpResponse</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="2350.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Invia risposta HTTP al client</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>HTTP Context Map</key>
+                            <value>HTTP-Context-Map</value>
+                        </entry>
+                        <entry>
+                            <key>HTTP Status Code</key>
+                            <value>${http.status.code}</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>success</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>17d2a2b7-b2f6-483a-94ae-b0db28426e83</id>
+                <name>LogKBSuccess</name>
+                <type>org.apache.nifi.processors.standard.LogAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="2600.0" y="200.0" />
+                <config>
+                    <bulletinLevel>INFO</bulletinLevel>
+                    <comments>Log retrieval knowledge base</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Log Level</key>
+                            <value>info</value>
+                        </entry>
+                        <entry>
+                            <key>Log Payload</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Attributes to Log</key>
+                            <value>kb.query,kb.total_found,workflow.id</value>
+                        </entry>
+                        <entry>
+                            <key>Log prefix</key>
+                            <value>SP04-KB-RETRIEVAL:</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>success</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+        </processors>
+
+        
+        <connections>
+            <connection>
+                <id>8f9cd4e5-3c72-4040-9028-23b687240382</id>
+                <name>ReceiveQuery → Validate</name>
+                <sourceId>1a534a9e-4998-42bd-97b8-257b4dc712e1</sourceId>
+                <destinationId>f1f6ba11-5eab-4f8d-b98a-48846b4b6ddd</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>9237bf06-055e-4f59-a9ad-203b1b8b6d85</id>
+                <name>Validate → PrepareQuery</name>
+                <sourceId>f1f6ba11-5eab-4f8d-b98a-48846b4b6ddd</sourceId>
+                <destinationId>32abbd4e-16a6-47de-bf49-9911cffbb21d</destinationId>
+                <sourceRelationship>matched</sourceRelationship>
+            </connection>
+            <connection>
+                <id>71e6c30d-cb37-4162-a2d9-fc1685a742f6</id>
+                <name>PrepareQuery → CreatePayload</name>
+                <sourceId>32abbd4e-16a6-47de-bf49-9911cffbb21d</sourceId>
+                <destinationId>661f60bb-7be4-4347-b364-635e3c2a9d72</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>c964496d-420f-4c49-8c24-37be2501b40b</id>
+                <name>CreatePayload → InvokeSP04</name>
+                <sourceId>661f60bb-7be4-4347-b364-635e3c2a9d72</sourceId>
+                <destinationId>fce9bbbe-b58b-4e05-aa0a-79226300d82f</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>a28b67ae-b886-4cac-8667-afdda50ed03e</id>
+                <name>InvokeSP04 → ParseResponse</name>
+                <sourceId>fce9bbbe-b58b-4e05-aa0a-79226300d82f</sourceId>
+                <destinationId>7f1f080f-211f-441d-9a94-0eba18f6455d</destinationId>
+                <sourceRelationship>Response</sourceRelationship>
+            </connection>
+            <connection>
+                <id>c6320294-d510-4fad-8091-1c67363419f7</id>
+                <name>ParseResponse → EvaluateRelevance</name>
+                <sourceId>7f1f080f-211f-441d-9a94-0eba18f6455d</sourceId>
+                <destinationId>283bff1c-b372-4096-98ab-5a7f88b0dfb3</destinationId>
+                <sourceRelationship>matched</sourceRelationship>
+            </connection>
+            <connection>
+                <id>226e495f-1fad-4ffd-99cb-f4082fbccfbe</id>
+                <name>EvaluateRelevance → CacheResults</name>
+                <sourceId>283bff1c-b372-4096-98ab-5a7f88b0dfb3</sourceId>
+                <destinationId>904750bc-8f92-4ad7-9076-2432dd2abac0</destinationId>
+                <sourceRelationship>HIGH_RELEVANCE</sourceRelationship>
+            </connection>
+            <connection>
+                <id>60f7ac51-81a4-4aa4-91cd-d3a561aa6840</id>
+                <name>CacheResults → PrepareResponse</name>
+                <sourceId>904750bc-8f92-4ad7-9076-2432dd2abac0</sourceId>
+                <destinationId>d9f4c199-4e51-48f7-b72b-fb619caf80e4</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>535beb3b-b797-40e8-9a62-68e86e0322d6</id>
+                <name>PrepareResponse → SendHTTP</name>
+                <sourceId>d9f4c199-4e51-48f7-b72b-fb619caf80e4</sourceId>
+                <destinationId>54c28f18-b1b2-485e-9092-3e4d0bf17552</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>a32230b5-f08a-431f-8383-2f67617b9bfb</id>
+                <name>SendHTTP → LogSuccess</name>
+                <sourceId>54c28f18-b1b2-485e-9092-3e4d0bf17552</sourceId>
+                <destinationId>17d2a2b7-b2f6-483a-94ae-b0db28426e83</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+        </connections>
+
+    </snippet>
+</template>

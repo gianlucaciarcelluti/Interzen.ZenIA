@@ -1,0 +1,161 @@
+{
+    "model": "llama3.2:1b",
+    "created_at": "2025-09-24T15:34:05.965369557Z",
+    "message": {
+        "role": "assistant",
+        "content": {
+            "procedimento_type": "autorizzazione",
+            "richiedente": {
+                "nome": " Industrie Alimentari Rossi S.r.l.",
+                "cognome": "",
+                "codice_fiscale": "12345678901",
+                "sede_legale": {
+                    "ruota_legale": "Via Giuseppe Verdi, 45 - 00185 Roma (RM)",
+                    "indirizzo_legale": "Via delle Rose, 23 - 00186 Roma (RM)"
+                },
+                "telefono": "06-12345678",
+                "email": "info@industrierossi.it",
+                "PEC": "industrierossi@pec.it",
+                "legale_rappresentante": {
+                    "nome": "Dott. Marco Bianchi",
+                    "cognome": "",
+                    "codice_fiscale": "BNCMRC75H15H501Z",
+                    "nato": "1975-06-15",
+                    "residenza": "Via delle Rose, 23 - 00186 Roma (RM)",
+                    "documenti_identificati": [
+                        {
+                            "tipo_doc": " documento_di_identità",
+                            "numero_doc": "BNCMRC75H15H501Z"
+                        },
+                        {
+                            "tipo_doc": "PEC",
+                            "numero_doc": ""
+                        }
+                    ]
+                },
+                "oggetto_richiesta": "Richiesta di autorizzazione allo scarico di acque reflue industriali ai sensi del D.Lgs. 152/2006 - Parte III",
+                "documenti_identificati": [
+                    "planimetria_generale_dell'impianto",
+                    "schema_del_sistema_di_trattamento delle_acque_reflue",
+                    "relazione_tecnica_descrittiva_dei_processi_produttivi",
+                    "certificato_di_agibilità dell'immobile",
+                    "copia_del_docidentità_del_legale_rappresentante",
+                    "visura_camerale_adjornata",
+                    "ricevuta_di_versamento_diritti_di_segreteria",
+                    "dichiarazione_sostitutiva_dello_atto_notorio_sui_consumi_idrici"
+                ],
+                "date_rilevanti": [
+                    "2024-03-15"
+                ],
+                "importi": [
+                    {
+                        "nome_importo": "Portata media giornaliera",
+                        "valore_importo": "15 mc/giorno"
+                    },
+                    {
+                        "nome_importo": "Portata massima oraria",
+                        "valore_importo": "2,5 mc/h"
+                    }
+                ],
+                "riferimenti_normativi": [
+                    "leggi_e_regolamenti"
+                ],
+                "urgenza": false,
+                "note": "osservazioni_aggiuntive"
+            },
+            {
+                "procedimento_type": "documenti_allegati",
+                "documenti_identificati": [
+                    {
+                        "tipo_doc": "planimetria_generale_dell'impianto",
+                        "numero_doc": ""
+                    },
+                    {
+                        "tipo_doc": "schema_del_sistema_di_trattamento delle_acque_reflue",
+                        "numero_doc": ""
+                    },
+                    {
+                        "tipo_doc": "relazione_tecnica_descrittiva_dei_processi_produttivi",
+                        "numero_doc": ""
+                    },
+                    {
+                        "tipo_doc": "certificato_di_agibilità dell'immobile",
+                        "numero_doc": ""
+                    },
+                    {
+                        "tipo_doc": "copia_del_docidentità_del_legale_rappresentante",
+                        "numero_doc": ""
+                    },
+                    {
+                        "tipo_doc": "visura_camerale_adjornata",
+                        "numero_doc": ""
+                    },
+                    {
+                        "tipo_doc": "ricevuta_di_versamento_diritti_di_segreteria",
+                        "numero_doc": ""
+                    },
+                    {
+                        "tipo_doc": "dichiarazione_sostitutiva_dello_atto_notorio_sui_consumi_idrici",
+                        "numero_doc": ""
+                    }
+                ],
+                "date_rilevanti": [
+                    "2024-03-15"
+                ],
+                "importi": [
+                    {
+                        "nome_importo": "Portata media giornaliera",
+                        "valore_importo": "15 mc/giorno"
+                    },
+                    {
+                        "nome_importo": "Portata massima oraria",
+                        "valore_importo": "2,5 mc/h"
+                    }
+                ],
+                "riferimenti_normativi": [
+                    "leggi_e_regolamenti"
+                ],
+                "urgenza": false,
+                "note": "osservazioni_aggiuntive"
+            },
+            {
+                "procedimento_type": "data_rilevanti",
+                "date_rilevanti": [
+                    "2024-03-15"
+                ]
+            },
+            {
+                "procedimento_type": "importi_e_valori_economici",
+                "importi": [
+                    {
+                        "nome_importo": "Portata media giornaliera",
+                        "valore_importo": "15 mc/giorno"
+                    },
+                    {
+                        "nome_importo": "Portata massima oraria",
+                        "valore_importo": "2,5 mc/h"
+                    }
+                ],
+                "riferimenti_normativi": [
+                    "leggi_e_regolamenti"
+                ],
+                "urgenza": false,
+                "note": "osservazioni_aggiuntive"
+            },
+            {
+                "procedimento_type": "riferimenti_normativi",
+                "riferimenti_normativi": [
+                    "leggi_e_regolamenti"
+                ]
+            }
+        }
+    },
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 133165310800,
+    "load_duration": 2248703868,
+    "prompt_eval_count": 1560,
+    "prompt_eval_duration": 13754920578,
+    "eval_count": 1208,
+    "eval_duration": 117153247085
+}

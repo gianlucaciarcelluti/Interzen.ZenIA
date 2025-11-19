@@ -1,0 +1,321 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kong-gateway
+  namespace: zenia
+  labels:
+    app: kong-gateway
+    component: api-gateway
+    microservice: ms11-gateway
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kong-gateway
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: kong-gateway
+        component: api-gateway
+        microservice: ms11-gateway
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8001"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: kong-gateway-sa
+      automountServiceAccountToken: false
+      containers:
+      - name: kong
+        image: kong:3.5
+        ports:
+        - name: proxy
+          containerPort: 8000
+          protocol: TCP
+        - name: proxy-ssl
+          containerPort: 8443
+          protocol: TCP
+        - name: admin
+          containerPort: 8001
+          protocol: TCP
+        - name: admin-ssl
+          containerPort: 8444
+          protocol: TCP
+        - name: metrics
+          containerPort: 9145
+          protocol: TCP
+        env:
+        # Database Configuration
+        - name: KONG_DATABASE
+          value: "postgres"
+        - name: KONG_PG_HOST
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-database
+              key: db-host
+        - name: KONG_PG_PORT
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-database
+              key: db-port
+        - name: KONG_PG_USER
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-secrets
+              key: postgres-user
+        - name: KONG_PG_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-secrets
+              key: postgres-password
+        - name: KONG_PG_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-database
+              key: db-name
+        - name: KONG_PG_SSL
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-database
+              key: db-ssl-mode
+
+        # Redis Configuration
+        - name: KONG_REDIS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-database
+              key: redis-host
+        - name: KONG_REDIS_PORT
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-database
+              key: redis-port
+        - name: KONG_REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-secrets
+              key: redis-password
+        - name: KONG_REDIS_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-database
+              key: redis-db
+        - name: KONG_REDIS_SSL
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-database
+              key: redis-ssl
+
+        # Kong Configuration
+        - name: KONG_ADMIN_LISTEN
+          value: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
+        - name: KONG_PROXY_LISTEN
+          value: "0.0.0.0:8000, 0.0.0.0:8443 ssl"
+        - name: KONG_STATUS_LISTEN
+          value: "0.0.0.0:8100"
+        - name: KONG_LOG_LEVEL
+          value: "info"
+        - name: KONG_PLUGINS
+          value: "bundled,custom-auth,jwt,oauth2,key-auth,rate-limiting,cors,request-transformer,bot-detection,ip-restriction,prometheus"
+
+        # SSL/TLS Configuration
+        - name: KONG_SSL_CERT
+          value: "/etc/ssl/certs/kong.crt"
+        - name: KONG_SSL_CERT_KEY
+          value: "/etc/ssl/private/kong.key"
+
+        # Performance Configuration
+        - name: KONG_NGINX_WORKER_PROCESSES
+          value: "auto"
+        - name: KONG_NGINX_WORKER_CONNECTIONS
+          value: "1024"
+        - name: KONG_UPSTREAM_KEEPALIVE
+          value: "60"
+        - name: KONG_SERVER_TOKENS
+          value: "off"
+        - name: KONG_LATENCY_TOKENS
+          value: "true"
+
+        # Security Configuration
+        - name: KONG_ENFORCE_RBAC
+          value: "on"
+        - name: KONG_ADMIN_GUI_AUTH
+          value: "basic-auth"
+        - name: KONG_ADMIN_GUI_SESSION_CONF
+          valueFrom:
+            configMapKeyRef:
+              name: kong-gateway-config
+              key: session-config.json
+
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+            ephemeral-storage: "1Gi"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+            ephemeral-storage: "2Gi"
+
+        volumeMounts:
+        - name: kong-config
+          mountPath: /etc/kong
+        - name: kong-logs
+          mountPath: /usr/local/kong/logs
+        - name: ssl-certs
+          mountPath: /etc/ssl/certs
+          readOnly: true
+        - name: ssl-keys
+          mountPath: /etc/ssl/private
+          readOnly: true
+
+        livenessProbe:
+          httpGet:
+            path: /status
+            port: 8100
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 6
+
+        readinessProbe:
+          httpGet:
+            path: /status
+            port: 8100
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 3
+          successThreshold: 1
+          failureThreshold: 3
+
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 1000
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+
+      volumes:
+      - name: kong-config
+        configMap:
+          name: kong-gateway-config
+      - name: ssl-certs
+        secret:
+          secretName: kong-gateway-tls
+          items:
+          - key: tls.crt
+            path: kong.crt
+      - name: ssl-keys
+        secret:
+          secretName: kong-gateway-tls
+          items:
+          - key: tls.key
+            path: kong.key
+
+      securityContext:
+        fsGroup: 1000
+
+      # Init container for database migration
+      initContainers:
+      - name: kong-migrations
+        image: kong:3.5
+        env:
+        - name: KONG_DATABASE
+          value: "postgres"
+        - name: KONG_PG_HOST
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-database
+              key: db-host
+        - name: KONG_PG_PORT
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-database
+              key: db-port
+        - name: KONG_PG_USER
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-secrets
+              key: postgres-user
+        - name: KONG_PG_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-secrets
+              key: postgres-password
+        - name: KONG_PG_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-database
+              key: db-name
+        command: ["/bin/sh", "-c", "kong migrations bootstrap"]
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 1000
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kong-gateway-sa
+  namespace: zenia
+  labels:
+    app: kong-gateway
+    component: api-gateway
+automountServiceAccountToken: false
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: kong-gateway-role
+  namespace: zenia
+rules:
+- apiGroups: [""]
+  resources: ["configmaps", "secrets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["networking.k8s.io"]
+  resources: ["ingresses"]
+  verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kong-gateway-role-binding
+  namespace: zenia
+roleRef:
+  apiVersion: rbac.authorization.k8s.io/v1
+  kind: Role
+  name: kong-gateway-role
+subjects:
+- kind: ServiceAccount
+  name: kong-gateway-sa
+  namespace: zenia
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kong-gateway-logs
+  namespace: zenia
+  labels:
+    app: kong-gateway
+    component: logs
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: standard

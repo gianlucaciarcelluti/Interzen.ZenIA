@@ -1,0 +1,6 @@
+--
+-- MS04 - Validator Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for validator database
+-- No SQL code as per instructions, only diagrams in documentation
+--

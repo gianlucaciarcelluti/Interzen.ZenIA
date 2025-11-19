@@ -1,0 +1,6 @@
+--
+-- MS07 - Distributor Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for distributor database
+-- No SQL code as per instructions, only diagrams in documentation
+--

@@ -1,0 +1,197 @@
+version: '3.9'
+
+services:
+  # Main Classifier Service
+  classifier:
+    image: zendata/ms01-classifier:latest
+    container_name: ms01-classifier
+    ports:
+      - "8001:8001"
+    environment:
+      # Service Configuration
+      SERVICE_NAME: MS01-CLASSIFIER
+      SERVICE_PORT: 8001
+      LOG_LEVEL: INFO
+
+      # Model Configuration
+      CLASSIFIER_MODEL_VERSION: v2.1
+      CLASSIFICATION_THRESHOLD: 0.60
+      MODEL_CACHE_DIR: /models
+
+      # Performance Tuning
+      CACHE_TTL_HOURS: 24
+      MAX_FILE_SIZE_MB: 100
+      BATCH_SIZE: 32
+
+      # Database
+      DATABASE_URL: postgresql://classifier_service:classifier_pass@postgres:5432/zendata_classifier
+      DB_POOL_SIZE: 20
+      DB_POOL_RECYCLE: 3600
+
+      # Cache (Redis)
+      REDIS_URL: redis://redis:6379/1
+      REDIS_SOCKET_TIMEOUT: 5
+      REDIS_SOCKET_CONNECT_TIMEOUT: 5
+
+      # Security & Audit
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-change-me-in-production}
+      ENABLE_AUDIT_LOG: "true"
+      ENCRYPT_SENSITIVE_DATA: "true"
+
+      # Feature Flags
+      ENABLE_ML_CLASSIFICATION: "true"
+      ENABLE_QUALITY_CHECKS: "true"
+      ENABLE_MALWARE_SCAN: "true"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    volumes:
+      - ./models:/models:ro
+      - ./logs:/var/log/classifier
+      - classifier-data:/data
+
+    networks:
+      - zendata-network
+
+    restart: unless-stopped
+
+    # Resource limits (adjust for production)
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: classifier-postgres
+    environment:
+      POSTGRES_DB: zendata_classifier
+      POSTGRES_USER: classifier_service
+      POSTGRES_PASSWORD: classifier_pass
+      POSTGRES_INITDB_ARGS: "-c max_connections=100"
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U classifier_service -d zendata_classifier"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - zendata-network
+
+    restart: unless-stopped
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: classifier-redis
+    ports:
+      - "6379:6379"
+
+    command: redis-server
+      --maxmemory 512m
+      --maxmemory-policy allkeys-lru
+      --appendonly yes
+      --appendfsync everysec
+
+    volumes:
+      - redis-data:/data
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - zendata-network
+
+    restart: unless-stopped
+
+  # Optional: pgAdmin for database management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: classifier-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@zendata.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+
+    ports:
+      - "5050:80"
+
+    depends_on:
+      - postgres
+
+    networks:
+      - zendata-network
+
+    restart: unless-stopped
+
+    profiles:
+      - debug  # Run only with: docker-compose --profile debug up
+
+networks:
+  zendata-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+  classifier-data:
+    driver: local
+
+# Usage:
+#
+# Start all services:
+#   docker-compose up -d
+#
+# Start with debug tools (pgAdmin):
+#   docker-compose --profile debug up -d
+#
+# View logs:
+#   docker-compose logs -f classifier
+#
+# Stop services:
+#   docker-compose down
+#
+# Full cleanup (including volumes):
+#   docker-compose down -v
+#
+# Access Classifier API:
+#   curl http://localhost:8001/api/v1/health
+#
+# Access pgAdmin:
+#   http://localhost:5050
+#   Email: admin@zendata.local
+#   Password: admin
+#
+# Connect to PostgreSQL from CLI:
+#   docker-compose exec postgres psql -U classifier_service -d zendata_classifier
+#
+# Monitor Redis:
+#   docker-compose exec redis redis-cli MONITOR

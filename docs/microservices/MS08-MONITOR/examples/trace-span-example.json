@@ -1,0 +1,119 @@
+{
+  "traceID": "7c2f8e8d9f1a4b2c9e8f7d6c5b4a3921",
+  "spans": [
+    {
+      "traceID": "7c2f8e8d9f1a4b2c9e8f7d6c5b4a3921",
+      "spanID": "3d7e9b2f8a1c5e9f",
+      "operationName": "classify_document",
+      "references": [],
+      "startTime": 1642159245123000,
+      "duration": 1250000,
+      "tags": {
+        "service": "ms01-classifier",
+        "tenant_id": "tenant-pa-roma",
+        "document_type": "fascicolo_ambientale",
+        "user_id": "user-pa-roma-456",
+        "correlation_id": "corr-789-abc-123-def",
+        "component": "ai-classifier",
+        "version": "1.2.3"
+      },
+      "logs": [
+        {
+          "timestamp": 1642159245123000,
+          "fields": {
+            "event": "model_loaded",
+            "model_version": "v2.1.3",
+            "model_load_time_ms": 150
+          }
+        },
+        {
+          "timestamp": 1642159245250000,
+          "fields": {
+            "event": "document_preprocessed",
+            "text_length": 15420,
+            "processing_time_ms": 450
+          }
+        },
+        {
+          "timestamp": 1642159246300000,
+          "fields": {
+            "event": "classification_completed",
+            "confidence": 0.95,
+            "category": "autorizzazione_ambientale"
+          }
+        }
+      ],
+      "process": {
+        "serviceName": "ms01-classifier",
+        "tags": {
+          "version": "1.2.3",
+          "environment": "production",
+          "region": "eu-south-1"
+        }
+      }
+    },
+    {
+      "traceID": "7c2f8e8d9f1a4b2c9e8f7d6c5b4a3921",
+      "spanID": "4e8f1a3c6b7d9e2f",
+      "operationName": "analyze_document",
+      "references": [
+        {
+          "refType": "CHILD_OF",
+          "traceID": "7c2f8e8d9f1a4b2c9e8f7d6c5b4a3921",
+          "spanID": "3d7e9b2f8a1c5e9f"
+        }
+      ],
+      "startTime": 1642159246350000,
+      "duration": 750000,
+      "tags": {
+        "service": "ms02-analyzer",
+        "tenant_id": "tenant-pa-roma",
+        "analysis_type": "semantic_analysis",
+        "correlation_id": "corr-789-abc-123-def"
+      },
+      "logs": [
+        {
+          "timestamp": 1642159246350000,
+          "fields": {
+            "event": "analysis_started",
+            "input_tokens": 1200
+          }
+        },
+        {
+          "timestamp": 1642159247050000,
+          "fields": {
+            "event": "analysis_completed",
+            "output_tokens": 450,
+            "entities_found": 12
+          }
+        }
+      ],
+      "process": {
+        "serviceName": "ms02-analyzer",
+        "tags": {
+          "version": "1.1.8",
+          "environment": "production"
+        }
+      }
+    }
+  ],
+  "processes": {
+    "p1": {
+      "serviceName": "ms01-classifier",
+      "tags": {
+        "version": "1.2.3",
+        "environment": "production",
+        "region": "eu-south-1"
+      }
+    },
+    "p2": {
+      "serviceName": "ms02-analyzer",
+      "tags": {
+        "version": "1.1.8",
+        "environment": "production",
+        "region": "eu-south-1"
+      }
+    }
+  },
+  "warnings": null
+}

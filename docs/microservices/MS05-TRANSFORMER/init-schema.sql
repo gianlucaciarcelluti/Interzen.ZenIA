@@ -1,0 +1,6 @@
+--
+-- MS05 - Transformer Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for transformer database
+-- No SQL code as per instructions, only diagrams in documentation
+--

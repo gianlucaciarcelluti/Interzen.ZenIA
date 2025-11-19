@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms12-cache
+  namespace: zenia
+  labels:
+    app: ms12-cache
+    component: redis
+spec:
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: 6379
+  - name: redis-tls
+    port: 6380
+    targetPort: 6380
+  clusterIP: None
+  selector:
+    app: ms12-cache
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms12-cache-sentinel
+  namespace: zenia
+  labels:
+    app: ms12-cache-sentinel
+    component: sentinel
+spec:
+  ports:
+  - name: sentinel
+    port: 26379
+    targetPort: 26379
+  selector:
+    app: ms12-cache-sentinel
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms12-cache-exporter
+  namespace: zenia
+  labels:
+    app: ms12-cache-exporter
+    component: monitoring
+spec:
+  ports:
+  - name: metrics
+    port: 9121
+    targetPort: 9121
+  selector:
+    app: ms12-cache-exporter

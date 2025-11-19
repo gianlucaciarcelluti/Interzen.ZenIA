@@ -1,0 +1,156 @@
+{
+  "job_id": "550e8400-e29b-41d4-a716-446655440000",
+  "status": "COMPLETED",
+  "result": {
+    "job_type": "BATCH",
+    "records_processed": 150000,
+    "records_output": 365,
+    "processing_time_seconds": 245.8,
+    "quality_metrics": {
+      "completeness": 0.98,
+      "accuracy": 0.96,
+      "consistency": 0.94,
+      "data_quality_score": 0.96
+    },
+    "output_info": {
+      "format": "parquet",
+      "path": "/results/aggregated/",
+      "partitions_created": 24,
+      "total_size_bytes": 5242880,
+      "compression_ratio": 0.72
+    },
+    "aggregation_summary": {
+      "total_groups": 365,
+      "date_range": {
+        "start": "2024-01-01",
+        "end": "2024-12-31"
+      },
+      "categories_processed": [
+        "urbanistica",
+        "edilizia",
+        "commercio",
+        "sanita",
+        "istruzione"
+      ],
+      "municipalities_covered": 12,
+      "total_amount_aggregated": 45678900.50,
+      "avg_transaction_amount": 304.46
+    },
+    "sample_results": [
+      {
+        "date": "2024-01-15",
+        "category": "urbanistica",
+        "municipality": "Milano",
+        "total_amount": 125000.75,
+        "transaction_count": 25,
+        "avg_amount": 5000.03,
+        "min_amount": 500.00,
+        "max_amount": 25000.50
+      },
+      {
+        "date": "2024-01-15",
+        "category": "edilizia",
+        "municipality": "Milano",
+        "total_amount": 89000.25,
+        "transaction_count": 18,
+        "avg_amount": 4944.46,
+        "min_amount": 1200.00,
+        "max_amount": 15000.75
+      },
+      {
+        "date": "2024-01-16",
+        "category": "urbanistica",
+        "municipality": "Roma",
+        "total_amount": 156000.00,
+        "transaction_count": 32,
+        "avg_amount": 4875.00,
+        "min_amount": 800.00,
+        "max_amount": 30000.00
+      }
+    ],
+    "data_quality_report": {
+      "null_values_handled": 1250,
+      "duplicate_records_removed": 45,
+      "outlier_values_corrected": 23,
+      "data_type_conversions": 5,
+      "validation_errors": [
+        {
+          "field": "amount",
+          "error_type": "negative_value",
+          "count": 3,
+          "action_taken": "converted_to_positive"
+        },
+        {
+          "field": "date",
+          "error_type": "invalid_format",
+          "count": 2,
+          "action_taken": "parsed_with_fallback"
+        }
+      ]
+    },
+    "performance_metrics": {
+      "spark_metrics": {
+        "executors_used": 4,
+        "cores_used": 8,
+        "memory_used_gb": 12.5,
+        "shuffle_read_bytes": 2147483648,
+        "shuffle_write_bytes": 1073741824
+      },
+      "stage_metrics": [
+        {
+          "stage_name": "data_ingestion",
+          "duration_seconds": 45.2,
+          "input_records": 150000,
+          "output_records": 149955
+        },
+        {
+          "stage_name": "data_filtering",
+          "duration_seconds": 23.1,
+          "input_records": 149955,
+          "output_records": 148750
+        },
+        {
+          "stage_name": "data_aggregation",
+          "duration_seconds": 156.8,
+          "input_records": 148750,
+          "output_records": 365
+        },
+        {
+          "stage_name": "data_output",
+          "duration_seconds": 20.7,
+          "input_records": 365,
+          "output_records": 365
+        }
+      ]
+    },
+    "execution_plan": {
+      "query_plan": "AdaptiveSparkPlan with 4 stages",
+      "optimizations_applied": [
+        "AdaptiveQueryExecution",
+        "CoalesceShufflePartitions",
+        "OptimizeSkewedJoin",
+        "PushDownFilters"
+      ],
+      "data_skew_detected": false,
+      "partition_count": 200
+    }
+  },
+  "processing_stats": {
+    "data_ingestion_time": 45.2,
+    "data_transformation_time": 179.9,
+    "data_validation_time": 12.3,
+    "data_output_time": 20.7,
+    "total_time": 245.8,
+    "cpu_time_seconds": 892.5,
+    "peak_memory_mb": 8192
+  },
+  "spark_versions": {
+    "spark_version": "3.5.0",
+    "scala_version": "2.12.18",
+    "java_version": "11.0.21",
+    "hadoop_version": "3.3.4"
+  },
+  "created_at": "2025-11-18T10:15:00Z",
+  "started_at": "2025-11-18T10:15:05Z",
+  "completed_at": "2025-11-18T10:19:10Z"
+}

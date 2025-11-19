@@ -1,0 +1,184 @@
+# SP27 - Process Analytics
+
+## Panoramica
+
+**SP27 - Process Analytics** fornisce analytics avanzati e monitoraggio real-time delle performance dei processi, con predictive analytics per ottimizzazioni proattive e dashboard executive.
+
+```mermaid
+graph LR
+    PROCESSES[Process Executions] --> SP27[SP27<br/>Process Analytics]
+    METRICS[Performance Metrics] --> SP27
+    SP27 --> DASHBOARDS[Executive Dashboards]
+    SP27 --> PREDICTIONS[Predictive Insights]
+    SP27 --> ALERTS[Smart Alerts]
+    
+    SP27 --> SP10[SP10<br/>Dashboard]
+    SP27 --> SP26[SP26<br/>Workflow Designer]
+    
+    SP27 -.-> CLICKHOUSE[(ClickHouse<br/>Time Series)]
+    SP27 -.-> SPARK[(Spark<br/>ML Analytics)]
+    SP27 -.-> PROMETHEUS[(Prometheus<br/>Metrics)]
+    SP27 -.-> GRAFANA[(Grafana<br/>Visualization)]
+    
+    style SP27 fill:#ffd700
+```
+
+## Responsabilità
+
+### Core Functions
+
+1. **Real-time Monitoring**
+   - KPI tracking in tempo reale
+   - Performance metrics processi
+   - SLA compliance monitoring
+
+2. **Predictive Analytics**
+   - Forecasting performance processi
+   - Anomaly detection precoce
+   - Capacity planning intelligente
+
+3. **Executive Reporting**
+   - Dashboard customizzabili
+   - Trend analysis storico
+   - Benchmarking processi
+
+4. **Smart Alerting**
+   - Alert basati su ML
+   - Escalation automatica
+   - Actionable insights
+
+## Architettura Tecnica
+
+### Analytics Pipeline
+
+```mermaid
+graph TD
+    A[Process Events] --> B[Data Ingestion]
+    B --> C[Real-time Processing]
+    C --> D[Batch Analytics]
+    D --> E[ML Predictions]
+    E --> F[Dashboard Updates]
+    F --> G[Alert Generation]
+    
+    style SP27 fill:#ffd700
+```
+
+### Tecnologie Utilizzate
+
+| Componente | Tecnologia | Versione | Scopo |
+|------------|------------|----------|--------|
+| Time Series DB | ClickHouse | 23.8 | Fast time series analytics |
+| ML Framework | Apache Spark ML | 3.5 | Predictive modeling |
+| Metrics | Prometheus | 2.45 | Real-time metrics |
+| Visualization | Grafana | 10.1 | Dashboard creation |
+| Streaming | Kafka Streams | 3.6 | Real-time processing |
+
+### KPI Categories
+
+#### Process Efficiency KPIs
+```
+- Cycle Time: Tempo medio completamento processo
+- Throughput: Numero processi completati per unità tempo
+- Resource Utilization: Utilizzo risorse per processo
+- Error Rate: Percentuale processi con errori
+```
+
+#### Quality KPIs
+```
+- SLA Compliance: Percentuale rispetto SLA
+- Rework Rate: Percentuale processi che richiedono rework
+- Customer Satisfaction: Metriche soddisfazione clienti
+- Compliance Score: Punteggio conformità normativa
+```
+
+### API Endpoints
+
+```yaml
+GET /api/v1/analytics/kpis
+  - Query: ?process_id=123&time_range=30d&kpi_types=efficiency,quality
+  - Output: {
+      "cycle_time": {"current": "4.2h", "trend": -0.15, "target": "3.5h"},
+      "throughput": {"current": 150, "trend": 0.08, "target": 160},
+      "error_rate": {"current": 0.025, "trend": -0.3, "target": 0.02}
+    }
+
+POST /api/v1/analytics/predict
+  - Input: {
+      "process_id": "proc_123",
+      "forecast_type": "performance",
+      "time_horizon": 30,
+      "confidence_level": 0.95
+    }
+  - Output: {
+      "predictions": [
+        {"date": "2024-02-01", "cycle_time": "4.1h", "confidence": 0.88},
+        {"date": "2024-02-02", "cycle_time": "4.0h", "confidence": 0.85}
+      ]
+    }
+
+GET /api/v1/analytics/anomalies
+  - Query: ?process_id=123&time_range=7d&severity=high
+  - Output: {
+      "anomalies": [
+        {
+          "id": "anom_123",
+          "type": "performance_drop",
+          "severity": "high",
+          "description": "Cycle time increased by 45%",
+          "timestamp": "2024-01-15T10:30:00Z",
+          "impact": "SLA violation risk"
+        }
+      ]
+    }
+
+POST /api/v1/analytics/reports/generate
+  - Input: {
+      "report_type": "executive_summary",
+      "process_ids": ["proc_1", "proc_2"],
+      "time_range": {"start": "2024-01-01", "end": "2024-01-31"},
+      "format": "pdf"
+    }
+  - Output: {"report_id": "report_456", "status": "generating"}
+```
+
+### Configurazione
+
+```yaml
+sp27:
+  clickhouse_host: 'clickhouse:8123'
+  spark_master: 'spark://spark-master:7077'
+  prometheus_url: 'http://prometheus:9090'
+  grafana_url: 'http://grafana:3000'
+  kafka_bootstrap: 'kafka:9092'
+  ml_models:
+    forecasting: '/models/forecasting_model.pkl'
+    anomaly_detection: '/models/anomaly_detector.pkl'
+  alerting:
+    email_enabled: true
+    slack_enabled: true
+    threshold_violation: 0.1
+  retention:
+    raw_data: '90d'
+    aggregated_data: '2y'
+```
+
+### Performance Metrics
+
+- **Query Latency**: <500ms per KPI query
+- **Prediction Accuracy**: >85% per forecasting
+- **Real-time Processing**: <1s per event processing
+- **Dashboard Load**: <2s per complex dashboard
+
+### Sicurezza
+
+- **Data Aggregation**: Aggregazione per privacy preservation
+- **Access Control**: Row-level security per dati
+- **Audit Logging**: Complete audit trail analytics access
+- **Data Masking**: Mascheramento dati sensibili in report
+
+### Evoluzione
+
+1. **AI-Driven Insights**: Automated insight generation
+2. **Causal Analysis**: Root cause analysis automatico
+3. **Prescriptive Analytics**: Automated optimization recommendations</content>
+<parameter name="filePath">/Users/giangio/Documents/GitHub/Interzen/Interzen.POC/ZenIA/docs/use_cases/UC4 - BPM e Automazione Processi/01 SP27 - Process Analytics.md

@@ -1,0 +1,210 @@
+{
+  "id": "wf-instance-123456789-abc-001",
+  "workflow_definition_id": "document-processing-workflow",
+  "version": "1.0.0",
+  "tenant_id": "tenant-pa-roma",
+  "status": "running",
+  "priority": "high",
+  "context": {
+    "document_id": "DOC-2024-001234-ABC",
+    "tenant_id": "tenant-pa-roma",
+    "user_id": "user-pa-roma-456",
+    "correlation_id": "corr-789-abc-123-def-456-ghi",
+    "session_id": "session-pa-roma-20240115-001",
+    "source_system": "portale-pa",
+    "request_timestamp": "2024-01-15T10:00:00Z"
+  },
+  "variables": {
+    "start_time": "2024-01-15T10:00:00Z",
+    "current_step": "parallel_processing",
+    "progress_percentage": 65.5,
+    "estimated_completion": "2024-01-15T10:05:30Z",
+    "document_type": "provvedimento",
+    "classification_confidence": 0.87,
+    "processing_node": "ms09-manager-pod-7x9k2",
+    "retry_count": 0,
+    "last_updated": "2024-01-15T10:02:15Z"
+  },
+  "steps": {
+    "initial_validation": {
+      "status": "completed",
+      "started_at": "2024-01-15T10:00:00Z",
+      "completed_at": "2024-01-15T10:00:30Z",
+      "duration_ms": 30000,
+      "attempts": 1,
+      "result": {
+        "valid": true,
+        "format": "pdf",
+        "size_bytes": 2048576,
+        "checksum": "sha256:a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "page_count": 12,
+        "has_text": true,
+        "language_detected": "it",
+        "metadata": {
+          "author": "Ufficio Protocollo",
+          "created": "2024-01-10T09:30:00Z",
+          "modified": "2024-01-14T16:45:00Z",
+          "title": "Provvedimento Autorizzativo n. 123/2024"
+        }
+      },
+      "metrics": {
+        "cpu_usage_percent": 15.2,
+        "memory_usage_mb": 128.5,
+        "network_io_kb": 2048,
+        "validation_time_ms": 28500
+      },
+      "executed_by": "ms04-validator-pod-4n2m8",
+      "execution_node": "k8s-worker-node-03"
+    },
+    "parallel_processing": {
+      "status": "running",
+      "started_at": "2024-01-15T10:00:30Z",
+      "current_duration_ms": 105000,
+      "branches": {
+        "classification_branch": {
+          "status": "completed",
+          "started_at": "2024-01-15T10:00:31Z",
+          "completed_at": "2024-01-15T10:01:45Z",
+          "duration_ms": 74000,
+          "current_step": "classification",
+          "progress": 100,
+          "result": {
+            "category": "provvedimento",
+            "confidence": 0.87,
+            "subcategories": ["autorizzazione", "ambientale"],
+            "keywords": ["autorizzazione", "scarico", "acque", "rifiuti"],
+            "model_version": "pa-documents-v2.1",
+            "processing_time_ms": 72100
+          }
+        },
+        "analysis_branch": {
+          "status": "running",
+          "started_at": "2024-01-15T10:00:32Z",
+          "current_duration_ms": 103000,
+          "current_step": "content_analysis",
+          "progress": 75,
+          "estimated_completion": "2024-01-15T10:03:00Z"
+        }
+      },
+      "join_type": "all_success",
+      "join_timeout": "300s",
+      "branches_completed": 1,
+      "branches_total": 2
+    }
+  },
+  "events": [
+    {
+      "id": "event-001-123456789",
+      "type": "WorkflowStarted",
+      "timestamp": "2024-01-15T10:00:00Z",
+      "message": "Workflow di elaborazione documento avviato",
+      "data": {
+        "workflow_id": "wf-instance-123456789-abc-001",
+        "triggered_by": "api_call",
+        "source_ip": "192.168.1.100",
+        "user_agent": "ZenIA-PA-Portal/2.1.0"
+      },
+      "correlation_id": "corr-789-abc-123-def-456-ghi",
+      "version": 1
+    },
+    {
+      "id": "event-002-123456789",
+      "type": "StepStarted",
+      "timestamp": "2024-01-15T10:00:00Z",
+      "message": "Step 'initial_validation' avviato",
+      "data": {
+        "step_id": "initial_validation",
+        "step_type": "service_call",
+        "service": "ms04-validator"
+      },
+      "correlation_id": "corr-789-abc-123-def-456-ghi",
+      "version": 2
+    },
+    {
+      "id": "event-003-123456789",
+      "type": "StepCompleted",
+      "timestamp": "2024-01-15T10:00:30Z",
+      "message": "Step 'initial_validation' completato con successo",
+      "data": {
+        "step_id": "initial_validation",
+        "result": "success",
+        "duration_ms": 30000,
+        "output_size_bytes": 2048
+      },
+      "correlation_id": "corr-789-abc-123-def-456-ghi",
+      "version": 3
+    },
+    {
+      "id": "event-004-123456789",
+      "type": "ParallelProcessingStarted",
+      "timestamp": "2024-01-15T10:00:30Z",
+      "message": "Elaborazione parallela avviata con 2 rami",
+      "data": {
+        "step_id": "parallel_processing",
+        "branches_count": 2,
+        "join_type": "all_success"
+      },
+      "correlation_id": "corr-789-abc-123-def-456-ghi",
+      "version": 4
+    },
+    {
+      "id": "event-005-123456789",
+      "type": "BranchCompleted",
+      "timestamp": "2024-01-15T10:01:45Z",
+      "message": "Ramo 'classification_branch' completato",
+      "data": {
+        "branch_id": "classification_branch",
+        "status": "completed",
+        "duration_ms": 74000
+      },
+      "correlation_id": "corr-789-abc-123-def-456-ghi",
+      "version": 5
+    }
+  ],
+  "metadata": {
+    "created_at": "2024-01-15T10:00:00Z",
+    "created_by": "api-user-pa-roma",
+    "updated_at": "2024-01-15T10:02:15Z",
+    "updated_by": "ms09-manager",
+    "version": 5,
+    "tags": ["document-processing", "pa-roma", "provvedimento", "high-priority"],
+    "custom_metadata": {
+      "business_unit": "Ambiente",
+      "cost_center": "CC-ENV-001",
+      "sla_class": "gold",
+      "data_sensitivity": "internal"
+    }
+  },
+  "metrics": {
+    "total_duration_ms": 135000,
+    "steps_completed": 2,
+    "steps_total": 8,
+    "progress_percentage": 65.5,
+    "estimated_remaining_seconds": 210,
+    "cpu_usage_percent": 45.2,
+    "memory_usage_mb": 512.8,
+    "network_io_kb": 15360,
+    "database_queries": 23,
+    "external_calls": 3,
+    "cache_hits": 18,
+    "cache_misses": 5,
+    "error_count": 0,
+    "warning_count": 1
+  },
+  "links": {
+    "self": "/api/v1/workflows/wf-instance-123456789-abc-001",
+    "status": "/api/v1/workflows/wf-instance-123456789-abc-001/status",
+    "cancel": "/api/v1/workflows/wf-instance-123456789-abc-001/cancel",
+    "retry": "/api/v1/workflows/wf-instance-123456789-abc-001/retry",
+    "logs": "/api/v1/workflows/wf-instance-123456789-abc-001/logs",
+    "metrics": "/api/v1/workflows/wf-instance-123456789-abc-001/metrics",
+    "definition": "/api/v1/workflow-definitions/document-processing-workflow"
+  },
+  "permissions": {
+    "can_cancel": true,
+    "can_retry": false,
+    "can_modify": false,
+    "can_view_logs": true,
+    "can_view_metrics": true
+  }
+}

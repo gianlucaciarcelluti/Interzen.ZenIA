@@ -1,0 +1,244 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kong-postgresql
+  namespace: zenia
+  labels:
+    app: kong-postgresql
+    component: database
+    microservice: ms11-gateway
+spec:
+  serviceName: kong-postgresql
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kong-postgresql
+  template:
+    metadata:
+      labels:
+        app: kong-postgresql
+        component: database
+        microservice: ms11-gateway
+    spec:
+      serviceAccountName: kong-postgresql-sa
+      automountServiceAccountToken: false
+      containers:
+      - name: postgresql
+        image: postgres:15-alpine
+        ports:
+        - containerPort: 5432
+          name: postgresql
+        env:
+        - name: POSTGRES_DB
+          value: kong
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-secrets
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: kong-gateway-secrets
+              key: postgres-password
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        - name: POSTGRES_INITDB_ARGS
+          value: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+            ephemeral-storage: "1Gi"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+            ephemeral-storage: "2Gi"
+        volumeMounts:
+        - name: postgresql-data
+          mountPath: /var/lib/postgresql/data
+        - name: postgresql-init
+          mountPath: /docker-entrypoint-initdb.d
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - exec pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 6
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - exec pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 999
+          runAsGroup: 999
+      securityContext:
+        fsGroup: 999
+      volumes:
+      - name: postgresql-init
+        configMap:
+          name: kong-postgresql-init
+  volumeClaimTemplates:
+  - metadata:
+    name: postgresql-data
+    labels:
+      app: kong-postgresql
+      component: database
+    annotations:
+      volume.beta.kubernetes.io/storage-class: "fast-ssd"
+  spec:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: fast-ssd
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kong-postgresql-init
+  namespace: zenia
+  labels:
+    app: kong-postgresql
+    component: database-init
+data:
+  init-kong-db.sql: |
+    -- Initialize Kong database schema
+    -- This script creates the Kong database structure
+
+    -- Create extensions if not exists
+    CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+    CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+    -- Create Kong schema (Kong will create tables automatically)
+    -- This is just a placeholder for future custom tables
+
+    -- Create monitoring tables for Kong Gateway
+    CREATE TABLE IF NOT EXISTS kong_gateway_metrics (
+        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+        timestamp TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+        service_name VARCHAR(255),
+        route_name VARCHAR(255),
+        method VARCHAR(10),
+        status_code INTEGER,
+        response_time INTEGER,
+        request_size INTEGER,
+        response_size INTEGER,
+        client_ip INET,
+        user_agent TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    );
+
+    -- Create indexes for performance
+    CREATE INDEX IF NOT EXISTS idx_kong_metrics_timestamp ON kong_gateway_metrics(timestamp);
+    CREATE INDEX IF NOT EXISTS idx_kong_metrics_service ON kong_gateway_metrics(service_name);
+    CREATE INDEX IF NOT EXISTS idx_kong_metrics_status ON kong_gateway_metrics(status_code);
+
+    -- Create rate limiting tables
+    CREATE TABLE IF NOT EXISTS kong_rate_limits (
+        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+        identifier VARCHAR(255) NOT NULL,
+        period VARCHAR(10) NOT NULL, -- 'second', 'minute', 'hour', 'day'
+        count INTEGER DEFAULT 0,
+        reset_time TIMESTAMP WITH TIME ZONE,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+        UNIQUE(identifier, period)
+    );
+
+    -- Create indexes for rate limiting
+    CREATE INDEX IF NOT EXISTS idx_rate_limits_identifier ON kong_rate_limits(identifier);
+    CREATE INDEX IF NOT EXISTS idx_rate_limits_reset ON kong_rate_limits(reset_time);
+
+    -- Create API key tables
+    CREATE TABLE IF NOT EXISTS kong_api_keys (
+        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+        key_hash VARCHAR(255) UNIQUE NOT NULL,
+        consumer_id UUID,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+        expires_at TIMESTAMP WITH TIME ZONE,
+        is_active BOOLEAN DEFAULT true
+    );
+
+    -- Create indexes for API keys
+    CREATE INDEX IF NOT EXISTS idx_api_keys_hash ON kong_api_keys(key_hash);
+    CREATE INDEX IF NOT EXISTS idx_api_keys_consumer ON kong_api_keys(consumer_id);
+    CREATE INDEX IF NOT EXISTS idx_api_keys_active ON kong_api_keys(is_active);
+
+    -- Insert default data
+    INSERT INTO kong_api_keys (key_hash, consumer_id) VALUES
+    ('admin_api_key_2024', '550e8400-e29b-41d4-a716-446655440000'),
+    ('service_api_key_2024', '550e8400-e29b-41d4-a716-446655440001'),
+    ('readonly_api_key_2024', '550e8400-e29b-41d4-a716-446655440002')
+    ON CONFLICT (key_hash) DO NOTHING;
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kong-postgresql
+  namespace: zenia
+  labels:
+    app: kong-postgresql
+    component: database
+    microservice: ms11-gateway
+spec:
+  selector:
+    app: kong-postgresql
+  ports:
+  - name: postgresql
+    port: 5432
+    targetPort: 5432
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kong-postgresql-sa
+  namespace: zenia
+  labels:
+    app: kong-postgresql
+    component: database
+automountServiceAccountToken: false
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: kong-postgresql-role
+  namespace: zenia
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kong-postgresql-role-binding
+  namespace: zenia
+roleRef:
+  apiVersion: rbac.authorization.k8s.io/v1
+  kind: Role
+  name: kong-postgresql-role
+subjects:
+- kind: ServiceAccount
+  name: kong-postgresql-sa
+  namespace: zenia

@@ -1,0 +1,94 @@
+{
+  "request_id": "req_zenia_demo_001",
+  "timestamp": "2025-11-18T10:00:00Z",
+  "method": "POST",
+  "url": "/api/v1/documents/classify",
+  "headers": {
+    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6ZW5pYS11c2VyIiwiaXNzIjoiemVuaWEtZ2F0ZXdheSIsImV4cCI6MTc2MzQ1NjAwMCwibmJmIjoxNjYzNDU2MDAwfQ.signature",
+    "Content-Type": "application/json",
+    "X-Correlation-ID": "corr_zenia_demo_001",
+    "X-API-Version": "v1",
+    "X-Source": "demo-client",
+    "User-Agent": "ZenIA-Demo-Client/1.0.0"
+  },
+  "body": {
+    "document": {
+      "id": "doc_demo_provvedimento_001",
+      "content": "IL COMUNE DI MILANO\n\nSettore Ambiente e Verde\n\nProvvedimento n. 123/2025\n\nAutorizzazione allo scarico di acque reflue industriali\n\nIL DIRIGENTE\n\nVista la domanda presentata in data 15/11/2025 dall'azienda ABC Srl con sede in Milano, Via Roma 123;\n\nVisto il Regolamento Regionale n. 15/2020 relativo alla disciplina degli scarichi idrici;\n\nConsiderato che l'impianto di trattamento acque dell'azienda è conforme alle normative vigenti;\n\nAutorizza\n\nL'azienda ABC Srl ad effettuare lo scarico di acque reflue industriali nel corpo idrico del fiume Po, secondo le caratteristiche tecniche allegate al presente provvedimento.\n\nLa presente autorizzazione ha validità quinquennale dalla data di emissione.\n\nMilano, 18 novembre 2025\n\nIl Dirigente\nDott. Mario Rossi",
+      "metadata": {
+        "source": "email",
+        "sender": "ambiente@comune.milano.it",
+        "recipient": "protocollo@aziendaabc.it",
+        "received_at": "2025-11-18T09:30:00Z",
+        "priority": "high",
+        "type": "provvedimento_amministrativo",
+        "language": "it",
+        "size_bytes": 2048,
+        "attachments": [
+          {
+            "filename": "allegato_tecnico.pdf",
+            "size_bytes": 1536000,
+            "type": "application/pdf"
+          }
+        ]
+      }
+    },
+    "options": {
+      "confidence_threshold": 0.85,
+      "extract_entities": true,
+      "sentiment_analysis": false,
+      "categories": [
+        "autorizzazione_scarico_acque",
+        "certificato_ambientale",
+        "comunicazione_ufficiale",
+        "provvedimento_amministrativo"
+      ],
+      "processing_mode": "standard",
+      "include_explanation": true,
+      "timeout_seconds": 30
+    }
+  },
+  "expected_response": {
+    "status_code": 200,
+    "processing_time_ms": 245,
+    "result": {
+      "category": "autorizzazione_scarico_acque",
+      "confidence": 0.94,
+      "subcategories": ["autorizzazione_industriale", "provvedimento_amministrativo"],
+      "explanation": "Il documento contiene termini specifici relativi all'autorizzazione di scarico acque, riferimenti normativi ambientali e struttura tipica di provvedimento amministrativo.",
+      "entities": [
+        {
+          "text": "COMUNE DI MILANO",
+          "type": "ORG",
+          "confidence": 0.98,
+          "position": {"start": 0, "end": 16}
+        },
+        {
+          "text": "ABC Srl",
+          "type": "ORG",
+          "confidence": 0.95,
+          "position": {"start": 85, "end": 92}
+        },
+        {
+          "text": "fiume Po",
+          "type": "GPE",
+          "confidence": 0.92,
+          "position": {"start": 245, "end": 253}
+        },
+        {
+          "text": "18 novembre 2025",
+          "type": "DATE",
+          "confidence": 0.99,
+          "position": {"start": 320, "end": 337}
+        }
+      ],
+      "keywords": [
+        {"word": "autorizzazione", "score": 0.96},
+        {"word": "scarico", "score": 0.94},
+        {"word": "acque", "score": 0.91},
+        {"word": "industriali", "score": 0.88},
+        {"word": "provvedimento", "score": 0.85}
+      ]
+    }
+  }
+}

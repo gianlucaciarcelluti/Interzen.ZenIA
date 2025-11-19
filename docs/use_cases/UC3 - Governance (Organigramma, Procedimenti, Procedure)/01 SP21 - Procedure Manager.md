@@ -1,0 +1,168 @@
+# SP21 - Procedure Manager
+
+## Panoramica
+
+**SP21 - Procedure Manager** gestisce il repository centralizzato delle procedure operative, fornendo funzionalità avanzate di versioning, approval workflow e ricerca intelligente.
+
+```mermaid
+graph LR
+    AUTHORS[Procedure Authors] --> SP21[SP21<br/>Procedure Manager]
+    APPROVERS[Approvers] --> SP21
+    LEGACY[Legacy Procedures] --> SP21
+    
+    SP21 --> SP22[SP22<br/>Process Governance]
+    SP21 --> SP10[SP10<br/>Dashboard]
+    
+    SP21 -.-> MONGO[(MongoDB<br/>Procedures)]
+    SP21 -.-> GIT[(Git<br/>Versioning)]
+    SP21 -.-> ELASTIC[(Elasticsearch<br/>Search)]
+    SP21 -.-> WORKFLOW[(Approval<br/>Workflow)]
+    
+    style SP21 fill:#ffd700
+```
+
+## Responsabilità
+
+### Core Functions
+
+1. **Procedure Repository**
+   - Archiviazione procedure strutturate
+   - Metadata ricchi (tag, categorie, dipendenze)
+   - Supporto multi-formato (PDF, DOCX, HTML)
+
+2. **Version Control**
+   - Git-based versioning procedure
+   - Branching per draft/approval
+   - Diff visualizzazione modifiche
+
+3. **Approval Workflow**
+   - Workflow configurabili approvazione
+   - Multi-level approval chains
+   - Automatic notifications
+
+4. **Search & Access**
+   - Ricerca full-text intelligente
+   - Access control per ruolo/competenza
+   - Usage tracking e analytics
+
+## Architettura Tecnica
+
+### Document Model
+
+```yaml
+Procedure:
+  id: string
+  title: string
+  version: semver
+  status: enum[DRAFT, REVIEW, APPROVED, DEPRECATED]
+  content: rich_text
+  metadata:
+    category: string
+    tags: array[string]
+    competencies: array[string]
+    related_procedures: array[string]
+  approval_chain: array[approval_step]
+  created_by: string
+  created_at: datetime
+  last_modified: datetime
+
+ApprovalStep:
+  id: string
+  role: string
+  approver: string
+  status: enum[PENDING, APPROVED, REJECTED]
+  comments: string
+  timestamp: datetime
+```
+
+### API Endpoints
+
+```yaml
+# CRUD Operations
+GET /api/v1/procedures
+POST /api/v1/procedures
+GET /api/v1/procedures/{id}
+PUT /api/v1/procedures/{id}
+DELETE /api/v1/procedures/{id}
+
+# Versioning
+GET /api/v1/procedures/{id}/versions
+POST /api/v1/procedures/{id}/versions
+GET /api/v1/procedures/{id}/versions/{version}
+
+# Approval Workflow
+POST /api/v1/procedures/{id}/submit-approval
+POST /api/v1/procedures/{id}/approve
+POST /api/v1/procedures/{id}/reject
+
+# Search
+GET /api/v1/procedures/search?q={query}&filters={filters}
+GET /api/v1/procedures/suggest?q={partial}
+```
+
+### Tecnologie Utilizzate
+
+| Componente | Tecnologia | Versione | Scopo |
+|------------|------------|----------|--------|
+| Framework | FastAPI | 0.104 | API REST |
+| Database | MongoDB | 7.0 | Documenti procedure |
+| Versioning | Git | 2.40 | Version control |
+| Search | Elasticsearch | 8.11 | Ricerca full-text |
+| Workflow | Airflow | 2.8 | Approval workflows |
+
+### Esempi di Utilizzo
+
+#### Creazione Procedura
+
+**POST /api/v1/procedures**
+```json
+{
+  "title": "Protocollo Istanza Ambientale",
+  "content": "<rich text content>",
+  "metadata": {
+    "category": "Amministrativo",
+    "tags": ["ambiente", "protocollo", "istanza"],
+    "competencies": ["protocollista", "tecnico_ambiente"]
+  },
+  "approval_chain": [
+    {"role": "specialista_ambiente", "required": true},
+    {"role": "responsabile_ufficio", "required": true}
+  ]
+}
+```
+
+#### Ricerca Procedure
+
+**GET /api/v1/procedures/search?q=protocollo+ambiente&category=Amministrativo**
+
+### Configurazione
+
+```yaml
+sp21:
+  mongodb_url: 'mongodb://user:pass@host:27017/procedures'
+  git_repo_path: '/data/procedures_repo'
+  elasticsearch_url: 'http://search:9200'
+  approval_timeout: '7d'
+  max_versions: 50
+```
+
+### Performance Metrics
+
+- **Search Latency**: <100ms per query
+- **Upload Speed**: >10MB/s per documento
+- **Version History**: <2s per diff calculation
+- **Availability**: 99.9% uptime
+
+### Sicurezza
+
+- **Document Encryption**: Crittografia contenuti sensibili
+- **Access Control**: Granular permissions per procedura
+- **Audit Logging**: Tracciabilità accessi/modifiche
+- **Version Integrity**: Hash verification per tampering
+
+### Evoluzione
+
+1. **AI-Powered Search**: Ricerca semantica procedure
+2. **Automated Updates**: Aggiornamenti automatici procedure
+3. **Integration Training**: Link diretto con LMS</content>
+<parameter name="filePath">/Users/giangio/Documents/GitHub/Interzen/Interzen.POC/ZenIA/docs/use_cases/UC3 - Governance (Organigramma, Procedimenti, Procedure)/01 SP21 - Procedure Manager.md

@@ -1,0 +1,6 @@
+--
+-- MS11 - Gateway Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for gateway database
+-- No SQL code as per instructions, only diagrams in documentation
+--

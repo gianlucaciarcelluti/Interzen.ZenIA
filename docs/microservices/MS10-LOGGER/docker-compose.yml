@@ -1,0 +1,290 @@
+version: '3.8'
+
+# Docker Compose per MS10-LOGGER - Ambiente di Sviluppo
+# Stack ELK completo per logging centralizzato ZenIA
+
+services:
+  # Elasticsearch - Motore di ricerca e analytics
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: zenia-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - cluster.name=zenia-logging-dev
+      - node.name=elasticsearch-dev
+      - path.data=/usr/share/elasticsearch/data
+      - path.logs=/usr/share/elasticsearch/logs
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - xpack.security.enabled=false
+      - xpack.monitoring.collection.enabled=true
+      - indices.query.bool.max_clause_count=1024
+      - search.max_buckets=10000
+      - cluster.routing.allocation.disk.threshold_enabled=true
+      - cluster.routing.allocation.disk.watermark.low=85%
+      - cluster.routing.allocation.disk.watermark.high=90%
+      - cluster.routing.allocation.disk.watermark.flood_stage=95%
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    networks:
+      - zenia-logging
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  # Logstash - Pipeline di processamento log
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.0
+    container_name: zenia-logstash
+    environment:
+      - LS_JAVA_OPTS=-Xms512m -Xmx512m
+      - XPACK_MONITORING_ENABLED=true
+      - XPACK_MONITORING_ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5044:5044"  # Beats input
+      - "8080:8080"  # HTTP input
+      - "9600:9600"  # Monitoring API
+    volumes:
+      - ./config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./config/templates:/usr/share/logstash/templates
+      - ./config/geoip:/usr/share/logstash/geoip
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    networks:
+      - zenia-logging
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9600/_node/stats || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  # Kibana - Interfaccia di visualizzazione
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: zenia-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - SERVER_NAME=zenia-kibana
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=5601
+      - XPACK_SECURITY_ENABLED=false
+      - XPACK_MONITORING_ENABLED=true
+    ports:
+      - "5601:5601"
+    volumes:
+      - ./config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - zenia-logging
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5601/login || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  # Kafka - Message broker per ingestion ad alto volume
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: zenia-kafka
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,PLAINTEXT_INTERNAL://localhost:29092
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
+      - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1
+      - KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=0
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=true
+      - KAFKA_NUM_PARTITIONS=3
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=1
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    networks:
+      - zenia-logging
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  # Zookeeper - Coordinatore per Kafka
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: zenia-zookeeper
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+    ports:
+      - "2181:2181"
+    networks:
+      - zenia-logging
+    healthcheck:
+      test: ["CMD", "bash", "-c", "echo 'ruok' | nc localhost 2181"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  # Filebeat - Collector per log da file system
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.11.0
+    container_name: zenia-filebeat
+    user: root
+    volumes:
+      - ./config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - /var/log/zenia:/var/log/zenia:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    environment:
+      - FILEBEAT_CONFIG_PATH=/usr/share/filebeat/filebeat.yml
+    networks:
+      - zenia-logging
+    depends_on:
+      logstash:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Redis - Cache per sessioni e cache temporanea
+  redis:
+    image: redis:7.2-alpine
+    container_name: zenia-redis
+    command: redis-server --appendonly yes --requirepass zenia-redis-password
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - zenia-logging
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # PostgreSQL - Metadata e configurazioni
+  postgres:
+    image: postgres:15-alpine
+    container_name: zenia-postgres
+    environment:
+      - POSTGRES_DB=zenia_logger
+      - POSTGRES_USER=zenia_logger
+      - POSTGRES_PASSWORD=zenia_logger_password
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./config/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - zenia-logging
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zenia_logger -d zenia_logger"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # pgAdmin - Interfaccia web per PostgreSQL (solo sviluppo)
+  pgadmin:
+    image: dpage/pgadmin4:7.7
+    container_name: zenia-pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@zenia.local
+      - PGADMIN_DEFAULT_PASSWORD=admin123
+      - PGADMIN_CONFIG_SERVER_MODE=False
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - zenia-logging
+    restart: unless-stopped
+
+  # Prometheus - Metriche di monitoraggio
+  prometheus:
+    image: prom/prometheus:v2.47.0
+    container_name: zenia-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - zenia-logging
+    restart: unless-stopped
+
+  # Grafana - Dashboard di monitoraggio
+  grafana:
+    image: grafana/grafana:10.1.0
+    container_name: zenia-grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_USERS_ALLOW_SIGN_UP=false
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      prometheus:
+        condition: service_started
+    networks:
+      - zenia-logging
+    restart: unless-stopped
+
+volumes:
+  elasticsearch_data:
+    driver: local
+  redis_data:
+    driver: local
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  zenia-logging:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

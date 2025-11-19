@@ -1,0 +1,6 @@
+--
+-- MS10 - Logger Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for logger database
+-- No SQL code as per instructions, only diagrams in documentation
+--

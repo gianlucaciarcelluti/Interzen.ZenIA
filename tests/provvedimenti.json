@@ -1,0 +1,280 @@
+{
+  "provvedimenti_amministrativi": {
+    "autorizzazione": {
+      "nome": "Autorizzazione",
+      "sezioni": [
+        "intestazione_dati_ente",
+        "oggetto_richiesta",
+        "riferimenti_normativi",
+        "istruttoria_valutazioni",
+        "prescrizioni_condizioni",
+        "dispositivo",
+        "durata_validita",
+        "responsabile_procedimento",
+        "modalita_ricorso",
+        "firma_data",
+        "destinatari",
+        "controlli",
+        "pubblicazione",
+        "pareri",
+        "efficacia",
+        "allegati"
+      ]
+    },
+    "licenza_permesso": {
+      "nome": "Licenza",
+      "sezioni": [
+        "intestazione_dati_ente",
+        "oggetto_richiesta",
+        "riferimenti_normativi",
+        "istruttoria_valutazioni",
+        "prescrizioni_condizioni",
+        "dispositivo",
+        "durata_validita",
+        "responsabile_procedimento",
+        "modalita_ricorso",
+        "firma_data",
+        "destinatari",
+        "sanzioni",
+        "controlli",
+        "pubblicazione",
+        "pareri",
+        "efficacia",
+        "allegati"
+      ]
+    },
+    "concessione": {
+      "nome": "Concessione",
+      "sezioni": [
+        "intestazione_dati_ente",
+        "oggetto_richiesta",
+        "riferimenti_normativi",
+        "istruttoria_valutazioni",
+        "prescrizioni_condizioni",
+        "dispositivo",
+        "durata_validita",
+        "responsabile_procedimento",
+        "modalita_ricorso",
+        "firma_data",
+        "destinatari",
+        "sanzioni",
+        "controlli",
+        "pubblicazione",
+        "pareri",
+        "efficacia",
+        "allegati"
+      ]
+    },
+    "ordinanza": {
+      "nome": "Ordinanza",
+      "sezioni": [
+        "intestazione_dati_ente",
+        "oggetto_richiesta",
+        "riferimenti_normativi",
+        "dispositivo",
+        "durata_validita",
+        "responsabile_procedimento",
+        "modalita_ricorso",
+        "firma_data",
+        "motivazione_urgenza",
+        "destinatari",
+        "sanzioni",
+        "controlli",
+        "pubblicazione",
+        "efficacia"
+      ]
+    },
+    "decreto": {
+      "nome": "Decreto",
+      "sezioni": [
+        "intestazione_dati_ente",
+        "oggetto_richiesta",
+        "riferimenti_normativi",
+        "istruttoria_valutazioni",
+        "dispositivo",
+        "durata_validita",
+        "responsabile_procedimento",
+        "modalita_ricorso",
+        "firma_data",
+        "pubblicazione",
+        "efficacia",
+        "allegati"
+      ]
+    },
+    "deliberazione": {
+      "nome": "Delibera",
+      "sezioni": [
+        "intestazione_dati_ente",
+        "oggetto_richiesta",
+        "riferimenti_normativi",
+        "istruttoria_valutazioni",
+        "dispositivo",
+        "responsabile_procedimento",
+        "modalita_ricorso",
+        "firma_data",
+        "pubblicazione",
+        "pareri",
+        "votazione",
+        "efficacia",
+        "allegati"
+      ]
+    },
+    "determinazione": {
+      "nome": "Determina",
+      "sezioni": [
+        "intestazione_dati_ente",
+        "oggetto_richiesta",
+        "riferimenti_normativi",
+        "istruttoria_valutazioni",
+        "dispositivo",
+        "responsabile_procedimento",
+        "modalita_ricorso",
+        "firma_data",
+        "controlli",
+        "pubblicazione",
+        "efficacia",
+        "allegati"
+      ]
+    },
+    "nulla_osta": {
+      "nome": "Nulla Osta",
+      "sezioni": [
+        "intestazione_dati_ente",
+        "oggetto_richiesta",
+        "riferimenti_normativi",
+        "istruttoria_valutazioni",
+        "prescrizioni_condizioni",
+        "dispositivo",
+        "durata_validita",
+        "responsabile_procedimento",
+        "modalita_ricorso",
+        "firma_data",
+        "controlli",
+        "pubblicazione",
+        "efficacia",
+        "allegati"
+      ]
+    },
+    "certificazione": {
+      "nome": "Certificazione",
+      "sezioni": [
+        "intestazione_dati_ente",
+        "oggetto_richiesta",
+        "riferimenti_normativi",
+        "istruttoria_valutazioni",
+        "dispositivo",
+        "durata_validita",
+        "responsabile_procedimento",
+        "modalita_ricorso",
+        "firma_data",
+        "efficacia"
+      ]
+    },
+    "diniego_rigetto": {
+      "nome": "Diniego",
+      "sezioni": [
+        "intestazione_dati_ente",
+        "oggetto_richiesta",
+        "riferimenti_normativi",
+        "istruttoria_valutazioni",
+        "dispositivo",
+        "responsabile_procedimento",
+        "modalita_ricorso",
+        "firma_data",
+        "pubblicazione",
+        "efficacia"
+      ]
+    },
+    "revoca": {
+      "nome": "Revoca",
+      "sezioni": [
+        "intestazione_dati_ente",
+        "oggetto_richiesta",
+        "riferimenti_normativi",
+        "istruttoria_valutazioni",
+        "dispositivo",
+        "durata_validita",
+        "responsabile_procedimento",
+        "modalita_ricorso",
+        "firma_data",
+        "pubblicazione",
+        "efficacia",
+        "contraddittorio"
+      ]
+    },
+    "annullamento_ufficio": {
+      "nome": "Annullamento",
+      "sezioni": [
+        "intestazione_dati_ente",
+        "oggetto_richiesta",
+        "riferimenti_normativi",
+        "istruttoria_valutazioni",
+        "dispositivo",
+        "durata_validita",
+        "responsabile_procedimento",
+        "modalita_ricorso",
+        "firma_data",
+        "pubblicazione",
+        "efficacia",
+        "contraddittorio"
+      ]
+    },
+    "sospensione": {
+      "nome": "Sospensione",
+      "sezioni": [
+        "intestazione_dati_ente",
+        "oggetto_richiesta",
+        "riferimenti_normativi",
+        "istruttoria_valutazioni",
+        "prescrizioni_condizioni",
+        "dispositivo",
+        "durata_validita",
+        "responsabile_procedimento",
+        "modalita_ricorso",
+        "firma_data",
+        "motivazione_urgenza",
+        "controlli",
+        "pubblicazione",
+        "efficacia"
+      ]
+    }
+  },
+  "sezioni_obbligatorie": [
+    "intestazione_dati_ente",
+    "oggetto_richiesta",
+    "riferimenti_normativi",
+    "dispositivo",
+    "responsabile_procedimento",
+    "modalita_ricorso",
+    "firma_data"
+  ],
+  "sezioni_specifiche": {
+    "motivazione_urgenza": ["ordinanza", "sospensione"],
+    "votazione": ["deliberazione"],
+    "contraddittorio": ["revoca", "annullamento_ufficio"],
+    "prescrizioni_condizioni": ["autorizzazione", "licenza_permesso", "concessione", "nulla_osta", "sospensione"],
+    "sanzioni": ["licenza_permesso", "concessione", "ordinanza"]
+  },
+  "descrizioni_sezioni": {
+    "intestazione_dati_ente": "Denominazione ente, logo, dati identificativi dell'amministrazione",
+    "oggetto_richiesta": "Descrizione sintetica dell'oggetto del provvedimento",
+    "riferimenti_normativi": "Normativa di riferimento e competenza",
+    "istruttoria_valutazioni": "Analisi tecnica, documentazione esaminata, verifiche effettuate",
+    "prescrizioni_condizioni": "Vincoli, obblighi e condizioni imposte",
+    "dispositivo": "Parte decisoria del provvedimento (autorizza, concede, nega, etc.)",
+    "durata_validita": "Termine di efficacia e scadenza",
+    "responsabile_procedimento": "Identificazione del responsabile ai sensi L. 241/90",
+    "modalita_ricorso": "Indicazione dei mezzi di tutela e termini per ricorso",
+    "firma_data": "Sottoscrizione digitale e data di emissione",
+    "motivazione_urgenza": "Giustificazione dell'urgenza e necessità",
+    "destinatari": "Soggetti a cui è rivolto il provvedimento",
+    "sanzioni": "Conseguenze per inadempimento o violazione",
+    "controlli": "Modalità di verifica e vigilanza",
+    "pubblicazione": "Adempimenti di pubblicità legale",
+    "pareri": "Pareri obbligatori acquisiti nel procedimento",
+    "votazione": "Esito della votazione dell'organo collegiale",
+    "efficacia": "Modalità e termini di entrata in vigore",
+    "allegati": "Documentazione tecnica allegata",
+    "contraddittorio": "Garanzie procedimentali per l'interessato"
+  }
+}

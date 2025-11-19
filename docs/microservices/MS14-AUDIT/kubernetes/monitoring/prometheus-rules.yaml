@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: ms14-audit-api-alerts
+  namespace: zenia
+spec:
+  groups:
+  - name: ms14-audit-api
+    rules:
+    - alert: AuditApiDown
+      expr: up{job="ms14-audit-api"} == 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Audit API is down"
+        description: "Audit API non raggiungibile da oltre 5 minuti."
+    - alert: AuditLogErrors
+      expr: increase(audit_log_error_total[5m]) > 10
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Errori log elevati"
+        description: "Errori log audit > 10 in 5m."

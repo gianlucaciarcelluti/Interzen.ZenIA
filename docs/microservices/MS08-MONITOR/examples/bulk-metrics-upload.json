@@ -1,0 +1,100 @@
+[
+  {
+    "name": "zenia_requests_total",
+    "type": "counter",
+    "help": "Total number of HTTP requests processed",
+    "labels": {
+      "service": "ms01-classifier",
+      "method": "POST",
+      "endpoint": "/api/v1/classify",
+      "status": "200",
+      "tenant_id": "tenant-pa-roma"
+    },
+    "value": 1250,
+    "timestamp": 1642159200
+  },
+  {
+    "name": "zenia_request_duration_seconds",
+    "type": "histogram",
+    "help": "HTTP request duration in seconds",
+    "labels": {
+      "service": "ms01-classifier",
+      "method": "POST",
+      "endpoint": "/api/v1/classify",
+      "status": "200",
+      "tenant_id": "tenant-pa-roma"
+    },
+    "buckets": {
+      "0.1": 15,
+      "0.5": 45,
+      "1.0": 120,
+      "2.5": 180,
+      "5.0": 200,
+      "10.0": 220,
+      "+Inf": 250
+    },
+    "count": 250,
+    "sum": 125.5,
+    "timestamp": 1642159200
+  },
+  {
+    "name": "zenia_errors_total",
+    "type": "counter",
+    "help": "Total number of errors encountered",
+    "labels": {
+      "service": "ms01-classifier",
+      "error_type": "ModelLoadError",
+      "tenant_id": "tenant-pa-roma"
+    },
+    "value": 3,
+    "timestamp": 1642159200
+  },
+  {
+    "name": "zenia_active_connections",
+    "type": "gauge",
+    "help": "Number of active connections",
+    "labels": {
+      "service": "ms01-classifier",
+      "connection_type": "database",
+      "tenant_id": "tenant-pa-roma"
+    },
+    "value": 8,
+    "timestamp": 1642159200
+  },
+  {
+    "name": "zenia_queue_size",
+    "type": "gauge",
+    "help": "Current queue size",
+    "labels": {
+      "service": "ms01-classifier",
+      "queue_name": "document_processing",
+      "tenant_id": "tenant-pa-roma"
+    },
+    "value": 12,
+    "timestamp": 1642159200
+  },
+  {
+    "name": "zenia_cpu_usage_percent",
+    "type": "gauge",
+    "help": "CPU usage percentage",
+    "labels": {
+      "service": "ms01-classifier",
+      "instance": "ms01-classifier-7f8d9c-abc12",
+      "tenant_id": "tenant-pa-roma"
+    },
+    "value": 35.2,
+    "timestamp": 1642159200
+  },
+  {
+    "name": "zenia_memory_usage_bytes",
+    "type": "gauge",
+    "help": "Memory usage in bytes",
+    "labels": {
+      "service": "ms01-classifier",
+      "instance": "ms01-classifier-7f8d9c-abc12",
+      "tenant_id": "tenant-pa-roma"
+    },
+    "value": 268435456,
+    "timestamp": 1642159200
+  }
+]

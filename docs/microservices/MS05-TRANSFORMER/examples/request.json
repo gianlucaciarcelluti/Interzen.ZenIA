@@ -1,0 +1,21 @@
+{
+  "document_id": "550e8400-e29b-41d4-a716-446655440000",
+  "target_format": "DOCX",
+  "options": {
+    "compression_level": "HIGH",
+    "preserve_metadata": true,
+    "ocr_enabled": false,
+    "quality_preservation": true,
+    "font_embedding": true,
+    "image_quality": 0.95
+  },
+  "priority": 1,
+  "callback_url": "http://ms03-orchestrator:8003/api/v1/callback/transformation",
+  "metadata": {
+    "request_id": "req-2025-11-18-001",
+    "client_id": "comune-milano",
+    "document_type": "provvedimento_urbanistico",
+    "urgency": "normal",
+    "confidentiality": "public"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://zenia.local/schemas/log-entry-v2.0.json",
+  "id": "log-123456789-abcdef-001",
+  "timestamp": "2024-01-15T10:30:45.123Z",
+  "ingestion_timestamp": "2024-01-15T10:30:45.145Z",
+  "processing_timestamp": "2024-01-15T10:30:45.167Z",
+
+  "source": {
+    "type": "application",
+    "service": "ms01-classifier",
+    "instance": "ms01-classifier-7x9k2",
+    "version": "2.1.0",
+    "environment": "production",
+    "region": "eu-west-1"
+  },
+
+  "context": {
+    "tenant_id": "tenant-pa-roma",
+    "user_id": "user-pa-roma-789",
+    "session_id": "session-pa-roma-20240115-001",
+    "correlation_id": "corr-123-abc-456-def-789-ghi",
+    "request_id": "req-456-def-789-ghi-jkl",
+    "trace_id": "trace-789-ghi-jkl-mno-pqr"
+  },
+
+  "log": {
+    "level": "INFO",
+    "logger": "com.zenia.classifier.DocumentClassifier",
+    "thread": "workflow-executor-5",
+    "message": "Document classification completed successfully",
+    "formatted_message": "2024-01-15 10:30:45.123 INFO [workflow-executor-5] com.zenia.classifier.DocumentClassifier - Document classification completed successfully"
+  },
+
+  "data": {
+    "document_id": "DOC-2024-001234-ABC",
+    "classification_result": {
+      "category": "provvedimento",
+      "confidence": 0.87,
+      "subcategories": ["autorizzazione", "ambientale"],
+      "processing_time_ms": 1250,
+      "model_version": "pa-documents-v2.1"
+    },
+    "metrics": {
+      "cpu_usage_percent": 45.2,
+      "memory_usage_mb": 512.8,
+      "response_time_ms": 1250
+    }
+  },
+
+  "mdc": {
+    "client_ip": "192.168.1.100",
+    "user_agent": "ZenIA-PA-Portal/2.1.0",
+    "request_method": "POST",
+    "request_uri": "/api/v1/classify",
+    "response_status": 200
+  },
+
+  "enrichment": {
+    "geo": {
+      "country_name": "Italy",
+      "city_name": "Rome",
+      "region_name": "Lazio",
+      "location": {
+        "lat": 41.9028,
+        "lon": 12.4964
+      }
+    },
+    "tenant_info": {
+      "name": "Comune di Roma",
+      "type": "PA",
+      "region": "Lazio",
+      "compliance_level": "high"
+    },
+    "user_info": {
+      "full_name": "Mario Rossi",
+      "role": "operator",
+      "department": "Ambiente",
+      "clearance_level": "standard"
+    }
+  },
+
+  "processing": {
+    "pipeline_version": "2.1.0",
+    "processing_node": "logstash-02",
+    "parsing_errors": [],
+    "enrichment_errors": [],
+    "warnings": []
+  },
+
+  "tags": ["application", "classification", "success"],
+  "labels": {
+    "severity": "info",
+    "category": "business",
+    "compliance": "gdpr-compliant"
+  }
+}

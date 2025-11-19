@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ms15-config-redis
+  namespace: zenia
+  labels:
+    app: ms15-config-redis
+spec:
+  serviceName: ms15-config-redis
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms15-config-redis
+  template:
+    metadata:
+      labels:
+        app: ms15-config-redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+        env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ms15-config-secrets
+              key: redis-password
+        command: ["redis-server", "--requirepass", "$(REDIS_PASSWORD)"]
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data
+      volumes:
+      - name: redis-data
+        persistentVolumeClaim:
+          claimName: ms15-config-redis-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ms15-config-redis-pvc
+  namespace: zenia
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

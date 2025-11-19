@@ -1,0 +1,82 @@
+{
+  "workflow_id": "wf-2024-11-18-001",
+  "status": "started",
+  "estimated_completion": "2024-11-18T11:15:00Z",
+  "workflow_path": [
+    {
+      "step": 1,
+      "service": "ms01_classifier",
+      "description": "Classificazione documento e validazione iniziale",
+      "estimated_time": "2 minuti",
+      "parallel_group": null
+    },
+    {
+      "step": 2,
+      "service": "ms05_transformer",
+      "description": "Applicazione template e generazione documento",
+      "estimated_time": "5 minuti",
+      "parallel_group": null
+    },
+    {
+      "step": 3,
+      "service": "ms06_validator",
+      "description": "Validazione conformità e integrità documento",
+      "estimated_time": "3 minuti",
+      "parallel_group": null
+    },
+    {
+      "step": 4,
+      "service": "ms07_signer",
+      "description": "Apposizione firma digitale",
+      "estimated_time": "2 minuti",
+      "parallel_group": null
+    }
+  ],
+  "applied_rules": [
+    {
+      "rule_id": "rule_compliance_check",
+      "rule_name": "Controllo Conformità Fatturazione",
+      "result": true,
+      "actions_taken": [
+        "added_validation_step",
+        "set_high_priority"
+      ]
+    },
+    {
+      "rule_id": "rule_tax_validation",
+      "rule_name": "Validazione Imposte",
+      "result": true,
+      "actions_taken": [
+        "validate_tax_rates",
+        "check_tax_exemption"
+      ]
+    }
+  ],
+  "progress": {
+    "completed_steps": 0,
+    "total_steps": 4,
+    "percentage": 0,
+    "current_phase": "initialization"
+  },
+  "monitoring": {
+    "correlation_id": "req-2024-11-18-001",
+    "tracking_url": "/api/v1/workflow/wf-2024-11-18-001/status",
+    "notification_channels": ["email", "webhook"],
+    "sla": {
+      "priority": "high",
+      "max_duration": "15 minuti",
+      "breach_notification": true
+    }
+  },
+  "metadata": {
+    "created_at": "2024-11-18T10:30:15Z",
+    "created_by": "ms03_orchestrator",
+    "version": "2.1",
+    "environment": "production"
+  },
+  "callbacks": {
+    "completion_webhook": "https://erp.acme.com/webhooks/workflow/complete",
+    "error_webhook": "https://erp.acme.com/webhooks/workflow/error",
+    "progress_webhook": "https://erp.acme.com/webhooks/workflow/progress"
+  }
+}

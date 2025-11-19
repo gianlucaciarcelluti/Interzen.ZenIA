@@ -1,0 +1,18 @@
+{
+  "analysis_id": "analysis-2024-11-18-001",
+  "analysis_type": "semantic",
+  "input_data": {
+    "content": "Il contratto di fornitura prevede la consegna dei beni entro 30 giorni dalla data di firma. Il valore totale ammonta a €150.000,00 IVA esclusa.",
+    "format": "text",
+    "language": "it",
+    "domain": "legal"
+  },
+  "parameters": {
+    "extract_entities": true,
+    "extract_concepts": true,
+    "sentiment_analysis": true,
+    "confidence_threshold": 0.8
+  },
+  "output_format": "json",
+  "force_reprocessing": false
+}

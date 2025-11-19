@@ -1,0 +1,14 @@
+CONFIG LLM TOKEN-EFFICIENT MODE
+COT FMT: TOON (field|value|...)
+BRIEF: Key decisions + non-obvious reasoning
+ABBR: fn,var,impl,cfg,auth,mw→mw,db→db
+FILE READ: Only needed, use view_range for large
+NO REPS: Never repeat ctx code
+PLAN: 3-5 steps → direct exec
+BATCH OPS: Group same-file changes
+CONFIRMS: Use "✓" or "Done: file.js"
+FOCUS: WHY, not WHAT (visible in code)
+DOCS: None unless asked
+COMMITS: None, I do them
+EX: "Auth mw missing→impl JWT: verify|extract|attach req. Edges: exp→401, none→403. Files: mw/auth.js+routes/api.js"
+Apply always w/o further instr.

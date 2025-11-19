@@ -1,0 +1,4 @@
+{
+  "config": {"timeout": 60, "logLevel": "DEBUG"},
+  "note": "Aumentato timeout"
+}

@@ -1,0 +1,584 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template encoding-version="1.3">
+    <description>SP10 - Dashboard &amp; Monitoring - Metriche, KPI e real-time status</description>
+    <groupId>root</groupId>
+    <name>SP10_Dashboard_Monitoring</name>
+    <snippet>
+        <processors>
+            
+            <processor>
+                <id>68ca6655-dccb-46f5-a6ba-8fc62e86335b</id>
+                <name>CollectWorkflowMetrics</name>
+                <type>org.apache.nifi.processors.standard.QueryDatabaseTable</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Raccoglie metriche workflow da database</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Database Connection Pooling Service</key>
+                            <value>PostgreSQL-ConnectionPool</value>
+                        </entry>
+                        <entry>
+                            <key>Database Type</key>
+                            <value>PostgreSQL</value>
+                        </entry>
+                        <entry>
+                            <key>Table Name</key>
+                            <value>workflow_metrics</value>
+                        </entry>
+                        <entry>
+                            <key>Columns to Return</key>
+                            <value>workflow_id,step_name,status,duration_ms,timestamp</value>
+                        </entry>
+                        <entry>
+                            <key>Maximum-value Columns</key>
+                            <value>timestamp</value>
+                        </entry>
+                        <entry>
+                            <key>Max Rows Per Flow File</key>
+                            <value>1000</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>30 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>8edf9088-6fc6-4fb3-a76c-8536aa61f785</id>
+                <name>CalculateKPIs</name>
+                <type>org.apache.nifi.processors.standard.ExecuteScript</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="350.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Calcola KPI: throughput, tempo medio, success rate</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Script Engine</key>
+                            <value>python</value>
+                        </entry>
+                        <entry>
+                            <key>Script Body</key>
+                            <value>import json
+from datetime import datetime
+
+# Read flowfile content
+flowfile = session.get()
+if flowfile is not None:
+    content = session.read(flowfile).decode('utf-8')
+    metrics = json.loads(content)
+    
+    # Calculate KPIs
+    total_workflows = len(set([m['workflow_id'] for m in metrics]))
+    success_count = len([m for m in metrics if m['status'] == 'SUCCESS'])
+    success_rate = (success_count / len(metrics) * 100) if metrics else 0
+    avg_duration = sum([m['duration_ms'] for m in metrics]) / len(metrics) if metrics else 0
+    
+    kpis = {
+        'total_workflows': total_workflows,
+        'total_steps': len(metrics),
+        'success_rate': round(success_rate, 2),
+        'avg_duration_ms': round(avg_duration, 2),
+        'timestamp': datetime.now().isoformat()
+    }
+    
+    # Write KPIs back to flowfile
+    flowfile = session.putAttribute(flowfile, 'kpi.total_workflows', str(kpis['total_workflows']))
+    flowfile = session.putAttribute(flowfile, 'kpi.success_rate', str(kpis['success_rate']))
+    flowfile = session.putAttribute(flowfile, 'kpi.avg_duration', str(kpis['avg_duration_ms']))
+    
+    session.write(flowfile, json.dumps(kpis))
+    session.transfer(flowfile, REL_SUCCESS)
+</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>failure</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>ea7527d7-b477-4053-80a9-2e77a10551b6</id>
+                <name>StoreKPIsInRedis</name>
+                <type>org.apache.nifi.processors.standard.PutDistributedMapCache</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="600.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Salva KPI in Redis per dashboard real-time</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Distributed Cache Service</key>
+                            <value>Redis-Cache-Service</value>
+                        </entry>
+                        <entry>
+                            <key>Cache Entry Identifier</key>
+                            <value>dashboard:kpis:latest</value>
+                        </entry>
+                        <entry>
+                            <key>Cache update strategy</key>
+                            <value>replace</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>fda1079c-88c4-4657-b97e-b2ca0b4c9a29</id>
+                <name>CollectErrorLogs</name>
+                <type>org.apache.nifi.processors.standard.QueryDatabaseTable</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="100.0" y="400.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Raccoglie log errori recenti</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Database Connection Pooling Service</key>
+                            <value>PostgreSQL-ConnectionPool</value>
+                        </entry>
+                        <entry>
+                            <key>Database Type</key>
+                            <value>PostgreSQL</value>
+                        </entry>
+                        <entry>
+                            <key>Table Name</key>
+                            <value>error_logs</value>
+                        </entry>
+                        <entry>
+                            <key>Columns to Return</key>
+                            <value>workflow_id,step_name,error_message,error_type,timestamp</value>
+                        </entry>
+                        <entry>
+                            <key>WHERE Clause</key>
+                            <value>timestamp &gt; NOW() - INTERVAL '1 hour'</value>
+                        </entry>
+                        <entry>
+                            <key>Max Rows Per Flow File</key>
+                            <value>100</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>60 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>9775745e-7947-4178-bf6c-4c03f4e39581</id>
+                <name>AggregateErrorStats</name>
+                <type>org.apache.nifi.processors.standard.ExecuteScript</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="350.0" y="400.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Aggrega statistiche errori per tipo e step</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Script Engine</key>
+                            <value>python</value>
+                        </entry>
+                        <entry>
+                            <key>Script Body</key>
+                            <value>import json
+from collections import Counter
+
+flowfile = session.get()
+if flowfile is not None:
+    content = session.read(flowfile).decode('utf-8')
+    errors = json.loads(content)
+    
+    # Aggregate by step and error type
+    errors_by_step = Counter([e['step_name'] for e in errors])
+    errors_by_type = Counter([e['error_type'] for e in errors])
+    
+    stats = {
+        'total_errors': len(errors),
+        'by_step': dict(errors_by_step),
+        'by_type': dict(errors_by_type),
+        'most_common_step': errors_by_step.most_common(1)[0] if errors_by_step else ('N/A', 0)
+    }
+    
+    session.write(flowfile, json.dumps(stats))
+    session.transfer(flowfile, REL_SUCCESS)
+</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>failure</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>6767c5e3-73b1-4eed-8102-13c11bfcdd5f</id>
+                <name>StoreErrorStats</name>
+                <type>org.apache.nifi.processors.standard.PutDistributedMapCache</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="600.0" y="400.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Salva statistiche errori in Redis</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Distributed Cache Service</key>
+                            <value>Redis-Cache-Service</value>
+                        </entry>
+                        <entry>
+                            <key>Cache Entry Identifier</key>
+                            <value>dashboard:errors:latest</value>
+                        </entry>
+                        <entry>
+                            <key>Cache update strategy</key>
+                            <value>replace</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>0dc9373c-f51c-4aec-be44-1c5d1292d723</id>
+                <name>MonitorQueueSizes</name>
+                <type>org.apache.nifi.processors.standard.MonitorActivity</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="100.0" y="600.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Monitora dimensioni code NiFi</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Continually Send Messages</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Threshold Duration</key>
+                            <value>5 min</value>
+                        </entry>
+                        <entry>
+                            <key>Copy Attributes</key>
+                            <value>true</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>30 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>1ddc6f2b-c914-48c6-8ea9-d5cdd1bc5a21</id>
+                <name>PublishToDashboard</name>
+                <type>org.apache.nifi.processors.standard.InvokeHTTP</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="850.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Pubblica metriche all'API della dashboard</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>HTTP Method</key>
+                            <value>POST</value>
+                        </entry>
+                        <entry>
+                            <key>Remote URL</key>
+                            <value>http://sp10-dashboard:5010/api/v1/metrics</value>
+                        </entry>
+                        <entry>
+                            <key>Connection Timeout</key>
+                            <value>10 sec</value>
+                        </entry>
+                        <entry>
+                            <key>Read Timeout</key>
+                            <value>10 sec</value>
+                        </entry>
+                        <entry>
+                            <key>Content-Type</key>
+                            <value>application/json</value>
+                        </entry>
+                        <entry>
+                            <key>send-message-body</key>
+                            <value>true</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>Response</relationship>
+                        <relationship>Retry</relationship>
+                        <relationship>No Retry</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>e840bdb9-6854-4670-b21f-34809e952b81</id>
+                <name>CreateAnomalyAlerts</name>
+                <type>org.apache.nifi.processors.standard.RouteOnAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="850.0" y="400.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Crea alert per anomalie (errori &gt; soglia, durata &gt; soglia)</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Routing Strategy</key>
+                            <value>Route to Property name</value>
+                        </entry>
+                        <entry>
+                            <key>HIGH_ERROR_RATE</key>
+                            <value>${kpi.success_rate:lt(80)}</value>
+                        </entry>
+                        <entry>
+                            <key>SLOW_PERFORMANCE</key>
+                            <value>${kpi.avg_duration:gt(30000)}</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>unmatched</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>38ba8b83-176b-422d-a96e-05a86811c045</id>
+                <name>SendAlertNotification</name>
+                <type>org.apache.nifi.processors.standard.PutEmail</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1100.0" y="400.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Invia notifiche email per alert critici</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>SMTP Hostname</key>
+                            <value>smtp.example.com</value>
+                        </entry>
+                        <entry>
+                            <key>SMTP Port</key>
+                            <value>587</value>
+                        </entry>
+                        <entry>
+                            <key>From</key>
+                            <value>nifi-alerts@comune.it</value>
+                        </entry>
+                        <entry>
+                            <key>To</key>
+                            <value>admin@comune.it</value>
+                        </entry>
+                        <entry>
+                            <key>Subject</key>
+                            <value>[ALERT] ZenIA - Anomaly Detected</value>
+                        </entry>
+                        <entry>
+                            <key>Message</key>
+                            <value>Alert: Success Rate = ${kpi.success_rate}%</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>success</relationship>
+                        <relationship>failure</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>61e37f05-c988-422d-956e-1616d5f357ed</id>
+                <name>LogDashboardMetrics</name>
+                <type>org.apache.nifi.processors.standard.LogAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>INFO</bulletinLevel>
+                    <comments>Log metriche dashboard</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Log Level</key>
+                            <value>info</value>
+                        </entry>
+                        <entry>
+                            <key>Log Payload</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Attributes to Log by Regular Expression</key>
+                            <value>kpi\..*</value>
+                        </entry>
+                        <entry>
+                            <key>Log prefix</key>
+                            <value>SP10-DASHBOARD:</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>success</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+        </processors>
+
+        
+        <connections>
+            <connection>
+                <id>8bc813e5-09c5-40de-9c8e-357d59e61af0</id>
+                <name>CollectMetrics → CalculateKPIs</name>
+                <sourceId>68ca6655-dccb-46f5-a6ba-8fc62e86335b</sourceId>
+                <destinationId>8edf9088-6fc6-4fb3-a76c-8536aa61f785</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>25302860-066b-42ef-a9a6-57ca1ca5b918</id>
+                <name>CalculateKPIs → StoreRedis</name>
+                <sourceId>8edf9088-6fc6-4fb3-a76c-8536aa61f785</sourceId>
+                <destinationId>ea7527d7-b477-4053-80a9-2e77a10551b6</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>7d78e876-7732-4ba0-8d6d-66ec45d82b6b</id>
+                <name>StoreRedis → PublishDashboard</name>
+                <sourceId>ea7527d7-b477-4053-80a9-2e77a10551b6</sourceId>
+                <destinationId>1ddc6f2b-c914-48c6-8ea9-d5cdd1bc5a21</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>adbaea64-1e91-4499-acc5-60be83e18711</id>
+                <name>PublishDashboard → LogMetrics</name>
+                <sourceId>1ddc6f2b-c914-48c6-8ea9-d5cdd1bc5a21</sourceId>
+                <destinationId>61e37f05-c988-422d-956e-1616d5f357ed</destinationId>
+                <sourceRelationship>Response</sourceRelationship>
+            </connection>
+            <connection>
+                <id>2d7f3452-49e8-4b28-a969-13f26195f637</id>
+                <name>CollectErrors → AggregateErrors</name>
+                <sourceId>fda1079c-88c4-4657-b97e-b2ca0b4c9a29</sourceId>
+                <destinationId>9775745e-7947-4178-bf6c-4c03f4e39581</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>21bd35df-dda7-4b0f-9f53-6f48512daa59</id>
+                <name>AggregateErrors → StoreErrorStats</name>
+                <sourceId>9775745e-7947-4178-bf6c-4c03f4e39581</sourceId>
+                <destinationId>6767c5e3-73b1-4eed-8102-13c11bfcdd5f</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>40f8f0f4-6215-4019-955b-0bf4705d2769</id>
+                <name>StoreErrorStats → CreateAlerts</name>
+                <sourceId>6767c5e3-73b1-4eed-8102-13c11bfcdd5f</sourceId>
+                <destinationId>e840bdb9-6854-4670-b21f-34809e952b81</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>f0779fa7-b41c-4d35-9835-d63c896328b4</id>
+                <name>CreateAlerts → SendNotification (HIGH_ERROR)</name>
+                <sourceId>e840bdb9-6854-4670-b21f-34809e952b81</sourceId>
+                <destinationId>38ba8b83-176b-422d-a96e-05a86811c045</destinationId>
+                <sourceRelationship>HIGH_ERROR_RATE</sourceRelationship>
+            </connection>
+            <connection>
+                <id>afd0272a-5db3-4d73-ad7b-12f301d700c4</id>
+                <name>CreateAlerts → SendNotification (SLOW)</name>
+                <sourceId>e840bdb9-6854-4670-b21f-34809e952b81</sourceId>
+                <destinationId>38ba8b83-176b-422d-a96e-05a86811c045</destinationId>
+                <sourceRelationship>SLOW_PERFORMANCE</sourceRelationship>
+            </connection>
+        </connections>
+
+    </snippet>
+</template>

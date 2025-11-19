@@ -1,0 +1,78 @@
+{
+  "alert": {
+    "id": "alert-123456789",
+    "name": "HighErrorRate",
+    "severity": "critical",
+    "status": "firing",
+    "description": "Error rate > 5% for 5 minutes",
+    "summary": "High error rate detected in ms01-classifier",
+    "labels": {
+      "alertname": "HighErrorRate",
+      "service": "ms01-classifier",
+      "severity": "critical",
+      "tenant_id": "tenant-pa-roma",
+      "instance": "10.0.1.15:8080",
+      "job": "zenia-microservices"
+    },
+    "annotations": {
+      "summary": "High error rate detected",
+      "description": "Error rate is 7.5% which is above threshold of 5%. This may indicate service degradation or upstream issues.",
+      "runbook_url": "https://zenia.runbooks/high-error-rate",
+      "dashboard_url": "https://grafana.zenia.local/d/ms01-overview/ms01-classifier-overview",
+      "logs_url": "https://kibana.zenia.local/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(columns:!(_source),filters:!(),index:'zenia-logs-*',interval:auto,query:(language:kuery,query:'service:%22ms01-classifier%22%20AND%20level:ERROR'),sort:!(!('@timestamp',desc)))",
+      "traces_url": "https://jaeger.zenia.local/search?service=ms01-classifier&start=15m-ago&end=now"
+    },
+    "startsAt": "2024-01-15T10:25:00Z",
+    "endsAt": null,
+    "generatorURL": "https://prometheus.zenia.local/graph?g0.expr=rate(zenia_errors_total%5B5m%5D)%20%2F%20rate(zenia_requests_total%5B5m%5D)%20%3E%200.05&g0.tab=1",
+    "fingerprint": "fingerprint-abc123def456",
+    "value": 0.075,
+    "threshold": 0.05
+  },
+  "notification": {
+    "id": "notification-987654321",
+    "alert_id": "alert-123456789",
+    "channel": "slack",
+    "recipient": "#alerts-critical",
+    "sent_at": "2024-01-15T10:25:30Z",
+    "status": "delivered",
+    "attempts": 1,
+    "message": ":red_circle: *CRITICAL ALERT*\nService: ms01-classifier\nError Rate: 7.50%\n<View Dashboard|https://grafana.zenia.local/d/ms01-overview/ms01-classifier-overview> | <View Logs|https://kibana.zenia.local/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(columns:!(_source),filters:!(),index:'zenia-logs-*',interval:auto,query:(language:kuery,query:'service:\"ms01-classifier\" AND level:ERROR'),sort:!(!('@timestamp',desc)))> | <View Traces|https://jaeger.zenia.local/search?service=ms01-classifier&start=15m-ago&end=now>"
+  },
+  "metadata": {
+    "webhook_version": "1.0",
+    "source": "alertmanager",
+    "environment": "production",
+    "region": "eu-south-1",
+    "cluster": "zenia-prod",
+    "timestamp": "2024-01-15T10:25:30Z",
+    "correlation_id": "webhook-corr-789-abc-123-def"
+  },
+  "context": {
+    "tenant": {
+      "id": "tenant-pa-roma",
+      "name": "PA Roma",
+      "contact": "sre@pa.roma.it"
+    },
+    "service": {
+      "name": "ms01-classifier",
+      "version": "1.2.3",
+      "environment": "production",
+      "health_status": "degraded"
+    },
+    "infrastructure": {
+      "region": "eu-south-1",
+      "availability_zone": "eu-south-1a",
+      "cluster": "zenia-prod",
+      "namespace": "zenia"
+    },
+    "related_alerts": [
+      {
+        "id": "alert-123456788",
+        "name": "HighLatency",
+        "severity": "warning",
+        "status": "firing"
+      }
+    ]
+  }
+}

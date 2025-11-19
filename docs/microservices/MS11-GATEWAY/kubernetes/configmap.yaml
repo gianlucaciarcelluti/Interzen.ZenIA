@@ -1,0 +1,548 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kong-gateway-config
+  namespace: zenia
+  labels:
+    app: kong-gateway
+    component: configuration
+data:
+  kong.yml: |
+    _format_version: "3.0"
+
+    # ==========================================
+    # SERVICES DEFINITION
+    # ==========================================
+
+    services:
+      # MS01-CLASSIFIER
+      - name: ms01-classifier
+        url: http://ms01-classifier.zenia.svc.cluster.local:8080
+        routes:
+          - name: classifier-classify
+            paths:
+              - /api/v1/documents/classify
+            methods: [POST]
+            strip_path: false
+          - name: classifier-status
+            paths:
+              - /api/v1/documents/status
+            methods: [GET]
+            strip_path: false
+        plugins:
+          - name: jwt
+            config:
+              claims_to_verify: ["exp", "nbf"]
+          - name: rate-limiting
+            config:
+              minute: 1000
+              hour: 10000
+              policy: local
+          - name: cors
+            config:
+              origins: ["https://app.zenia.local"]
+              methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+              headers: ["Accept", "Accept-Version", "Content-Length", "Content-MD5", "Content-Type", "Date", "Authorization"]
+              exposed_headers: ["X-Auth-Token"]
+              credentials: true
+              max_age: 3600
+          - name: prometheus
+          - name: request-transformer
+            config:
+              add:
+                headers:
+                  - "X-API-Version:v1"
+                  - "X-Request-ID:$(uuid)"
+
+      # MS02-ANALYZER
+      - name: ms02-analyzer
+        url: http://ms02-analyzer.zenia.svc.cluster.local:8080
+        routes:
+          - name: analyzer-analyze
+            paths:
+              - /api/v1/documents/analyze
+            methods: [POST]
+            strip_path: false
+          - name: analyzer-results
+            paths:
+              - /api/v1/documents/results
+            methods: [GET]
+            strip_path: false
+        plugins:
+          - name: jwt
+          - name: rate-limiting
+            config:
+              minute: 500
+              hour: 5000
+          - name: cors
+          - name: prometheus
+          - name: request-transformer
+            config:
+              add:
+                headers:
+                  - "X-API-Version:v1"
+                  - "X-Request-ID:$(uuid)"
+
+      # MS03-ORCHESTRATOR
+      - name: ms03-orchestrator
+        url: http://ms03-orchestrator.zenia.svc.cluster.local:8080
+        routes:
+          - name: orchestrator-workflow
+            paths:
+              - /api/v1/workflows
+            methods: [GET, POST, PUT, DELETE]
+            strip_path: false
+          - name: orchestrator-execute
+            paths:
+              - /api/v1/workflows/execute
+            methods: [POST]
+            strip_path: false
+        plugins:
+          - name: jwt
+          - name: rate-limiting
+            config:
+              minute: 200
+              hour: 2000
+          - name: cors
+          - name: prometheus
+          - name: request-transformer
+            config:
+              add:
+                headers:
+                  - "X-API-Version:v1"
+                  - "X-Request-ID:$(uuid)"
+
+      # MS04-VALIDATOR
+      - name: ms04-validator
+        url: http://ms04-validator.zenia.svc.cluster.local:8080
+        routes:
+          - name: validator-validate
+            paths:
+              - /api/v1/documents/validate
+            methods: [POST]
+            strip_path: false
+          - name: validator-reports
+            paths:
+              - /api/v1/validation/reports
+            methods: [GET]
+            strip_path: false
+        plugins:
+          - name: jwt
+          - name: rate-limiting
+            config:
+              minute: 300
+              hour: 3000
+          - name: cors
+          - name: prometheus
+          - name: request-transformer
+            config:
+              add:
+                headers:
+                  - "X-API-Version:v1"
+                  - "X-Request-ID:$(uuid)"
+
+      # MS05-TRANSFORMER
+      - name: ms05-transformer
+        url: http://ms05-transformer.zenia.svc.cluster.local:8080
+        routes:
+          - name: transformer-convert
+            paths:
+              - /api/v1/documents/transform
+            methods: [POST]
+            strip_path: false
+          - name: transformer-templates
+            paths:
+              - /api/v1/templates
+            methods: [GET, POST]
+            strip_path: false
+        plugins:
+          - name: jwt
+          - name: rate-limiting
+            config:
+              minute: 400
+              hour: 4000
+          - name: cors
+          - name: prometheus
+          - name: request-transformer
+            config:
+              add:
+                headers:
+                  - "X-API-Version:v1"
+                  - "X-Request-ID:$(uuid)"
+
+      # MS06-AGGREGATOR
+      - name: ms06-aggregator
+        url: http://ms06-aggregator.zenia.svc.cluster.local:8080
+        routes:
+          - name: aggregator-aggregate
+            paths:
+              - /api/v1/data/aggregate
+            methods: [POST]
+            strip_path: false
+          - name: aggregator-queries
+            paths:
+              - /api/v1/queries
+            methods: [GET, POST]
+            strip_path: false
+        plugins:
+          - name: jwt
+          - name: rate-limiting
+            config:
+              minute: 200
+              hour: 2000
+          - name: cors
+          - name: prometheus
+          - name: request-transformer
+            config:
+              add:
+                headers:
+                  - "X-API-Version:v1"
+                  - "X-Request-ID:$(uuid)"
+
+      # MS07-DISTRIBUTOR
+      - name: ms07-distributor
+        url: http://ms07-distributor.zenia.svc.cluster.local:8080
+        routes:
+          - name: distributor-distribute
+            paths:
+              - /api/v1/data/distribute
+            methods: [POST]
+            strip_path: false
+          - name: distributor-destinations
+            paths:
+              - /api/v1/destinations
+            methods: [GET, POST]
+            strip_path: false
+        plugins:
+          - name: jwt
+          - name: rate-limiting
+            config:
+              minute: 300
+              hour: 3000
+          - name: cors
+          - name: prometheus
+          - name: request-transformer
+            config:
+              add:
+                headers:
+                  - "X-API-Version:v1"
+                  - "X-Request-ID:$(uuid)"
+
+      # MS08-MONITOR
+      - name: ms08-monitor
+        url: http://ms08-monitor.zenia.svc.cluster.local:8080
+        routes:
+          - name: monitor-metrics
+            paths:
+              - /api/v1/metrics
+            methods: [GET]
+            strip_path: false
+          - name: monitor-health
+            paths:
+              - /api/v1/health
+            methods: [GET]
+            strip_path: false
+        plugins:
+          - name: jwt
+          - name: rate-limiting
+            config:
+              minute: 100
+              hour: 1000
+          - name: cors
+          - name: prometheus
+          - name: request-transformer
+            config:
+              add:
+                headers:
+                  - "X-API-Version:v1"
+                  - "X-Request-ID:$(uuid)"
+
+      # MS09-MANAGER
+      - name: ms09-manager
+        url: http://ms09-manager.zenia.svc.cluster.local:8080
+        routes:
+          - name: manager-workflows
+            paths:
+              - /api/v1/management/workflows
+            methods: [GET, POST, PUT, DELETE]
+            strip_path: false
+          - name: manager-transactions
+            paths:
+              - /api/v1/management/transactions
+            methods: [GET, POST]
+            strip_path: false
+        plugins:
+          - name: jwt
+          - name: rate-limiting
+            config:
+              minute: 200
+              hour: 2000
+          - name: cors
+          - name: prometheus
+          - name: request-transformer
+            config:
+              add:
+                headers:
+                  - "X-API-Version:v1"
+                  - "X-Request-ID:$(uuid)"
+
+      # MS10-LOGGER
+      - name: ms10-logger
+        url: http://ms10-logger.zenia.svc.cluster.local:8080
+        routes:
+          - name: logger-logs
+            paths:
+              - /api/v1/logs
+            methods: [GET, POST]
+            strip_path: false
+          - name: logger-analytics
+            paths:
+              - /api/v1/logs/analytics
+            methods: [GET]
+            strip_path: false
+        plugins:
+          - name: jwt
+          - name: rate-limiting
+            config:
+              minute: 500
+              hour: 5000
+          - name: cors
+          - name: prometheus
+          - name: request-transformer
+            config:
+              add:
+                headers:
+                  - "X-API-Version:v1"
+                  - "X-Request-ID:$(uuid)"
+
+      # Health Check Service
+      - name: health-check
+        url: http://kong-gateway.zenia.svc.cluster.local:8080
+        routes:
+          - name: health-route
+            paths:
+              - /health
+            methods: [GET]
+            strip_path: true
+        plugins:
+          - name: cors
+          - name: prometheus
+
+    # ==========================================
+    # UPSTREAMS DEFINITION
+    # ==========================================
+
+    upstreams:
+      - name: ms01-classifier-upstream
+        targets:
+          - target: ms01-classifier-0.ms01-classifier.zenia.svc.cluster.local:8080
+            weight: 100
+          - target: ms01-classifier-1.ms01-classifier.zenia.svc.cluster.local:8080
+            weight: 100
+          - target: ms01-classifier-2.ms01-classifier.zenia.svc.cluster.local:8080
+            weight: 100
+        healthchecks:
+          active:
+            type: http
+            http_path: /health
+            timeout: 5
+            concurrency: 10
+            interval: 30
+            success_count: 2
+            failure_count: 3
+
+      - name: ms02-analyzer-upstream
+        targets:
+          - target: ms02-analyzer-0.ms02-analyzer.zenia.svc.cluster.local:8080
+            weight: 100
+          - target: ms02-analyzer-1.ms02-analyzer.zenia.svc.cluster.local:8080
+            weight: 100
+        healthchecks:
+          active:
+            type: http
+            http_path: /health
+            timeout: 5
+            concurrency: 10
+            interval: 30
+            success_count: 2
+            failure_count: 3
+
+      - name: ms03-orchestrator-upstream
+        targets:
+          - target: ms03-orchestrator-0.ms03-orchestrator.zenia.svc.cluster.local:8080
+            weight: 100
+          - target: ms03-orchestrator-1.ms03-orchestrator.zenia.svc.cluster.local:8080
+            weight: 100
+          - target: ms03-orchestrator-2.ms03-orchestrator.zenia.svc.cluster.local:8080
+            weight: 100
+        healthchecks:
+          active:
+            type: http
+            http_path: /health
+            timeout: 5
+            concurrency: 10
+            interval: 30
+            success_count: 2
+            failure_count: 3
+
+    # ==========================================
+    # CONSUMERS DEFINITION
+    # ==========================================
+
+    consumers:
+      - username: zenia-admin
+        custom_id: admin-user
+      - username: zenia-service
+        custom_id: service-user
+      - username: zenia-readonly
+        custom_id: readonly-user
+
+    # ==========================================
+    # PLUGINS GLOBAL
+    # ==========================================
+
+    plugins:
+      - name: prometheus
+        config:
+          status_code_metrics: true
+          latency_metrics: true
+          bandwidth_metrics: true
+          upstream_health_metrics: true
+
+      - name: cors
+        config:
+          origins: ["https://app.zenia.local", "https://admin.zenia.local"]
+          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"]
+          headers: ["Accept", "Accept-Version", "Content-Length", "Content-MD5", "Content-Type", "Date", "Authorization", "X-Request-ID"]
+          exposed_headers: ["X-Auth-Token", "X-API-Version"]
+          credentials: true
+          max_age: 3600
+
+      - name: bot-detection
+        config:
+          deny:
+            - "bad-bot"
+            - "good-bot"
+          allow:
+            - "googlebot"
+            - "bingbot"
+
+      - name: ip-restriction
+        config:
+          allow:
+            - "10.0.0.0/8"
+            - "172.16.0.0/12"
+            - "192.168.0.0/16"
+
+  session-config.json: |
+    {
+      "cookie_name": "kong_admin_session",
+      "cookie_secure": true,
+      "cookie_samesite": "Strict",
+      "secret": "super-secret-key-for-sessions",
+      "storage": "redis",
+      "redis": {
+        "host": "kong-redis",
+        "port": 6379,
+        "password": "secure_redis_password_2024",
+        "database": 1
+      },
+      "cookie_max_age": 3600
+    }
+    # Custom NGINX configuration for Kong Gateway
+    worker_processes auto;
+    worker_rlimit_nofile 65536;
+
+    events {
+        worker_connections 65536;
+        use epoll;
+        multi_accept on;
+    }
+
+    http {
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+
+        # Logging
+        log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                        '$status $body_bytes_sent "$http_referer" '
+                        '"$http_user_agent" "$http_x_forwarded_for" '
+                        '"$host" sn="$server_name" '
+                        'rt=$request_time '
+                        'ua="$upstream_addr" us="$upstream_status" '
+                        'ut="$upstream_response_time" ul="$upstream_response_length" '
+                        'cs=$upstream_cache_status';
+
+        access_log /dev/stdout main;
+        error_log /dev/stderr warn;
+
+        # Performance
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+        keepalive_timeout 65;
+        types_hash_max_size 2048;
+        client_max_body_size 100M;
+
+        # Gzip compression
+        gzip on;
+        gzip_vary on;
+        gzip_min_length 1024;
+        gzip_proxied any;
+        gzip_comp_level 6;
+        gzip_types
+            text/plain
+            text/css
+            text/xml
+            text/javascript
+            application/json
+            application/javascript
+            application/xml+rss
+            application/atom+xml
+            image/svg+xml;
+
+        # Rate limiting zones
+        limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;
+        limit_req_zone $binary_remote_addr zone=auth:10m rate=5r/s;
+        limit_conn_zone $binary_remote_addr zone=conn_limit_per_ip:10m;
+
+        # Upstream configurations
+        upstream kong_upstream {
+            server 127.0.0.1:8000;
+            keepalive 32;
+        }
+
+        # Server block
+        server {
+            listen 80;
+            server_name _;
+
+            # Security headers
+            add_header X-Frame-Options DENY;
+            add_header X-Content-Type-Options nosniff;
+            add_header X-XSS-Protection "1; mode=block";
+            add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+            # Rate limiting
+            limit_req zone=api burst=20 nodelay;
+            limit_conn conn_limit_per_ip 10;
+
+            location / {
+                proxy_pass http://kong_upstream;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_connect_timeout 30s;
+                proxy_send_timeout 30s;
+                proxy_read_timeout 30s;
+            }
+
+            # Health check endpoint
+            location /health {
+                access_log off;
+                return 200 "healthy\n";
+                add_header Content-Type text/plain;
+            }
+        }
+    }

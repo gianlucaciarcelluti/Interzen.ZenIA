@@ -1,0 +1,61 @@
+{
+  "analysis_id": "analysis-2024-11-18-001",
+  "status": "completed",
+  "results": {
+    "entities": [
+      {
+        "text": "contratto di fornitura",
+        "type": "LEGAL_DOCUMENT",
+        "confidence": 0.97,
+        "start_pos": 3,
+        "end_pos": 23
+      },
+      {
+        "text": "30 giorni",
+        "type": "TIME_PERIOD",
+        "confidence": 0.95,
+        "start_pos": 54,
+        "end_pos": 62
+      },
+      {
+        "text": "€150.000,00",
+        "type": "MONEY",
+        "confidence": 0.99,
+        "start_pos": 85,
+        "end_pos": 96
+      }
+    ],
+    "concepts": [
+      "contratto commerciale",
+      "termini di consegna",
+      "valore contrattuale",
+      "IVA esclusa"
+    ],
+    "sentiment": {
+      "overall": "neutral",
+      "confidence": 0.88,
+      "aspects": {
+        "delivery_terms": "neutral",
+        "financial_terms": "neutral"
+      }
+    },
+    "language_detection": {
+      "language": "it",
+      "confidence": 0.99
+    },
+    "key_phrases": [
+      "contratto di fornitura",
+      "consegna dei beni",
+      "valore totale",
+      "IVA esclusa"
+    ]
+  },
+  "metadata": {
+    "processing_time_ms": 1250,
+    "model_version": "semantic-v2.1",
+    "algorithm_used": "bert-base-italian-xxl",
+    "confidence_score": 0.94
+  },
+  "warnings": [],
+  "timestamp": "2024-11-18T10:31:15.123Z"
+}

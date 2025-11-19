@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ms14-audit-netpol
+  namespace: zenia
+spec:
+  podSelector:
+    matchLabels:
+      app: ms14-audit-api
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: zenia
+    ports:
+    - protocol: TCP
+      port: 8080
+  egress:
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 9200
+    - protocol: TCP
+      port: 6379
+    - protocol: TCP
+      port: 53

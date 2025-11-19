@@ -1,0 +1,157 @@
+version: '3.8'
+
+services:
+  ms04-validator:
+    image: registry.zen-ia.com/ms04-validator:v2.1.0
+    container_name: ms04-validator
+    ports:
+      - "8004:8004"
+    environment:
+      # Database Configuration
+      - DATABASE_URL=postgresql://validator_user:validator_pass@postgres-validator:5432/validator_db
+      - DATABASE_POOL_SIZE=20
+      - DATABASE_MAX_CONNECTIONS=50
+      - DATABASE_TIMEOUT=30
+
+      # Redis Configuration
+      - REDIS_URL=redis://redis-validator:6379/0
+      - REDIS_POOL_SIZE=10
+      - REDIS_TIMEOUT=5
+
+      # Validation Configuration
+      - VALIDATION_TIMEOUT_DEFAULT=300
+      - MAX_DOCUMENT_SIZE=10485760
+      - MAX_CONCURRENT_VALIDATIONS=50
+      - VALIDATION_RETRY_MAX=3
+      - VALIDATION_RETRY_DELAY=30
+
+      # Certificate Authority
+      - CA_CERTIFICATE_PATH=/etc/ssl/certs/ca-certificates.crt
+      - CERTIFICATE_VALIDITY_DAYS=365
+      - CERTIFICATE_RENEWAL_THRESHOLD=30
+
+      # Service Discovery
+      - MS05_TRANSFORMER_URL=http://ms05-transformer:8005
+      - MS07_SIGNER_URL=http://ms07-signer:8007
+      - MS08_MONITOR_URL=http://ms08-monitor:8008
+
+      # Monitoring & Metrics
+      - METRICS_ENABLED=true
+      - METRICS_INTERVAL=30
+      - HEALTH_CHECK_INTERVAL=60
+      - PERFORMANCE_MONITORING=true
+
+      # Security
+      - JWT_SECRET_KEY=change-in-production
+      - API_KEY_VALIDATION=true
+      - RATE_LIMIT_REQUESTS=100
+      - RATE_LIMIT_WINDOW=60
+
+      # Logging
+      - LOG_LEVEL=INFO
+      - LOG_FORMAT=json
+      - LOG_MAX_SIZE=100
+      - LOG_MAX_FILES=5
+
+      # Rules Engine
+      - RULES_CACHE_TTL=300
+      - RULES_REFRESH_INTERVAL=60
+      - RULES_MAX_VERSIONS=10
+      - RULES_VALIDATION_STRICT=true
+
+      # Schema Validation
+      - SCHEMA_CACHE_SIZE=100
+      - SCHEMA_VALIDATION_TIMEOUT=60
+      - XML_PARSER_SECURITY=true
+
+      # Performance Tuning
+      - GUNICORN_WORKERS=4
+      - GUNICORN_THREADS=2
+      - GUNICORN_TIMEOUT=30
+      - MAX_REQUEST_SIZE=10485760
+
+      # Quality Assessment
+      - SPELLING_DICTIONARY=it_IT
+      - GRAMMAR_CHECK_ENABLED=true
+      - READABILITY_ALGORITHM=flesch
+      - FORMAT_VALIDATION_STRICT=false
+
+      # Environment
+      - ENVIRONMENT=development
+      - SERVICE_NAME=ms04-validator
+      - SERVICE_VERSION=2.1.0
+    volumes:
+      - validator_logs:/app/logs
+      - validator_cache:/app/cache
+      - validator_certificates:/etc/ssl/certs
+    depends_on:
+      postgres-validator:
+        condition: service_healthy
+      redis-validator:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8004/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - zen-ia-network
+
+  postgres-validator:
+    image: postgres:15-alpine
+    container_name: postgres-validator
+    environment:
+      - POSTGRES_DB=validator_db
+      - POSTGRES_USER=validator_user
+      - POSTGRES_PASSWORD=validator_pass
+    volumes:
+      - postgres_validator_data:/var/lib/postgresql/data
+      - ./init-schema.sql:/docker-entrypoint-initdb.d/init-schema.sql
+    ports:
+      - "5434:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U validator_user -d validator_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - zen-ia-network
+
+  redis-validator:
+    image: redis:7-alpine
+    container_name: redis-validator
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_validator_data:/data
+    ports:
+      - "6381:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - zen-ia-network
+
+volumes:
+  postgres_validator_data:
+    driver: local
+  redis_validator_data:
+    driver: local
+  validator_logs:
+    driver: local
+  validator_cache:
+    driver: local
+  validator_certificates:
+    driver: local
+
+networks:
+  zen-ia-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

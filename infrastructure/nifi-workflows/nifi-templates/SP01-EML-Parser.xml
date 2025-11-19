@@ -1,0 +1,523 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template encoding-version="1.3">
+    <description>SP01 - EML Parser &amp; Email Intelligence - Parsing email PEC in ingresso</description>
+    <groupId>root</groupId>
+    <name>SP01_EML_Parser</name>
+    <snippet>
+        <processors>
+            
+            <processor>
+                <id>7fa68d2e-ba9e-4c3f-9cf0-7de7d337f832</id>
+                <name>GetPECEmail</name>
+                <type>org.apache.nifi.processors.standard.GetFile</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Acquisisce file .eml dalla cartella PEC</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Input Directory</key>
+                            <value>./input/pec</value>
+                        </entry>
+                        <entry>
+                            <key>File Filter</key>
+                            <value>.*\.eml</value>
+                        </entry>
+                        <entry>
+                            <key>Keep Source File</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Recurse Subdirectories</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Polling Interval</key>
+                            <value>5 sec</value>
+                        </entry>
+                        <entry>
+                            <key>Batch Size</key>
+                            <value>5</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>0ac6bc73-d3cf-4c6b-8c32-db23ac192025</id>
+                <name>ReadEMLContent</name>
+                <type>org.apache.nifi.processors.standard.ExtractText</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="350.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Legge il contenuto completo del file .eml</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>eml.content</key>
+                            <value>(?s)(.+)</value>
+                        </entry>
+                        <entry>
+                            <key>Character Set</key>
+                            <value>UTF-8</value>
+                        </entry>
+                        <entry>
+                            <key>Maximum Buffer Size</key>
+                            <value>5 MB</value>
+                        </entry>
+                        <entry>
+                            <key>Maximum Capture Group Length</key>
+                            <value>5242880</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>unmatched</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>0978d1f7-26a6-49c7-a02c-e8a62e081acd</id>
+                <name>PrepareParseRequest</name>
+                <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-update-attribute-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="600.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Prepara la richiesta per il microservizio SP01</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>sp01.url</key>
+                            <value>http://sp01-eml-parser:5001/api/v1/parse-eml</value>
+                        </entry>
+                        <entry>
+                            <key>workflow.step</key>
+                            <value>SP01_EMAIL_PARSING</value>
+                        </entry>
+                        <entry>
+                            <key>http.method</key>
+                            <value>POST</value>
+                        </entry>
+                        <entry>
+                            <key>content.type</key>
+                            <value>application/json</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>beb19597-ea74-45fc-a8c7-66d994ca48e6</id>
+                <name>CreateJSONPayload</name>
+                <type>org.apache.nifi.processors.standard.ReplaceText</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="850.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Crea JSON payload con contenuto EML</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Regular Expression</key>
+                            <value>(?s)(.*)</value>
+                        </entry>
+                        <entry>
+                            <key>Replacement Value</key>
+                            <value>{
+  "eml_content": "$1",
+  "workflow_id": "${workflow.id}",
+  "timestamp": "${now():format('yyyy-MM-dd HH:mm:ss')}",
+  "source": "nifi"
+}</value>
+                        </entry>
+                        <entry>
+                            <key>Character Set</key>
+                            <value>UTF-8</value>
+                        </entry>
+                        <entry>
+                            <key>Replacement Strategy</key>
+                            <value>Always Replace</value>
+                        </entry>
+                        <entry>
+                            <key>Evaluation Mode</key>
+                            <value>Entire text</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>b996e1df-a99a-4962-b6b0-99ce259953c6</id>
+                <name>InvokeSP01Parser</name>
+                <type>org.apache.nifi.processors.standard.InvokeHTTP</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Chiama il microservizio FastAPI SP01 per parsing email</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>HTTP Method</key>
+                            <value>POST</value>
+                        </entry>
+                        <entry>
+                            <key>Remote URL</key>
+                            <value>${sp01.url}</value>
+                        </entry>
+                        <entry>
+                            <key>Connection Timeout</key>
+                            <value>30 sec</value>
+                        </entry>
+                        <entry>
+                            <key>Read Timeout</key>
+                            <value>30 sec</value>
+                        </entry>
+                        <entry>
+                            <key>Include Date Header</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Follow Redirects</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Content-Type</key>
+                            <value>application/json</value>
+                        </entry>
+                        <entry>
+                            <key>send-message-body</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Use Chunked Encoding</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Penalize on "No Retry"</key>
+                            <value>false</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>Retry</relationship>
+                        <relationship>No Retry</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>a1ed5bed-13a8-43e9-9f39-04d4f10df7b0</id>
+                <name>ValidateParseResponse</name>
+                <type>org.apache.nifi.processors.standard.EvaluateJsonPath</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1350.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Estrae metadata dalla risposta JSON di SP01</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Destination</key>
+                            <value>flowfile-attribute</value>
+                        </entry>
+                        <entry>
+                            <key>Return Type</key>
+                            <value>auto-detect</value>
+                        </entry>
+                        <entry>
+                            <key>Path Not Found Behavior</key>
+                            <value>warn</value>
+                        </entry>
+                        <entry>
+                            <key>email.from</key>
+                            <value>$.metadata.from_address</value>
+                        </entry>
+                        <entry>
+                            <key>email.subject</key>
+                            <value>$.metadata.subject</value>
+                        </entry>
+                        <entry>
+                            <key>email.classification</key>
+                            <value>$.classification</value>
+                        </entry>
+                        <entry>
+                            <key>email.confidence</key>
+                            <value>$.confidence</value>
+                        </entry>
+                        <entry>
+                            <key>email.is_pec</key>
+                            <value>$.is_pec</value>
+                        </entry>
+                        <entry>
+                            <key>attachments.count</key>
+                            <value>$.attachments.length()</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>unmatched</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>3e5dd470-5919-474d-8dd1-6271342e606e</id>
+                <name>RouteByEmailType</name>
+                <type>org.apache.nifi.processors.standard.RouteOnAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1600.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Instrada in base alla classificazione email</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Routing Strategy</key>
+                            <value>Route to Property name</value>
+                        </entry>
+                        <entry>
+                            <key>RICHIESTA_AMMINISTRATIVA</key>
+                            <value>${email.classification:equals('RICHIESTA_AMMINISTRATIVA')}</value>
+                        </entry>
+                        <entry>
+                            <key>INTEGRAZIONE_DOCUMENTI</key>
+                            <value>${email.classification:equals('INTEGRAZIONE_DOCUMENTI')}</value>
+                        </entry>
+                        <entry>
+                            <key>COMUNICAZIONE</key>
+                            <value>${email.classification:equals('COMUNICAZIONE')}</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>unmatched</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>f8f3ad46-a42d-4d3b-97ac-42709f4eacf1</id>
+                <name>SaveEmailMetadata</name>
+                <type>org.apache.nifi.processors.standard.PutSQL</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1850.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Salva metadata email in database</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>JDBC Connection Pool</key>
+                            <value>PostgreSQL-ConnectionPool</value>
+                        </entry>
+                        <entry>
+                            <key>SQL Statement</key>
+                            <value>INSERT INTO email_ingress (
+    workflow_id, 
+    from_address, 
+    subject, 
+    classification, 
+    confidence, 
+    is_pec, 
+    attachments_count,
+    raw_content,
+    created_at
+) VALUES (
+    '${workflow.id}',
+    '${email.from}',
+    '${email.subject}',
+    '${email.classification}',
+    ${email.confidence},
+    ${email.is_pec},
+    ${attachments.count},
+    ?,
+    CURRENT_TIMESTAMP
+)</value>
+                        </entry>
+                        <entry>
+                            <key>Batch Size</key>
+                            <value>1</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>a22e357c-fcb6-4c94-894f-021ef9e3b2a5</id>
+                <name>LogParsingSuccess</name>
+                <type>org.apache.nifi.processors.standard.LogAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="2100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>INFO</bulletinLevel>
+                    <comments>Log successo parsing email</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Log Level</key>
+                            <value>info</value>
+                        </entry>
+                        <entry>
+                            <key>Log Payload</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Attributes to Log</key>
+                            <value>email.from,email.classification,attachments.count</value>
+                        </entry>
+                        <entry>
+                            <key>Attributes to Log by Regular Expression</key>
+                            <value>email\..*</value>
+                        </entry>
+                        <entry>
+                            <key>Log prefix</key>
+                            <value>SP01-EML-PARSER:</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>success</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+        </processors>
+
+        
+        <connections>
+            <connection>
+                <id>98a16a47-77af-4877-8fc6-1e7ae1bea90e</id>
+                <name>GetPEC → ReadContent</name>
+                <sourceId>7fa68d2e-ba9e-4c3f-9cf0-7de7d337f832</sourceId>
+                <destinationId>0ac6bc73-d3cf-4c6b-8c32-db23ac192025</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>24510a4c-a59f-4a7e-bd98-a9ae2c5dea8d</id>
+                <name>ReadContent → PrepareRequest</name>
+                <sourceId>0ac6bc73-d3cf-4c6b-8c32-db23ac192025</sourceId>
+                <destinationId>0978d1f7-26a6-49c7-a02c-e8a62e081acd</destinationId>
+                <sourceRelationship>matched</sourceRelationship>
+            </connection>
+            <connection>
+                <id>7188db37-cbe7-459d-8e1c-40e76536f185</id>
+                <name>PrepareRequest → CreateJSON</name>
+                <sourceId>0978d1f7-26a6-49c7-a02c-e8a62e081acd</sourceId>
+                <destinationId>beb19597-ea74-45fc-a8c7-66d994ca48e6</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>25c1abc4-b1dd-4a08-a394-11983f327aa6</id>
+                <name>CreateJSON → InvokeSP01</name>
+                <sourceId>beb19597-ea74-45fc-a8c7-66d994ca48e6</sourceId>
+                <destinationId>b996e1df-a99a-4962-b6b0-99ce259953c6</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+            <connection>
+                <id>852082dc-3ba3-4f4b-a7c8-9c69e5521119</id>
+                <name>InvokeSP01 → ValidateResponse</name>
+                <sourceId>b996e1df-a99a-4962-b6b0-99ce259953c6</sourceId>
+                <destinationId>a1ed5bed-13a8-43e9-9f39-04d4f10df7b0</destinationId>
+                <sourceRelationship>Response</sourceRelationship>
+            </connection>
+            <connection>
+                <id>9662e8cc-fa87-4a4f-8e46-27760ab39540</id>
+                <name>ValidateResponse → RouteByType</name>
+                <sourceId>a1ed5bed-13a8-43e9-9f39-04d4f10df7b0</sourceId>
+                <destinationId>3e5dd470-5919-474d-8dd1-6271342e606e</destinationId>
+                <sourceRelationship>matched</sourceRelationship>
+            </connection>
+            <connection>
+                <id>959b06c0-83b1-474a-847a-b7ad5320e023</id>
+                <name>RouteByType → SaveMetadata</name>
+                <sourceId>3e5dd470-5919-474d-8dd1-6271342e606e</sourceId>
+                <destinationId>f8f3ad46-a42d-4d3b-97ac-42709f4eacf1</destinationId>
+                <sourceRelationship>RICHIESTA_AMMINISTRATIVA</sourceRelationship>
+            </connection>
+            <connection>
+                <id>7ee49ba2-e0bc-461d-a772-367f1663ce8d</id>
+                <name>SaveMetadata → LogSuccess</name>
+                <sourceId>f8f3ad46-a42d-4d3b-97ac-42709f4eacf1</sourceId>
+                <destinationId>a22e357c-fcb6-4c94-894f-021ef9e3b2a5</destinationId>
+                <sourceRelationship>success</sourceRelationship>
+            </connection>
+        </connections>
+
+    </snippet>
+</template>

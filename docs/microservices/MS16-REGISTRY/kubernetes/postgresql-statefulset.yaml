@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ms16-registry-db
+  namespace: zenia
+  labels:
+    app: ms16-registry-db
+spec:
+  serviceName: ms16-registry-db
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms16-registry-db
+  template:
+    metadata:
+      labels:
+        app: ms16-registry-db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15-alpine
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: registry
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: ms16-registry-secrets
+              key: db-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ms16-registry-secrets
+              key: db-password
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+        volumeMounts:
+        - name: db-data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: db-data
+        persistentVolumeClaim:
+          claimName: ms16-registry-db-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ms16-registry-db-pvc
+  namespace: zenia
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

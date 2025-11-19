@@ -1,0 +1,276 @@
+version: '3.8'
+
+services:
+  ms06-aggregator:
+    image: registry.zen-ia.com/ms06-aggregator:v2.1.0
+    container_name: ms06-aggregator
+    ports:
+      - "8006:8006"
+    environment:
+      # Database Configuration
+      - DATABASE_URL=postgresql://aggregator_user:aggregator_pass@postgres-aggregator:5432/aggregator_db
+      - DATABASE_POOL_SIZE=20
+      - DATABASE_MAX_CONNECTIONS=50
+      - DATABASE_TIMEOUT=30
+
+      # Redis Configuration
+      - REDIS_URL=redis://redis-aggregator:6379/0
+      - REDIS_POOL_SIZE=10
+      - REDIS_TIMEOUT=5
+
+      # Spark Configuration
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_EXECUTOR_CORES=2
+      - SPARK_EXECUTOR_MEMORY=4g
+      - SPARK_DRIVER_MEMORY=2g
+      - SPARK_DEFAULT_PARALLELISM=200
+      - SPARK_SQL_SHUFFLE_PARTITIONS=200
+      - SPARK_SERIALIZER=org.apache.spark.serializer.KryoSerializer
+      - SPARK_SQL_ADAPTIVE_ENABLED=true
+      - SPARK_SQL_ADAPTIVE_COALESCE_PARTITIONS_ENABLED=true
+
+      # Aggregation Configuration
+      - AGGREGATION_TIMEOUT_DEFAULT=1800
+      - MAX_JOB_SIZE=1073741824
+      - MAX_RECORDS_PER_JOB=10000000
+      - DEFAULT_BATCH_SIZE=10000
+      - CHECKPOINT_ENABLED=true
+      - CACHE_ENABLED=true
+
+      # Storage Configuration
+      - HDFS_NAMENODE_URL=hdfs://namenode:9000
+      - S3_ENDPOINT=https://s3.eu-south-1.amazonaws.com
+      - S3_REGION=eu-south-1
+      - DEFAULT_STORAGE_FORMAT=parquet
+      - COMPRESSION_CODEC=snappy
+
+      # Service Discovery
+      - MS05_TRANSFORMER_URL=http://ms05-transformer:8005
+      - MS07_VALIDATOR_URL=http://ms07-validator:8007
+      - MS09_REPORTER_URL=http://ms09-reporter:8009
+      - MS08_MONITOR_URL=http://ms08-monitor:8008
+
+      # Monitoring & Metrics
+      - METRICS_ENABLED=true
+      - METRICS_INTERVAL=30
+      - HEALTH_CHECK_INTERVAL=60
+      - PERFORMANCE_MONITORING=true
+      - SPARK_UI_ENABLED=true
+
+      # Security
+      - JWT_SECRET_KEY=change-in-production
+      - API_KEY_VALIDATION=true
+      - RATE_LIMIT_REQUESTS=100
+      - RATE_LIMIT_WINDOW=60
+
+      # Logging
+      - LOG_LEVEL=INFO
+      - LOG_FORMAT=json
+      - LOG_MAX_SIZE=100
+      - LOG_MAX_FILES=5
+
+      # Job Configuration
+      - JOB_SCHEDULER_ENABLED=true
+      - MAX_CONCURRENT_JOBS=5
+      - JOB_QUEUE_SIZE=20
+      - JOB_TIMEOUT_DEFAULT=3600
+      - JOB_RETRY_ATTEMPTS=3
+
+      # Streaming Configuration
+      - STREAMING_ENABLED=true
+      - STREAM_CHECKPOINT_DIR=/checkpoint
+      - STREAM_WINDOW_DURATION=1 hour
+      - STREAM_WATERMARK_DELAY=5 minutes
+      - STREAM_PROCESSING_MODE=exactly-once
+
+      # Cache Configuration
+      - CACHE_SIZE_MB=2048
+      - CACHE_TTL_SECONDS=3600
+      - CACHE_MAX_ENTRIES=50000
+      - CACHE_POLICY=LRU
+
+      # Quality Assurance
+      - QUALITY_CHECK_ENABLED=true
+      - DATA_VALIDATION_ENABLED=true
+      - SCHEMA_VALIDATION_STRICT=true
+      - COMPLETENESS_THRESHOLD=0.95
+      - ACCURACY_THRESHOLD=0.90
+
+      # Environment
+      - ENVIRONMENT=development
+      - SERVICE_NAME=ms06-aggregator
+      - SERVICE_VERSION=2.1.0
+
+      # Feature Flags
+      - ASYNC_AGGREGATION_ENABLED=true
+      - BATCH_AGGREGATION_ENABLED=true
+      - STREAMING_AGGREGATION_ENABLED=true
+      - WEBHOOK_NOTIFICATIONS_ENABLED=true
+      - AUDIT_LOGGING_ENABLED=true
+      - DATA_LINEAGE_ENABLED=true
+
+      # Schema Management
+      - SCHEMA_REGISTRY_ENABLED=true
+      - SCHEMA_CACHE_SIZE=1000
+      - SCHEMA_VALIDATION_ENABLED=true
+      - AUTO_SCHEMA_EVOLUTION=true
+
+      # Data Sources
+      - SUPPORTED_DATA_SOURCES=postgresql,mysql,oracle,s3,hdfs,csv,json,parquet
+      - MAX_DATA_SOURCE_CONNECTIONS=10
+      - CONNECTION_POOL_TIMEOUT=30
+
+      # Output Configuration
+      - DEFAULT_OUTPUT_FORMAT=parquet
+      - OUTPUT_PARTITION_BY_DATE=true
+      - OUTPUT_COMPRESSION_ENABLED=true
+      - OUTPUT_VALIDATION_ENABLED=true
+
+      # Performance Tuning
+      - GUNICORN_WORKERS=4
+      - GUNICORN_THREADS=2
+      - GUNICORN_TIMEOUT=60
+      - MAX_REQUEST_SIZE=1073741824
+    volumes:
+      - aggregator_logs:/app/logs
+      - aggregator_config:/app/config
+      - aggregator_certificates:/etc/ssl/certs
+      - checkpoint_data:/checkpoint
+    depends_on:
+      postgres-aggregator:
+        condition: service_healthy
+      redis-aggregator:
+        condition: service_started
+      spark-master:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8006/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+    networks:
+      - zen-ia-network
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: '2.0'
+        reservations:
+          memory: 2G
+          cpus: '1.0'
+
+  spark-master:
+    image: apache/spark:3.5.0-scala2.12-java11-python3-ubuntu
+    container_name: spark-master
+    ports:
+      - "7077:7077"
+      - "8080:8080"
+    environment:
+      - SPARK_MODE=master
+      - SPARK_MASTER_HOST=spark-master
+      - SPARK_MASTER_PORT=7077
+      - SPARK_MASTER_WEBUI_PORT=8080
+    volumes:
+      - spark_logs:/opt/spark/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - zen-ia-network
+
+  spark-worker:
+    image: apache/spark:3.5.0-scala2.12-java11-python3-ubuntu
+    container_name: spark-worker
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_CORES=2
+      - SPARK_WORKER_MEMORY=4g
+      - SPARK_WORKER_WEBUI_PORT=8081
+    volumes:
+      - spark_work:/opt/spark/work
+      - spark_logs:/opt/spark/logs
+    depends_on:
+      spark-master:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - zen-ia-network
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          memory: 6G
+          cpus: '2.0'
+        reservations:
+          memory: 4G
+          cpus: '1.0'
+
+  postgres-aggregator:
+    image: postgres:15-alpine
+    container_name: postgres-aggregator
+    environment:
+      - POSTGRES_DB=aggregator_db
+      - POSTGRES_USER=aggregator_user
+      - POSTGRES_PASSWORD=aggregator_pass
+    volumes:
+      - postgres_aggregator_data:/var/lib/postgresql/data
+      - ./init-schema.sql:/docker-entrypoint-initdb.d/init-schema.sql
+    ports:
+      - "5436:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aggregator_user -d aggregator_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - zen-ia-network
+
+  redis-aggregator:
+    image: redis:7-alpine
+    container_name: redis-aggregator
+    command: redis-server --appendonly yes --maxmemory 1gb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_aggregator_data:/data
+    ports:
+      - "6383:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - zen-ia-network
+
+volumes:
+  postgres_aggregator_data:
+    driver: local
+  redis_aggregator_data:
+    driver: local
+  aggregator_logs:
+    driver: local
+  aggregator_config:
+    driver: local
+  aggregator_certificates:
+    driver: local
+  checkpoint_data:
+    driver: local
+  spark_logs:
+    driver: local
+  spark_work:
+    driver: local
+
+networks:
+  zen-ia-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

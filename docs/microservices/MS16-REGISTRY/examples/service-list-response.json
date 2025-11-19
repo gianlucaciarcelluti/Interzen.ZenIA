@@ -1,0 +1,9 @@
+[
+  {
+    "name": "ms11-api-gateway",
+    "address": "10.0.0.11",
+    "port": 8080,
+    "tags": ["api", "gateway"],
+    "status": "healthy"
+  }
+]

@@ -1,0 +1,710 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template encoding-version="1.3">
+    <description>SP00 - Procedural Document Classifier with LLM Integration</description>
+    <groupId>root</groupId>
+    <name>SP00_Procedural_Classifier</name>
+    <snippet>
+        <processors>
+            
+            <processor>
+                <id>a6e0cfb7-5b9b-43d3-b73b-e7b1fda252ab</id>
+                <name>GetProvvedimento</name>
+                <type>org.apache.nifi.processors.standard.GetFile</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Acquisisce i documenti PDF dalla cartella di input</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Input Directory</key>
+                            <value>./input/provvedimenti</value>
+                        </entry>
+                        <entry>
+                            <key>File Filter</key>
+                            <value>.*\.pdf</value>
+                        </entry>
+                        <entry>
+                            <key>Keep Source File</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Recurse Subdirectories</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Polling Interval</key>
+                            <value>10 sec</value>
+                        </entry>
+                        <entry>
+                            <key>Batch Size</key>
+                            <value>10</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>fb837407-e954-41e4-b155-e8ade1807f2c</id>
+                <name>ExtractTextFromPDF</name>
+                <type>org.apache.nifi.processors.standard.ExtractText</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="350.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Estrae il testo dal PDF per l'analisi LLM</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>extracted.text</key>
+                            <value>(?s)(.+)</value>
+                        </entry>
+                        <entry>
+                            <key>Character Set</key>
+                            <value>UTF-8</value>
+                        </entry>
+                        <entry>
+                            <key>Maximum Buffer Size</key>
+                            <value>10 MB</value>
+                        </entry>
+                        <entry>
+                            <key>Maximum Capture Group Length</key>
+                            <value>1024000</value>
+                        </entry>
+                        <entry>
+                            <key>Enable Canonical Equivalence</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Enable Case-insensitive Matching</key>
+                            <value>false</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>unmatched</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>545286df-817d-4520-8116-2bd1faa58dd8</id>
+                <name>PrepareRequestPayload</name>
+                <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-update-attribute-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="600.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Prepara gli attributi per la chiamata API LLM</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>llm.endpoint</key>
+                            <value>${llm.api.endpoint}</value>
+                        </entry>
+                        <entry>
+                            <key>llm.model</key>
+                            <value>${llm.model.name:gpt-4}</value>
+                        </entry>
+                        <entry>
+                            <key>llm.temperature</key>
+                            <value>0.1</value>
+                        </entry>
+                        <entry>
+                            <key>llm.max.tokens</key>
+                            <value>4000</value>
+                        </entry>
+                        <entry>
+                            <key>mime.type</key>
+                            <value>application/json</value>
+                        </entry>
+                        <entry>
+                            <key>llm.system.prompt</key>
+                            <value>Sei un assistente legale specializzato nell'analisi di provvedimenti amministrativi. Analizza il documento e classifica se contiene elementi procedurali rilevanti.</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>211b0082-d2d8-4290-88d6-7fbe9f5aff8b</id>
+                <name>CreateJSONPayload</name>
+                <type>org.apache.nifi.processors.standard.ReplaceText</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="850.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Crea il payload JSON per l'API LLM</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Regular Expression</key>
+                            <value>(?s)(.*)</value>
+                        </entry>
+                        <entry>
+                            <key>Replacement Value</key>
+                            <value>{
+  "model": "${llm.model}",
+  "messages": [
+    {
+      "role": "system",
+      "content": "${llm.system.prompt}"
+    },
+    {
+      "role": "user",
+      "content": "${extracted.text:escapeJson()}"
+    }
+  ],
+  "temperature": ${llm.temperature},
+  "max_tokens": ${llm.max.tokens}
+}</value>
+                        </entry>
+                        <entry>
+                            <key>Character Set</key>
+                            <value>UTF-8</value>
+                        </entry>
+                        <entry>
+                            <key>Maximum Buffer Size</key>
+                            <value>10 MB</value>
+                        </entry>
+                        <entry>
+                            <key>Replacement Strategy</key>
+                            <value>Regex Replace</value>
+                        </entry>
+                        <entry>
+                            <key>Evaluation Mode</key>
+                            <value>Entire text</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>4f0df66f-de16-4985-bdf2-50233d1d6c38</id>
+                <name>InvokeLLMAPI</name>
+                <type>org.apache.nifi.processors.standard.InvokeHTTP</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Chiama l'API del modello LLM (OpenAI/Azure OpenAI)</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>HTTP Method</key>
+                            <value>POST</value>
+                        </entry>
+                        <entry>
+                            <key>Remote URL</key>
+                            <value>${llm.endpoint}</value>
+                        </entry>
+                        <entry>
+                            <key>Content-Type</key>
+                            <value>application/json</value>
+                        </entry>
+                        <entry>
+                            <key>Authorization</key>
+                            <value>Bearer ${llm.api.key}</value>
+                        </entry>
+                        <entry>
+                            <key>send-message-body</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Connection Timeout</key>
+                            <value>30 sec</value>
+                        </entry>
+                        <entry>
+                            <key>Read Timeout</key>
+                            <value>120 sec</value>
+                        </entry>
+                        <entry>
+                            <key>Include Date Header</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Follow Redirects</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Add Response Headers to Request</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Penalize No Retry</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Use Chunked Encoding</key>
+                            <value>false</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>Retry</relationship>
+                        <relationship>No Retry</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>bb18733d-7a12-40b4-880b-22f55c838a52</id>
+                <name>ExtractLLMResponse</name>
+                <type>org.apache.nifi.processors.standard.EvaluateJsonPath</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1350.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Estrae i dati dalla risposta JSON dell'LLM</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Destination</key>
+                            <value>flowfile-attribute</value>
+                        </entry>
+                        <entry>
+                            <key>Return Type</key>
+                            <value>auto-detect</value>
+                        </entry>
+                        <entry>
+                            <key>llm.response.content</key>
+                            <value>$.choices[0].message.content</value>
+                        </entry>
+                        <entry>
+                            <key>llm.response.model</key>
+                            <value>$.model</value>
+                        </entry>
+                        <entry>
+                            <key>llm.response.tokens</key>
+                            <value>$.usage.total_tokens</value>
+                        </entry>
+                        <entry>
+                            <key>llm.response.finish.reason</key>
+                            <value>$.choices[0].finish_reason</value>
+                        </entry>
+                        <entry>
+                            <key>llm.response.prompt.tokens</key>
+                            <value>$.usage.prompt_tokens</value>
+                        </entry>
+                        <entry>
+                            <key>llm.response.completion.tokens</key>
+                            <value>$.usage.completion_tokens</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>unmatched</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>a16b6c50-f8ea-4844-b628-dfd5907fd0d2</id>
+                <name>ValidateLLMResponse</name>
+                <type>org.apache.nifi.processors.standard.RouteOnAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1600.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Valida che la risposta LLM sia completa e corretta</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Routing Strategy</key>
+                            <value>Route to Property name</value>
+                        </entry>
+                        <entry>
+                            <key>success</key>
+                            <value>${llm.response.content:isEmpty():not():and(${llm.response.finish.reason:equals('stop')})}</value>
+                        </entry>
+                        <entry>
+                            <key>failure</key>
+                            <value>${llm.response.content:isEmpty():or(${llm.response.finish.reason:equals('stop'):not()})}</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>fb923ec1-1d38-4cfc-a9a7-63deb72b8261</id>
+                <name>UpdateClassification</name>
+                <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-update-attribute-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1850.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Aggiorna gli attributi con la classificazione SP00</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>classification.type</key>
+                            <value>SP00</value>
+                        </entry>
+                        <entry>
+                            <key>classification.timestamp</key>
+                            <value>${now():format('yyyy-MM-dd HH:mm:ss')}</value>
+                        </entry>
+                        <entry>
+                            <key>classification.result</key>
+                            <value>${llm.response.content}</value>
+                        </entry>
+                        <entry>
+                            <key>processing.stage</key>
+                            <value>classified</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships />
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>f8a62069-0eed-48df-aa0a-4eddec9592f7</id>
+                <name>LogSuccess</name>
+                <type>org.apache.nifi.processors.standard.LogAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="2100.0" y="200.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Registra il successo della classificazione</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Log Level</key>
+                            <value>info</value>
+                        </entry>
+                        <entry>
+                            <key>Attributes to Log</key>
+                            <value>filename,classification.type,llm.response.model,llm.response.tokens</value>
+                        </entry>
+                        <entry>
+                            <key>Log Payload</key>
+                            <value>false</value>
+                        </entry>
+                        <entry>
+                            <key>Log prefix</key>
+                            <value>SP00 Classification Success: </value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>success</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>56e6a020-b7f1-488c-be72-c6ec8feec53c</id>
+                <name>LogLLMError</name>
+                <type>org.apache.nifi.processors.standard.LogAttribute</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="1600.0" y="450.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Registra gli errori della chiamata LLM</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Log Level</key>
+                            <value>error</value>
+                        </entry>
+                        <entry>
+                            <key>Attributes to Log</key>
+                            <value>filename,llm.response.content,llm.response.finish.reason,llm.response.tokens</value>
+                        </entry>
+                        <entry>
+                            <key>Log Payload</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Log prefix</key>
+                            <value>SP00 LLM API Error: </value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>success</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+
+            
+            <processor>
+                <id>a9cc30bb-ca15-43ed-9c92-11ce948aa779</id>
+                <name>OutputToQueue</name>
+                <type>org.apache.nifi.processors.standard.PutFile</type>
+                <bundle>
+                    <group>org.apache.nifi</group>
+                    <artifact>nifi-standard-nar</artifact>
+                    <version>1.28.1</version>
+                </bundle>
+                
+                <position x="2100.0" y="50.0" />
+                <config>
+                    <bulletinLevel>WARN</bulletinLevel>
+                    <comments>Salva il documento classificato nella coda di output</comments>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <properties>
+                        <entry>
+                            <key>Directory</key>
+                            <value>./output/sp00-classified</value>
+                        </entry>
+                        <entry>
+                            <key>Conflict Resolution Strategy</key>
+                            <value>replace</value>
+                        </entry>
+                        <entry>
+                            <key>Create Missing Directories</key>
+                            <value>true</value>
+                        </entry>
+                        <entry>
+                            <key>Maximum File Count</key>
+                            <value>-1</value>
+                        </entry>
+                    </properties>
+                    <schedulingPeriod>0 sec</schedulingPeriod>
+                    <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                    <autoTerminatedRelationships>
+                        <relationship>success</relationship>
+                        <relationship>failure</relationship>
+                    </autoTerminatedRelationships>
+                </config>
+            </processor>
+        </processors>
+
+        <connections>
+            <connection>
+                <id>8e184e9a-4ec1-443f-888d-41b5e9e79f17</id>
+                <name>get-to-extract</name>
+                <source>
+                    <id>a6e0cfb7-5b9b-43d3-b73b-e7b1fda252ab</id>
+                </source>
+                <destination>
+                    <id>fb837407-e954-41e4-b155-e8ade1807f2c</id>
+                </destination>
+                <selectedRelationships>
+                    <selectedRelationship>success</selectedRelationship>
+                </selectedRelationships>
+            </connection>
+
+            <connection>
+                <id>f26bcb9c-bd15-4122-9b71-3cc83f84432d</id>
+                <name>extract-to-prepare</name>
+                <source>
+                    <id>fb837407-e954-41e4-b155-e8ade1807f2c</id>
+                </source>
+                <destination>
+                    <id>545286df-817d-4520-8116-2bd1faa58dd8</id>
+                </destination>
+                <selectedRelationships>
+                    <selectedRelationship>matched</selectedRelationship>
+                </selectedRelationships>
+            </connection>
+
+            <connection>
+                <id>87feefac-21cf-4e4d-888f-47f2da806d32</id>
+                <name>prepare-to-json</name>
+                <source>
+                    <id>545286df-817d-4520-8116-2bd1faa58dd8</id>
+                </source>
+                <destination>
+                    <id>211b0082-d2d8-4290-88d6-7fbe9f5aff8b</id>
+                </destination>
+                <selectedRelationships>
+                    <selectedRelationship>success</selectedRelationship>
+                </selectedRelationships>
+            </connection>
+
+            <connection>
+                <id>e702797d-da59-4f8f-af87-54bfbde5b1d6</id>
+                <name>json-to-invoke</name>
+                <source>
+                    <id>211b0082-d2d8-4290-88d6-7fbe9f5aff8b</id>
+                </source>
+                <destination>
+                    <id>4f0df66f-de16-4985-bdf2-50233d1d6c38</id>
+                </destination>
+                <selectedRelationships>
+                    <selectedRelationship>success</selectedRelationship>
+                </selectedRelationships>
+            </connection>
+
+            <connection>
+                <id>94801183-50c3-4894-9987-ea4df3f24ebc</id>
+                <name>invoke-to-extract-response</name>
+                <source>
+                    <id>4f0df66f-de16-4985-bdf2-50233d1d6c38</id>
+                </source>
+                <destination>
+                    <id>bb18733d-7a12-40b4-880b-22f55c838a52</id>
+                </destination>
+                <selectedRelationships>
+                    <selectedRelationship>Response</selectedRelationship>
+                </selectedRelationships>
+            </connection>
+
+            <connection>
+                <id>298f22b0-ec9c-4931-ae50-181ed5fcaf93</id>
+                <name>invoke-failure</name>
+                <source>
+                    <id>4f0df66f-de16-4985-bdf2-50233d1d6c38</id>
+                </source>
+                <destination>
+                    <id>56e6a020-b7f1-488c-be72-c6ec8feec53c</id>
+                </destination>
+                <selectedRelationships>
+                    <selectedRelationship>Failure</selectedRelationship>
+                </selectedRelationships>
+            </connection>
+
+            <connection>
+                <id>c3fd3094-4814-44dd-8c8b-54bebd967b2b</id>
+                <name>extract-response-to-validate</name>
+                <source>
+                    <id>bb18733d-7a12-40b4-880b-22f55c838a52</id>
+                </source>
+                <destination>
+                    <id>a16b6c50-f8ea-4844-b628-dfd5907fd0d2</id>
+                </destination>
+                <selectedRelationships>
+                    <selectedRelationship>matched</selectedRelationship>
+                </selectedRelationships>
+            </connection>
+
+            <connection>
+                <id>ebb32ebc-18f3-408e-acf5-783b02f8796c</id>
+                <name>validate-success</name>
+                <source>
+                    <id>a16b6c50-f8ea-4844-b628-dfd5907fd0d2</id>
+                </source>
+                <destination>
+                    <id>fb923ec1-1d38-4cfc-a9a7-63deb72b8261</id>
+                </destination>
+                <selectedRelationships>
+                    <selectedRelationship>success</selectedRelationship>
+                </selectedRelationships>
+            </connection>
+
+            <connection>
+                <id>f3881da2-12f7-465f-b0c8-e12f84cd0047</id>
+                <name>validate-failure</name>
+                <source>
+                    <id>a16b6c50-f8ea-4844-b628-dfd5907fd0d2</id>
+                </source>
+                <destination>
+                    <id>56e6a020-b7f1-488c-be72-c6ec8feec53c</id>
+                </destination>
+                <selectedRelationships>
+                    <selectedRelationship>failure</selectedRelationship>
+                </selectedRelationships>
+            </connection>
+
+            <connection>
+                <id>d2e9f107-912f-4bc2-9c4e-dfba8b5fc0fc</id>
+                <name>update-to-log</name>
+                <source>
+                    <id>fb923ec1-1d38-4cfc-a9a7-63deb72b8261</id>
+                </source>
+                <destination>
+                    <id>f8a62069-0eed-48df-aa0a-4eddec9592f7</id>
+                </destination>
+                <selectedRelationships>
+                    <selectedRelationship>success</selectedRelationship>
+                </selectedRelationships>
+            </connection>
+
+            <connection>
+                <id>3b42dd8f-8a4a-4177-8d52-09afcca1b353</id>
+                <name>update-to-output</name>
+                <source>
+                    <id>fb923ec1-1d38-4cfc-a9a7-63deb72b8261</id>
+                </source>
+                <destination>
+                    <id>a9cc30bb-ca15-43ed-9c92-11ce948aa779</id>
+                </destination>
+                <selectedRelationships>
+                    <selectedRelationship>success</selectedRelationship>
+                </selectedRelationships>
+            </connection>
+        </connections>
+    </snippet>
+    <timestamp>2024-01-15T10:00:00Z</timestamp>
+</template>

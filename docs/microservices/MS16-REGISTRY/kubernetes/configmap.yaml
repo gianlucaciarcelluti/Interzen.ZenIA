@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms16-registry-config
+  namespace: zenia
+data:
+  app.conf: |
+    # Configurazione API Registry
+    db_url: postgresql://registry:$(DB_PASSWORD)@ms16-registry-db:5432/registry
+    redis_url: redis://:$(REDIS_PASSWORD)@ms16-registry-redis:6379/0
+    service_retention_days: 365
+    # ...altre configurazioni...

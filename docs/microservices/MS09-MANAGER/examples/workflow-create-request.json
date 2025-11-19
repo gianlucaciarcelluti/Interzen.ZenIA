@@ -1,0 +1,66 @@
+{
+  "workflow_definition_id": "document-processing-workflow",
+  "variables": {
+    "document_id": "DOC-2024-001234-ABC",
+    "priority": "high",
+    "user_id": "user-pa-roma-456",
+    "correlation_id": "corr-789-abc-123-def-456-ghi",
+    "document_type": "provvedimento",
+    "callback_url": "https://api.pa-roma.local/webhooks/workflow-updates",
+    "notification_email": "ufficio.protocollo@comune.roma.it",
+    "sla_required": "2h",
+    "confidentiality_level": "internal"
+  },
+  "metadata": {
+    "created_by": "api-user-pa-roma",
+    "source_system": "portale-pa",
+    "business_unit": "Ambiente",
+    "cost_center": "CC-ENV-001",
+    "tags": ["provvedimento", "autorizzazione", "acque", "rifiuti"],
+    "custom_fields": {
+      "numero_protocollo": "2024/001234",
+      "data_richiesta": "2024-01-15",
+      "richiedente": "Azienda SRL",
+      "comune_competente": "Roma",
+      "tipo_autorizzazione": "scarico_acque"
+    }
+  },
+  "execution_options": {
+    "async": true,
+    "timeout": "4h",
+    "priority": "high",
+    "retry_policy": {
+      "max_attempts": 3,
+      "backoff_strategy": "exponential",
+      "initial_delay": "30s",
+      "max_delay": "10m"
+    },
+    "notification_settings": {
+      "on_start": true,
+      "on_completion": true,
+      "on_failure": true,
+      "on_timeout": true,
+      "channels": ["email", "webhook"],
+      "escalation_contacts": [
+        {
+          "name": "Responsabile Ufficio",
+          "email": "responsabile.ambiente@comune.roma.it",
+          "phone": "+39-06-12345678"
+        }
+      ]
+    },
+    "monitoring_settings": {
+      "enable_detailed_logging": true,
+      "enable_performance_metrics": true,
+      "enable_tracing": true,
+      "alert_on_sla_breach": true,
+      "custom_metrics": [
+        {
+          "name": "processing_time",
+          "type": "histogram",
+          "description": "Tempo totale di elaborazione"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HITL Checkpoint - Draft Review</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header .workflow-info {
+            display: flex;
+            gap: 30px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .checkpoint-badge {
+            display: inline-block;
+            background: #ffeb3b;
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .ai-info {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin: 20px 30px;
+            border-radius: 4px;
+        }
+
+        .ai-info h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .confidence-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+            width: 96%;
+            transition: width 0.3s;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .document-editor {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 20px;
+            min-height: 600px;
+        }
+
+        .document-editor h2 {
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .document-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .section-header {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-generated {
+            background: #fff9c4;
+            border-left: 3px solid #fbc02d;
+        }
+
+        .user-modified {
+            background: #e8f5e9;
+            border-left: 3px solid #4caf50;
+        }
+
+        .edit-btn {
+            padding: 4px 12px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .edit-btn:hover {
+            background: #1976d2;
+        }
+
+        .sidebar {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .stats-card {
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .stats-card h4 {
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .stats-card .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .action-buttons {
+            position: sticky;
+            top: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .action-buttons h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-approve {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-approve:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-modify {
+            background: #ff9800;
+            color: white;
+        }
+
+        .btn-modify:hover {
+            background: #f57c00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+        }
+
+        .btn-reject {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-reject:hover {
+            background: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+        }
+
+        .timer {
+            text-align: center;
+            padding: 15px;
+            background: #fff3e0;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .timer .time {
+            font-size: 32px;
+            font-weight: bold;
+            color: #e65100;
+        }
+
+        .modifications-list {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+        }
+
+        .modification-item {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #f5f5f5;
+            border-left: 3px solid #2196f3;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔄 Human in the Loop - Checkpoint #3</h1>
+            <div class="workflow-info">
+                <span>📋 Workflow: WF-2025-10-14-001</span>
+                <span>👤 Utente: Mario Rossi</span>
+                <span>📅 Data: 14/10/2025 10:35:00</span>
+            </div>
+            <div class="checkpoint-badge">DRAFT REVIEW</div>
+        </div>
+
+        <div class="ai-info">
+            <h3>🤖 Informazioni AI</h3>
+            <p><strong>Documento generato con:</strong> GPT-4 + LangChain</p>
+            <p><strong>Confidence Score:</strong> 96%</p>
+            <div class="confidence-bar">
+                <div class="confidence-fill"></div>
+            </div>
+            <p style="margin-top: 10px; font-size: 14px; color: #666;">
+                Il documento è stato generato automaticamente. Sezioni evidenziate in giallo sono contenuto AI.
+                Puoi modificare qualsiasi sezione cliccando il pulsante "Modifica".
+            </p>
+        </div>
+
+        <div class="main-content">
+            <div class="document-editor">
+                <h2>📄 Documento Generato - Autorizzazione Scarico Acque</h2>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: #fff9c4;"></div>
+                        <span>Generato da AI</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: #e8f5e9;"></div>
+                        <span>Modificato da utente</span>
+                    </div>
+                </div>
+
+                <div class="document-section ai-generated">
+                    <div class="section-header">
+                        <span>1. OGGETTO</span>
+                        <button class="edit-btn">✏️ Modifica</button>
+                    </div>
+                    <p>Autorizzazione allo scarico di acque reflue industriali provenienti dall'impianto produttivo sito in Via Industriale 45, 00100 Roma.</p>
+                </div>
+
+                <div class="document-section user-modified">
+                    <div class="section-header">
+                        <span>2. PREMESSE NORMATIVE</span>
+                        <button class="edit-btn">✏️ Modifica</button>
+                    </div>
+                    <p>Vista la normativa vigente in materia ambientale, con particolare riferimento al D.Lgs 152/2006 "Norme in materia ambientale" e successive modificazioni; Visto il Regolamento Comunale n. 12/2020 per la disciplina degli scarichi idrici;</p>
+                    <small style="color: #4caf50; display: block; margin-top: 8px;">
+                        ✓ Modificato da Mario Rossi - Aggiunto riferimento normativo più ampio
+                    </small>
+                </div>
+
+                <div class="document-section ai-generated">
+                    <div class="section-header">
+                        <span>3. ISTRUTTORIA TECNICA</span>
+                        <button class="edit-btn">✏️ Modifica</button>
+                    </div>
+                    <p>Esaminata la documentazione tecnica presentata dall'istante, completa di progetto di scarico, analisi chimico-fisiche delle acque reflue e dichiarazione di conformità dell'impianto di depurazione;</p>
+                </div>
+
+                <div class="document-section ai-generated">
+                    <div class="section-header">
+                        <span>4. MOTIVAZIONE</span>
+                        <button class="edit-btn">✏️ Modifica</button>
+                    </div>
+                    <p>L'istanza risulta completa della documentazione necessaria e conforme ai requisiti previsti dalla normativa vigente. Le caratteristiche dello scarico rientrano nei limiti di legge previsti dalla Tabella 3 dell'Allegato 5 alla Parte Terza del D.Lgs 152/2006.</p>
+                </div>
+
+                <div class="document-section ai-generated">
+                    <div class="section-header">
+                        <span>5. DETERMINA</span>
+                        <button class="edit-btn">✏️ Modifica</button>
+                    </div>
+                    <p>Art. 1 - È autorizzato lo scarico di acque reflue industriali dall'impianto sito in Via Industriale 45, nel rispetto delle condizioni di cui alla presente autorizzazione.</p>
+                    <p>Art. 2 - L'autorizzazione ha validità di 4 anni dalla data di notifica.</p>
+                    <p>Art. 3 - Sono prescritti controlli analitici semestrali a cura del titolare.</p>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="timer">
+                    <div style="font-size: 14px; color: #666; margin-bottom: 5px;">Tempo trascorso</div>
+                    <div class="time">05:23</div>
+                    <div style="font-size: 12px; color: #666; margin-top: 5px;">Timeout: 30 minuti</div>
+                </div>
+
+                <div class="action-buttons">
+                    <h3>Decisione Richiesta</h3>
+                    <button class="btn btn-approve">✅ Approva Documento</button>
+                    <button class="btn btn-modify">✏️ Salva Modifiche</button>
+                    <button class="btn btn-reject">🔄 Rigenera Documento</button>
+                </div>
+
+                <div class="stats-card">
+                    <h4>Statistiche Documento</h4>
+                    <div class="value">1,234</div>
+                    <div style="font-size: 14px; color: #666;">parole totali</div>
+                </div>
+
+                <div class="stats-card">
+                    <h4>Sezioni</h4>
+                    <div class="value">5</div>
+                    <div style="font-size: 14px; color: #666;">di cui 1 modificata</div>
+                </div>
+
+                <div class="stats-card">
+                    <h4>Contenuto AI</h4>
+                    <div class="value">85.5%</div>
+                    <div style="font-size: 14px; color: #666;">originale / 14.5% modificato</div>
+                </div>
+
+                <div class="modifications-list">
+                    <h4 style="margin-bottom: 10px; color: #666;">Modifiche Applicate</h4>
+                    <div class="modification-item">
+                        <strong>Sezione 2:</strong> Aggiunto riferimento normativo più ampio
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Timer simulato
+        let seconds = 323;
+        setInterval(() => {
+            seconds++;
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            document.querySelector('.timer .time').textContent = 
+                `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }, 1000);
+
+        // Event listeners per i bottoni
+        document.querySelector('.btn-approve').addEventListener('click', () => {
+            if (confirm('Confermi di voler approvare questo documento?')) {
+                alert('✅ Documento approvato! Procedo con la validazione...');
+            }
+        });
+
+        document.querySelector('.btn-modify').addEventListener('click', () => {
+            alert('✏️ Modifiche salvate! Versione 1.1-HUMAN creata.');
+        });
+
+        document.querySelector('.btn-reject').addEventListener('click', () => {
+            const reason = prompt('Motivo del rifiuto:');
+            if (reason) {
+                alert('🔄 Richiesta rigenerazione con feedback: ' + reason);
+            }
+        });
+
+        // Edit buttons
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const section = e.target.closest('.document-section');
+                const p = section.querySelector('p');
+                const currentText = p.textContent;
+                
+                const newText = prompt('Modifica il testo:', currentText);
+                if (newText && newText !== currentText) {
+                    p.textContent = newText;
+                    section.classList.remove('ai-generated');
+                    section.classList.add('user-modified');
+                    
+                    const small = document.createElement('small');
+                    small.style.color = '#4caf50';
+                    small.style.display = 'block';
+                    small.style.marginTop = '8px';
+                    small.textContent = '✓ Modificato da Mario Rossi';
+                    p.after(small);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

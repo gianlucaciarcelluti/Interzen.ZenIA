@@ -1,0 +1,85 @@
+{
+  "status": "healthy",
+  "timestamp": "2024-01-15T10:30:00Z",
+  "version": "1.2.3",
+  "uptime_seconds": 345600,
+  "environment": "production",
+  "region": "eu-south-1",
+  "checks": {
+    "prometheus": {
+      "status": "healthy",
+      "timestamp": "2024-01-15T10:30:00Z",
+      "response_time_ms": 15,
+      "version": "2.45.0",
+      "uptime_seconds": 345600,
+      "active_targets": 24,
+      "total_series": 1250000,
+      "storage_size_bytes": 1073741824
+    },
+    "elasticsearch": {
+      "status": "healthy",
+      "timestamp": "2024-01-15T10:30:00Z",
+      "response_time_ms": 25,
+      "version": "8.11.0",
+      "cluster_status": "green",
+      "number_of_nodes": 3,
+      "active_shards": 45,
+      "total_indices": 12,
+      "storage_size_bytes": 5368709120
+    },
+    "jaeger": {
+      "status": "healthy",
+      "timestamp": "2024-01-15T10:30:00Z",
+      "response_time_ms": 10,
+      "version": "1.47.0",
+      "traces_today": 15420,
+      "spans_today": 234560,
+      "sampling_rate": 0.1
+    },
+    "grafana": {
+      "status": "healthy",
+      "timestamp": "2024-01-15T10:30:00Z",
+      "response_time_ms": 20,
+      "version": "10.2.0",
+      "active_users": 12,
+      "total_dashboards": 45,
+      "total_alerts": 23
+    },
+    "alertmanager": {
+      "status": "healthy",
+      "timestamp": "2024-01-15T10:30:00Z",
+      "response_time_ms": 8,
+      "version": "0.26.0",
+      "active_alerts": 3,
+      "silenced_alerts": 1,
+      "inhibited_alerts": 0
+    },
+    "database": {
+      "status": "healthy",
+      "timestamp": "2024-01-15T10:30:00Z",
+      "response_time_ms": 12,
+      "connections_active": 15,
+      "connections_idle": 5,
+      "database_size_bytes": 2147483648
+    }
+  },
+  "metrics": {
+    "total_requests_last_minute": 1250,
+    "error_rate_last_5_minutes": 0.023,
+    "average_response_time_ms": 145,
+    "active_alerts": 3,
+    "system_cpu_percent": 35.2,
+    "system_memory_percent": 68.5
+  },
+  "dependencies": {
+    "redis": {
+      "status": "healthy",
+      "response_time_ms": 2
+    },
+    "rabbitmq": {
+      "status": "healthy",
+      "response_time_ms": 5,
+      "connections": 8
+    }
+  }
+}

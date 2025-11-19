@@ -1,0 +1,922 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template encoding-version="1.3">
+    <description>WORKFLOW GLOBALE - Orchestrazione completa end-to-end con 3 checkpoint HITL</description>
+    <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+    <name>WORKFLOW-GLOBALE - Orchestrator</name>
+    <snippet>
+        
+        <processors>
+            <id>22222222-0000-0000-0000-222222222222</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <position>
+                <x>400.0</x>
+                <y>400.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>SP00 - Classificazione tipo procedimento</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>HTTP Method</key>
+                        <value>POST</value>
+                    </entry>
+                    <entry>
+                        <key>Remote URL</key>
+                        <value>https://api.groq.com/openai/v1/chat/completions</value>
+                    </entry>
+                    <entry>
+                        <key>Authorization</key>
+                        <value>Bearer ${groq.api.key}</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>SP00 - Procedural Classifier</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>Failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>Response</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.InvokeHTTP</type>
+        </processors>
+
+        
+        <processors>
+            <id>33333333-0000-0000-0000-333333333333</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <position>
+                <x>800.0</x>
+                <y>400.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-update-attribute-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>HITL Checkpoint #1 - Approvazione classificazione</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>hitl.checkpoint</key>
+                        <value>1</value>
+                    </entry>
+                    <entry>
+                        <key>hitl.phase</key>
+                        <value>CLASSIFICAZIONE</value>
+                    </entry>
+                    <entry>
+                        <key>hitl.required_approval</key>
+                        <value>true</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>⚠️ HITL #1 - Classific. Approval</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
+        </processors>
+
+        
+        <processors>
+            <id>44444444-0000-0000-0000-444444444444</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <position>
+                <x>1200.0</x>
+                <y>400.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>SP01 - Generazione documento con template</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>HTTP Method</key>
+                        <value>POST</value>
+                    </entry>
+                    <entry>
+                        <key>Remote URL</key>
+                        <value>https://api.groq.com/openai/v1/chat/completions</value>
+                    </entry>
+                    <entry>
+                        <key>Authorization</key>
+                        <value>Bearer ${groq.api.key}</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>SP01 - Template Engine</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>Failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>Response</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.InvokeHTTP</type>
+        </processors>
+
+        
+        <processors>
+            <id>55555555-0000-0000-0000-555555555555</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <position>
+                <x>1600.0</x>
+                <y>400.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>SP02 - Validazione multilivello</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>HTTP Method</key>
+                        <value>POST</value>
+                    </entry>
+                    <entry>
+                        <key>Remote URL</key>
+                        <value>https://api.groq.com/openai/v1/chat/completions</value>
+                    </entry>
+                    <entry>
+                        <key>Authorization</key>
+                        <value>Bearer ${groq.api.key}</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>SP02 - Validator</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>Failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>Response</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.InvokeHTTP</type>
+        </processors>
+
+        
+        <processors>
+            <id>66666666-0000-0000-0000-666666666666</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <position>
+                <x>2000.0</x>
+                <y>400.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>Routing esito validazione</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>Routing Strategy</key>
+                        <value>Route to Property name</value>
+                    </entry>
+                    <entry>
+                        <key>VALIDO</key>
+                        <value>${validation.passed:equals('true')}</value>
+                    </entry>
+                    <entry>
+                        <key>INVALIDO</key>
+                        <value>${validation.passed:equals('false')}</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>Route Validation</name>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>VALIDO</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>INVALIDO</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>unmatched</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.RouteOnAttribute</type>
+        </processors>
+
+        
+        <processors>
+            <id>77777777-0000-0000-0000-777777777777</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <position>
+                <x>2400.0</x>
+                <y>400.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-update-attribute-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>HITL Checkpoint #2 - Revisione contenuto</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>hitl.checkpoint</key>
+                        <value>2</value>
+                    </entry>
+                    <entry>
+                        <key>hitl.phase</key>
+                        <value>REVISIONE_CONTENUTO</value>
+                    </entry>
+                    <entry>
+                        <key>hitl.required_approval</key>
+                        <value>true</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>⚠️ HITL #2 - Content Review</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
+        </processors>
+
+        
+        <processors>
+            <id>88888888-0000-0000-0000-888888888888</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <position>
+                <x>2800.0</x>
+                <y>400.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>SP05 - Quality Check (Gulpease, spelling)</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>HTTP Method</key>
+                        <value>POST</value>
+                    </entry>
+                    <entry>
+                        <key>Remote URL</key>
+                        <value>https://api.groq.com/openai/v1/chat/completions</value>
+                    </entry>
+                    <entry>
+                        <key>Authorization</key>
+                        <value>Bearer ${groq.api.key}</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>SP05 - Quality Checker</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>Failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>Response</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.InvokeHTTP</type>
+        </processors>
+
+        
+        <processors>
+            <id>99999999-0000-0000-0000-999999999999</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <position>
+                <x>3200.0</x>
+                <y>400.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>SP04 - Classificazione tipo atto</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>HTTP Method</key>
+                        <value>POST</value>
+                    </entry>
+                    <entry>
+                        <key>Remote URL</key>
+                        <value>https://api.groq.com/openai/v1/chat/completions</value>
+                    </entry>
+                    <entry>
+                        <key>Authorization</key>
+                        <value>Bearer ${groq.api.key}</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>SP04 - Classifier</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>Failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>Response</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.InvokeHTTP</type>
+        </processors>
+
+        
+        <processors>
+            <id>aaaaaaaa-0000-0000-0000-aaaaaaaaaaaa</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <position>
+                <x>3600.0</x>
+                <y>400.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-update-attribute-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>HITL Checkpoint #3 - Approvazione finale</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>hitl.checkpoint</key>
+                        <value>3</value>
+                    </entry>
+                    <entry>
+                        <key>hitl.phase</key>
+                        <value>APPROVAZIONE_FINALE</value>
+                    </entry>
+                    <entry>
+                        <key>hitl.required_approval</key>
+                        <value>true</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>⚠️ HITL #3 - Final Approval</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
+        </processors>
+
+        
+        <processors>
+            <id>bbbbbbbb-0000-0000-0000-bbbbbbbbbbbb</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <position>
+                <x>4000.0</x>
+                <y>400.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-update-attribute-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>SP08 - Audit trail completo</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>audit.timestamp</key>
+                        <value>${now():format('yyyy-MM-dd HH:mm:ss')}</value>
+                    </entry>
+                    <entry>
+                        <key>audit.workflow_id</key>
+                        <value>${uuid}</value>
+                    </entry>
+                    <entry>
+                        <key>audit.status</key>
+                        <value>COMPLETED</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>SP08 - Security Audit</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
+        </processors>
+
+        
+        <processors>
+            <id>cccccccc-0000-0000-0000-cccccccccccc</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <position>
+                <x>4400.0</x>
+                <y>400.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>Log workflow completato</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>Log Level</key>
+                        <value>info</value>
+                    </entry>
+                    <entry>
+                        <key>Log Payload</key>
+                        <value>false</value>
+                    </entry>
+                    <entry>
+                        <key>Attributes to Log</key>
+                        <value>audit.workflow_id,audit.status,audit.timestamp</value>
+                    </entry>
+                    <entry>
+                        <key>Log prefix</key>
+                        <value>[WORKFLOW-COMPLETE]</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>✅ WORKFLOW COMPLETE</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.LogAttribute</type>
+        </processors>
+
+        
+        <processors>
+            <id>dddddddd-0000-0000-0000-dddddddddddd</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <position>
+                <x>2000.0</x>
+                <y>600.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>Log validazione fallita - richiede HITL</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>Log Level</key>
+                        <value>warn</value>
+                    </entry>
+                    <entry>
+                        <key>Log Payload</key>
+                        <value>true</value>
+                    </entry>
+                    <entry>
+                        <key>Log prefix</key>
+                        <value>[VALIDATION-FAILED]</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>⚠️ Validation Failed - HITL</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.LogAttribute</type>
+        </processors>
+
+        
+        <connections>
+            <id>c0000001-0000-0000-0000-000000000001</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>22222222-0000-0000-0000-222222222222</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>success</selectedRelationships>
+            <source>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>11111111-0000-0000-0000-111111111111</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c0000002-0000-0000-0000-000000000002</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>33333333-0000-0000-0000-333333333333</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>Response</selectedRelationships>
+            <source>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>22222222-0000-0000-0000-222222222222</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c0000003-0000-0000-0000-000000000003</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>44444444-0000-0000-0000-444444444444</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>success</selectedRelationships>
+            <source>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>33333333-0000-0000-0000-333333333333</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c0000004-0000-0000-0000-000000000004</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>55555555-0000-0000-0000-555555555555</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>Response</selectedRelationships>
+            <source>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>44444444-0000-0000-0000-444444444444</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c0000005-0000-0000-0000-000000000005</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>66666666-0000-0000-0000-666666666666</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>Response</selectedRelationships>
+            <source>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>55555555-0000-0000-0000-555555555555</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c0000006-0000-0000-0000-000000000006</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>77777777-0000-0000-0000-777777777777</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>VALIDO</selectedRelationships>
+            <source>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>66666666-0000-0000-0000-666666666666</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c0000007-0000-0000-0000-000000000007</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>dddddddd-0000-0000-0000-dddddddddddd</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>INVALIDO</selectedRelationships>
+            <source>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>66666666-0000-0000-0000-666666666666</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c0000008-0000-0000-0000-000000000008</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>88888888-0000-0000-0000-888888888888</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>success</selectedRelationships>
+            <source>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>77777777-0000-0000-0000-777777777777</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c0000009-0000-0000-0000-000000000009</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>99999999-0000-0000-0000-999999999999</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>Response</selectedRelationships>
+            <source>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>88888888-0000-0000-0000-888888888888</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c0000010-0000-0000-0000-000000000010</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>aaaaaaaa-0000-0000-0000-aaaaaaaaaaaa</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>Response</selectedRelationships>
+            <source>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>99999999-0000-0000-0000-999999999999</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c0000011-0000-0000-0000-000000000011</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>bbbbbbbb-0000-0000-0000-bbbbbbbbbbbb</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>success</selectedRelationships>
+            <source>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>aaaaaaaa-0000-0000-0000-aaaaaaaaaaaa</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c0000012-0000-0000-0000-000000000012</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>cccccccc-0000-0000-0000-cccccccccccc</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>success</selectedRelationships>
+            <source>
+                <groupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</groupId>
+                <id>bbbbbbbb-0000-0000-0000-bbbbbbbbbbbb</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+    <processors><processor><id>11111111-0000-0000-0000-111111111111</id>
+            <parentGroupId>aaa1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5</parentGroupId>
+            <position>
+                <x>0.0</x>
+                <y>400.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>Trigger iniziale workflow</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>File Size</key>
+                        <value>1KB</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>START - Trigger Workflow</name>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.GenerateFlowFile</type>
+        </processor></processors></snippet>
+    <timestamp>10/30/2025 12:00:00 CET</timestamp>
+</template>

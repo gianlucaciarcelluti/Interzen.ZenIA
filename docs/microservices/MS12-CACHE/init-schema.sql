@@ -1,0 +1,6 @@
+--
+-- MS12 - Cache Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for cache database
+-- No SQL code as per instructions, only diagrams in documentation
+--

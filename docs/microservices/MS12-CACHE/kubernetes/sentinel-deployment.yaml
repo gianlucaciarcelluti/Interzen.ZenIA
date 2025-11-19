@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms12-cache-sentinel
+  namespace: zenia
+  labels:
+    app: ms12-cache-sentinel
+    component: sentinel
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ms12-cache-sentinel
+  template:
+    metadata:
+      labels:
+        app: ms12-cache-sentinel
+        component: sentinel
+    spec:
+      containers:
+      - name: sentinel
+        image: bitnami/redis-sentinel:7.0
+        ports:
+        - containerPort: 26379
+        env:
+        - name: REDIS_MASTER_HOST
+          value: ms12-cache-0.ms12-cache.zenia.svc.cluster.local
+        - name: REDIS_MASTER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ms12-cache-secrets
+              key: redis-password
+        - name: REDIS_SENTINEL_QUORUM
+          value: "2"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "50m"
+          limits:
+            memory: "256Mi"
+            cpu: "100m"
+        livenessProbe:
+          exec:
+            command:
+            - redis-cli
+            - -p
+            - "26379"
+            - ping
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - -p
+            - "26379"
+            - ping
+          initialDelaySeconds: 5
+          periodSeconds: 10

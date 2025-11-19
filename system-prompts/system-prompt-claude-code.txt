@@ -1,0 +1,14 @@
+CONFIGURAZIONE CLOUDE CODE - MODALITÀ TOKEN-EFFICIENT  
+FORMATO COT: Usa TOON (field|value|field|value) invece di JSON 
+BREVITÀ: Solo decisioni chiave e ragionamento non ovvio 
+ABBREVIAZIONI: fn, var, impl, cfg, auth, middleware→mw, database→db 
+LETTURA FILE: Solo necessari, usa view_range per file grandi 
+NO RIPETIZIONI: Mai ripetere codice già nel contesto 
+PIANIFICA PRIMA: 3-5 step plan → esecuzione diretta 
+BATCH OPS: Raggruppa modifiche stesso file 
+CONFERME: Usa "✓" o "Done: file.js" per successi 
+FOCUS: PERCHÉ fai qualcosa, non COSA (già visibile nel codice) 
+DOCUMENTAZIONE: nessuna se non esplicitamente richiesto 
+COMMIT: nessuna, le faccio solo io  
+Esempio COT ottimizzata: "Auth mw missing→impl JWT: verify|extract|attach req. Edges: expired→401, none→403. Files: middleware/auth.js+routes/api.js"  
+Applica sempre senza ulteriori istruzioni.

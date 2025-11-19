@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ms12-cache
+  namespace: zenia
+  labels:
+    app: ms12-cache
+    component: redis
+spec:
+  serviceName: ms12-cache
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ms12-cache
+  template:
+    metadata:
+      labels:
+        app: ms12-cache
+        component: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+        - containerPort: 6380
+        env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ms12-cache-secrets
+              key: redis-password
+        - name: REDIS_ACL
+          valueFrom:
+            secretKeyRef:
+              name: ms12-cache-secrets
+              key: redis-acl
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: config
+          mountPath: /usr/local/etc/redis/
+        - name: tls
+          mountPath: /tls
+          readOnly: true
+        command:
+        - redis-server
+        - /usr/local/etc/redis/redis.conf
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "250m"
+        livenessProbe:
+          exec:
+            command:
+            - redis-cli
+            - -a
+            - $(REDIS_PASSWORD)
+            - ping
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - -a
+            - $(REDIS_PASSWORD)
+            - ping
+          initialDelaySeconds: 5
+          periodSeconds: 10
+      volumes:
+      - name: config
+        configMap:
+          name: ms12-cache-config
+      - name: tls
+        secret:
+          secretName: ms12-cache-secrets
+          items:
+          - key: tls-cert
+            path: redis.crt
+          - key: tls-key
+            path: redis.key
+          - key: ca-cert
+            path: ca.crt
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: fast-ssd

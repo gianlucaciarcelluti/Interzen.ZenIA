@@ -1,0 +1,286 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kong-gateway-proxy
+  namespace: zenia
+  labels:
+    app: kong-gateway
+    component: proxy
+    microservice: ms11-gateway
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:region:account:certificate/certificate-id"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+spec:
+  selector:
+    app: kong-gateway
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8000
+    protocol: TCP
+  - name: https
+    port: 443
+    targetPort: 8443
+    protocol: TCP
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kong-gateway-admin
+  namespace: zenia
+  labels:
+    app: kong-gateway
+    component: admin
+    microservice: ms11-gateway
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+spec:
+  selector:
+    app: kong-gateway
+  ports:
+  - name: http
+    port: 8001
+    targetPort: 8001
+    protocol: TCP
+  - name: https
+    port: 8444
+    targetPort: 8444
+    protocol: TCP
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kong-gateway-metrics
+  namespace: zenia
+  labels:
+    app: kong-gateway
+    component: metrics
+    microservice: ms11-gateway
+spec:
+  selector:
+    app: kong-gateway
+  ports:
+  - name: metrics
+    port: 9145
+    targetPort: 9145
+    protocol: TCP
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kong-gateway-status
+  namespace: zenia
+  labels:
+    app: kong-gateway
+    component: status
+    microservice: ms11-gateway
+spec:
+  selector:
+    app: kong-gateway
+  ports:
+  - name: status
+    port: 8100
+    targetPort: 8100
+    protocol: TCP
+  type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kong-gateway-ingress
+  namespace: zenia
+  labels:
+    app: kong-gateway
+    component: ingress
+    microservice: ms11-gateway
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+    nginx.ingress.kubernetes.io/rate-limit-window: "1m"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - api.zenia.local
+    - admin.zenia.local
+    secretName: kong-gateway-tls
+  rules:
+  - host: api.zenia.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kong-gateway-proxy
+            port:
+              number: 80
+  - host: admin.zenia.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kong-gateway-admin
+            port:
+              number: 8001
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: kong-gateway-netpol
+  namespace: zenia
+  labels:
+    app: kong-gateway
+    component: network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: kong-gateway
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  # Allow traffic from ingress controller
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 8000
+    - protocol: TCP
+      port: 8443
+  # Allow traffic from admin interface
+  - from:
+    - podSelector:
+        matchLabels:
+          app: kong-gateway
+    ports:
+    - protocol: TCP
+      port: 8001
+    - protocol: TCP
+      port: 8444
+  # Allow health checks
+  - from: []
+    ports:
+    - protocol: TCP
+      port: 8100
+  # Allow metrics collection
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: monitoring
+    ports:
+    - protocol: TCP
+      port: 9145
+  egress:
+  # Allow DNS resolution
+  - to: []
+    ports:
+    - protocol: UDP
+      port: 53
+  # Allow traffic to PostgreSQL
+  - to:
+    - podSelector:
+        matchLabels:
+          app: kong-postgresql
+    ports:
+    - protocol: TCP
+      port: 5432
+  # Allow traffic to Redis
+  - to:
+    - podSelector:
+        matchLabels:
+          app: kong-redis
+    ports:
+    - protocol: TCP
+      port: 6379
+  # Allow traffic to all microservices
+  - to:
+    - podSelector:
+        matchLabels:
+          microservice: ms01-classifier
+    ports:
+    - protocol: TCP
+      port: 8080
+  - to:
+    - podSelector:
+        matchLabels:
+          microservice: ms02-analyzer
+    ports:
+    - protocol: TCP
+      port: 8080
+  - to:
+    - podSelector:
+        matchLabels:
+          microservice: ms03-orchestrator
+    ports:
+    - protocol: TCP
+      port: 8080
+  - to:
+    - podSelector:
+        matchLabels:
+          microservice: ms04-validator
+    ports:
+    - protocol: TCP
+      port: 8080
+  - to:
+    - podSelector:
+        matchLabels:
+          microservice: ms05-transformer
+    ports:
+    - protocol: TCP
+      port: 8080
+  - to:
+    - podSelector:
+        matchLabels:
+          microservice: ms06-aggregator
+    ports:
+    - protocol: TCP
+      port: 8080
+  - to:
+    - podSelector:
+        matchLabels:
+          microservice: ms07-distributor
+    ports:
+    - protocol: TCP
+      port: 8080
+  - to:
+    - podSelector:
+        matchLabels:
+          microservice: ms08-monitor
+    ports:
+    - protocol: TCP
+      port: 8080
+  - to:
+    - podSelector:
+        matchLabels:
+          microservice: ms09-manager
+    ports:
+    - protocol: TCP
+      port: 8080
+  - to:
+    - podSelector:
+        matchLabels:
+          microservice: ms10-logger
+    ports:
+    - protocol: TCP
+      port: 8080

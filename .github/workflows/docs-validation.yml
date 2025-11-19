@@ -1,0 +1,125 @@
+name: Documentation Validation
+
+on:
+  push:
+    branches: [ main, razionalizzazione-sp, develop ]
+    paths:
+      - 'docs/**'
+      - 'scripts/verify_*.py'
+      - '.github/workflows/docs-validation.yml'
+  pull_request:
+    branches: [ main, razionalizzazione-sp ]
+    paths:
+      - 'docs/**'
+      - 'scripts/verify_*.py'
+
+jobs:
+  validate-documentation:
+    runs-on: ubuntu-latest
+    name: Validate Documentation
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Run SP/MS References Validation
+        run: |
+          python3 scripts/verify_sp_references.py
+          echo "SP/MS References validation completed"
+
+      - name: Run JSON Examples Validation
+        run: |
+          python3 scripts/verify_json_examples.py
+          echo "JSON Examples validation completed"
+
+      - name: Run Links Validation
+        run: |
+          python3 scripts/verify_links.py
+          echo "Links validation completed"
+
+      - name: Upload validation reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: validation-reports
+          path: scripts/reports/
+          retention-days: 30
+
+      - name: Comment PR with validation results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            let summary = '## 📋 Documentation Validation Results\n\n';
+
+            try {
+              const reportsDir = 'scripts/reports';
+              if (fs.existsSync(reportsDir)) {
+                const files = fs.readdirSync(reportsDir);
+
+                for (const file of files) {
+                  const reportPath = path.join(reportsDir, file);
+                  const content = fs.readFileSync(reportPath, 'utf8');
+                  const report = JSON.parse(content);
+
+                  if (file.includes('sp_ms_references')) {
+                    summary += `### SP/MS References\n`;
+                    summary += `- Errors: ${report.summary.errors}\n`;
+                    summary += `- Warnings: ${report.summary.warnings}\n\n`;
+                  } else if (file.includes('json_validation')) {
+                    summary += `### JSON Validation\n`;
+                    summary += `- Valid: ${report.summary.valid}/${report.summary.total_blocks}\n`;
+                    summary += `- Errors: ${report.summary.errors}\n\n`;
+                  } else if (file.includes('links_validation')) {
+                    summary += `### Links Validation\n`;
+                    summary += `- Broken Links: ${report.summary.broken_internal}\n`;
+                    summary += `- Errors: ${report.summary.errors}\n\n`;
+                  }
+                }
+              }
+            } catch (e) {
+              summary += `Error reading reports: ${e.message}\n`;
+            }
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: summary
+            });
+
+      - name: Fail if validation errors found
+        run: |
+          if [ -f scripts/reports/sp_ms_references.json ]; then
+            errors=$(python3 -c "import json; f=open('scripts/reports/sp_ms_references.json'); data=json.load(f); print(data['summary']['errors'])" 2>/dev/null || echo "0")
+            if [ "$errors" != "0" ]; then
+              echo "❌ SP/MS References validation failed with $errors errors"
+              exit 1
+            fi
+          fi
+
+          if [ -f scripts/reports/json_validation.json ]; then
+            errors=$(python3 -c "import json; f=open('scripts/reports/json_validation.json'); data=json.load(f); print(data['summary']['errors'])" 2>/dev/null || echo "0")
+            if [ "$errors" != "0" ]; then
+              echo "❌ JSON validation failed with $errors errors"
+              exit 1
+            fi
+          fi
+
+          if [ -f scripts/reports/links_validation.json ]; then
+            errors=$(python3 -c "import json; f=open('scripts/reports/links_validation.json'); data=json.load(f); print(data['summary']['errors'])" 2>/dev/null || echo "0")
+            if [ "$errors" != "0" ]; then
+              echo "❌ Links validation failed with $errors errors"
+              exit 1
+            fi
+          fi
+
+          echo "✅ All documentation validations passed"

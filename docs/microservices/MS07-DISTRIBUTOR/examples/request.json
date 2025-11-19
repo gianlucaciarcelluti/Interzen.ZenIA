@@ -1,0 +1,106 @@
+{
+  "$schema": "https://zenia.io/schemas/distribution-request-v1.json",
+  "tenant_id": "tenant-pa-roma",
+  "data_type": "aggregated_report",
+  "priority": "normal",
+  "payload": {
+    "report_id": "rpt-2024-01-15-001",
+    "period": "2024-01-15",
+    "data": {
+      "total_documents_processed": 1250,
+      "successful_classifications": 1245,
+      "failed_classifications": 5,
+      "processing_time_ms": 45000,
+      "accuracy_score": 0.987,
+      "quality_score": 0.95,
+      "data_sources": [
+        {
+          "source": "fascicolo_ambientale",
+          "documents_count": 450,
+          "success_rate": 0.98
+        },
+        {
+          "source": "provvedimento_scarico",
+          "documents_count": 380,
+          "success_rate": 0.99
+        },
+        {
+          "source": "autorizzazione_emissioni",
+          "documents_count": 420,
+          "success_rate": 0.98
+        }
+      ],
+      "aggregated_metrics": {
+        "avg_processing_time_per_doc": 36,
+        "total_data_size_mb": 245.5,
+        "compression_ratio": 0.75,
+        "duplicate_detection_rate": 0.02
+      }
+    },
+    "metadata": {
+      "source_system": "ms06-aggregator",
+      "batch_id": "batch-2024-01-15-001",
+      "processing_node": "aggregator-pod-7f8d9c",
+      "quality_checks_passed": true,
+      "data_retention_days": 2555,
+      "gdpr_compliant": true
+    }
+  },
+  "destinations": [
+    {
+      "name": "ms09-reporter",
+      "protocol": "REST",
+      "endpoint": "https://ms09-reporter.zenia.local/api/reports/daily",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      "transform": "report_standardization_v2",
+      "timeout_seconds": 60,
+      "retry_policy": {
+        "max_attempts": 3,
+        "backoff_multiplier": 2.0,
+        "max_backoff_seconds": 120
+      }
+    },
+    {
+      "name": "data-lake-analytics",
+      "protocol": "S3",
+      "bucket": "zenia-data-lake",
+      "key": "processed/2024/01/15/reports/daily-report-2024-01-15.json",
+      "region": "eu-south-1",
+      "storage_class": "STANDARD",
+      "encryption": "AES256",
+      "metadata": {
+        "data-classification": "internal",
+        "retention-policy": "7-years",
+        "department": "ambiente"
+      }
+    },
+    {
+      "name": "external-monitoring-dashboard",
+      "protocol": "REST",
+      "endpoint": "https://monitoring.agenzia-ambiente.it/api/metrics",
+      "method": "POST",
+      "auth": {
+        "type": "bearer",
+        "token_env_var": "EXTERNAL_API_TOKEN"
+      },
+      "transform": "monitoring_format_v1",
+      "filters": {
+        "include_metrics": ["total_documents_processed", "accuracy_score", "processing_time_ms"],
+        "exclude_sensitive_data": true
+      }
+    }
+  ],
+  "options": {
+    "callback_url": "https://ms06-aggregator.zenia.local/api/distribution/callback",
+    "timeout_seconds": 300,
+    "max_retries": 2,
+    "idempotency_key": "dist-pa-roma-2024-01-15-001",
+    "compression": "gzip",
+    "encryption_required": false,
+    "audit_trail": true
+  }
+}

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms12-cache-config
+  namespace: zenia
+data:
+  redis.conf: |
+    # Redis cluster configuration
+    port 6379
+    cluster-enabled yes
+    cluster-config-file nodes.conf
+    cluster-node-timeout 5000
+    appendonly yes
+    save 900 1
+    save 300 10
+    save 60 10000
+    maxmemory 512mb
+    maxmemory-policy allkeys-lru
+    requirepass ${REDIS_PASSWORD}
+    masterauth ${REDIS_PASSWORD}
+    tls-port 6380
+    tls-cert-file /tls/redis.crt
+    tls-key-file /tls/redis.key
+    tls-ca-cert-file /tls/ca.crt
+    tls-auth-clients yes
+    protected-mode yes
+    aclfile /data/users.acl
+    logfile ""
+    dir /data
+    # Security
+    rename-command FLUSHDB ""
+    rename-command FLUSHALL ""
+    rename-command CONFIG CONFIG_REDIS
+    rename-command SHUTDOWN SHUTDOWN_REDIS
+    # Performance
+    tcp-keepalive 300
+    # Pub/Sub
+    notify-keyspace-events Ex

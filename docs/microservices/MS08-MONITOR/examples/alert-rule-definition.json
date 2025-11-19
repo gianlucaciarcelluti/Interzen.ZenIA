@@ -1,0 +1,71 @@
+{
+  "name": "HighErrorRate",
+  "description": "Alert for high error rate in microservices",
+  "query": "rate(zenia_errors_total[5m]) / rate(zenia_requests_total[5m]) > 0.05",
+  "duration": "5m",
+  "severity": "critical",
+  "labels": {
+    "team": "platform",
+    "component": "microservices",
+    "environment": "production"
+  },
+  "annotations": {
+    "summary": "High error rate detected in {{ $labels.service }}",
+    "description": "Error rate is {{ $value }} which is above threshold of 5%. Current error rate: {{ $value | printf \"%.2f\" }}%",
+    "runbook_url": "https://zenia.runbooks/error-rate-response",
+    "dashboard_url": "https://grafana.zenia.local/d/{{ $labels.service }}-overview/{{ $labels.service }}-monitoring",
+    "logs_url": "https://kibana.zenia.local/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(columns:!(_source),filters:!(),index:'zenia-logs-*',interval:auto,query:(language:kuery,query:'service:\"{{ $labels.service }}\" AND level:(ERROR OR WARN)'),sort:!(!('@timestamp',desc)))",
+    "traces_url": "https://jaeger.zenia.local/search?service={{ $labels.service }}&start=15m-ago&end=now&tags=error=true"
+  },
+  "notification_channels": [
+    {
+      "type": "slack",
+      "channel": "#alerts-critical",
+      "message_template": ":red_circle: *CRITICAL ALERT*\\nService: {{ $labels.service }}\\nError Rate: {{ $value | printf \"%.2f\" }}%\\n<{{ $labels.dashboard_url }}|View Dashboard> | <{{ $labels.logs_url }}|View Logs> | <{{ $labels.traces_url }}|View Traces>"
+    },
+    {
+      "type": "email",
+      "recipients": ["sre@zenia.local", "devops@zenia.local"],
+      "subject_template": "CRITICAL: High Error Rate in {{ $labels.service }}",
+      "body_template": "High error rate detected in {{ $labels.service }}.\\n\\nDetails:\\n- Error Rate: {{ $value | printf \"%.2f\" }}%\\n- Threshold: 5%\\n- Duration: 5 minutes\\n\\nPlease investigate immediately.\\n\\nDashboard: {{ $labels.dashboard_url }}\\nLogs: {{ $labels.logs_url }}\\nTraces: {{ $labels.traces_url }}"
+    },
+    {
+      "type": "webhook",
+      "url": "https://incident-management.zenia.local/webhooks/alert",
+      "headers": {
+        "X-API-Key": "incident-api-key-12345"
+      }
+    }
+  ],
+  "escalation_policy": {
+    "escalate_after_minutes": 15,
+    "escalation_levels": [
+      {
+        "level": 1,
+        "delay_minutes": 0,
+        "channels": ["slack", "email"]
+      },
+      {
+        "level": 2,
+        "delay_minutes": 15,
+        "channels": ["slack", "email"],
+        "additional_recipients": ["manager@sre.zenia.local"]
+      }
+    ]
+  },
+  "silence_conditions": [
+    {
+      "condition": "maintenance_window",
+      "description": "Silence during planned maintenance"
+    },
+    {
+      "condition": "known_issue",
+      "description": "Silence for known issues with active incident"
+    }
+  ],
+  "tags": ["error-rate", "availability", "sla"],
+  "enabled": true,
+  "created_by": "sre-team",
+  "created_at": "2024-01-01T00:00:00Z",
+  "updated_at": "2024-01-15T09:00:00Z"
+}

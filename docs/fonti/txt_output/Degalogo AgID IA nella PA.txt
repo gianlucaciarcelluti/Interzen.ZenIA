@@ -1,0 +1,65 @@
+Il decalogo dell’IA
+Indicazioni pratiche per l’uso dell’ IA nella PA
+
+Miglioramento dei servizi e riduzione dei costi
+
+Analisi del rischio
+
+Le PA concentrano l’investimento in tecnologie di IA
+nell’automazione dei compiti ripetitivi connessi ai servizi
+istituzionali
+
+Le PA analizzano i rischi associati all'impiego di sistemi di
+intelligenza artificiale per assicurare che non provochino
+violazioni dei diritti fondamentali della persona
+
+Trasparenza, responsabilità e informazione
+
+Accessibilità e inclusività
+
+Le PA forniscono informazioni adeguate agli utenti al fine
+di consentire loro di prendere decisioni informate riguardo
+all'utilizzo dei servizi che sfruttano l'intelligenza artificiale.
+
+Le PA assicurano che le tecnologie utilizzate rispettino i
+principi di equità, trasparenza e non discriminazione.
+
+Privacy e sicurezza
+
+Formazione e sviluppo delle competenze
+
+Le PA adottano elevati standard di sicurezza e protezione
+della privacy per garantire che i dati dei cittadini siano
+gestiti in modo sicuro e responsabile.
+
+Le PA investono nella formazione e nello sviluppo delle
+competenze necessarie per gestire e applicare
+l’intelligenza artificiale in modo efficace nell’ambito dei
+servizi pubblici.
+
+Standardizzazione
+
+Sostenibilità
+
+Le PA tengono in considerazione soluzioni basate sull'IA,
+le attività di normazione tecnica in corso a livello
+internazionale e a livello europeo
+
+Le PA valutano attentamente gli impatti ambientali ed
+energetici legati all’adozione di tecnologie di intelligenza
+artificiale
+
+Foundation Models
+
+Dati
+
+Le PA si assicurano che i foundation models adottino
+adeguate misure di trasparenza che chiariscono
+l’attribuzione delle responsabilità e dei ruoli
+
+Le PA, che acquistano servizi di intelligenza artificiale
+tramite API, valutano con attenzione le modalità e le
+condizioni con le quali il fornitore del servizio gestisce i
+dati
+
+

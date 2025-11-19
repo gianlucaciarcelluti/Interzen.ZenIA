@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: ms14-audit-api-pdb
+  namespace: zenia
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: ms14-audit-api

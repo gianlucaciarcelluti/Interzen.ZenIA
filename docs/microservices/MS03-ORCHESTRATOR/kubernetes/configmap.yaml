@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms03-orchestrator-config
+  namespace: zen-ia
+  labels:
+    app: ms03-orchestrator
+    component: orchestrator
+    version: v2.1
+data:
+  # Database Configuration
+  DATABASE_URL: "postgresql://orchestrator_user:orchestrator_pass@postgres-orchestrator:5432/orchestrator_db"
+  DATABASE_POOL_SIZE: "20"
+  DATABASE_MAX_CONNECTIONS: "50"
+  DATABASE_TIMEOUT: "30"
+
+  # Redis Configuration
+  REDIS_URL: "redis://redis-orchestrator:6379/0"
+  REDIS_POOL_SIZE: "10"
+  REDIS_TIMEOUT: "5"
+
+  # Workflow Configuration
+  WORKFLOW_TIMEOUT_DEFAULT: "900"
+  MAX_CONCURRENT_WORKFLOWS: "100"
+  WORKFLOW_RETRY_MAX: "3"
+  WORKFLOW_RETRY_DELAY: "60"
+
+  # Service Discovery
+  MS01_CLASSIFIER_URL: "http://ms01-classifier.zen-ia.svc.cluster.local:8001"
+  MS02_ANALYZER_URL: "http://ms02-analyzer.zen-ia.svc.cluster.local:8002"
+  MS05_TRANSFORMER_URL: "http://ms05-transformer.zen-ia.svc.cluster.local:8005"
+  MS06_VALIDATOR_URL: "http://ms06-validator.zen-ia.svc.cluster.local:8006"
+  MS07_SIGNER_URL: "http://ms07-signer.zen-ia.svc.cluster.local:8007"
+
+  # Monitoring & Metrics
+  METRICS_ENABLED: "true"
+  METRICS_INTERVAL: "30"
+  HEALTH_CHECK_INTERVAL: "60"
+
+  # Security
+  JWT_SECRET_KEY: "change-in-production"
+  API_KEY_VALIDATION: "true"
+  RATE_LIMIT_REQUESTS: "100"
+  RATE_LIMIT_WINDOW: "60"
+
+  # Logging
+  LOG_LEVEL: "INFO"
+  LOG_FORMAT: "json"
+  LOG_MAX_SIZE: "100"
+  LOG_MAX_FILES: "5"
+
+  # Rules Engine
+  RULES_CACHE_TTL: "300"
+  RULES_REFRESH_INTERVAL: "60"
+  RULES_MAX_VERSIONS: "10"
+
+  # Performance Tuning
+  GUNICORN_WORKERS: "4"
+  GUNICORN_THREADS: "2"
+  GUNICORN_TIMEOUT: "30"
+  MAX_REQUEST_SIZE: "10485760"
+
+  # Environment
+  ENVIRONMENT: "production"
+  SERVICE_NAME: "ms03-orchestrator"
+  SERVICE_VERSION: "2.1.0"

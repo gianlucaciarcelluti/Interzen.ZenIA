@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ms15-config-db
+  namespace: zenia
+  labels:
+    app: ms15-config-db
+spec:
+  serviceName: ms15-config-db
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms15-config-db
+  template:
+    metadata:
+      labels:
+        app: ms15-config-db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15-alpine
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: config
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: ms15-config-secrets
+              key: db-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ms15-config-secrets
+              key: db-password
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+        volumeMounts:
+        - name: db-data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: db-data
+        persistentVolumeClaim:
+          claimName: ms15-config-db-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ms15-config-db-pvc
+  namespace: zenia
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

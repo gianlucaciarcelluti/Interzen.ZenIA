@@ -1,0 +1,69 @@
+{
+  "workflow_type": "document_generation",
+  "parameters": {
+    "input_data": {
+      "document_type": "invoice",
+      "template_id": "inv-001",
+      "customer_data": {
+        "id": "cust-123",
+        "name": "ACME Corporation S.p.A.",
+        "tax_id": "IT12345678901",
+        "address": {
+          "street": "Via Roma 123",
+          "city": "Milano",
+          "postal_code": "20100",
+          "country": "Italy"
+        }
+      },
+      "invoice_data": {
+        "number": "INV-2024-001",
+        "date": "2024-11-18",
+        "due_date": "2024-12-18",
+        "currency": "EUR",
+        "items": [
+          {
+            "description": "Licenza Software Gestionale",
+            "quantity": 1,
+            "unit_price": 1200.00,
+            "tax_rate": 0.22,
+            "total": 1200.00
+          },
+          {
+            "description": "Servizi di Implementazione",
+            "quantity": 20,
+            "unit_price": 100.00,
+            "tax_rate": 0.22,
+            "total": 2000.00
+          }
+        ],
+        "subtotal": 3200.00,
+        "tax_total": 704.00,
+        "total": 3904.00
+      }
+    },
+    "options": {
+      "priority": "high",
+      "deadline": "2024-11-18T12:00:00Z",
+      "output_format": "pdf",
+      "delivery_method": "email",
+      "email_recipients": [
+        "billing@acme.com",
+        "accounting@acme.com"
+      ],
+      "locale": "it-IT",
+      "timezone": "Europe/Rome"
+    },
+    "rules": {
+      "business_rules": ["rule_compliance_check", "rule_tax_validation"],
+      "routing_rules": ["route_to_ms05", "parallel_processing"],
+      "validation_rules": ["validate_customer_data", "validate_amounts"]
+    }
+  },
+  "metadata": {
+    "requester": "erp_system",
+    "correlation_id": "req-2024-11-18-001",
+    "business_unit": "sales",
+    "environment": "production",
+    "version": "2.1"
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "timestamp": "2025-11-18T10:30:15.245Z",
+  "level": "INFO",
+  "service": "ms11-gateway",
+  "version": "1.0.0",
+  "request_id": "req_zenia_demo_001",
+  "correlation_id": "corr_zenia_demo_001",
+  "session_id": "sess_abc123def456",
+  "user_id": "user_123",
+  "consumer_id": "consumer_456",
+  "client_ip": "192.168.1.100",
+  "user_agent": "ZenIA-Demo-Client/1.0.0 (Macintosh; Intel Mac OS X 10_15_7)",
+  "method": "POST",
+  "url": "/api/v1/documents/classify",
+  "path": "/api/v1/documents/classify",
+  "query_string": "",
+  "headers": {
+    "host": "api.zenia.local",
+    "user-agent": "ZenIA-Demo-Client/1.0.0 (Macintosh; Intel Mac OS X 10_15_7)",
+    "accept": "application/json",
+    "accept-encoding": "gzip, deflate, br",
+    "accept-language": "it-IT,it;q=0.9,en;q=0.8",
+    "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+    "content-type": "application/json",
+    "content-length": "2048",
+    "x-correlation-id": "corr_zenia_demo_001",
+    "x-api-version": "v1",
+    "x-source": "demo-client",
+    "x-forwarded-for": "192.168.1.100",
+    "x-forwarded-proto": "https",
+    "x-real-ip": "192.168.1.100"
+  },
+  "request_body_size": 2048,
+  "request_content_type": "application/json",
+  "response_status": 200,
+  "response_time_ms": 245,
+  "response_body_size": 1536,
+  "response_content_type": "application/json",
+  "upstream_service": "ms01-classifier",
+  "upstream_url": "http://ms01-classifier:8080/api/v1/classify",
+  "upstream_response_time_ms": 230,
+  "upstream_status": 200,
+  "rate_limit_remaining": 987,
+  "rate_limit_limit": 1000,
+  "rate_limit_reset": 1637242800,
+  "cached": false,
+  "cache_hit": false,
+  "cache_key": null,
+  "plugins_executed": [
+    "jwt",
+    "rate-limiting",
+    "request-transformer",
+    "cors",
+    "prometheus",
+    "correlation-id"
+  ],
+  "authentication": {
+    "type": "jwt",
+    "successful": true,
+    "user": "zenia-user",
+    "consumer": "consumer_456",
+    "scopes": ["read", "write"],
+    "token_issued_at": "2025-11-18T10:00:00Z",
+    "token_expires_at": "2025-11-18T11:00:00Z"
+  },
+  "routing": {
+    "service": "classifier-service",
+    "route": "documents-classify",
+    "matched_path": "/api/v1/documents/classify",
+    "matched_method": "POST",
+    "upstream_target": "ms01-classifier-1:8080"
+  },
+  "performance": {
+    "total_latency_ms": 245,
+    "kong_latency_ms": 15,
+    "upstream_latency_ms": 230,
+    "dns_lookup_ms": 2,
+    "tcp_handshake_ms": 8,
+    "tls_handshake_ms": 12,
+    "request_send_ms": 5,
+    "response_receive_ms": 218
+  },
+  "security": {
+    "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
+    "ssl_protocol": "TLSv1.3",
+    "bot_detected": false,
+    "threat_level": "low",
+    "geo_location": {
+      "country": "IT",
+      "region": "Lombardia",
+      "city": "Milano",
+      "coordinates": [45.4642, 9.1900]
+    }
+  },
+  "business_context": {
+    "api_version": "v1",
+    "operation": "classify_document",
+    "resource_type": "document",
+    "resource_id": "doc_demo_provvedimento_001",
+    "business_domain": "ambiente",
+    "priority": "high",
+    "sla_class": "standard"
+  },
+  "errors": [],
+  "warnings": [],
+  "custom_fields": {
+    "document_type": "provvedimento_amministrativo",
+    "processing_mode": "standard",
+    "confidence_threshold": 0.85,
+    "source_system": "demo"
+  },
+  "tags": [
+    "api_request",
+    "document_classification",
+    "successful",
+    "jwt_auth",
+    "rate_limited",
+    "cors_enabled",
+    "prometheus_metrics"
+  ],
+  "message": "API request processed successfully",
+  "stack_trace": null,
+  "environment": {
+    "kong_version": "3.4.0",
+    "kong_node_id": "kong-node-001",
+    "cluster_name": "zenia-gateway-dev",
+    "datacenter": "aws-eu-west-1",
+    "environment": "development"
+  }
+}

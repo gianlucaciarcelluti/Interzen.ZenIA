@@ -1,0 +1,197 @@
+version: '3.8'
+
+services:
+  ms07-distributor:
+    image: zenia/ms07-distributor:latest
+    container_name: ms07-distributor
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"    # API HTTP
+      - "8443:8443"    # API HTTPS
+      - "9090:9090"    # Metrics
+    environment:
+      # Database Configuration
+      - DB_HOST=ms07-postgresql
+      - DB_PORT=5432
+      - DB_NAME=zenia_distributor
+      - DB_USER=zenia_distributor
+      - DB_PASSWORD=${DB_PASSWORD:-zenia123}
+      - DB_SSL_MODE=disable
+
+      # Redis Configuration
+      - REDIS_HOST=ms07-redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+
+      # API Configuration
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - API_WORKERS=2
+      - API_MAX_REQUEST_SIZE=104857600
+
+      # Security Configuration
+      - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8080
+      - RATE_LIMIT_REQUESTS=1000
+      - RATE_LIMIT_WINDOW_SECONDS=60
+
+      # Distribution Configuration
+      - DISTRIBUTION_DEFAULT_TIMEOUT=300
+      - DISTRIBUTION_DEFAULT_RETRIES=3
+      - DISTRIBUTION_BACKOFF_MULTIPLIER=2.0
+
+      # Queue Configuration
+      - QUEUE_MAX_LENGTH=1000
+      - QUEUE_PROCESSING_BATCH_SIZE=10
+
+      # Worker Configuration
+      - WORKER_CONCURRENCY=5
+      - WORKER_HEARTBEAT_INTERVAL=30
+
+      # Monitoring Configuration
+      - METRICS_ENABLED=true
+      - METRICS_PORT=9090
+      - LOG_LEVEL=DEBUG
+      - LOG_FORMAT=json
+
+      # Development Configuration
+      - APP_ENV=development
+      - DEBUG=true
+
+    volumes:
+      - ./logs:/var/log/zenia
+      - ./cache:/var/cache/zenia
+    depends_on:
+      - ms07-postgresql
+      - ms07-redis
+    networks:
+      - zenia-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  ms07-postgresql:
+    image: postgres:15-alpine
+    container_name: ms07-postgresql
+    environment:
+      - POSTGRES_DB=zenia_distributor
+      - POSTGRES_USER=zenia_distributor
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-zenia123}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8
+    volumes:
+      - ms07_postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - zenia-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zenia_distributor -d zenia_distributor"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  ms07-redis:
+    image: redis:7.2-alpine
+    container_name: ms07-redis
+    command: redis-server /etc/redis/redis.conf
+    volumes:
+      - ms07_redis_data:/data
+      - ./redis.conf:/etc/redis/redis.conf:ro
+    ports:
+      - "6379:6379"
+    networks:
+      - zenia-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  ms07-grafana:
+    image: grafana/grafana:latest
+    container_name: ms07-grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ms07_grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports:
+      - "3000:3000"
+    networks:
+      - zenia-network
+    restart: unless-stopped
+    depends_on:
+      - ms07-distributor
+
+  ms07-prometheus:
+    image: prom/prometheus:latest
+    container_name: ms07-prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    volumes:
+      - ms07_prometheus_data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    networks:
+      - zenia-network
+    restart: unless-stopped
+
+  # Mock services for testing
+  ms06-aggregator-mock:
+    image: wiremock/wiremock:latest
+    container_name: ms06-aggregator-mock
+    command: --global-response-templating
+    volumes:
+      - ./mocks/ms06:/home/wiremock
+    ports:
+      - "8081:8080"
+    networks:
+      - zenia-network
+    environment:
+      - WIREMOCK_OPTIONS=--global-response-templating
+
+  ms09-reporter-mock:
+    image: wiremock/wiremock:latest
+    container_name: ms09-reporter-mock
+    command: --global-response-templating
+    volumes:
+      - ./mocks/ms09:/home/wiremock
+    ports:
+      - "8082:8080"
+    networks:
+      - zenia-network
+    environment:
+      - WIREMOCK_OPTIONS=--global-response-templating
+
+volumes:
+  ms07_postgres_data:
+    driver: local
+  ms07_redis_data:
+    driver: local
+  ms07_grafana_data:
+    driver: local
+  ms07_prometheus_data:
+    driver: local
+
+networks:
+  zenia-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms02-analyzer-config
+  namespace: zen-ia
+data:
+  # Configuration for MS02 Analyzer
+  ANALYSIS_MODELS_PATH: "/models"
+  MAX_ANALYSIS_TIME: "30000"
+  CACHE_TTL_ANALYSIS: "86400"
+  ANALYSIS_THRESHOLD: "0.80"
+  LOG_LEVEL: "INFO"

@@ -1,0 +1,6 @@
+{
+  "sub": "user-id",
+  "name": "Alice",
+  "email": "alice@example.com",
+  "roles": ["user", "admin"]
+}

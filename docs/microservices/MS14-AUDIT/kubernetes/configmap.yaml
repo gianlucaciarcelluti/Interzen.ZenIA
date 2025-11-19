@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms14-audit-config
+  namespace: zenia
+data:
+  app.conf: |
+    # Configurazione API Audit
+    elasticsearch_url: http://ms14-audit-es:9200
+    redis_url: redis://:$(REDIS_PASSWORD)@ms14-audit-redis:6379/0
+    log_retention_days: 365
+    # ...altre configurazioni...

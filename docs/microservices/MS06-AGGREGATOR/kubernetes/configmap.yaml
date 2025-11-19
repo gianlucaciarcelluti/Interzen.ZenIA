@@ -1,0 +1,132 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms06-aggregator-config
+  namespace: zen-ia
+  labels:
+    app: ms06-aggregator
+    version: v2.1.0
+data:
+  # Database Configuration
+  DATABASE_POOL_SIZE: "20"
+  DATABASE_MAX_CONNECTIONS: "50"
+  DATABASE_TIMEOUT: "30"
+
+  # Redis Configuration
+  REDIS_POOL_SIZE: "10"
+  REDIS_TIMEOUT: "5"
+
+  # Spark Configuration
+  SPARK_MASTER_URL: "spark://spark-master:7077"
+  SPARK_EXECUTOR_CORES: "2"
+  SPARK_EXECUTOR_MEMORY: "4g"
+  SPARK_DRIVER_MEMORY: "2g"
+  SPARK_DEFAULT_PARALLELISM: "200"
+  SPARK_SQL_SHUFFLE_PARTITIONS: "200"
+  SPARK_SERIALIZER: "org.apache.spark.serializer.KryoSerializer"
+  SPARK_SQL_ADAPTIVE_ENABLED: "true"
+  SPARK_SQL_ADAPTIVE_COALESCE_PARTITIONS_ENABLED: "true"
+
+  # Aggregation Configuration
+  AGGREGATION_TIMEOUT_DEFAULT: "1800"
+  MAX_JOB_SIZE: "1073741824"
+  MAX_RECORDS_PER_JOB: "10000000"
+  DEFAULT_BATCH_SIZE: "10000"
+  CHECKPOINT_ENABLED: "true"
+  CACHE_ENABLED: "true"
+
+  # Storage Configuration
+  HDFS_NAMENODE_URL: "hdfs://namenode:9000"
+  S3_ENDPOINT: "https://s3.eu-south-1.amazonaws.com"
+  S3_REGION: "eu-south-1"
+  DEFAULT_STORAGE_FORMAT: "parquet"
+  COMPRESSION_CODEC: "snappy"
+
+  # Service Discovery
+  MS05_TRANSFORMER_URL: "http://ms05-transformer.zen-ia.svc.cluster.local:8005"
+  MS07_VALIDATOR_URL: "http://ms07-validator.zen-ia.svc.cluster.local:8007"
+  MS09_REPORTER_URL: "http://ms09-reporter.zen-ia.svc.cluster.local:8009"
+  MS08_MONITOR_URL: "http://ms08-monitor.zen-ia.svc.cluster.local:8008"
+
+  # Monitoring & Metrics
+  METRICS_ENABLED: "true"
+  METRICS_INTERVAL: "30"
+  HEALTH_CHECK_INTERVAL: "60"
+  PERFORMANCE_MONITORING: "true"
+  SPARK_UI_ENABLED: "true"
+
+  # Logging
+  LOG_LEVEL: "INFO"
+  LOG_FORMAT: "json"
+  LOG_MAX_SIZE: "100"
+  LOG_MAX_FILES: "5"
+
+  # Job Configuration
+  JOB_SCHEDULER_ENABLED: "true"
+  MAX_CONCURRENT_JOBS: "5"
+  JOB_QUEUE_SIZE: "20"
+  JOB_TIMEOUT_DEFAULT: "3600"
+  JOB_RETRY_ATTEMPTS: "3"
+
+  # Streaming Configuration
+  STREAMING_ENABLED: "true"
+  STREAM_CHECKPOINT_DIR: "/checkpoint"
+  STREAM_WINDOW_DURATION: "1 hour"
+  STREAM_WATERMARK_DELAY: "5 minutes"
+  STREAM_PROCESSING_MODE: "exactly-once"
+
+  # Cache Configuration
+  CACHE_SIZE_MB: "2048"
+  CACHE_TTL_SECONDS: "3600"
+  CACHE_MAX_ENTRIES: "50000"
+  CACHE_POLICY: "LRU"
+
+  # Quality Assurance
+  QUALITY_CHECK_ENABLED: "true"
+  DATA_VALIDATION_ENABLED: "true"
+  SCHEMA_VALIDATION_STRICT: "true"
+  COMPLETENESS_THRESHOLD: "0.95"
+  ACCURACY_THRESHOLD: "0.90"
+
+  # Environment
+  SERVICE_NAME: "ms06-aggregator"
+  SERVICE_VERSION: "2.1.0"
+  ENVIRONMENT: "production"
+
+  # Security
+  JWT_ALGORITHM: "RS256"
+  JWT_ACCESS_TOKEN_EXPIRE_MINUTES: "30"
+  API_KEY_VALIDATION: "true"
+  RATE_LIMIT_REQUESTS: "100"
+  RATE_LIMIT_WINDOW: "60"
+
+  # Performance Tuning
+  GUNICORN_WORKERS: "4"
+  GUNICORN_THREADS: "2"
+  GUNICORN_TIMEOUT: "60"
+  MAX_REQUEST_SIZE: "1073741824"
+
+  # Feature Flags
+  ASYNC_AGGREGATION_ENABLED: "true"
+  BATCH_AGGREGATION_ENABLED: "true"
+  STREAMING_AGGREGATION_ENABLED: "true"
+  WEBHOOK_NOTIFICATIONS_ENABLED: "true"
+  AUDIT_LOGGING_ENABLED: "true"
+  DATA_LINEAGE_ENABLED: "true"
+
+  # Schema Management
+  SCHEMA_REGISTRY_ENABLED: "true"
+  SCHEMA_CACHE_SIZE: "1000"
+  SCHEMA_VALIDATION_ENABLED: "true"
+  AUTO_SCHEMA_EVOLUTION: "true"
+
+  # Data Sources
+  SUPPORTED_DATA_SOURCES: "postgresql,mysql,oracle,s3,hdfs,csv,json,parquet"
+  MAX_DATA_SOURCE_CONNECTIONS: "10"
+  CONNECTION_POOL_TIMEOUT: "30"
+
+  # Output Configuration
+  DEFAULT_OUTPUT_FORMAT: "parquet"
+  OUTPUT_PARTITION_BY_DATE: "true"
+  OUTPUT_COMPRESSION_ENABLED: "true"
+  OUTPUT_VALIDATION_ENABLED: "true"

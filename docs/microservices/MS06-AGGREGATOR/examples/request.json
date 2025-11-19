@@ -1,0 +1,111 @@
+{
+  "job_id": "550e8400-e29b-41d4-a716-446655440000",
+  "job_type": "BATCH",
+  "configuration": {
+    "sources": [
+      {
+        "type": "database",
+        "connection": {
+          "host": "postgres-aggregator",
+          "port": 5432,
+          "database": "zen_ia",
+          "table": "processed_documents",
+          "credentials": {
+            "username": "aggregator_user",
+            "password": "${DB_PASSWORD}"
+          }
+        },
+        "query": "SELECT id, category, amount, date, municipality FROM processed_documents WHERE date >= '2024-01-01'",
+        "format": "postgresql"
+      },
+      {
+        "type": "file",
+        "path": "/data/external/transactions_*.parquet",
+        "format": "parquet",
+        "options": {
+          "mergeSchema": true,
+          "inferSchema": true
+        }
+      }
+    ],
+    "transformations": [
+      {
+        "type": "filter",
+        "config": {
+          "conditions": [
+            "amount > 0",
+            "category IS NOT NULL",
+            "date IS NOT NULL"
+          ]
+        }
+      },
+      {
+        "type": "aggregate",
+        "config": {
+          "group_by": ["date", "category", "municipality"],
+          "aggregations": [
+            {
+              "column": "amount",
+              "function": "SUM",
+              "alias": "total_amount"
+            },
+            {
+              "column": "id",
+              "function": "COUNT",
+              "alias": "transaction_count"
+            },
+            {
+              "column": "amount",
+              "function": "AVG",
+              "alias": "avg_amount"
+            },
+            {
+              "column": "amount",
+              "function": "MIN",
+              "alias": "min_amount"
+            },
+            {
+              "column": "amount",
+              "function": "MAX",
+              "alias": "max_amount"
+            }
+          ]
+        }
+      },
+      {
+        "type": "sort",
+        "config": {
+          "columns": ["date DESC", "total_amount DESC"]
+        }
+      }
+    ],
+    "output": {
+      "format": "parquet",
+      "path": "/results/aggregated/",
+      "partition_by": ["date", "municipality"],
+      "options": {
+        "compression": "snappy",
+        "mode": "overwrite"
+      }
+    }
+  },
+  "options": {
+    "parallelism": 4,
+    "cache_enabled": true,
+    "checkpoint_enabled": true,
+    "quality_checks": {
+      "completeness_threshold": 0.95,
+      "accuracy_threshold": 0.90,
+      "consistency_checks": true
+    }
+  },
+  "priority": 1,
+  "callback_url": "http://ms07-validator:8007/api/v1/callback/aggregation",
+  "metadata": {
+    "request_id": "agg-2025-11-18-001",
+    "client_id": "comune-milano",
+    "report_type": "monthly_aggregation",
+    "urgency": "normal",
+    "domain": "urbanistica"
+  }
+}

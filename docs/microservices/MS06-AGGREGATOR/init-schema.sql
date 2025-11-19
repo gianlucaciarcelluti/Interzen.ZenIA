@@ -1,0 +1,6 @@
+--
+-- MS06 - Aggregator Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for aggregator database
+-- No SQL code as per instructions, only diagrams in documentation
+--

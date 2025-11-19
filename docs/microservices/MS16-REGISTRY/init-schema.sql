@@ -1,0 +1,6 @@
+--
+-- MS16 - Registry Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for registry database
+-- No SQL code as per instructions, only diagrams in documentation
+--

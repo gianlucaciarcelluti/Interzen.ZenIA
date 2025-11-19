@@ -1,0 +1,13 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: kong-gateway-pdb
+  namespace: zenia
+  labels:
+    app: kong-gateway
+    component: disruption-budget
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: kong-gateway

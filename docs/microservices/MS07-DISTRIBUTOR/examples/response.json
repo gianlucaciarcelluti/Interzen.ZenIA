@@ -1,0 +1,115 @@
+{
+  "$schema": "https://zenia.io/schemas/distribution-response-v1.json",
+  "distribution_id": "dist-pa-roma-2024-01-15-001",
+  "status": "completed",
+  "submitted_at": "2024-01-15T09:30:00Z",
+  "started_at": "2024-01-15T09:30:05Z",
+  "completed_at": "2024-01-15T09:30:45Z",
+  "progress_percentage": 100,
+  "destinations": [
+    {
+      "name": "ms09-reporter",
+      "status": "success",
+      "attempts": 1,
+      "started_at": "2024-01-15T09:30:10Z",
+      "completed_at": "2024-01-15T09:30:15Z",
+      "response_time_ms": 5000,
+      "response_status": 201,
+      "response_body": {
+        "report_id": "ms09-rpt-2024-01-15-001",
+        "status": "accepted",
+        "estimated_processing_time": "2 minutes",
+        "webhook_url": "https://ms09-reporter.zenia.local/webhooks/report-processed"
+      },
+      "metadata": {
+        "content_length": 2450,
+        "content_type": "application/json",
+        "server": "nginx/1.20.1",
+        "request_id": "ms09-req-abc123"
+      }
+    },
+    {
+      "name": "data-lake-analytics",
+      "status": "success",
+      "attempts": 1,
+      "started_at": "2024-01-15T09:30:20Z",
+      "completed_at": "2024-01-15T09:30:25Z",
+      "response_time_ms": 5000,
+      "response_status": 200,
+      "response_body": {
+        "ETag": "\"9d5c6e5f4a8b2c1d3e4f567890123456\"",
+        "VersionId": "v1.0",
+        "ServerSideEncryption": "AES256",
+        "Location": "https://zenia-data-lake.s3.eu-south-1.amazonaws.com/processed/2024/01/15/reports/daily-report-2024-01-15.json"
+      },
+      "metadata": {
+        "bucket": "zenia-data-lake",
+        "key": "processed/2024/01/15/reports/daily-report-2024-01-15.json",
+        "size_bytes": 2450,
+        "storage_class": "STANDARD",
+        "region": "eu-south-1"
+      }
+    },
+    {
+      "name": "external-monitoring-dashboard",
+      "status": "success",
+      "attempts": 2,
+      "started_at": "2024-01-15T09:30:30Z",
+      "completed_at": "2024-01-15T09:30:40Z",
+      "response_time_ms": 10000,
+      "response_status": 200,
+      "response_body": {
+        "status": "metrics_received",
+        "processed_at": "2024-01-15T09:30:35Z",
+        "metrics_count": 3,
+        "validation_status": "passed"
+      },
+      "retry_history": [
+        {
+          "attempt": 1,
+          "timestamp": "2024-01-15T09:30:30Z",
+          "error": "Connection timeout",
+          "backoff_delay_seconds": 2
+        }
+      ],
+      "metadata": {
+        "content_length": 850,
+        "content_type": "application/json",
+        "server": "Apache/2.4.54",
+        "request_id": "ext-mon-xyz789"
+      }
+    }
+  ],
+  "metrics": {
+    "total_latency_ms": 45000,
+    "processing_time_ms": 35000,
+    "network_time_ms": 10000,
+    "average_response_time_ms": 6667,
+    "success_rate": 1.0,
+    "total_attempts": 4,
+    "successful_attempts": 4,
+    "failed_attempts": 0,
+    "retry_count": 1,
+    "data_transferred_bytes": 7350,
+    "compression_ratio": 0.85
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "SLOW_RESPONSE",
+      "message": "External monitoring dashboard response time above threshold",
+      "destination": "external-monitoring-dashboard",
+      "threshold_ms": 5000,
+      "actual_ms": 10000,
+      "severity": "medium"
+    }
+  ],
+  "metadata": {
+    "processing_node": "distributor-pod-4b2c8f",
+    "worker_version": "1.2.3",
+    "tenant_quota_used": 0.15,
+    "rate_limit_remaining": 850,
+    "idempotency_key": "dist-pa-roma-2024-01-15-001",
+    "correlation_id": "corr-2024-01-15-09-30-00-001"
+  }
+}

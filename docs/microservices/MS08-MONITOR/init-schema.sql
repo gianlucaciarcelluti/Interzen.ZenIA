@@ -1,0 +1,6 @@
+--
+-- MS08 - Monitor Database Schema
+-- PostgreSQL 14+
+-- Schema initialization for monitor database
+-- No SQL code as per instructions, only diagrams in documentation
+--

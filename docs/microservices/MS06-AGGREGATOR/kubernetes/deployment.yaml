@@ -1,0 +1,240 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms06-aggregator
+  namespace: zen-ia
+  labels:
+    app: ms06-aggregator
+    version: v2.1.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms06-aggregator
+  template:
+    metadata:
+      labels:
+        app: ms06-aggregator
+        version: v2.1.0
+    spec:
+      serviceAccountName: ms06-aggregator-sa
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+      initContainers:
+      - name: wait-for-postgres
+        image: postgres:15-alpine
+        command: ['sh', '-c', 'until pg_isready -h postgres-aggregator -p 5432 -U aggregator; do echo waiting for postgres; sleep 2; done;']
+      containers:
+      - name: aggregator-api
+        image: registry.zen-ia.com/ms06-aggregator:v2.1.0
+        ports:
+        - containerPort: 8006
+          name: http
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: ms06-aggregator-secrets
+              key: database-url
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              name: ms06-aggregator-secrets
+              key: redis-url
+        - name: SPARK_MASTER_URL
+          value: "spark://spark-master:7077"
+        - name: HDFS_NAMENODE_URL
+          value: "hdfs://namenode:9000"
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: access-key-id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: secret-access-key
+        - name: JWT_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ms06-aggregator-secrets
+              key: jwt-secret
+        envFrom:
+        - configMapRef:
+            name: ms06-aggregator-config
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: logs
+          mountPath: /app/logs
+        - name: config
+          mountPath: /app/config
+        - name: certificates
+          mountPath: /etc/ssl/certs
+          readOnly: true
+        livenessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8006
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8006
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        startupProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8006
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 10
+      - name: spark-master
+        image: apache/spark:3.5.0-scala2.12-java11-python3-ubuntu
+        ports:
+        - containerPort: 7077
+          name: spark-master
+        - containerPort: 8080
+          name: spark-ui
+        env:
+        - name: SPARK_MODE
+          value: "master"
+        - name: SPARK_MASTER_HOST
+          value: "spark-master"
+        - name: SPARK_MASTER_PORT
+          value: "7077"
+        - name: SPARK_MASTER_WEBUI_PORT
+          value: "8080"
+        command: ["/opt/spark/bin/spark-class", "org.apache.spark.deploy.master.Master"]
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: spark-logs
+          mountPath: /opt/spark/logs
+      volumes:
+      - name: logs
+        emptyDir: {}
+      - name: config
+        configMap:
+          name: ms06-aggregator-config
+      - name: spark-logs
+        emptyDir: {}
+      - name: certificates
+        secret:
+          secretName: zen-ia-certificates
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: node-type
+                operator: In
+                values:
+                - compute-optimized
+      tolerations:
+      - key: "maintenance"
+        operator: "Equal"
+        value: "true"
+        effect: "NoExecute"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms06-spark-worker
+  namespace: zen-ia
+  labels:
+    app: ms06-spark-worker
+    version: v2.1.0
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ms06-spark-worker
+  template:
+    metadata:
+      labels:
+        app: ms06-spark-worker
+        version: v2.1.0
+    spec:
+      serviceAccountName: ms06-aggregator-sa
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+      containers:
+      - name: spark-worker
+        image: apache/spark:3.5.0-scala2.12-java11-python3-ubuntu
+        ports:
+        - containerPort: 8081
+          name: spark-worker-ui
+        env:
+        - name: SPARK_MODE
+          value: "worker"
+        - name: SPARK_MASTER_URL
+          value: "spark://spark-master:7077"
+        - name: SPARK_WORKER_CORES
+          value: "2"
+        - name: SPARK_WORKER_MEMORY
+          value: "4g"
+        - name: SPARK_WORKER_WEBUI_PORT
+          value: "8081"
+        command: ["/opt/spark/bin/spark-class", "org.apache.spark.deploy.worker.Worker", "spark://spark-master:7077"]
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "2000m"
+          limits:
+            memory: "8Gi"
+            cpu: "4000m"
+        volumeMounts:
+        - name: spark-work
+          mountPath: /opt/spark/work
+        - name: spark-logs
+          mountPath: /opt/spark/logs
+        - name: certificates
+          mountPath: /etc/ssl/certs
+          readOnly: true
+      volumes:
+      - name: spark-work
+        emptyDir: {}
+      - name: spark-logs
+        emptyDir: {}
+      - name: certificates
+        secret:
+          secretName: zen-ia-certificates
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: node-type
+                operator: In
+                values:
+                - compute-optimized
+      tolerations:
+      - key: "maintenance"
+        operator: "Equal"
+        value: "true"
+        effect: "NoExecute"

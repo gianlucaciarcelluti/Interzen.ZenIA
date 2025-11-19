@@ -1,0 +1,70 @@
+{
+  "id": "audit-123456789-abc",
+  "timestamp": "2024-01-15T10:30:45.123Z",
+  "tenant_id": "tenant-pa-roma",
+  "user_id": "user-sre-456",
+  "username": "marco.rossi",
+  "action": "CREATE",
+  "resource_type": "alert_rule",
+  "resource_id": "rule-high-error-rate-001",
+  "resource_name": "HighErrorRate",
+  "details": {
+    "old_values": null,
+    "new_values": {
+      "name": "HighErrorRate",
+      "description": "Alert for high error rate in microservices",
+      "query": "rate(zenia_errors_total[5m]) / rate(zenia_requests_total[5m]) > 0.05",
+      "duration": "5m",
+      "severity": "critical",
+      "labels": {
+        "team": "platform",
+        "component": "microservices",
+        "environment": "production"
+      },
+      "annotations": {
+        "summary": "High error rate detected in {{ $labels.service }}",
+        "description": "Error rate is {{ $value }} which is above threshold of 5%",
+        "runbook_url": "https://zenia.runbooks/error-rate-response"
+      }
+    },
+    "changes": [
+      {
+        "field": "name",
+        "old_value": null,
+        "new_value": "HighErrorRate"
+      },
+      {
+        "field": "query",
+        "old_value": null,
+        "new_value": "rate(zenia_errors_total[5m]) / rate(zenia_requests_total[5m]) > 0.05"
+      },
+      {
+        "field": "severity",
+        "old_value": null,
+        "new_value": "critical"
+      }
+    ]
+  },
+  "ip_address": "192.168.1.100",
+  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  "session_id": "session-789-def-456-ghi",
+  "correlation_id": "corr-audit-123-456-789",
+  "source": "web-ui",
+  "location": {
+    "country": "Italy",
+    "region": "Lazio",
+    "city": "Rome"
+  },
+  "compliance_flags": {
+    "gdpr_compliant": true,
+    "audit_required": true,
+    "data_sensitivity": "internal"
+  },
+  "metadata": {
+    "api_version": "v1",
+    "client_version": "1.2.3",
+    "request_id": "req-abc-123-def-456",
+    "response_time_ms": 245,
+    "success": true
+  }
+}

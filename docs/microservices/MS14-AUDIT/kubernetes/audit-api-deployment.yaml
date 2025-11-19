@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms14-audit-api
+  namespace: zenia
+  labels:
+    app: ms14-audit-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ms14-audit-api
+  template:
+    metadata:
+      labels:
+        app: ms14-audit-api
+    spec:
+      containers:
+      - name: audit-api
+        image: ghcr.io/interzen/ms14-audit-api:1.0.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: ms14-audit-secrets
+              key: jwt-secret
+        - name: ELASTICSEARCH_URL
+          value: http://ms14-audit-es:9200
+        - name: REDIS_URL
+          value: redis://:$(REDIS_PASSWORD)@ms14-audit-redis:6379/0
+        - name: LOG_RETENTION_DAYS
+          value: "365"
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+      automountServiceAccountToken: false

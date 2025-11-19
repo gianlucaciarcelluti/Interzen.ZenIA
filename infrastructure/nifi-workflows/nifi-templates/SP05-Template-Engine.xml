@@ -1,0 +1,363 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template encoding-version="1.3">
+    <description>SP01 - Template Engine - Genera documenti amministrativi usando Groq AI e template da database</description>
+    <groupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</groupId>
+    <name>SP01 - Template Engine</name>
+    <snippet>
+        <processors>
+            <id>22222222-0101-0101-0101-222222222222</id>
+            <parentGroupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</parentGroupId>
+            <position>
+                <x>400.0</x>
+                <y>0.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>Prepara prompt per Groq con template e contesto</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>Regular Expression</key>
+                        <value>(?s)(.*)</value>
+                    </entry>
+                    <entry>
+                        <key>Replacement Value</key>
+                        <value>{
+  "model": "llama-3.3-70b-versatile",
+  "messages": [
+    {
+      "role": "system",
+      "content": "Sei un esperto redattore di atti amministrativi della PA italiana. Genera documenti formalmente corretti con tutte le sezioni obbligatorie: intestazione, premesse, motivazioni, dispositivo. Rispetta la normativa di riferimento."
+    },
+    {
+      "role": "user",
+      "content": "Genera documento: ${metadata}"
+    }
+  ],
+  "temperature": 0.4,
+  "max_tokens": 8000
+}</value>
+                    </entry>
+                    <entry>
+                        <key>Replacement Strategy</key>
+                        <value>Always Replace</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>Prepara Prompt Groq</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.ReplaceText</type>
+        </processors>
+        <processors>
+            <id>33333333-0101-0101-0101-333333333333</id>
+            <parentGroupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</parentGroupId>
+            <position>
+                <x>800.0</x>
+                <y>0.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>Genera documento con Groq AI</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>HTTP Method</key>
+                        <value>POST</value>
+                    </entry>
+                    <entry>
+                        <key>Remote URL</key>
+                        <value>https://api.groq.com/openai/v1/chat/completions</value>
+                    </entry>
+                    <entry>
+                        <key>Content-Type</key>
+                        <value>application/json</value>
+                    </entry>
+                    <entry>
+                        <key>Authorization</key>
+                        <value>Bearer ${groq.api.key}</value>
+                    </entry>
+                    <entry>
+                        <key>send-message-body</key>
+                        <value>true</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>Genera con Groq</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>Retry</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>No Retry</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>Failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>Response</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.InvokeHTTP</type>
+        </processors>
+        <processors>
+            <id>44444444-0101-0101-0101-444444444444</id>
+            <parentGroupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</parentGroupId>
+            <position>
+                <x>1200.0</x>
+                <y>0.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>Estrae documento generato</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>Destination</key>
+                        <value>flowfile-content</value>
+                    </entry>
+                    <entry>
+                        <key>document.content</key>
+                        <value>$.choices[0].message.content</value>
+                    </entry>
+                    <entry>
+                        <key>generation.tokens</key>
+                        <value>$.usage.total_tokens</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>Estrai Documento</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>unmatched</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>matched</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.EvaluateJsonPath</type>
+        </processors>
+        <processors>
+            <id>55555555-0101-0101-0101-555555555555</id>
+            <parentGroupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</parentGroupId>
+            <position>
+                <x>1600.0</x>
+                <y>0.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>Log generazione</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>Log Level</key>
+                        <value>info</value>
+                    </entry>
+                    <entry>
+                        <key>Log Payload</key>
+                        <value>false</value>
+                    </entry>
+                    <entry>
+                        <key>Attributes to Log</key>
+                        <value>generation.tokens</value>
+                    </entry>
+                    <entry>
+                        <key>Log prefix</key>
+                        <value>[SP01-TEMPLATE-ENGINE]</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>Log Generazione</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.LogAttribute</type>
+        </processors>
+        <connections>
+            <id>c1111111-0101-0101-0101-111111111111</id>
+            <parentGroupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</groupId>
+                <id>22222222-0101-0101-0101-222222222222</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>success</selectedRelationships>
+            <source>
+                <groupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</groupId>
+                <id>11111111-0101-0101-0101-111111111111</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c2222222-0101-0101-0101-222222222222</id>
+            <parentGroupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</groupId>
+                <id>33333333-0101-0101-0101-333333333333</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>success</selectedRelationships>
+            <source>
+                <groupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</groupId>
+                <id>22222222-0101-0101-0101-222222222222</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c3333333-0101-0101-0101-333333333333</id>
+            <parentGroupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</groupId>
+                <id>44444444-0101-0101-0101-444444444444</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>Response</selectedRelationships>
+            <source>
+                <groupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</groupId>
+                <id>33333333-0101-0101-0101-333333333333</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>c4444444-0101-0101-0101-444444444444</id>
+            <parentGroupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</groupId>
+                <id>55555555-0101-0101-0101-555555555555</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <name />
+            <selectedRelationships>matched</selectedRelationships>
+            <source>
+                <groupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</groupId>
+                <id>44444444-0101-0101-0101-444444444444</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+    <processors><processor><id>11111111-0101-0101-0101-111111111111</id>
+            <parentGroupId>b1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d</parentGroupId>
+            <position>
+                <x>0.0</x>
+                <y>0.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.28.1</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments>Riceve metadata documento da generare</comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>File Size</key>
+                        <value>0B</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <name>Ricevi Metadata</name>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <style />
+            <type>org.apache.nifi.processors.standard.GenerateFlowFile</type>
+        </processor></processors></snippet>
+    <timestamp>10/30/2025 11:30:00 CET</timestamp>
+</template>

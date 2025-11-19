@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report Studio Classificazione Sinistri</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .metric-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .metric-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #667eea;
+            color: white;
+        }
+        .success { color: #28a745; }
+        .warning { color: #ffc107; }
+        .error { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Report Studio Classificazione Sinistri</h1>
+        <p>Analisi con Groq API - 06/10/2025 13:51</p>
+        <p>Modello: llama-3.3-70b-versatile</p>
+    </div>
+
+    <div class="grid">
+        <div class="metric-card">
+            <div class="metric-value success">
+                100.0%
+            </div>
+            <div class="metric-label">Accuracy Totale</div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-value">5</div>
+            <div class="metric-label">Email Classificate</div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-value">2.6</div>
+            <div class="metric-label">Email/Secondo</div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-value">$0.0003</div>
+            <div class="metric-label">Costo Totale</div>
+        </div>
+    </div>
+
+    <div class="metric-card">
+        <h2>📈 Metriche Dettagliate</h2>
+        <table>
+            <tr>
+                <th>Metrica</th>
+                <th>Valore</th>
+            </tr>
+            <tr>
+                <td>Accuracy Tipologia</td>
+                <td class="success">100.00%</td>
+            </tr>
+            <tr>
+                <td>Accuracy Riferimento Temporale</td>
+                <td class="success">100.00%</td>
+            </tr>
+            <tr>
+                <td>Latenza Media</td>
+                <td>0.384s</td>
+            </tr>
+            <tr>
+                <td>Token Medi per Email</td>
+                <td>577</td>
+            </tr>
+            <tr>
+                <td>Throughput</td>
+                <td>156 email/ora</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="metric-card">
+        <h2>🔑 Top 10 Indicatori Chiave</h2>
+        <table>
+            <tr>
+                <th>Indicatore</th>
+                <th>Frequenza</th>
+            </tr>
+            <tr><td>data evento</td><td>3</td></tr><tr><td>sinistro medico</td><td>2</td></tr><tr><td>comunico complicanza</td><td>2</td></tr><tr><td>esiti invalidanti</td><td>2</td></tr><tr><td>danno iatrogeno</td><td>1</td></tr><tr><td>conseguenze permanenti</td><td>1</td></tr><tr><td>evento avverso</td><td>1</td></tr><tr><td>richiesta danni</td><td>1</td></tr><tr><td>ustione chimica iatrogena</td><td>1</td></tr><tr><td>richiesta risarcimento</td><td>1</td></tr>
+        </table>
+    </div>
+
+    <div class="metric-card">
+        <h2>💡 Conclusioni e Raccomandazioni</h2>
+        <ul>
+            <li>Il modello <strong>llama-3.3-70b-versatile</strong> ha raggiunto un'accuracy del <strong>100.0%</strong></li>
+            <li>Throughput di <strong>156 email/ora</strong> permette elaborazione rapida</li>
+            <li>Costo molto contenuto: <strong>$0.0003</strong> per questo test</li>
+            <li class='success'>✅ Performance eccellente - pronto per produzione</li>
+        </ul>
+    </div>
+</body>
+</html>

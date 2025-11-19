@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  This file lists the Flow Persistence Providers
+  Configuration for NiFi Registry to use PostgreSQL
+-->
+<providers>
+    <!-- PostgreSQL Flow Persistence Provider -->
+    <flowPersistenceProvider>
+        <class>org.apache.nifi.registry.provider.flow.DatabaseFlowPersistenceProvider</class>
+        <property name="Driver Class Name">org.postgresql.Driver</property>
+        <property name="Driver URL">jdbc:postgresql://postgres:5432/nifi_registry</property>
+        <property name="Username">postgres</property>
+        <property name="Password">postgrespassword</property>
+    </flowPersistenceProvider>
+
+    <!-- Extension Bundle Persistence Provider (file-based) -->
+    <extensionBundlePersistenceProvider>
+        <class>org.apache.nifi.registry.provider.extension.FileSystemBundlePersistenceProvider</class>
+        <property name="Extension Bundle Storage Directory">./extension_bundles</property>
+    </extensionBundlePersistenceProvider>
+</providers>

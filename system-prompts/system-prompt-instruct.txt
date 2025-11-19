@@ -1,0 +1,9 @@
+Analizza tutti i documenti nella cartella docs, in particolare i testi delle fonti nella cartella docs/fonti/txt_output, 
+i microservices, gli use_cases con i relativi SP (sottoprogetti)
+e verifica che le specifiche siano state scritte in maniera professionale, 
+in lingua italiana, semplice e chiara, utilizzando diagrammi mermaid per le sequenze, 
+i diagrammi dei db, i diagrammi funzionali, includendo payload di request e response di esempio in json,
+senza includere alcun codice python o di altri linguaggi. 
+Verifica che tutto quanto sia realizzato nel rispetto delle normative e guide linea che trovi nelle fonti.
+Verifica che ogni SP (sottoprogetto) sia correttamente riferito e non ci siano collegamenti orfani.
+Crea un piano di refactoring per aggiornare e sistemare la documentazione in maniera incrementale.

@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ms12-cache-monitor
+  namespace: zenia
+  labels:
+    app: ms12-cache-exporter
+    component: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: ms12-cache-exporter
+  endpoints:
+  - port: metrics
+    path: /metrics
+    interval: 30s
+    scrapeTimeout: 10s
