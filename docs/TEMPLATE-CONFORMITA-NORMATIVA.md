@@ -27,8 +27,8 @@ Questo template standardizza la sezione **Conformità Normativa** per tutti i 72
   - ✏️ **Modifica**: Aggiungi/rimuovi/ajusta normative
   - 🔄 **Rifiuta**: Richiedi nuova analisi normativa
 - **Tracciamento**:
-  ```json
-  {
+```json
+{
     "hitl_point": "REGULATORY_COMPLETENESS",
     "sp_id": "SP01",
     "ai_suggestion": {
@@ -42,7 +42,7 @@ Questo template standardizza la sezione **Conformità Normativa** per tutti i 72
       "adjusted": []
     }
   }
-  ```
+```
 
 **Guardrail - Contesto Normativo**
 - Non citare più di 5 normative principali per SP
