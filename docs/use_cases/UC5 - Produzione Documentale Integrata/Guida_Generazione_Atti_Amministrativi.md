@@ -18,7 +18,7 @@
 - **SP03 - Classificatore di Procedimenti Amministrativi** 🎯
 - **SP04 - Archivio Normativo Intelligente** 📚
 - **SP05 - Motore di Generazione Template** 🤖
-- **SP06 - Validatoree di Conformità** ✅
+- **SP06 - Validatore di Conformità** ✅
 - **SP07 - Classificatore e Estrattore Dati** 🏷️
 - **SP08 - Controllo Qualità Linguistica** 📝
 - **SP09 - Motore di Orchestrazione** ⚙️
@@ -557,7 +557,7 @@ Dopo che SP05 ha generato il documento, l'operatore **deve revisionarlo prima de
 
 ---
 
-### **SP06 - Validatoree di Conformità** ✅
+### **SP06 - Validatore di Conformità** ✅
 
 **Cosa fa (in parole semplici)**  
 È il "revisore automatico" che controlla che il documento sia corretto e rispetti tutte le regole.
