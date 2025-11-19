@@ -203,10 +203,10 @@ curl -X POST http://localhost:8001/api/v1/classify \
 ### Build Immagine Docker
 ```bash
 # Build locale
-docker build -t zendata/ms01-classifier:v1.0.0 .
+docker build -t zenia/ms01-classifier:v1.0.0 .
 
 # Tag e push
-docker tag zendata/ms01-classifier:v1.0.0 registry/ms01-classifier:v1.0.0
+docker tag zenia/ms01-classifier:v1.0.0 registry/ms01-classifier:v1.0.0
 docker push registry/ms01-classifier:v1.0.0
 ```
 

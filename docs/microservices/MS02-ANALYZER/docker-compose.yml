@@ -3,7 +3,7 @@ version: '3.9'
 services:
   # Main Analyzer Service
   analyzer:
-    image: zendata/ms02-analyzer:latest
+    image: zenia/ms02-analyzer:latest
     container_name: ms02-analyzer
     ports:
       - "8002:8002"

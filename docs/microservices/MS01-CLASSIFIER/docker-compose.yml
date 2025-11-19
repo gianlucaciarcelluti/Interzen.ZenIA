@@ -3,7 +3,7 @@ version: '3.9'
 services:
   # Main Classifier Service
   classifier:
-    image: zendata/ms01-classifier:latest
+    image: zenia/ms01-classifier:latest
     container_name: ms01-classifier
     ports:
       - "8001:8001"

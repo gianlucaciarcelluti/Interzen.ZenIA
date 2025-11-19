@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: analyzer
-        image: zendata/ms02-analyzer:latest
+        image: zenia/ms02-analyzer:latest
         ports:
         - containerPort: 8002
         envFrom:

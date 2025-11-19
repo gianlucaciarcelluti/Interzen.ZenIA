@@ -63,7 +63,7 @@ spec:
       # Main container
       containers:
         - name: classifier
-          image: zendata/ms01-classifier:latest
+          image: zenia/ms01-classifier:latest
           imagePullPolicy: Always
 
           ports:

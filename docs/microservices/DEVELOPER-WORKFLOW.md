@@ -244,8 +244,8 @@ curl -X POST http://localhost:8002/api/v1/analyze \
 ### 4. Deploy (quando finisci)
 ```bash
 cd ../..
-docker build -t zendata/ms02-analyzer:v1 MS02-ANALYZER/
-docker push zendata/ms02-analyzer:v1
+docker build -t zenia/ms02-analyzer:v1 MS02-ANALYZER/
+docker push zenia/ms02-analyzer:v1
 kubectl apply -f MS02-ANALYZER/kubernetes/
 kubectl rollout status deployment/ms02-analyzer
 ```
