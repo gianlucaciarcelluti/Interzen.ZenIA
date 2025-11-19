@@ -586,6 +586,83 @@ sequenceDiagram
     API-->>WF: 503 Service Unavailable<br/>Retry-After: 60
 ```
 
+### State Diagram: Ciclo Vita Email (Email Lifecycle)
+
+```mermaid
+stateDiagram-v2
+    [*] --> Received
+
+    Received --> Parsing: parse()
+
+    Parsing --> Extracted: extraction_ok
+    Parsing --> ParseError: parse_failed
+
+    ParseError --> Quarantine: quarantine_corrupted
+    Quarantine --> [*]
+
+    Extracted --> PECValidating: validate_pec_signature
+
+    PECValidating --> SignatureOK: signature_valid
+    PECValidating --> SignatureFailed: signature_invalid
+
+    SignatureFailed --> Failed: [*]
+
+    SignatureOK --> ClassificationAnalysis: classify_intent
+
+    ClassificationAnalysis --> Classified: confidence_high
+    ClassificationAnalysis --> LowConfidence: confidence_low
+
+    LowConfidence --> HumanReview: escalate_to_hitl
+    HumanReview --> Classified: human_decision
+
+    Classified --> MetadataEnrichment: enrich_metadata
+
+    MetadataEnrichment --> StoragePending: storage_available
+    MetadataEnrichment --> StorageError: storage_unavailable
+
+    StorageError --> RetryQueue: enqueue_retry
+    RetryQueue --> Parsing
+
+    StoragePending --> Storing: save_to_db
+
+    Storing --> Stored: persistence_ok
+    Storing --> PersistenceError: db_error
+
+    PersistenceError --> CircuitBreakerCheck: check_circuit
+    CircuitBreakerCheck --> RetryQueue
+    CircuitBreakerCheck --> CircuitOpen: circuit_breaker_open
+
+    CircuitOpen --> Delayed: wait_recovery
+    Delayed --> Parsing
+
+    Stored --> [*]
+    Failed --> [*]
+
+    note right of Parsing
+        Parse MIME structure
+        Extract headers, body,
+        attachments
+    end note
+
+    note right of PECValidating
+        Verify CAdES signature
+        Check certificate validity
+        Validate timestamp RFC 3161
+    end note
+
+    note right of HumanReview
+        Operator HITL Checkpoint
+        Escalation if classification
+        confidence < threshold
+    end note
+
+    note right of Storing
+        Save email metadata
+        to PostgreSQL
+        Cache in Redis
+    end note
+```
+
 ## Business Logic
 
 ### Pipeline di Elaborazione

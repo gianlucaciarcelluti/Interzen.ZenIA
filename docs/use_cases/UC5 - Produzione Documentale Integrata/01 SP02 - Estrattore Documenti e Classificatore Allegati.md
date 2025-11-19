@@ -815,6 +815,90 @@ sequenceDiagram
     end
 ```
 
+### State Diagram: Ciclo Vita Documento (Document Lifecycle)
+
+```mermaid
+stateDiagram-v2
+    [*] --> Received
+
+    Received --> Parsing: detect_format()
+
+    Parsing --> TextExtracted: extraction_ok
+    Parsing --> ParseError: parse_failed
+
+    ParseError --> Quarantine: [*]
+
+    TextExtracted --> OptionalOCR: requires_ocr()
+
+    OptionalOCR --> OCRProcessing: ocr_needed
+    OptionalOCR --> Classifying: ocr_not_needed
+
+    OCRProcessing --> OCRComplete: ocr_ok
+    OCRProcessing --> OCRFailed: ocr_error
+
+    OCRFailed --> Classifying: skip_to_classify
+
+    OCRComplete --> Classifying: classify_document
+
+    Classifying --> CacheCheck: check_cache()
+
+    CacheCheck --> CacheHit: cache_valid
+    CacheCheck --> CacheMiss: cache_miss
+
+    CacheHit --> Classified: return_cached
+
+    CacheMiss --> MLInference: run_inference()
+
+    MLInference --> ConfidenceCheck: check_confidence()
+
+    ConfidenceCheck --> HighConfidence: confidence_high
+    ConfidenceCheck --> LowConfidence: confidence_low
+
+    LowConfidence --> HumanReview: escalate_to_hitl
+    HumanReview --> Classified: human_decision
+
+    HighConfidence --> Classified: confident_classification
+
+    Classified --> EntityExtraction: extract_entities()
+
+    EntityExtraction --> Enrichment: enrich_metadata()
+
+    Enrichment --> Storing: save_to_db()
+
+    Storing --> Stored: persistence_ok
+    Storing --> PersistenceError: db_error
+
+    PersistenceError --> RetryQueue: retry()
+    RetryQueue --> Storing
+
+    Stored --> [*]
+    Quarantine --> [*]
+
+    note right of Parsing
+        Detect file format
+        Extract raw text
+        native PDF extraction or OCR path
+    end note
+
+    note right of OptionalOCR
+        If PDF is image-based
+        or requires text validation
+        trigger OCR engine
+    end note
+
+    note right of MLInference
+        Run DistilBERT model
+        GPU-accelerated if available
+        Cache result (24h TTL)
+    end note
+
+    note right of HumanReview
+        HITL Checkpoint
+        Escalation if confidence < 0.70
+        Operator decision feeds feedback loop
+    end note
+```
+
 ## Data Model
 
 ### Extracted Documents Table (PostgreSQL)
