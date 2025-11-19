@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: classifier-config
-  namespace: zendata
+  namespace: zenia
   labels:
     app: ms01-classifier
 
@@ -65,7 +65,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: classifier-models
-  namespace: zendata
+  namespace: zenia
   labels:
     app: ms01-classifier
 
@@ -97,11 +97,11 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: classifier-db-secret
-  namespace: zendata
+  namespace: zenia
   type: Opaque
 
 stringData:
-  database-url: "postgresql://classifier_service:classifier_pass@postgres.zendata:5432/zenia_classifier"
+  database-url: "postgresql://classifier_service:classifier_pass@postgres.zenia:5432/zenia_classifier"
   username: "classifier_service"
   password: "classifier_pass"
 
@@ -111,7 +111,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: classifier-jwt-secret
-  namespace: zendata
+  namespace: zenia
   type: Opaque
 
 stringData:
@@ -123,7 +123,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: classifier-init-sql
-  namespace: zendata
+  namespace: zenia
   labels:
     app: ms01-classifier
 

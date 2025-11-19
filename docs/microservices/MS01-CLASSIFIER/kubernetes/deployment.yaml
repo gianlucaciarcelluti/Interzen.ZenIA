@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ms01-classifier
-  namespace: zendata
+  namespace: zenia
   labels:
     app: ms01-classifier
     version: v1
@@ -42,7 +42,7 @@ spec:
             - sh
             - -c
             - |
-              until nc -z postgres.zendata 5432; do
+              until nc -z postgres.zenia 5432; do
                 echo 'Waiting for PostgreSQL...'
                 sleep 5
               done
@@ -54,7 +54,7 @@ spec:
             - sh
             - -c
             - |
-              until nc -z redis.zendata 6379; do
+              until nc -z redis.zenia 6379; do
                 echo 'Waiting for Redis...'
                 sleep 5
               done
@@ -98,7 +98,7 @@ spec:
                   key: database-url
 
             - name: REDIS_URL
-              value: "redis://redis.zendata:6379/1"
+              value: "redis://redis.zenia:6379/1"
 
             - name: JWT_SECRET_KEY
               valueFrom:
@@ -255,7 +255,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ms01-classifier
-  namespace: zendata
+  namespace: zenia
   labels:
     app: ms01-classifier
 
@@ -284,7 +284,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: ms01-classifier-hpa
-  namespace: zendata
+  namespace: zenia
 
 spec:
   scaleTargetRef:
@@ -335,7 +335,7 @@ apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: ms01-classifier-pdb
-  namespace: zendata
+  namespace: zenia
 
 spec:
   maxUnavailable: 1
@@ -349,7 +349,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: ms01-classifier
-  namespace: zendata
+  namespace: zenia
 
 ---
 
@@ -357,7 +357,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: ms01-classifier-role
-  namespace: zendata
+  namespace: zenia
 
 rules:
   - apiGroups: [""]
@@ -374,7 +374,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: ms01-classifier-rolebinding
-  namespace: zendata
+  namespace: zenia
 
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -384,4 +384,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: ms01-classifier
-    namespace: zendata
+    namespace: zenia

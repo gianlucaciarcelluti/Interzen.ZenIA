@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ms01-classifier
-  namespace: zendata
+  namespace: zenia
   labels:
     app: ms01-classifier
     tier: backend
@@ -34,7 +34,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ms01-classifier-headless
-  namespace: zendata
+  namespace: zenia
   labels:
     app: ms01-classifier
     type: headless
@@ -59,7 +59,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ms01-classifier-ingress
-  namespace: zendata
+  namespace: zenia
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -69,11 +69,11 @@ metadata:
 spec:
   tls:
     - hosts:
-        - classifier.zendata.local
+        - classifier.zenia.local
       secretName: classifier-tls-cert
 
   rules:
-    - host: classifier.zendata.local
+    - host: classifier.zenia.local
       http:
         paths:
           - path: /api
