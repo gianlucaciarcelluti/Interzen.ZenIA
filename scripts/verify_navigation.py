@@ -107,7 +107,7 @@ class NavigationVerifier:
         uc_folders = [f for f in use_cases_path.iterdir() if f.is_dir() and f.name.startswith('UC')]
 
         for uc_folder in sorted(uc_folders):
-            index_file = uc_folder / '00 INDEX.md'
+            index_file = uc_folder / 'README.md'
 
             if index_file.exists():
                 self.stats['uc_index_found'] += 1
@@ -143,7 +143,7 @@ class NavigationVerifier:
             if not uc_folder.is_dir():
                 continue
 
-            index_file = uc_folder / '00 INDEX.md'
+            index_file = uc_folder / 'README.md'
             if not index_file.exists():
                 continue
 

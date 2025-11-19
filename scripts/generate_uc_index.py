@@ -390,7 +390,7 @@ def main():
             index_content = generate_uc_index(uc_number, uc_title, sp_files)
 
             # Path per il file INDEX
-            index_path = uc_folder / "00 INDEX.md"
+            index_path = uc_folder / "README.md"
 
             if dry_run:
                 print(f"✓ (DRY-RUN) {uc_number}: INDEX generato ({len(sp_files)} SP)")

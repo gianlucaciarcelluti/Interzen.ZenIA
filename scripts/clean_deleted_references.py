@@ -29,12 +29,12 @@ class DeletedReferencesCleanerTool:
         return [
             # UC1 - Architettura non documentata
             (
-                self.docs_path / 'use_cases' / 'UC1 - Sistema di Gestione Documentale' / '00 INDEX.md',
+                self.docs_path / 'use_cases' / 'UC1 - Sistema di Gestione Documentale' / 'README.md',
                 [r'^\|\s*Architettura Generale.*\n.*\[Vai\]\(./00 Architettura UC1.md\).*\n']
             ),
             # UC2 - Architettura non documentata + SP incompleto
             (
-                self.docs_path / 'use_cases' / 'UC2 - Protocollo Informatico' / '00 INDEX.md',
+                self.docs_path / 'use_cases' / 'UC2 - Protocollo Informatico' / 'README.md',
                 [
                     r'^\|\s*Architettura Generale.*\n.*\[Vai\]\(./00 Architettura UC2.md\).*\n',
                     r'^\|\s*SP01 - EML Parser.*UC2 Protocol.*\n.*\[Vai\]\(.*SP01.*UC2 Protocol.*\n'
@@ -42,7 +42,7 @@ class DeletedReferencesCleanerTool:
             ),
             # UC5 - Architettura non documentata + Deprecated file
             (
-                self.docs_path / 'use_cases' / 'UC5 - Produzione Documentale Integrata' / '00 INDEX.md',
+                self.docs_path / 'use_cases' / 'UC5 - Produzione Documentale Integrata' / 'README.md',
                 [r'^\|\s*Architettura Generale.*\n.*\[Vai\]\(./00 Architettura UC5.md\).*\n']
             ),
             # UC5 - Canonical: Riferimento a file deprecated rimosso
