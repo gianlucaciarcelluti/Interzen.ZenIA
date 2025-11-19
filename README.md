@@ -22,7 +22,6 @@ ZenIA è una piattaforma AI completa per modernizzare i processi amministrativi 
 ```bash
 # 1. Clona il repository
 git clone <repository-url>
-cd ZenIA
 
 # 2. Configura ambiente
 cp infrastructure/nifi-workflows/.env.example infrastructure/nifi-workflows/.env
