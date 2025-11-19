@@ -29,19 +29,19 @@ Questo template standardizza la sezione **Conformità Normativa** per tutti i 72
 - **Tracciamento**:
 ```json
 {
-    "hitl_point": "REGULATORY_COMPLETENESS",
-    "sp_id": "SP01",
-    "ai_suggestion": {
-      "normative": ["CAD art. 1-12", "GDPR art. 1-99", "eIDAS artt. rilevanti"],
-      "confidence": 0.92
-    },
-    "user_action": "MODIFIED",
-    "user_changes": {
-      "added": ["AGID Guidelines v2.0"],
-      "removed": [],
-      "adjusted": []
-    }
+  "hitl_point": "REGULATORY_COMPLETENESS",
+  "sp_id": "SP01",
+  "ai_suggestion": {
+    "normative": ["CAD art. 1-12", "GDPR art. 1-99", "eIDAS artt. rilevanti"],
+    "confidence": 0.92
+  },
+  "user_action": "MODIFIED",
+  "user_changes": {
+    "added": ["AGID Guidelines v2.0"],
+    "removed": [],
+    "adjusted": []
   }
+}
 ```
 
 **Guardrail - Contesto Normativo**
@@ -72,17 +72,17 @@ Questo template standardizza la sezione **Conformità Normativa** per tutti i 72
   - ✏️ **Modifica Mapping**: Ajusta mappature CAD
   - 🔄 **Richiedi Review Legale**: Escalation per ambiguità legali
 - **Tracciamento**:
-  ```json
-  {
-    "hitl_point": "CAD_COMPLIANCE_REVIEW",
-    "sp_id": "SP05",
-    "compliance_score": 0.98,
-    "unmapped_requirements": [],
-    "user_action": "APPROVED",
-    "approval_notes": "Tutti gli articoli CAD applicabili sono stati correttamente mappati",
-    "timestamp": "2025-11-19T15:30:00Z"
-  }
-  ```
+```json
+{
+  "hitl_point": "CAD_COMPLIANCE_REVIEW",
+  "sp_id": "SP05",
+  "compliance_score": 0.98,
+  "unmapped_requirements": [],
+  "user_action": "APPROVED",
+  "approval_notes": "Tutti gli articoli CAD applicabili sono stati correttamente mappati",
+  "timestamp": "2025-11-19T15:30:00Z"
+}
+```
 
 **Guardrail - CAD Compliance**
 - Documentare ogni art. CAD in una sola sezione per evitare duplicazioni
@@ -115,24 +115,24 @@ Questo template standardizza la sezione **Conformità Normativa** per tutti i 72
   - ✏️ **Modifica Dati/Controlli**: Ajusta categorie dati o security controls
   - 🔄 **Richiedi DPA Completo**: Se rischio alto, formal DPA assessment obbligatorio
 - **Tracciamento**:
-  ```json
-  {
-    "hitl_point": "GDPR_DATA_PROTECTION",
-    "sp_id": "SP07",
-    "personal_data": {
-      "categories": ["identification_data", "professional_data"],
-      "processing": "Classification & Extraction",
-      "retention_period": "3_years"
-    },
-    "gdpr_articles": ["6_processing_lawfulness", "13_transparent_info"],
-    "dpa_required": true,
-    "user_action": "MODIFIED",
-    "user_changes": {
-      "added_control": "Encryption at rest (AES-256)",
-      "clarified_retention": "3 anni per conformità normativa"
-    }
+```json
+{
+  "hitl_point": "GDPR_DATA_PROTECTION",
+  "sp_id": "SP07",
+  "personal_data": {
+    "categories": ["identification_data", "professional_data"],
+    "processing": "Classification & Extraction",
+    "retention_period": "3_years"
+  },
+  "gdpr_articles": ["6_processing_lawfulness", "13_transparent_info"],
+  "dpa_required": true,
+  "user_action": "MODIFIED",
+  "user_changes": {
+    "added_control": "Encryption at rest (AES-256)",
+    "clarified_retention": "3 anni per conformità normativa"
   }
-  ```
+}
+```
 
 **Guardrail - GDPR Data Scope**
 - Documentare SOLO dati personali; escludere dati anonimizzati
@@ -165,21 +165,21 @@ Questo template standardizza la sezione **Conformità Normativa** per tutti i 72
   - ✏️ **Modifica Trust Level**: Aumenta/diminuisci assurance level
   - 🔄 **Richiedi Certificazione**: Se dubbi su TSP selection
 - **Tracciamento**:
-  ```json
-  {
-    "hitl_point": "eIDAS_TRUST_SERVICES",
-    "sp_id": "SP29",
-    "signature_type": "Qualified Signature",
-    "assurance_level": {
-      "identification": "HIGH",
-      "authentication": "SUBSTANTIAL"
-    },
-    "tsp_providers": ["Namirial", "Aruba"],
-    "timestamp_rfc3161": true,
-    "user_action": "CONFIRMED",
-    "timestamp": "2025-11-19T16:00:00Z"
-  }
-  ```
+```json
+{
+  "hitl_point": "eIDAS_TRUST_SERVICES",
+  "sp_id": "SP29",
+  "signature_type": "Qualified Signature",
+  "assurance_level": {
+    "identification": "HIGH",
+    "authentication": "SUBSTANTIAL"
+  },
+  "tsp_providers": ["Namirial", "Aruba"],
+  "timestamp_rfc3161": true,
+  "user_action": "CONFIRMED",
+  "timestamp": "2025-11-19T16:00:00Z"
+}
+```
 
 **Guardrail - eIDAS Scope**
 - Se NO firma/identità: non includere sezione eIDAS
@@ -211,18 +211,18 @@ Questo template standardizza la sezione **Conformità Normativa** per tutti i 72
   - ✏️ **Modifica Specifiche**: Ajusta per allineamento AGID
   - 🔄 **Richiedi AGID Review**: Se dubbi sulla conformità
 - **Tracciamento**:
-  ```json
-  {
-    "hitl_point": "AGID_ALIGNMENT",
-    "sp_id": "SP12",
-    "guidelines_applicable": ["LG Acquisizione Software", "LG Interoperabilità"],
-    "accessibility_score": 0.95,
-    "ontology_compliance": "NDC COMPLIANT",
-    "privacy_by_design": true,
-    "user_action": "APPROVED",
-    "review_notes": "Conforme a tutti i requisiti AGID applicabili"
-  }
-  ```
+```json
+{
+  "hitl_point": "AGID_ALIGNMENT",
+  "sp_id": "SP12",
+  "guidelines_applicable": ["LG Acquisizione Software", "LG Interoperabilità"],
+  "accessibility_score": 0.95,
+  "ontology_compliance": "NDC COMPLIANT",
+  "privacy_by_design": true,
+  "user_action": "APPROVED",
+  "review_notes": "Conforme a tutti i requisiti AGID applicabili"
+}
+```
 
 **Guardrail - AGID Scope**
 - Citare SOLO linee guida AGID ufficiali (da agid.gov.it)
@@ -256,19 +256,19 @@ Questo template standardizza la sezione **Conformità Normativa** per tutti i 72
   - ✏️ **Modifica Assignments**: Ajusta chi responsabile
   - 🔄 **Richiedi Chiarimento**: Se ambiguità sul responsibility owner
 - **Tracciamento**:
-  ```json
-  {
-    "hitl_point": "RESPONSIBILITY_MAPPING",
-    "sp_id": "SP42",
-    "raci_matrix": {
-      "cad_compliance": {"responsible": "mario.rossi", "accountable": "compliance_lead"},
-      "gdpr_dpa": {"responsible": "dpo@company.it", "consulted": ["security_team"]},
-      "agid_alignment": {"responsible": "arch_team", "informed": ["all_stakeholders"]}
-    },
-    "user_action": "APPROVED",
-    "timestamp": "2025-11-19T17:00:00Z"
-  }
-  ```
+```json
+{
+  "hitl_point": "RESPONSIBILITY_MAPPING",
+  "sp_id": "SP42",
+  "raci_matrix": {
+    "cad_compliance": {"responsible": "mario.rossi", "accountable": "compliance_lead"},
+    "gdpr_dpa": {"responsible": "dpo@company.it", "consulted": ["security_team"]},
+    "agid_alignment": {"responsible": "arch_team", "informed": ["all_stakeholders"]}
+  },
+  "user_action": "APPROVED",
+  "timestamp": "2025-11-19T17:00:00Z"
+}
+```
 
 ---
 
@@ -293,22 +293,22 @@ Questo template standardizza la sezione **Conformità Normativa** per tutti i 72
   - ✏️ **Aggiorna Requisiti**: Normativa è cambiata, ajusta requirements
   - 🔄 **Escalate Non-Conformità**: Se trovati problemi, richiedi remediation
 - **Tracciamento**:
-  ```json
-  {
-    "hitl_point": "COMPLIANCE_MONITORING",
-    "sp_id": "SP01",
-    "review_date": "2025-11-19",
-    "compliance_score": 0.98,
-    "normative_changes": {
-      "new": ["eIDAS 2.0 draft art. 45"],
-      "modified": [],
-      "obsolete": []
-    },
-    "non_conformities": [],
-    "user_action": "APPROVED",
-    "next_review": "2026-02-19"
-  }
-  ```
+```json
+{
+  "hitl_point": "COMPLIANCE_MONITORING",
+  "sp_id": "SP01",
+  "review_date": "2025-11-19",
+  "compliance_score": 0.98,
+  "normative_changes": {
+    "new": ["eIDAS 2.0 draft art. 45"],
+    "modified": [],
+    "obsolete": []
+  },
+  "non_conformities": [],
+  "user_action": "APPROVED",
+  "next_review": "2026-02-19"
+}
+```
 
 ---
 
