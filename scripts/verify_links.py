@@ -15,7 +15,7 @@ import re
 import json
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 import subprocess
 
 # Configurazione
@@ -29,8 +29,14 @@ MARKDOWN_LINK_PATTERN = re.compile(r'\[([^\]]+)\]\(([^)]+)\)')
 # Pattern per anchor link nel testo (es. #sezione)
 ANCHOR_PATTERN = re.compile(r'^#')
 
+# Pattern per template placeholder (es. UC#, MS##, ../path/to/)
+TEMPLATE_PLACEHOLDER_PATTERN = re.compile(r'(UC#|MS##|../path/to/|../../path/to/|url\b|\.\./.+/\.\.\.)')
+
 # Estensioni di file markdown da ignorare
 IGNORE_PATTERNS = {'.png', '.jpg', '.gif', '.pdf'}
+
+# URI schemes da ignorare (non sono link interni)
+NON_FILE_SCHEMES = {'mailto', 'ftp', 'ftps', 'tel', 'sms', 'geo'}
 
 
 class LinkValidator:
@@ -82,6 +88,16 @@ class LinkValidator:
             if ANCHOR_PATTERN.match(url):
                 continue
 
+            # Ignora template placeholders (UC#, MS##, ../path/to/)
+            if TEMPLATE_PLACEHOLDER_PATTERN.search(url):
+                continue
+
+            # Ignora URI schemes non-file (mailto, ftp, tel, etc.)
+            parsed_url = urlparse(url)
+            if parsed_url.scheme in NON_FILE_SCHEMES:
+                self.valid_count += 1
+                continue
+
             # Link esterno (http/https)
             if url.startswith(('http://', 'https://')):
                 self.external_count += 1
@@ -106,7 +122,10 @@ class LinkValidator:
                 )
 
     def _resolve_relative_path(self, from_file: str, relative_url: str) -> Optional[Path]:
-        """Risolvi path relativo."""
+        """Risolvi path relativo (agnostico rispetto al path assoluto)."""
+        # Decodifica URL-encoded spazi (%20 -> spazio, etc.)
+        relative_url = unquote(relative_url)
+
         # Ignora query string e fragment
         path_part = relative_url.split('#')[0].split('?')[0]
 
@@ -115,10 +134,14 @@ class LinkValidator:
             if path_part.endswith(ignore_ext):
                 return Path(self.docs_dir) / path_part
 
+        # Calcola directory del file sorgente
         from_dir = self.docs_dir / from_file
         from_dir = from_dir.parent
 
-        target = (from_dir / path_part).resolve()
+        # Risolvi path relativo SENZA usare .resolve() (che dipende dal path assoluto)
+        # Usa os.path.normpath per gestire .. correttamente
+        target_relative = os.path.normpath(os.path.join(str(from_dir.relative_to(self.docs_dir)), path_part))
+        target = self.docs_dir / target_relative
 
         # Aggiungi .md se non ha estensione
         if not target.suffix and target.parent.exists():
