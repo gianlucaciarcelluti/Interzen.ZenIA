@@ -242,11 +242,11 @@ UC[#] - [Titolo]/
 
 ### Resource Links
 
-- **GLOSSARIO-TERMINOLOGICO**: [../../GLOSSARIO-TERMINOLOGICO.md](../../GLOSSARIO-TERMINOLOGICO.md)
-- **JSON Payload Standard**: [../../templates/json-payload-standard.md](../../templates/json-payload-standard.md)
-- **Conformità Normativa Standard**: [../../templates/conformita-normativa-standard.md](../../templates/conformita-normativa-standard.md)
-- **COMPLIANCE-MATRIX**: [../../COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md)
-- **MS Architecture Master**: [../../microservices/MS-ARCHITECTURE-MASTER.md](../../microservices/MS-ARCHITECTURE-MASTER.md)
+- **GLOSSARIO-TERMINOLOGICO**: [../GLOSSARIO-TERMINOLOGICO.md](../GLOSSARIO-TERMINOLOGICO.md)
+- **JSON Payload Standard**: [json-payload-standard.md](json-payload-standard.md)
+- **Conformità Normativa Standard**: [conformita-normativa-standard.md](conformita-normativa-standard.md)
+- **COMPLIANCE-MATRIX**: [../COMPLIANCE-MATRIX.md](../COMPLIANCE-MATRIX.md)
+- **MS Architecture Master**: [../microservices/MS-ARCHITECTURE-MASTER.md](../microservices/MS-ARCHITECTURE-MASTER.md)
 - **Use Cases README**: [../README.md](../README.md)
 
 ---

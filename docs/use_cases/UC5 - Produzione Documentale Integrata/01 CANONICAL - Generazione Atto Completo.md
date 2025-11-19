@@ -5,7 +5,6 @@
 **Versioni Supplementari**:
 - [02 SUPPLEMENTARY - Overview Semplificato.md](02 SUPPLEMENTARY - Overview Semplificato.md) - Per stakeholder business
 - [03 SUPPLEMENTARY - Ultra Semplificato.md](03 SUPPLEMENTARY - Ultra Semplificato.md) - Per presentazioni executive
-- [04 DEPRECATED - Sequence Con SP00.md](04 DEPRECATED - Sequence Con SP00.md) - Versione archiviata (non usare)
 
 ---
 

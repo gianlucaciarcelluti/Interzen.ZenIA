@@ -34,8 +34,7 @@ Questo UC copre tutti gli aspetti della **Produzione Documentale Integrata**, in
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| Architettura Generale | `00 Architettura UC5.md` | Architecture | ✅ | [Vai](./00 Architettura UC5.md) |
-| SP- EML Parser & Email Intelligence | `01 SP01 - EML Parser & Email Intelligence.md` | Specification | ✅ | [Vai](./01 SP01 - EML Parser & Email Intelligence.md) |
+| SP01 - EML Parser & Email Intelligence | `01 SP01 - EML Parser & Email Intelligence.md` | Specification | ✅ | [Vai](./01 SP01 - EML Parser & Email Intelligence.md) |
 | SP02 - Document Extractor & Attachment Classifier | `01 SP02 - Document Extractor & Attachment Classifier.md` | Specification | ✅ | [Vai](./01 SP02 - Document Extractor & Attachment Classifier.md) |
 | SP03 - Procedural Classifier | `01 SP03 - Procedural Classifier.md` | Specification | ✅ | [Vai](./01 SP03 - Procedural Classifier.md) |
 | SP04 - Knowledge Base | `01 SP04 - Knowledge Base.md` | Specification | ✅ | [Vai](./01 SP04 - Knowledge Base.md) |

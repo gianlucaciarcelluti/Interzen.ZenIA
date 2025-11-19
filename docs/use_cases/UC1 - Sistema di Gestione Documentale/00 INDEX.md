@@ -34,7 +34,6 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Documentale**, inc
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| Architettura Generale | `00 Architettura UC1.md` | Architecture | ✅ | [Vai](./00 Architettura UC1.md) |
 | SP02 - Document Extractor & Attachment Classifier | `01 SP02 - Document Extractor & Attachment Classifier.md` | Specification | ✅ | [Vai](./01 SP02 - Document Extractor & Attachment Classifier.md) |
 | SP07 - Content Classifier | `01 SP07 - Content Classifier.md` | Specification | ✅ | [Vai](./01 SP07 - Content Classifier.md) |
 | SP12 - Semantic Search & Q&A Engine | `01 SP12 - Semantic Search & Q&A Engine.md` | Specification | ✅ | [Vai](./01 SP12 - Semantic Search & Q&A Engine.md) |

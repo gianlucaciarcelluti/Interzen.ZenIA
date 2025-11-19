@@ -34,8 +34,6 @@ Questo UC copre tutti gli aspetti della **Protocollo Informatico**, incluse:
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| Architettura Generale | `00 Architettura UC2.md` | Architecture | ✅ | [Vai](./00 Architettura UC2.md) |
-| SP- EML Parser & Email Intelligence (UC2 Protocol) | `01 SP01 - EML Parser & Email Intelligence (UC2 Protocol).md` | Specification | ✅ | [Vai](./01 SP01 - EML Parser & Email Intelligence (UC2 Protocol).md) |
 | SP16 - Correspondence Classifier | `01 SP16 - Correspondence Classifier.md` | Specification | ✅ | [Vai](./01 SP16 - Correspondence Classifier.md) |
 | SP17 - Registry Suggester | `01 SP17 - Registry Suggester.md` | Specification | ✅ | [Vai](./01 SP17 - Registry Suggester.md) |
 | SP18 - Anomaly Detector | `01 SP18 - Anomaly Detector.md` | Specification | ✅ | [Vai](./01 SP18 - Anomaly Detector.md) |
@@ -46,9 +44,6 @@ Questo UC copre tutti gli aspetti della **Protocollo Informatico**, incluse:
 
 ## 📊 SubProgetti (SP) - Overview Rapido
 
-### EML
-
-- **[SP01](./01 SP01 - EML Parser & Email Intelligence (UC2 Protocol).md)** - SP- EML Parser & Email Intelligence (UC2 Protocol)
 
 ### Correspondence
 
