@@ -716,6 +716,106 @@ Ogni voce contiene:
 | Validazione | Validazione | Validation | Italiano std |
 | Versamento | Versamento (SIP) | Submission Information Package | Italiano std |
 | Workflow | Flusso di Lavoro | Workflow | Preferire italiano; Workflow accettabile |
+| XAdES | XAdES (eIDAS) | XML Advanced Electronic Signature | Non tradurre (standard) |
+| YAML | YAML | YAML Ain't Markup Language | Non tradurre (standard) |
+| Zero-Trust | Zero-Trust | Zero-Trust Security | Preferire italiano o mantenere en |
+
+---
+
+## 📌 TERMINI AGGIUNTIVI IMPORTANTI
+
+| Termine Italiano | Termine Italiano Full | Termine Inglese | Categoria |
+|---|---|---|---|
+| Anonimizzazione | Anonimizzazione dei dati | Data Anonymization | GDPR std |
+| Certificato Digitale | Certificato Digitale | Digital Certificate | eIDAS std |
+| Cloud Storage | Cloud Storage | Cloud Storage | Non tradurre (standard) |
+| Compliance | Conformità/Compliance | Compliance | Preferire italiano |
+| Dashboard | Pannello di Controllo | Dashboard | Accettare en in contesto UX |
+| Data Mining | Data Mining | Data Mining | Accettare en in contesto tecnico |
+| DPI | Dati Personali | Personally Identifiable Information | GDPR std |
+| eIDAS | eIDAS | REGULATION 2014/910 | Non tradurre (UE standard) |
+| Email | Posta Elettronica | Email | Accettare en (widely used) |
+| Esecuzione | Esecuzione (processo) | Execution | Italiano std |
+| Framework | Framework | Framework | Non tradurre (standard) |
+| Gateway | Porta di Ingresso | Gateway | Accettare en in contesto tecnico |
+| GDPR | GDPR | REGULATION 2016/679 | Non tradurre (UE standard) |
+| Hardware | Hardware | Hardware | Non tradurre (standard) |
+| HTTP/HTTPS | HTTP/HTTPS | Hyper Text Transfer Protocol | Non tradurre (standard) |
+| IA/AI | Intelligenza Artificiale | Artificial Intelligence | Preferire IA in it |
+| Identificazione | Identificazione | Identification | Italiano std |
+| Interoperabilità | Interoperabilità | Interoperability | Italiano std |
+| JWT | JWT | JSON Web Token | Non tradurre (standard) |
+| Licenza | Licenza Software | Software License | Italiano std |
+| Load Balancing | Bilanciamento del carico | Load Balancing | Preferire italiano |
+| Log/Logging | Log (registro) | Log / Logging | Accettare en in contesto tecnico |
+| Machine Learning | Apprendimento Automatico | Machine Learning | Preferire italiano; ML accettabile |
+| Microservizio | Microservizio | Microservice | Italiano std |
+| Middleware | Middleware | Middleware | Non tradurre (standard) |
+| Migrazione | Migrazione (dati) | Migration | Italiano std |
+| Modello | Modello (AI) | Model | Italiano std |
+| Monitoraggio | Monitoraggio | Monitoring | Italiano std |
+| NLP | Elaborazione del Linguaggio Naturale | Natural Language Processing | Preferire italiano |
+| Notifica | Notifica | Notification | Italiano std |
+| OCR | Riconoscimento Ottico Caratteri | Optical Character Recognition | Preferire italiano |
+| Orchestrazione | Orchestrazione | Orchestration | Italiano std |
+| PaaS | Platform as a Service | PaaS | Non tradurre (standard) |
+| Pacchetto | Pacchetto (info) | Package/Information Package | Italiano std |
+| Password | Password | Password | Non tradurre (standard) |
+| PEC | Posta Certificata | Certified Email | Acronimo italiano |
+| Performance | Prestazioni | Performance | Preferire italiano |
+| Processo | Processo | Process | Italiano std |
+| Protocollo | Protocollo | Protocol | Italiano std |
+| Query | Query | Query | Non tradurre (standard) |
+| Repository | Repository | Repository | Accettare en; Archivio ok |
+| REST | REST | Representational State Transfer | Non tradurre (standard) |
+| RFC | RFC | Request for Comments | Non tradurre (standard) |
+| Risk Assessment | Valutazione dei Rischi | Risk Assessment | Preferire italiano |
+| Ruolo | Ruolo | Role | Italiano std |
+| SaaS | Software as a Service | SaaS | Non tradurre (standard) |
+| Sandbox | Ambiente Isolato | Sandbox | Accettare en in contesto tecnico |
+| Scalabilità | Scalabilità | Scalability | Italiano std |
+| Scansione | Scansione (documenti) | Scanning | Italiano std |
+| Scopo | Ambito/Scopo | Scope | Italiano std |
+| Segmentazione | Segmentazione | Segmentation | Italiano std |
+| Sensibilità | Sensibilità dei dati | Data Sensitivity | GDPR std |
+| Servizio | Servizio Web | Service | Italiano std |
+| Sistema | Sistema Informativo | Information System | Italiano std |
+| Slash Command | Comando Barra | Slash Command | Accettare en; Comando Barra ok |
+| Smartcard | Smartcard | Smartcard | Non tradurre (standard) |
+| Software | Software | Software | Non tradurre (standard) |
+| Sottoscrizione | Sottoscrizione (firma) | Signing | Italiano std |
+| Specifica | Specifica Tecnica | Specification | Italiano std |
+| SQL | SQL | Structured Query Language | Non tradurre (standard) |
+| SSL/TLS | SSL/TLS | Secure Sockets Layer | Non tradurre (standard) |
+| Statistiche | Statistiche | Statistics | Italiano std |
+| Storage | Archiviazione | Storage | Accettare en; Archiviazione preferibile |
+| Struttura | Struttura (archit) | Structure | Italiano std |
+| Support | Supporto | Support | Italiano std |
+| SVG | SVG | Scalable Vector Graphics | Non tradurre (standard) |
+| Sync | Sincronizzazione | Synchronization | Preferire italiano |
+| T​aglio | Scarto Programmato | Cut-off / Archival Disposition | Italiano std (PA) |
+| Tenant | Tenant (multi-tenant) | Tenant | Accettare en in contesto cloud |
+| Test | Test/Prova | Test | Accettare en; Prova ok |
+| Timeframe | Arco temporale | Timeframe | Preferire italiano |
+| Token | Token | Token | Non tradurre (standard) |
+| Traccia | Traccia Audit | Audit Trail | Italiano std |
+| Transazione | Transazione | Transaction | Italiano std |
+| Trasformazione | Trasformazione dei dati | Data Transformation | Italiano std |
+| Trasparenza | Trasparenza | Transparency | Italiano std |
+| Trigger | Trigger (evento) | Trigger | Accettare en in contesto tecnico |
+| Tuning | Tuning/Ottimizzazione | Tuning | Preferire italiano |
+| Univocità | Univocità | Uniqueness | Italiano std |
+| Utente | Utente | User | Italiano std |
+| V​alidazione | Validazione | Validation | Italiano std |
+| Valore | Valore | Value | Italiano std |
+| Variabile | Variabile | Variable | Italiano std |
+| Verifica | Verifica | Verification | Italiano std |
+| Versione | Versione | Version | Italiano std |
+| Vincolo | Vincolo | Constraint | Italiano std |
+| Virus | Virus | Virus | Non tradurre (standard) |
+| Visibilità | Visibilità | Visibility | Italiano std |
+| Whitelist | Lista Bianca | Whitelist | Preferire italiano |
+| XML | XML | Extensible Markup Language | Non tradurre (standard) |
 
 ---
 

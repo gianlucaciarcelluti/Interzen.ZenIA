@@ -174,6 +174,66 @@ La tabella seguente mostra la distribuzione dei **Sottoprogetti (SP)** per caso 
 | UC11 (Infrastructure) | SP65, SP66, SP67, SP68, SP69, SP70, **SP71**, **SP72** | 8 | Cross-Cutting Infrastructure |
 | **TOTAL** | **SP01-SP72** | **72** | |
 
+---
+
+## 📚 Risorse Globali Documentazione
+
+Prima di iniziare a consultare i singoli UC, consulta questi documenti centrali:
+
+| Risorsa | Descrizione | Link |
+|---------|-------------|------|
+| **Glossario Terminologico** | 70+ termini standardizzati EN/IT | [GLOSSARIO-TERMINOLOGICO.md](../GLOSSARIO-TERMINOLOGICO.md) |
+| **Conformità Normativa** | Mapping L.241/1990, CAD, GDPR, eIDAS, AI Act | [COMPLIANCE-MATRIX.md](../COMPLIANCE-MATRIX.md) |
+| **JSON Payload Standard** | Template request/response standardizzati | [templates/json-payload-standard.md](../templates/json-payload-standard.md) |
+| **Conformità Standard Template** | Template sezione conformità per SP | [templates/conformita-normativa-standard.md](../templates/conformita-normativa-standard.md) |
+| **UC INDEX Standard Template** | Template per UC INDEX files | [templates/uc-index-standard.md](../templates/uc-index-standard.md) |
+
+---
+
+## 🎯 Quick Start per Ruoli
+
+### Per Product Manager
+1. Leggere overview UC qui sopra (5 min)
+2. Aprire UC INDEX desiderato → `00 INDEX.md`
+3. Leggere "Overview" e "Key Workflows" (10 min)
+
+### Per Developer
+1. Consultare GLOSSARIO-TERMINOLOGICO per termini standardizzati
+2. Navigare a UC desiderato → `00 INDEX.md` → SP specifico
+3. Leggere SPECIFICATION.md e JSON Payload examples
+4. Riferirsi a JSON Payload Standard Template per nuove API
+
+### Per Compliance Officer
+1. Leggere COMPLIANCE-MATRIX.md per panoramica
+2. Navigare a UC desiderato → `00 INDEX.md`
+3. Consultare sezione "Conformità Normativa" in ogni SP
+4. Verificare GDPR, CAD, eIDAS compliance
+
+### Per Tech Writer
+1. Consultare GLOSSARIO-TERMINOLOGICO per terminologia coerente
+2. Usare template conformita-normativa-standard.md per nuovi SP
+3. Riferirsi a json-payload-standard.md per documentare API
+4. Mantenere coerenza EN/IT come da GLOSSARIO
+
+---
+
+## 📊 Statistiche Documentazione
+
+- **Total UC**: 11 (UC1-UC11)
+- **Total SP**: 72 (SP01-SP72, escluso SP28 riservato)
+- **Total MS**: 16 (MS01-MS16)
+- **UC INDEX**: 11 file creati (1 per UC)
+- **Conformità Normativa**: 100% SP documented
+- **Glossario Terminologico**: 70+ termini standardizzati
+- **Broken Links**: 0 ✅
+- **JSON Validation**: 100% ✅
+
+---
+
+## 🔗 Navigazione per UC
+
+Seleziona un UC per accedere al suo INDEX centralizzato:
+
 **Note - Gap Resolution Status**:
 - ✅ **SP25** - "Forecasting & Predictive Scheduling Engine" (UC4) - CREATO e DOCUMENTATO
 - ✅ **SP31** - "Timestamp Authority & Temporal Marking" (UC6) - CREATO e DOCUMENTATO
