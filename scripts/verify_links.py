@@ -23,6 +23,10 @@ DOCS_DIR = Path(__file__).parent.parent / "docs"
 REPORTS_DIR = Path(__file__).parent / "reports"
 REPORTS_DIR.mkdir(exist_ok=True)
 
+# Repository root and extra files to scan (e.g. README.md at repo root)
+REPO_ROOT = Path(__file__).parent.parent
+EXTRA_FILES = [REPO_ROOT / 'README.md']
+
 # Pattern per markdown link [text](url)
 MARKDOWN_LINK_PATTERN = re.compile(r'\[([^\]]+)\]\(([^)]+)\)')
 
@@ -61,17 +65,57 @@ class LinkValidator:
     def scan_files(self):
         """Scansiona file MD per link."""
         print("🔍 Scansionando link...")
+        # Default: tutti i markdown dentro docs/
+        md_files = list(self.docs_dir.rglob("*.md"))
 
-        for file_path in self.docs_dir.rglob("*.md"):
+        # Aggiungi file extra (README.md alla root, altri eventualmente)
+        for extra in EXTRA_FILES:
+            if extra.exists() and extra.suffix.lower() == '.md':
+                md_files.append(extra)
+
+        # Rimuovi duplicati e ordina
+        md_files = sorted(set(md_files))
+
+        for file_path in md_files:
             try:
                 content = file_path.read_text(encoding='utf-8')
-                relative_path = file_path.relative_to(self.docs_dir)
+                # Calcola path relativo per report: usa sempre relativo alla root del repo
+                try:
+                    relative_path = file_path.relative_to(REPO_ROOT)
+                except Exception:
+                    relative_path = file_path.name
 
-                for match in MARKDOWN_LINK_PATTERN.finditer(content):
-                    link_text = match.group(1)
-                    url = match.group(2).strip()
-                    line = content[:match.start()].count('\n') + 1
+                # Estrai link markdown in modo robusto (gestisce parentesi annidate nelle URL)
+                def iter_markdown_links(text):
+                    i = 0
+                    L = len(text)
+                    while i < L:
+                        start = text.find('[', i)
+                        if start == -1:
+                            break
+                        end_text = text.find(']', start + 1)
+                        if end_text == -1:
+                            break
+                        # verificare che subito dopo ci sia '('
+                        if end_text + 1 < L and text[end_text + 1] == '(': 
+                            j = end_text + 2
+                            depth = 1
+                            while j < L and depth > 0:
+                                if text[j] == '(':
+                                    depth += 1
+                                elif text[j] == ')':
+                                    depth -= 1
+                                j += 1
+                            if depth == 0:
+                                link_text = text[start + 1:end_text]
+                                url = text[end_text + 2:j - 1].strip()
+                                yield link_text, url, start
+                                i = j
+                                continue
+                        i = end_text + 1
 
+                for link_text, url, match_start in iter_markdown_links(content):
+                    line = content[:match_start].count('\n') + 1
                     self.links.append({
                         'file': str(relative_path),
                         'text': link_text,
@@ -148,8 +192,15 @@ class LinkValidator:
             if path_part.endswith(ignore_ext):
                 return Path(self.docs_dir) / path_part
 
-        # Calcola directory del file sorgente
-        from_file_path = self.docs_dir / from_file
+        # Calcola directory del file sorgente.
+        # Preferisci il file esatto nella root del repo (es. README.md),
+        # altrimenti considera la versione dentro docs/.
+        alt = REPO_ROOT / from_file
+        if alt.exists():
+            from_file_path = alt
+        else:
+            from_file_path = self.docs_dir / from_file
+
         from_dir = from_file_path.parent
 
         # Risolvi path relativo: partendo da from_dir, segui i .. per salire
@@ -252,8 +303,9 @@ class LinkValidator:
     def save_report(self, report: Dict):
         """Salva report."""
         report_file = REPORTS_DIR / "links_validation.json"
+        # Salva JSON compatto (nessuna indentazione) per evitare problemi di allineamento
         with open(report_file, 'w', encoding='utf-8') as f:
-            json.dump(report, f, indent=2, ensure_ascii=False)
+            json.dump(report, f, separators=(',', ':'), ensure_ascii=False)
         print(f"\n📁 Report salvato: {report_file}")
 
 
