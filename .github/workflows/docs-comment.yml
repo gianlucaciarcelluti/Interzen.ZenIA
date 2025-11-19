@@ -1,0 +1,63 @@
+name: Documentation Commenter
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  issues: write
+  actions: read
+  checks: read
+
+jobs:
+  post-validation-comment:
+    runs-on: ubuntu-latest
+    name: Post validation summary comment (safe)
+    steps:
+      - name: Post PR comment linking validation run
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const pr = context.payload.pull_request;
+            const head_sha = pr.head.sha;
+
+            // Try to find the most recent 'Documentation Validation' workflow run for this PR commit
+            const workflowFile = 'docs-validation.yml';
+            const runs = await github.actions.listWorkflowRuns({
+              owner,
+              repo,
+              workflow_id: workflowFile,
+              per_page: 50
+            });
+
+            // Find run matching head_sha
+            const matched = runs.data.workflow_runs.find(r => r.head_sha === head_sha);
+
+            let body = '## 📋 Documentation Validation Results\n\n';
+
+            if (!matched) {
+              body += 'No matching Documentation Validation run found for this commit.\n';
+              body += 'If validations completed in a different run, please check the Actions tab.\n';
+            } else {
+              const conclusion = matched.conclusion || matched.status;
+              body += `Validation workflow run: ${matched.html_url} \n`;
+              body += `Status: ${conclusion} \n\n`;
+              body += 'If you need full reports, open the workflow run linked above and download the artifacts (validation-reports).\n';
+            }
+
+            body += '\n---\n_This comment was posted by the repository validation workflow (safe context).';
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: pr.number,
+              body
+            });
+
+      - name: Note about security
+        run: |
+          echo "Posted comment with link to validation run (if available)."
+          echo "Security: this job does not checkout PR code and runs in the base repo context (pull_request_target)."
