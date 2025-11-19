@@ -154,7 +154,7 @@ Target finale: **97%+ completezza**
      - Error responses (400, 422, 503, etc.)
      - Convenzioni naming (snake_case vs camelCase decision)
      - Campo timestamp, request_id, metadata
-  3. Aggiungere nota nei SP: "Vedi [Template JSON Standard](../templates/json-payload-standard.md)" (se disponibile)
+  3. Aggiungere nota nei SP: "Vedi [Template JSON Standard](./templates/json-payload-standard.md)" (se disponibile)
   4. Commit: "Docs: Add JSON payload standard template"
 - **Owner**: Developer + Tech Writer (1.5 persone)
 - **Effort**: 1-2 giorni

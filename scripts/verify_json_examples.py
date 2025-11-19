@@ -38,6 +38,14 @@ REQUIRED_FIELDS = {
     'response': ['status', 'data'],           # Opzionali ma consigliati
 }
 
+# File da escludere dalla validazione JSON (template, esempi didattici, etc.)
+EXCLUDE_FILES = {
+    'templates/json-payload-standard.md',  # Template con placeholder comments
+    'PIANO-REFACTORING-DOCUMENTAZIONE.md',  # Piano con frammenti esempi
+    'VALUTAZIONE-QUALITA-DOCUMENTAZIONE.md',  # Rapporto con esempi frammenti
+    'PIANO-AZIONE-AGGIORNATO-NOVEMBRE-2025.md',  # Piano con frammenti
+}
+
 
 class JSONValidator:
     def __init__(self, docs_dir: Path):
@@ -54,8 +62,13 @@ class JSONValidator:
 
         for file_path in self.docs_dir.rglob("*.md"):
             try:
-                content = file_path.read_text(encoding='utf-8')
                 relative_path = file_path.relative_to(self.docs_dir)
+
+                # Salta file esclusi
+                if str(relative_path) in EXCLUDE_FILES:
+                    continue
+
+                content = file_path.read_text(encoding='utf-8')
 
                 # Trova blocchi JSON
                 for match in JSON_BLOCK_PATTERN.finditer(content):
