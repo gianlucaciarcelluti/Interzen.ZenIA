@@ -122,7 +122,7 @@ class LinkValidator:
                 )
 
     def _resolve_relative_path(self, from_file: str, relative_url: str) -> Optional[Path]:
-        """Risolvi path relativo (agnostico rispetto al path assoluto)."""
+        """Risolvi path relativo in modo robusto."""
         # Decodifica URL-encoded spazi (%20 -> spazio, etc.)
         relative_url = unquote(relative_url)
 
@@ -135,18 +135,27 @@ class LinkValidator:
                 return Path(self.docs_dir) / path_part
 
         # Calcola directory del file sorgente
-        from_dir = self.docs_dir / from_file
-        from_dir = from_dir.parent
+        from_file_path = self.docs_dir / from_file
+        from_dir = from_file_path.parent
 
-        # Risolvi path relativo SENZA usare .resolve() (che dipende dal path assoluto)
-        # Usa os.path.normpath per gestire .. correttamente
-        target_relative = os.path.normpath(os.path.join(str(from_dir.relative_to(self.docs_dir)), path_part))
-        target = self.docs_dir / target_relative
+        # Risolvi path relativo: partendo da from_dir, segui i .. per salire
+        # poi scendi nei subdirectory per trovare il target
+        current = from_dir
+        parts = path_part.split('/')
+
+        for part in parts:
+            if part == '..':
+                current = current.parent
+            elif part and part != '.':
+                current = current / part
+
+        target = current
 
         # Aggiungi .md se non ha estensione
         if not target.suffix and target.parent.exists():
-            if (target.parent / f"{target.name}.md").exists():
-                return (target.parent / f"{target.name}.md")
+            md_file = target.parent / f"{target.name}.md"
+            if md_file.exists():
+                return md_file
 
         return target
 
@@ -216,6 +225,12 @@ class LinkValidator:
 
 
 def main():
+    # Debug info
+    print(f"📂 DOCS_DIR: {DOCS_DIR}")
+    print(f"📂 DOCS_DIR exists: {DOCS_DIR.exists()}")
+    print(f"📂 Current working directory: {os.getcwd()}")
+    print("")
+
     validator = LinkValidator(DOCS_DIR)
     validator.scan_files()
     validator.validate_links()
