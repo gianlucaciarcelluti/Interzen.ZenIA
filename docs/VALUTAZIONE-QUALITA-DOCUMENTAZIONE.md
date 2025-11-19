@@ -115,7 +115,7 @@ La documentazione ZenIA **eccelle in completezza strutturale** (96.8%) e **quali
 {
   "eml_file_path": "s3://bucket/emails/...",
   "workflow_id": "WF-12345",
-  "options": { ... }
+  "options": {}
 }
 ```
 ✓ **Campo obbligatorio** + **ID tracciabilità** + **Opzioni**
@@ -126,8 +126,8 @@ La documentazione ZenIA **eccelle in completezza strutturale** (96.8%) e **quali
   "email_id": "EMAIL-67890",
   "workflow_id": "WF-12345",
   "parsing_status": "success",
-  "metadata": { ... },
-  "attachments": [ ... ]
+  "metadata": {},
+  "attachments": []
 }
 ```
 ✓ **ID univoco** + **Tracciabilità** + **Status** + **Strutture nidificate** + **Array per liste**
@@ -295,11 +295,13 @@ CAD, AGID, eIDAS, linee guida nazionali..."
 
 **SP37 - Archive Metadata Manager**:
 ```json
-"legal_context": {
-  "normativa_principale": [
-    { "riferimento": "L. 241/1990", "articolo": "Art. 5", "testo": "..." }
-  ],
-  "compliance": ["CAD", "eIDAS", "GDPR", "AgID"]
+{
+  "legal_context": {
+    "normativa_principale": [
+      { "riferimento": "L. 241/1990", "articolo": "Art. 5", "testo": "..." }
+    ],
+    "compliance": ["CAD", "eIDAS", "GDPR", "AgID"]
+  }
 }
 ```
 ✓ **Eccellente**: Tracciabilità normativa strutturata in JSON
