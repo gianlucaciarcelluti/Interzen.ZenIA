@@ -35,21 +35,21 @@ Questo UC copre tutti gli aspetti della **Analisi Dati e Reporting**, incluse:
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
 | Architettura Generale | `00 Architettura UC11.md` | Architecture | ✅ | [Vai](./00 Architettura UC11.md) |
-| SP58 - Data Lake & Storage Management | `01 SP58 - Data Lake & Storage Management.md` | Specification | ✅ | [Vai](./01 SP58 - Data Lake \& Storage Management.md) |
-| SP59 - ETL & Data Processing Pipelines | `01 SP59 - ETL & Data Processing Pipelines.md` | Specification | ✅ | [Vai](./01 SP59 - ETL \& Data Processing Pipelines.md) |
-| SP60 - Advanced Analytics & ML | `01 SP60 - Advanced Analytics & ML.md` | Specification | ✅ | [Vai](./01 SP60 - Advanced Analytics \& ML.md) |
+| SP58 - Data Lake & Storage Management | `01 SP58 - Data Lake & Storage Management.md` | Specification | ✅ | [Vai](./01 SP58 - Data Lake & Storage Management.md) |
+| SP59 - ETL & Data Processing Pipelines | `01 SP59 - ETL & Data Processing Pipelines.md` | Specification | ✅ | [Vai](./01 SP59 - ETL & Data Processing Pipelines.md) |
+| SP60 - Advanced Analytics & ML | `01 SP60 - Advanced Analytics & ML.md` | Specification | ✅ | [Vai](./01 SP60 - Advanced Analytics & ML.md) |
 | SP61 - Self-Service Analytics Portal | `01 SP61 - Self-Service Analytics Portal.md` | Specification | ✅ | [Vai](./01 SP61 - Self-Service Analytics Portal.md) |
-| SP62 - Data Quality & Governance | `01 SP62 - Data Quality & Governance.md` | Specification | ✅ | [Vai](./01 SP62 - Data Quality \& Governance.md) |
-| SP63 - Real-Time Analytics & Streaming | `01 SP63 - Real-Time Analytics & Streaming.md` | Specification | ✅ | [Vai](./01 SP63 - Real-Time Analytics \& Streaming.md) |
-| SP64 - Predictive Analytics & Forecasting | `01 SP64 - Predictive Analytics & Forecasting.md` | Specification | ✅ | [Vai](./01 SP64 - Predictive Analytics \& Forecasting.md) |
-| SP65 - Performance Monitoring & Alerting | `01 SP65 - Performance Monitoring & Alerting.md` | Specification | ✅ | [Vai](./01 SP65 - Performance Monitoring \& Alerting.md) |
-| SP66 - Data Security & Compliance | `01 SP66 - Data Security & Compliance.md` | Specification | ✅ | [Vai](./01 SP66 - Data Security \& Compliance.md) |
-| SP67 - API Gateway & Integration Layer | `01 SP67 - API Gateway & Integration Layer.md` | Specification | ✅ | [Vai](./01 SP67 - API Gateway \& Integration Layer.md) |
-| SP68 - DevOps & CI CD Pipeline | `01 SP68 - DevOps & CI CD Pipeline.md` | Specification | ✅ | [Vai](./01 SP68 - DevOps \& CI CD Pipeline.md) |
-| SP69 - Disaster Recovery & Business Continuity | `01 SP69 - Disaster Recovery & Business Continuity.md` | Specification | ✅ | [Vai](./01 SP69 - Disaster Recovery \& Business Continuity.md) |
-| SP70 - Compliance & Audit Management | `01 SP70 - Compliance & Audit Management.md` | Specification | ✅ | [Vai](./01 SP70 - Compliance \& Audit Management.md) |
-| SP71 - Performance Optimization & Scaling | `01 SP71 - Performance Optimization & Scaling.md` | Specification | ✅ | [Vai](./01 SP71 - Performance Optimization \& Scaling.md) |
-| SP72 - Incident Management & Escalation | `01 SP72 - Incident Management & Escalation.md` | Specification | ✅ | [Vai](./01 SP72 - Incident Management \& Escalation.md) |
+| SP62 - Data Quality & Governance | `01 SP62 - Data Quality & Governance.md` | Specification | ✅ | [Vai](./01 SP62 - Data Quality & Governance.md) |
+| SP63 - Real-Time Analytics & Streaming | `01 SP63 - Real-Time Analytics & Streaming.md` | Specification | ✅ | [Vai](./01 SP63 - Real-Time Analytics & Streaming.md) |
+| SP64 - Predictive Analytics & Forecasting | `01 SP64 - Predictive Analytics & Forecasting.md` | Specification | ✅ | [Vai](./01 SP64 - Predictive Analytics & Forecasting.md) |
+| SP65 - Performance Monitoring & Alerting | `01 SP65 - Performance Monitoring & Alerting.md` | Specification | ✅ | [Vai](./01 SP65 - Performance Monitoring & Alerting.md) |
+| SP66 - Data Security & Compliance | `01 SP66 - Data Security & Compliance.md` | Specification | ✅ | [Vai](./01 SP66 - Data Security & Compliance.md) |
+| SP67 - API Gateway & Integration Layer | `01 SP67 - API Gateway & Integration Layer.md` | Specification | ✅ | [Vai](./01 SP67 - API Gateway & Integration Layer.md) |
+| SP68 - DevOps & CI CD Pipeline | `01 SP68 - DevOps & CI CD Pipeline.md` | Specification | ✅ | [Vai](./01 SP68 - DevOps & CI CD Pipeline.md) |
+| SP69 - Disaster Recovery & Business Continuity | `01 SP69 - Disaster Recovery & Business Continuity.md` | Specification | ✅ | [Vai](./01 SP69 - Disaster Recovery & Business Continuity.md) |
+| SP70 - Compliance & Audit Management | `01 SP70 - Compliance & Audit Management.md` | Specification | ✅ | [Vai](./01 SP70 - Compliance & Audit Management.md) |
+| SP71 - Performance Optimization & Scaling | `01 SP71 - Performance Optimization & Scaling.md` | Specification | ✅ | [Vai](./01 SP71 - Performance Optimization & Scaling.md) |
+| SP72 - Incident Management & Escalation | `01 SP72 - Incident Management & Escalation.md` | Specification | ✅ | [Vai](./01 SP72 - Incident Management & Escalation.md) |
 
 ---
 
@@ -57,17 +57,17 @@ Questo UC copre tutti gli aspetti della **Analisi Dati e Reporting**, incluse:
 
 ### Data
 
-- **[SP58](./01 SP58 - Data Lake \& Storage Management.md)** - Data Lake & Storage Management
-- **[SP62](./01 SP62 - Data Quality \& Governance.md)** - Data Quality & Governance
-- **[SP66](./01 SP66 - Data Security \& Compliance.md)** - Data Security & Compliance
+- **[SP58](./01 SP58 - Data Lake & Storage Management.md)** - Data Lake & Storage Management
+- **[SP62](./01 SP62 - Data Quality & Governance.md)** - Data Quality & Governance
+- **[SP66](./01 SP66 - Data Security & Compliance.md)** - Data Security & Compliance
 
 ### ETL
 
-- **[SP59](./01 SP59 - ETL \& Data Processing Pipelines.md)** - ETL & Data Processing Pipelines
+- **[SP59](./01 SP59 - ETL & Data Processing Pipelines.md)** - ETL & Data Processing Pipelines
 
 ### Advanced
 
-- **[SP60](./01 SP60 - Advanced Analytics \& ML.md)** - Advanced Analytics & ML
+- **[SP60](./01 SP60 - Advanced Analytics & ML.md)** - Advanced Analytics & ML
 
 ### Self
 
@@ -75,36 +75,36 @@ Questo UC copre tutti gli aspetti della **Analisi Dati e Reporting**, incluse:
 
 ### Real
 
-- **[SP63](./01 SP63 - Real-Time Analytics \& Streaming.md)** - Real-Time Analytics & Streaming
+- **[SP63](./01 SP63 - Real-Time Analytics & Streaming.md)** - Real-Time Analytics & Streaming
 
 ### Predictive
 
-- **[SP64](./01 SP64 - Predictive Analytics \& Forecasting.md)** - Predictive Analytics & Forecasting
+- **[SP64](./01 SP64 - Predictive Analytics & Forecasting.md)** - Predictive Analytics & Forecasting
 
 ### Performance
 
-- **[SP65](./01 SP65 - Performance Monitoring \& Alerting.md)** - Performance Monitoring & Alerting
-- **[SP71](./01 SP71 - Performance Optimization \& Scaling.md)** - Performance Optimization & Scaling
+- **[SP65](./01 SP65 - Performance Monitoring & Alerting.md)** - Performance Monitoring & Alerting
+- **[SP71](./01 SP71 - Performance Optimization & Scaling.md)** - Performance Optimization & Scaling
 
 ### API
 
-- **[SP67](./01 SP67 - API Gateway \& Integration Layer.md)** - API Gateway & Integration Layer
+- **[SP67](./01 SP67 - API Gateway & Integration Layer.md)** - API Gateway & Integration Layer
 
 ### DevOps
 
-- **[SP68](./01 SP68 - DevOps \& CI CD Pipeline.md)** - DevOps & CI CD Pipeline
+- **[SP68](./01 SP68 - DevOps & CI CD Pipeline.md)** - DevOps & CI CD Pipeline
 
 ### Disaster
 
-- **[SP69](./01 SP69 - Disaster Recovery \& Business Continuity.md)** - Disaster Recovery & Business Continuity
+- **[SP69](./01 SP69 - Disaster Recovery & Business Continuity.md)** - Disaster Recovery & Business Continuity
 
 ### Compliance
 
-- **[SP70](./01 SP70 - Compliance \& Audit Management.md)** - Compliance & Audit Management
+- **[SP70](./01 SP70 - Compliance & Audit Management.md)** - Compliance & Audit Management
 
 ### Incident
 
-- **[SP72](./01 SP72 - Incident Management \& Escalation.md)** - Incident Management & Escalation
+- **[SP72](./01 SP72 - Incident Management & Escalation.md)** - Incident Management & Escalation
 
 ---
 

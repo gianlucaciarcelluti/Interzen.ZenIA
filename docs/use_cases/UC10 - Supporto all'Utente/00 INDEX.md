@@ -37,10 +37,10 @@ Questo UC copre tutti gli aspetti della **Supporto all'Utente**, incluse:
 | Architettura Generale | `00 Architettura UC10.md` | Architecture | ✅ | [Vai](./00 Architettura UC10.md) |
 | SP51 - Help Desk System | `01 SP51 - Help Desk System.md` | Specification | ✅ | [Vai](./01 SP51 - Help Desk System.md) |
 | SP52 - Knowledge Base Management | `01 SP52 - Knowledge Base Management.md` | Specification | ✅ | [Vai](./01 SP52 - Knowledge Base Management.md) |
-| SP53 - Virtual Assistant & Chatbot | `01 SP53 - Virtual Assistant & Chatbot.md` | Specification | ✅ | [Vai](./01 SP53 - Virtual Assistant \& Chatbot.md) |
+| SP53 - Virtual Assistant & Chatbot | `01 SP53 - Virtual Assistant & Chatbot.md` | Specification | ✅ | [Vai](./01 SP53 - Virtual Assistant & Chatbot.md) |
 | SP54 - User Training Platform | `01 SP54 - User Training Platform.md` | Specification | ✅ | [Vai](./01 SP54 - User Training Platform.md) |
 | SP55 - Self-Service Portal | `01 SP55 - Self-Service Portal.md` | Specification | ✅ | [Vai](./01 SP55 - Self-Service Portal.md) |
-| SP56 - Support Analytics & Reporting | `01 SP56 - Support Analytics & Reporting.md` | Specification | ✅ | [Vai](./01 SP56 - Support Analytics \& Reporting.md) |
+| SP56 - Support Analytics & Reporting | `01 SP56 - Support Analytics & Reporting.md` | Specification | ✅ | [Vai](./01 SP56 - Support Analytics & Reporting.md) |
 | SP57 - User Feedback Management | `01 SP57 - User Feedback Management.md` | Specification | ✅ | [Vai](./01 SP57 - User Feedback Management.md) |
 
 ---
@@ -57,7 +57,7 @@ Questo UC copre tutti gli aspetti della **Supporto all'Utente**, incluse:
 
 ### Virtual
 
-- **[SP53](./01 SP53 - Virtual Assistant \& Chatbot.md)** - Virtual Assistant & Chatbot
+- **[SP53](./01 SP53 - Virtual Assistant & Chatbot.md)** - Virtual Assistant & Chatbot
 
 ### User
 
@@ -70,7 +70,7 @@ Questo UC copre tutti gli aspetti della **Supporto all'Utente**, incluse:
 
 ### Support
 
-- **[SP56](./01 SP56 - Support Analytics \& Reporting.md)** - Support Analytics & Reporting
+- **[SP56](./01 SP56 - Support Analytics & Reporting.md)** - Support Analytics & Reporting
 
 ---
 

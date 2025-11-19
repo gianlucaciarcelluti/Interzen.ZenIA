@@ -38,7 +38,7 @@ Questo UC copre tutti gli aspetti della **Integrazione con SIEM (Sicurezza Infor
 | SP38 - SIEM Collector | `01 SP38 - SIEM Collector.md` | Specification | ✅ | [Vai](./01 SP38 - SIEM Collector.md) |
 | SP39 - SIEM Processor | `01 SP39 - SIEM Processor.md` | Specification | ✅ | [Vai](./01 SP39 - SIEM Processor.md) |
 | SP40 - SIEM Storage | `01 SP40 - SIEM Storage.md` | Specification | ✅ | [Vai](./01 SP40 - SIEM Storage.md) |
-| SP41 - SIEM Analytics & Reporting | `01 SP41 - SIEM Analytics & Reporting.md` | Specification | ✅ | [Vai](./01 SP41 - SIEM Analytics \& Reporting.md) |
+| SP41 - SIEM Analytics & Reporting | `01 SP41 - SIEM Analytics & Reporting.md` | Specification | ✅ | [Vai](./01 SP41 - SIEM Analytics & Reporting.md) |
 | Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | [Vai](./01 Sequence diagrams.md) |
 
 ---
@@ -50,7 +50,7 @@ Questo UC copre tutti gli aspetti della **Integrazione con SIEM (Sicurezza Infor
 - **[SP38](./01 SP38 - SIEM Collector.md)** - SIEM Collector
 - **[SP39](./01 SP39 - SIEM Processor.md)** - SIEM Processor
 - **[SP40](./01 SP40 - SIEM Storage.md)** - SIEM Storage
-- **[SP41](./01 SP41 - SIEM Analytics \& Reporting.md)** - SIEM Analytics & Reporting
+- **[SP41](./01 SP41 - SIEM Analytics & Reporting.md)** - SIEM Analytics & Reporting
 
 ---
 

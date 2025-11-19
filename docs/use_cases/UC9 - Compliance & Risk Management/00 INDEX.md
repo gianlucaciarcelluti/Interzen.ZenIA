@@ -40,10 +40,10 @@ Questo UC copre tutti gli aspetti della **Compliance & Risk Management**, inclus
 | SP44 - Compliance Monitoring System | `01 SP44 - Compliance Monitoring System.md` | Specification | ✅ | [Vai](./01 SP44 - Compliance Monitoring System.md) |
 | SP45 - Regulatory Intelligence Hub | `01 SP45 - Regulatory Intelligence Hub.md` | Specification | ✅ | [Vai](./01 SP45 - Regulatory Intelligence Hub.md) |
 | SP46 - Compliance Automation Platform | `01 SP46 - Compliance Automation Platform.md` | Specification | ✅ | [Vai](./01 SP46 - Compliance Automation Platform.md) |
-| SP47 - Compliance Analytics & Reporting | `01 SP47 - Compliance Analytics & Reporting.md` | Specification | ✅ | [Vai](./01 SP47 - Compliance Analytics \& Reporting.md) |
+| SP47 - Compliance Analytics & Reporting | `01 SP47 - Compliance Analytics & Reporting.md` | Specification | ✅ | [Vai](./01 SP47 - Compliance Analytics & Reporting.md) |
 | SP48 - Compliance Intelligence Platform | `01 SP48 - Compliance Intelligence Platform.md` | Specification | ✅ | [Vai](./01 SP48 - Compliance Intelligence Platform.md) |
 | SP49 - Regulatory Change Management | `01 SP49 - Regulatory Change Management.md` | Specification | ✅ | [Vai](./01 SP49 - Regulatory Change Management.md) |
-| SP50 - Compliance Training & Certification | `01 SP50 - Compliance Training & Certification.md` | Specification | ✅ | [Vai](./01 SP50 - Compliance Training \& Certification.md) |
+| SP50 - Compliance Training & Certification | `01 SP50 - Compliance Training & Certification.md` | Specification | ✅ | [Vai](./01 SP50 - Compliance Training & Certification.md) |
 | Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | [Vai](./01 Sequence diagrams.md) |
 
 ---
@@ -62,9 +62,9 @@ Questo UC copre tutti gli aspetti della **Compliance & Risk Management**, inclus
 
 - **[SP44](./01 SP44 - Compliance Monitoring System.md)** - Compliance Monitoring System
 - **[SP46](./01 SP46 - Compliance Automation Platform.md)** - Compliance Automation Platform
-- **[SP47](./01 SP47 - Compliance Analytics \& Reporting.md)** - Compliance Analytics & Reporting
+- **[SP47](./01 SP47 - Compliance Analytics & Reporting.md)** - Compliance Analytics & Reporting
 - **[SP48](./01 SP48 - Compliance Intelligence Platform.md)** - Compliance Intelligence Platform
-- **[SP50](./01 SP50 - Compliance Training \& Certification.md)** - Compliance Training & Certification
+- **[SP50](./01 SP50 - Compliance Training & Certification.md)** - Compliance Training & Certification
 
 ### Regulatory
 

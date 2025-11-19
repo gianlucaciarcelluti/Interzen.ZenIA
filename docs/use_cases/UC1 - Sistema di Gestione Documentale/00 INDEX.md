@@ -35,9 +35,9 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Documentale**, inc
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
 | Architettura Generale | `00 Architettura UC1.md` | Architecture | ✅ | [Vai](./00 Architettura UC1.md) |
-| SP02 - Document Extractor & Attachment Classifier | `01 SP02 - Document Extractor & Attachment Classifier.md` | Specification | ✅ | [Vai](./01 SP02 - Document Extractor \& Attachment Classifier.md) |
+| SP02 - Document Extractor & Attachment Classifier | `01 SP02 - Document Extractor & Attachment Classifier.md` | Specification | ✅ | [Vai](./01 SP02 - Document Extractor & Attachment Classifier.md) |
 | SP07 - Content Classifier | `01 SP07 - Content Classifier.md` | Specification | ✅ | [Vai](./01 SP07 - Content Classifier.md) |
-| SP12 - Semantic Search & Q&A Engine | `01 SP12 - Semantic Search & Q&A Engine.md` | Specification | ✅ | [Vai](./01 SP12 - Semantic Search \& Q\&A Engine.md) |
+| SP12 - Semantic Search & Q&A Engine | `01 SP12 - Semantic Search & Q&A Engine.md` | Specification | ✅ | [Vai](./01 SP12 - Semantic Search & Q&A Engine.md) |
 | SP13 - Document Summarizer | `01 SP13 - Document Summarizer.md` | Specification | ✅ | [Vai](./01 SP13 - Document Summarizer.md) |
 | SP14 - Metadata Indexer | `01 SP14 - Metadata Indexer.md` | Specification | ✅ | [Vai](./01 SP14 - Metadata Indexer.md) |
 | SP15 - Document Workflow Orchestrator | `01 SP15 - Document Workflow Orchestrator.md` | Specification | ✅ | [Vai](./01 SP15 - Document Workflow Orchestrator.md) |
@@ -51,7 +51,7 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Documentale**, inc
 
 ### Document
 
-- **[SP02](./01 SP02 - Document Extractor \& Attachment Classifier.md)** - Document Extractor & Attachment Classifier
+- **[SP02](./01 SP02 - Document Extractor & Attachment Classifier.md)** - Document Extractor & Attachment Classifier
 - **[SP13](./01 SP13 - Document Summarizer.md)** - Document Summarizer
 - **[SP15](./01 SP15 - Document Workflow Orchestrator.md)** - Document Workflow Orchestrator
 
@@ -61,7 +61,7 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Documentale**, inc
 
 ### Semantic
 
-- **[SP12](./01 SP12 - Semantic Search \& Q\&A Engine.md)** - Semantic Search & Q&A Engine
+- **[SP12](./01 SP12 - Semantic Search & Q&A Engine.md)** - Semantic Search & Q&A Engine
 
 ### Metadata
 

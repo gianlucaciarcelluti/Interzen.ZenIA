@@ -35,8 +35,8 @@ Questo UC copre tutti gli aspetti della **Produzione Documentale Integrata**, in
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
 | Architettura Generale | `00 Architettura UC5.md` | Architecture | ✅ | [Vai](./00 Architettura UC5.md) |
-| SP- EML Parser & Email Intelligence | `01 SP01 - EML Parser & Email Intelligence.md` | Specification | ✅ | [Vai](./01 SP01 - EML Parser \& Email Intelligence.md) |
-| SP02 - Document Extractor & Attachment Classifier | `01 SP02 - Document Extractor & Attachment Classifier.md` | Specification | ✅ | [Vai](./01 SP02 - Document Extractor \& Attachment Classifier.md) |
+| SP- EML Parser & Email Intelligence | `01 SP01 - EML Parser & Email Intelligence.md` | Specification | ✅ | [Vai](./01 SP01 - EML Parser & Email Intelligence.md) |
+| SP02 - Document Extractor & Attachment Classifier | `01 SP02 - Document Extractor & Attachment Classifier.md` | Specification | ✅ | [Vai](./01 SP02 - Document Extractor & Attachment Classifier.md) |
 | SP03 - Procedural Classifier | `01 SP03 - Procedural Classifier.md` | Specification | ✅ | [Vai](./01 SP03 - Procedural Classifier.md) |
 | SP04 - Knowledge Base | `01 SP04 - Knowledge Base.md` | Specification | ✅ | [Vai](./01 SP04 - Knowledge Base.md) |
 | SP05 - Template Engine | `01 SP05 - Template Engine.md` | Specification | ✅ | [Vai](./01 SP05 - Template Engine.md) |
@@ -45,7 +45,7 @@ Questo UC copre tutti gli aspetti della **Produzione Documentale Integrata**, in
 | SP08 - Quality Checker | `01 SP08 - Quality Checker.md` | Specification | ✅ | [Vai](./01 SP08 - Quality Checker.md) |
 | SP09 - Workflow Engine | `01 SP09 - Workflow Engine.md` | Specification | ✅ | [Vai](./01 SP09 - Workflow Engine.md) |
 | SP10 - Dashboard | `01 SP10 - Dashboard.md` | Specification | ✅ | [Vai](./01 SP10 - Dashboard.md) |
-| SP11 - Security & Audit | `01 SP11 - Security & Audit.md` | Specification | ✅ | [Vai](./01 SP11 - Security \& Audit.md) |
+| SP11 - Security & Audit | `01 SP11 - Security & Audit.md` | Specification | ✅ | [Vai](./01 SP11 - Security & Audit.md) |
 
 ---
 
@@ -53,11 +53,11 @@ Questo UC copre tutti gli aspetti della **Produzione Documentale Integrata**, in
 
 ### EML
 
-- **[SP01](./01 SP01 - EML Parser \& Email Intelligence.md)** - SP- EML Parser & Email Intelligence
+- **[SP01](./01 SP01 - EML Parser & Email Intelligence.md)** - SP- EML Parser & Email Intelligence
 
 ### Document
 
-- **[SP02](./01 SP02 - Document Extractor \& Attachment Classifier.md)** - Document Extractor & Attachment Classifier
+- **[SP02](./01 SP02 - Document Extractor & Attachment Classifier.md)** - Document Extractor & Attachment Classifier
 
 ### Procedural
 
@@ -93,7 +93,7 @@ Questo UC copre tutti gli aspetti della **Produzione Documentale Integrata**, in
 
 ### Security
 
-- **[SP11](./01 SP11 - Security \& Audit.md)** - Security & Audit
+- **[SP11](./01 SP11 - Security & Audit.md)** - Security & Audit
 
 ---
 

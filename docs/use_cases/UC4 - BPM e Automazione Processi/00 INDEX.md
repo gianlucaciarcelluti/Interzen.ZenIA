@@ -36,7 +36,7 @@ Questo UC copre tutti gli aspetti della **BPM e Automazione Processi**, incluse:
 |-----------|------|------|--------|-------------|
 | Architettura Generale | `00 Architettura UC4.md` | Architecture | ✅ | [Vai](./00 Architettura UC4.md) |
 | SP24 - Process Mining Engine | `01 SP24 - Process Mining Engine.md` | Specification | ✅ | [Vai](./01 SP24 - Process Mining Engine.md) |
-| SP25 - Forecasting & Predictive Scheduling Engine | `01 SP25 - Forecasting & Predictive Scheduling Engine.md` | Specification | ✅ | [Vai](./01 SP25 - Forecasting \& Predictive Scheduling Engine.md) |
+| SP25 - Forecasting & Predictive Scheduling Engine | `01 SP25 - Forecasting & Predictive Scheduling Engine.md` | Specification | ✅ | [Vai](./01 SP25 - Forecasting & Predictive Scheduling Engine.md) |
 | SP26 - Intelligent Workflow Designer | `01 SP26 - Intelligent Workflow Designer.md` | Specification | ✅ | [Vai](./01 SP26 - Intelligent Workflow Designer.md) |
 | SP27 - Process Analytics | `01 SP27 - Process Analytics.md` | Specification | ✅ | [Vai](./01 SP27 - Process Analytics.md) |
 | Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | [Vai](./01 Sequence diagrams.md) |
@@ -52,7 +52,7 @@ Questo UC copre tutti gli aspetti della **BPM e Automazione Processi**, incluse:
 
 ### Forecasting
 
-- **[SP25](./01 SP25 - Forecasting \& Predictive Scheduling Engine.md)** - Forecasting & Predictive Scheduling Engine
+- **[SP25](./01 SP25 - Forecasting & Predictive Scheduling Engine.md)** - Forecasting & Predictive Scheduling Engine
 
 ### Intelligent
 

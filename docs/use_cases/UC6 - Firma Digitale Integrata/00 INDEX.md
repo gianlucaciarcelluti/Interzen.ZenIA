@@ -38,7 +38,7 @@ Questo UC copre tutti gli aspetti della **Firma Digitale Integrata**, incluse:
 | SP29 - Digital Signature Engine | `01 SP29 - Digital Signature Engine.md` | Specification | ✅ | [Vai](./01 SP29 - Digital Signature Engine.md) |
 | SP30 - Certificate Manager | `01 SP30 - Certificate Manager.md` | Specification | ✅ | [Vai](./01 SP30 - Certificate Manager.md) |
 | SP31 - Signature Workflow | `01 SP31 - Signature Workflow.md` | Specification | ✅ | [Vai](./01 SP31 - Signature Workflow.md) |
-| SP32 - Timestamp Authority & Temporal Marking | `01 SP32 - Timestamp Authority & Temporal Marking.md` | Specification | ✅ | [Vai](./01 SP32 - Timestamp Authority \& Temporal Marking.md) |
+| SP32 - Timestamp Authority & Temporal Marking | `01 SP32 - Timestamp Authority & Temporal Marking.md` | Specification | ✅ | [Vai](./01 SP32 - Timestamp Authority & Temporal Marking.md) |
 | Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | [Vai](./01 Sequence diagrams.md) |
 
 ---
@@ -59,7 +59,7 @@ Questo UC copre tutti gli aspetti della **Firma Digitale Integrata**, incluse:
 
 ### Timestamp
 
-- **[SP32](./01 SP32 - Timestamp Authority \& Temporal Marking.md)** - Timestamp Authority & Temporal Marking
+- **[SP32](./01 SP32 - Timestamp Authority & Temporal Marking.md)** - Timestamp Authority & Temporal Marking
 
 ---
 
