@@ -30,6 +30,10 @@ Indice completo della documentazione della piattaforma ZenIA in lingua italiana.
   - Linee guida AGID
   - Mapping UC-specific
 
+### 💸 Costi e Hosting
+- **[COSTI-HOSTING-SERVIZI.md](COSTI-HOSTING-SERVIZI.md)**
+  - Stime costi di hosting, opzioni di infrastruttura e servizi gestiti
+
 ### 📊 Sequence Diagrams
 - **[SEQUENCE-DIAGRAMS-TEMPLATE.md](SEQUENCE-DIAGRAMS-TEMPLATE.md)**
   - 6 pattern principali di sequence diagram
@@ -325,6 +329,7 @@ MSxx-NAME/
 | MS-ARCHITECTURE-MASTER.md | Reference | Matrice MS |
 | SP-MS-MAPPING-MASTER.md | Reference | Matrice SP |
 | MS01-CLASSIFIER/* | Reference | Template documentazione |
+| COSTI-HOSTING-SERVIZI.md | Governance | Costi hosting e opzioni servizi |
 
 ---
 

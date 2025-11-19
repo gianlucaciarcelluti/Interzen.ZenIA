@@ -907,4 +907,4 @@ S1 --> C
 
 ---
 
-**Nota**: Questo template deve essere allineato con [GLOSSARIO-TERMINOLOGICO.md](GLOSSARIO-TERMINOLOGICO.md) e [TEMPLATE-CONFORMITA-NORMATIVA.md](TEMPLATE-CONFORMITA-NORMATIVA.md) per coerenza terminologica e strutturale.
+**Nota**: Questo template deve essere allineato con [GLOSSARIO-TERMINOLOGICO.md](../GLOSSARIO-TERMINOLOGICO.md) e [TEMPLATE-CONFORMITA-NORMATIVA.md](TEMPLATE-CONFORMITA-NORMATIVA.md) per coerenza terminologica e strutturale.

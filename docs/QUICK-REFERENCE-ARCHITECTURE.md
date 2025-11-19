@@ -319,7 +319,7 @@ Audit & Security (SP11, SP49) via MS13, MS14
 3. Leggi doc `/docs/use_cases/UC#/01 SP##`
 4. Consulta doc MS: `/docs/microservices/MS##`
 5. Guarda dipendenze SP→SP e MS→MS
-6. Usa [SP-DOCUMENTATION-TEMPLATE.md](./SP-DOCUMENTATION-TEMPLATE.md) se devi aggiornare
+6. Usa [SP-DOCUMENTATION-TEMPLATE.md](./templates/SP-DOCUMENTATION-TEMPLATE.md) se devi aggiornare
 
 ### Per Program Manager che coordina UC
 1. Consulta tabella UC→SP in sezione 2
@@ -350,7 +350,7 @@ Audit & Security (SP11, SP49) via MS13, MS14
 |---|---|
 | [SP-MS-MAPPING-MASTER.md](./SP-MS-MAPPING-MASTER.md) | Mapping completo SP↔MS, analisi gap, raccomandazioni |
 | [GAP-RESOLUTION.md](./GAP-RESOLUTION.md) | Dettagli gap SP25, SP33, SP57 e piano risoluzione |
-| [SP-DOCUMENTATION-TEMPLATE.md](./SP-DOCUMENTATION-TEMPLATE.md) | Template standard per documentazione SP |
+| [SP-DOCUMENTATION-TEMPLATE.md](./templates/SP-DOCUMENTATION-TEMPLATE.md) | Template standard per documentazione SP |
 | [QUICK-REFERENCE-ARCHITECTURE.md](./QUICK-REFERENCE-ARCHITECTURE.md) | **QUESTO FILE** - Orientamento veloce |
 | `/docs/use_cases/UC#/` | Folder per UC con architettura, SP singoli, matrici dipendenze |
 | `/docs/microservices/MS##-*.md` | Specificazione MS singolo |
