@@ -46,10 +46,10 @@ graph LR
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP22 (Process Governance)**:
+**Framework applicabili a SP22 (Governance Processi)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC3
+**UC di Appartenenza**: UC3
 
 ---
 
@@ -145,10 +145,10 @@ graph LR
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP22 (Process Governance)**:
+**Framework applicabili a SP22 (Governance Processi)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC3
+**UC di Appartenenza**: UC3
 
 ---
 

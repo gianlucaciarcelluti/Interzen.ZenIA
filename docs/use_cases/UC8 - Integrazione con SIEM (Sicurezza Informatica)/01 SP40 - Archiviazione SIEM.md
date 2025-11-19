@@ -291,11 +291,11 @@ storage:
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP40 (SIEM Storage)**:
+**Framework applicabili a SP40 (Archiviazione SIEM)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC8
+**UC di Appartenenza**: UC8
 
 ---
 
@@ -410,11 +410,11 @@ storage:
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP40 (SIEM Storage)**:
+**Framework applicabili a SP40 (Archiviazione SIEM)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC8
+**UC di Appartenenza**: UC8
 
 ---
 

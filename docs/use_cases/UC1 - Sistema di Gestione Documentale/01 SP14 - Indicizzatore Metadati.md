@@ -47,10 +47,10 @@ graph LR
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP14 (Metadata Indexer)**:
+**Framework applicabili a SP14 (Indicizzatore Metadati)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC1
+**UC di Appartenenza**: UC1
 
 ---
 
@@ -146,10 +146,10 @@ graph LR
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP14 (Metadata Indexer)**:
+**Framework applicabili a SP14 (Indicizzatore Metadati)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC1
+**UC di Appartenenza**: UC1
 
 ---
 

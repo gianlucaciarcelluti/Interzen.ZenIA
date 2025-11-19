@@ -155,12 +155,12 @@ Il testing garantisce affidabilità e performance della knowledge base:
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP52 (Knowledge Base Mgmt)**:
+**Framework applicabili a SP52 (Base Conoscenze Mgmt)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 - **AGID**: Linee Guida Acquisizione Software 2024
 
-**UC Appartenance**: UC10
+**UC di Appartenenza**: UC10
 
 ---
 
@@ -286,12 +286,12 @@ Il testing garantisce affidabilità e performance della knowledge base:
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP52 (Knowledge Base Mgmt)**:
+**Framework applicabili a SP52 (Base Conoscenze Mgmt)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 - **AGID**: Linee Guida Acquisizione Software 2024
 
-**UC Appartenance**: UC10
+**UC di Appartenenza**: UC10
 
 ---
 

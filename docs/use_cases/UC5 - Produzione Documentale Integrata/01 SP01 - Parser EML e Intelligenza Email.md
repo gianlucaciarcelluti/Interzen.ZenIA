@@ -1003,7 +1003,7 @@ SP01 si allinea alle Linee Guida AGID 2024:
 
 ### 7. Monitoraggio Conformità Continuo
 
-**Checkpoint HITL #6 - Compliance Monitoring**
+**Checkpoint HITL #6 - Monitor Conformitàing**
 
 #### Schedule di Review
 
@@ -1016,7 +1016,7 @@ SP01 si allinea alle Linee Guida AGID 2024:
 
 | KPI | Target | Monitoraggio |
 |-----|--------|--------------|
-| PEC signature validation success rate | >99% | Dashboard Prometheus |
+| PEC signature validation success rate | >99% | Pannello di Controllo Prometheus |
 | Audit trail completeness | 100% | Weekly SQL query |
 | Certificate expiry alert | 0 days < 30 | Automated email notification |
 | GDPR DPA incidents | 0 per trimestre | DPO audit |

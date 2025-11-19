@@ -233,7 +233,7 @@ Il **SP72 Incident Management & Escalation System** fornisce una piattaforma int
 **Framework applicabili a SP72 (Incident Mgmt)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC11
+**UC di Appartenenza**: UC11
 
 ---
 
@@ -331,7 +331,7 @@ Il **SP72 Incident Management & Escalation System** fornisce una piattaforma int
 **Framework applicabili a SP72 (Incident Mgmt)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC11
+**UC di Appartenenza**: UC11
 
 ---
 

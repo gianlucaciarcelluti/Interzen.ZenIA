@@ -126,11 +126,11 @@ sequenceDiagram
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP11 (Security & Audit)**:
+**Framework applicabili a SP11 (Sicurezza e Audit)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC1
+**UC di Appartenenza**: UC1
 
 ---
 
@@ -243,11 +243,11 @@ sequenceDiagram
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP11 (Security & Audit)**:
+**Framework applicabili a SP11 (Sicurezza e Audit)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC1
+**UC di Appartenenza**: UC1
 
 ---
 

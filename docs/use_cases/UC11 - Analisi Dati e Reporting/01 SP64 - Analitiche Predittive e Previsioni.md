@@ -104,7 +104,7 @@ graph TB
 **Framework applicabili a SP64 (Predictive Analytics)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC11
+**UC di Appartenenza**: UC11
 
 ---
 
@@ -202,7 +202,7 @@ graph TB
 **Framework applicabili a SP64 (Predictive Analytics)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC11
+**UC di Appartenenza**: UC11
 
 ---
 

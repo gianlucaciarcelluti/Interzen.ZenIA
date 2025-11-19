@@ -281,10 +281,10 @@ performance_thresholds:
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP36 (Storage Optimizer)**:
+**Framework applicabili a SP36 (Ottimizzatore Archiviazione)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC7
+**UC di Appartenenza**: UC7
 
 ---
 
@@ -380,10 +380,10 @@ performance_thresholds:
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP36 (Storage Optimizer)**:
+**Framework applicabili a SP36 (Ottimizzatore Archiviazione)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC7
+**UC di Appartenenza**: UC7
 
 ---
 

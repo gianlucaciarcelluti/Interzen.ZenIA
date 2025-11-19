@@ -126,10 +126,10 @@ sequenceDiagram
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP05 (Template Engine)**:
+**Framework applicabili a SP05 (Motore Template)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC5
+**UC di Appartenenza**: UC5
 
 ---
 
@@ -225,10 +225,10 @@ sequenceDiagram
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP05 (Template Engine)**:
+**Framework applicabili a SP05 (Motore Template)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC5
+**UC di Appartenenza**: UC5
 
 ---
 

@@ -53,11 +53,11 @@ graph LR
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP31 (Signature Workflow)**:
+**Framework applicabili a SP31 (Workflow Firma)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **eIDAS** (Regolamento 2014/910): Art. 3, 8, 24-27
 
-**UC Appartenance**: UC6
+**UC di Appartenenza**: UC6
 
 ---
 
@@ -168,11 +168,11 @@ graph LR
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP31 (Signature Workflow)**:
+**Framework applicabili a SP31 (Workflow Firma)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **eIDAS** (Regolamento 2014/910): Art. 3, 8, 24-27
 
-**UC Appartenance**: UC6
+**UC di Appartenenza**: UC6
 
 ---
 

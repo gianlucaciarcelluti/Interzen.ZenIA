@@ -279,10 +279,10 @@ alert_thresholds:
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP35 (Integrity Validator)**:
+**Framework applicabili a SP35 (Validatoreee Integritàe)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC7
+**UC di Appartenenza**: UC7
 
 ---
 
@@ -378,10 +378,10 @@ alert_thresholds:
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP35 (Integrity Validator)**:
+**Framework applicabili a SP35 (Validatoreee Integritàe)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC7
+**UC di Appartenenza**: UC7
 
 ---
 

@@ -251,7 +251,7 @@ Response:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC11
+**UC di Appartenenza**: UC11
 
 ---
 
@@ -368,7 +368,7 @@ Response:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC11
+**UC di Appartenenza**: UC11
 
 ---
 

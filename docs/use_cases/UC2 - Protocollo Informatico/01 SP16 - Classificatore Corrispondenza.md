@@ -49,11 +49,11 @@ graph LR
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP16 (Correspondence Classifier)**:
+**Framework applicabili a SP16 (Classificatore Corrispondenza)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC2
+**UC di Appartenenza**: UC2
 
 ---
 
@@ -167,11 +167,11 @@ graph LR
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP16 (Correspondence Classifier)**:
+**Framework applicabili a SP16 (Classificatore Corrispondenza)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC2
+**UC di Appartenenza**: UC2
 
 ---
 

@@ -71,7 +71,7 @@ Il **SP47 Compliance Analytics & Reporting** è il sistema centrale per l'analis
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 - **AGID**: Linee Guida Acquisizione Software 2024
 
-**UC Appartenance**: UC9
+**UC di Appartenenza**: UC9
 
 ---
 
@@ -204,7 +204,7 @@ Il **SP47 Compliance Analytics & Reporting** è il sistema centrale per l'analis
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 - **AGID**: Linee Guida Acquisizione Software 2024
 
-**UC Appartenance**: UC9
+**UC di Appartenenza**: UC9
 
 ---
 

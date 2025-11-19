@@ -50,11 +50,11 @@ graph LR
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP27 (Process Analytics)**:
+**Framework applicabili a SP27 (Analitiche Processi)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC4
+**UC di Appartenenza**: UC4
 
 ---
 
@@ -167,11 +167,11 @@ graph LR
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP27 (Process Analytics)**:
+**Framework applicabili a SP27 (Analitiche Processi)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC4
+**UC di Appartenenza**: UC4
 
 ---
 

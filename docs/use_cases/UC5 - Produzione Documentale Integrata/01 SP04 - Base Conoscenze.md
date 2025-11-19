@@ -1205,10 +1205,10 @@ sequenceDiagram
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP04 (Knowledge Base)**:
+**Framework applicabili a SP04 (Base Conoscenze)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC5
+**UC di Appartenenza**: UC5
 
 ---
 
@@ -1305,10 +1305,10 @@ sequenceDiagram
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP04 (Knowledge Base)**:
+**Framework applicabili a SP04 (Base Conoscenze)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC5
+**UC di Appartenenza**: UC5
 
 ---
 

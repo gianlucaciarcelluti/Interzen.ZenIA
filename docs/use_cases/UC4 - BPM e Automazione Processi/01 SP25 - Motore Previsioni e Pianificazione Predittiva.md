@@ -493,7 +493,7 @@ SP27 (Analytics) → Dashboard
 **Framework applicabili a SP25 (Predictive Planning)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC4
+**UC di Appartenenza**: UC4
 
 ---
 
@@ -592,7 +592,7 @@ SP27 (Analytics) → Dashboard
 **Framework applicabili a SP25 (Predictive Planning)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 
-**UC Appartenance**: UC4
+**UC di Appartenenza**: UC4
 
 ---
 

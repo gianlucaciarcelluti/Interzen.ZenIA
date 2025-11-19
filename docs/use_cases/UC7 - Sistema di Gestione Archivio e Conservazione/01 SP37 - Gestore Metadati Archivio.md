@@ -289,11 +289,11 @@ sp37:
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP37 (Archive Metadata Manager)**:
+**Framework applicabili a SP37 (Gestore Metadati Archivio)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC7
+**UC di Appartenenza**: UC7
 
 ---
 
@@ -406,11 +406,11 @@ sp37:
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP37 (Archive Metadata Manager)**:
+**Framework applicabili a SP37 (Gestore Metadati Archivio)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC7
+**UC di Appartenenza**: UC7
 
 ---
 

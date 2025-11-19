@@ -56,7 +56,7 @@ graph LR
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 - **AGID**: Linee Guida Acquisizione Software 2024
 
-**UC Appartenance**: UC1
+**UC di Appartenenza**: UC1
 
 ---
 
@@ -188,7 +188,7 @@ graph LR
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 - **AGID**: Linee Guida Acquisizione Software 2024
 
-**UC Appartenance**: UC1
+**UC di Appartenenza**: UC1
 
 ---
 

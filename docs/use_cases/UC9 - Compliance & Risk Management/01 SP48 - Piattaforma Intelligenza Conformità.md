@@ -70,7 +70,7 @@ Il **SP48 Compliance Intelligence Platform** è la piattaforma centrale per l'in
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC9
+**UC di Appartenenza**: UC9
 
 ---
 
@@ -187,7 +187,7 @@ Il **SP48 Compliance Intelligence Platform** è la piattaforma centrale per l'in
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC9
+**UC di Appartenenza**: UC9
 
 ---
 

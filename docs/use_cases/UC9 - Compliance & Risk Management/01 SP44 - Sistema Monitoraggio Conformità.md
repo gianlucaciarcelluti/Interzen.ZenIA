@@ -92,11 +92,11 @@ Il framework di testing compliance implementa metodologie complete per validare 
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP44 (Compliance Monitoring)**:
+**Framework applicabili a SP44 (Monitor Conformitàing)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC9
+**UC di Appartenenza**: UC9
 
 ---
 
@@ -210,11 +210,11 @@ Il framework di testing compliance implementa metodologie complete per validare 
 
 ### 1. Quadro Normativo di Riferimento
 
-**Framework applicabili a SP44 (Compliance Monitoring)**:
+**Framework applicabili a SP44 (Monitor Conformitàing)**:
 - **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
 - **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
 
-**UC Appartenance**: UC9
+**UC di Appartenenza**: UC9
 
 ---
 
