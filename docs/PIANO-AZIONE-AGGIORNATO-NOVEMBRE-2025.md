@@ -37,13 +37,13 @@ Target finale: **97%+ completezza**
 **Effort**: 3 giorni/persona
 **Parallelizzazione**: Sì, 2-3 persone
 
-#### 1.1 Correggere Typo TROUBLESHOUTING → TROUBLESHOOTING ⚡
+#### 1.1 Correggere Typo TROUBLESHOOTING → TROUBLESHOOTING ⚡
 - **File interessati**: 6 MS (MS07, MS12, MS13, etc.)
 - **Task**:
-  1. Rinominare file `TROUBLESHOUTING.md` → `TROUBLESHOOTING.md`
+  1. Rinominare file `TROUBLESHOOTING.md` → `TROUBLESHOOTING.md`
   2. Aggiornare link interni (grep + sed)
   3. Eseguire verify_links.py per verifica
-  4. Commit: "Fix: Correct TROUBLESHOUTING typo in 6 microservices"
+  4. Commit: "Fix: Correct TROUBLESHOOTING typo in 6 microservices"
 - **Owner**: Developer (1 persona)
 - **Effort**: 2-4 ore
 - **Impact**: Risolve 33 link rotti (58% dei problemi)
@@ -76,7 +76,7 @@ Target finale: **97%+ completezza**
 - **Impact**: Chiarezza architetturale
 
 **Deliverables Blocco 1**:
-- ✅ 0 typo TROUBLESHOUTING residui
+- ✅ 0 typo TROUBLESHOOTING residui
 - ✅ 10-15 titoli SP in italiano
 - ✅ SP28 documentato
 - ✅ Link rotti ridotti da 56 → ~23
@@ -203,7 +203,7 @@ Target finale: **97%+ completezza**
 #### 3.3 Verificare e Correggere Link Residui
 - **Task**:
   1. Eseguire verify_links.py
-  2. Analizzare 23 link rotti residui (dopo fix TROUBLESHOUTING)
+  2. Analizzare 23 link rotti residui (dopo fix TROUBLESHOOTING)
   3. Determinare se sono:
      - Template intenzionali (es. `../path/to/SP02.md`) → aggiungere commento
      - Link a file effettivamente mancanti → creare file o rimuovere link
@@ -302,7 +302,7 @@ TOTALE: ~4 settimane (accelerato da v1.0: 9 settimane)
 ## METRICHE DI SUCCESSO - CHECKPOINTS
 
 ### Checkpoint 1 (Fine Settimana 1)
-- ✅ 33 link rotti TROUBLESHOUTING fixed
+- ✅ 33 link rotti TROUBLESHOOTING fixed
 - ✅ 10-15 titoli SP in italiano
 - ✅ SP28 documentato
 - **Expected Impact**: Link validi 541 → 574 (50/56 fixed)
@@ -387,7 +387,7 @@ TOTALE: ~4 settimane (accelerato da v1.0: 9 settimane)
    - Slack channel: `#zenia-docs-refactoring`
 
 3. **Inizio Lavori Blocco 1** (Venerdì 21 novembre)
-   - Inizio C1 (TROUBLESHOUTING fix): Developer
+   - Inizio C1 (TROUBLESHOOTING fix): Developer
    - Inizio C2 (Titoli SP italiano): Tech Writer
    - Inizio C3 (SP28 doc): Tech Writer
 

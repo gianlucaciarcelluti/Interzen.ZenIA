@@ -1,4 +1,4 @@
-# TROUBLESHOUTING - MS12-CACHE
+# TROUBLESHOOTING - MS12-CACHE
 
 ## 1. Redis non raggiungibile
 - Verifica pod e service:

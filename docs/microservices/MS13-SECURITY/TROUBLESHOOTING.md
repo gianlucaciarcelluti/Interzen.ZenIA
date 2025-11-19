@@ -1,4 +1,4 @@
-# TROUBLESHOUTING - MS13-SECURITY
+# TROUBLESHOOTING - MS13-SECURITY
 
 ## 1. Keycloak non raggiungibile
 - Verifica pod e service:

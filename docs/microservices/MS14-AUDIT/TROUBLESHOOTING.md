@@ -1,4 +1,4 @@
-# TROUBLESHOUTING - MS14-AUDIT
+# TROUBLESHOOTING - MS14-AUDIT
 
 ## Problemi comuni e soluzioni
 

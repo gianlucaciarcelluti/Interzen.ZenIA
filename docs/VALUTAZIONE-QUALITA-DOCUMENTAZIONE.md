@@ -256,8 +256,8 @@ delle policy normative..."
 #### Problemi Residui
 
 **Ancora da risolvere**:
-1. **56 link rotti** (principalmente TROUBLESHOUTING.md typo):
-   - 33 link → `TROUBLESHOUTING.md` (dovrebbe essere `TROUBLESHOOTING.md`)
+1. **56 link rotti** (principalmente TROUBLESHOOTING.md typo):
+   - 33 link → `TROUBLESHOOTING.md` (dovrebbe essere `TROUBLESHOOTING.md`)
    - ~23 link → file effettivamente mancanti (template examples, etc.)
 
 2. **Link a file generici non specifici**:
@@ -270,7 +270,7 @@ delle policy normative..."
 
 #### Raccomandazione
 - **Priorità**: ALTA (link rotti sono problema critico)
-- **Azione 1**: Correggere typo TROUBLESHOUTING → TROUBLESHOOTING (6 MS affetti)
+- **Azione 1**: Correggere typo TROUBLESHOOTING → TROUBLESHOOTING (6 MS affetti)
   - Effort: 1 giorno (già identificato nel piano originale)
 - **Azione 2**: Verificare 23 link mancanti
   - Alcuni sono template intenzionali (es. `../examples/`, `path/to/SP02.md`)
@@ -347,7 +347,7 @@ CAD, AGID, eIDAS, linee guida nazionali..."
 | Task | Status | Note |
 |------|--------|------|
 | 1.1 Script di Verifica Automatica | ✅ COMPLETATO | 5 script creati: verify_sp_references.py, verify_json_examples.py, verify_links.py, fix_escaped_ampersand.py, clean_deleted_references.py |
-| 1.2 Correzione TROUBLESHOUTING | ⏳ PENDING | Identificati 11 MS da correggere; typo ancora presente (priorità media) |
+| 1.2 Correzione TROUBLESHOOTING | ⏳ PENDING | Identificati 11 MS da correggere; typo ancora presente (priorità media) |
 | 1.3 Documentazione SP28 | ⏳ PENDING | Gap non ancora documentato ufficialmente |
 | **1.4 Infrastructure Naming Coherence** | ✅ COMPLETATO | Completato: zendata → zenia (79 changes, 4 commits) |
 | **1.5 Broken Links Resolution** | ✅ COMPLETATO | Completato: 63 → 0 broken links (2 commits) |
@@ -420,7 +420,7 @@ Basato su refactoring completato, ecco i work items ancora pendenti per i prossi
 - ✅ **COMPLETATO**: 11 files renamed, 26 refs updated
 - GitHub-standard naming convention
 
-#### C4. Correggere Typo TROUBLESHOUTING → TROUBLESHOOTING
+#### C4. Correggere Typo TROUBLESHOOTING → TROUBLESHOOTING
 - **Urgenza**: MEDIA (originariamente C1, ora ridotto grazie link fixes)
 - **Microservizi affetti**: MS07, MS12, MS13
 - **Effort**: 1 giorno
@@ -528,7 +528,7 @@ COMPLETATO (19 Nov 2025):
 ✅ Total: 7 commits, 300+ changes
 
 IMMEDIATO (Giorni 1-2):
-├─ C4: TROUBLESHOUTING fix (1g)
+├─ C4: TROUBLESHOOTING fix (1g)
 ├─ C5: Titoli SP italiano (1g)
 └─ C6: Glossario (2g)
 
@@ -591,7 +591,7 @@ Effort stimato: 18-20 giorni (25% meno del piano originale grazie all'accelerazi
 
 ### Prossimi Step Suggeriti
 
-1. **IMMEDIATO** (Giorni 1-2): C4 (TROUBLESHOUTING typo fix) + C5 (Titoli SP italiano)
+1. **IMMEDIATO** (Giorni 1-2): C4 (TROUBLESHOOTING typo fix) + C5 (Titoli SP italiano)
 2. **BREVE TERMINE** (Settimane 2-3): C6 (Glossario) + A1 (Conformità normativa)
 3. **FOLLOW-UP**: Planning Fase 2 per Q1 2026
 

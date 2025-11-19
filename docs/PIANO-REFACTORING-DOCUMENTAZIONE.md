@@ -43,8 +43,8 @@ Tuttavia, sono stati identificati **problemi critici e miglioramenti** che richi
 
 ### 🟠 ALTI (Priorità Alta)
 
-#### A1. File Duplicati con Errore Battitura (TROUBLESHOUTING)
-**Problema**: 11 microservizi hanno file `TROUBLESHOUTING.md` invece di `TROUBLESHOOTING.md`.
+#### A1. File Duplicati con Errore Battitura (TROUBLESHOOTING)
+**Problema**: 11 microservizi hanno file `TROUBLESHOOTING.md` invece di `TROUBLESHOOTING.md`.
 
 **Microservizi Affetti**:
 ```
@@ -55,7 +55,7 @@ MS14-AUDIT, MS15-CONFIG, MS16-REGISTRY
 
 **Impatto**: Confusione navigazione, alcuni MS hanno ENTRAMBI i file.
 
-**Soluzione**: Rinominare `TROUBLESHOUTING.md` → `TROUBLESHOOTING.md` ed eliminare duplicati.
+**Soluzione**: Rinominare `TROUBLESHOOTING.md` → `TROUBLESHOOTING.md` ed eliminare duplicati.
 
 ---
 
@@ -173,12 +173,12 @@ MS14-AUDIT, MS15-CONFIG, MS16-REGISTRY
 
 ---
 
-#### 1.2 Correzione File TROUBLESHOUTING (Giorni 4-5)
+#### 1.2 Correzione File TROUBLESHOOTING (Giorni 4-5)
 **Task**:
-1. Identificare MS con file duplicati (TROUBLESHOOTING.md E TROUBLESHOUTING.md)
+1. Identificare MS con file duplicati (TROUBLESHOOTING.md E TROUBLESHOOTING.md)
 2. Per ogni MS:
-   - Se esiste solo `TROUBLESHOUTING.md`: rinominare → `TROUBLESHOOTING.md`
-   - Se esistono entrambi: merge contenuti → `TROUBLESHOOTING.md`, elimina `TROUBLESHOUTING.md`
+   - Se esiste solo `TROUBLESHOOTING.md`: rinominare → `TROUBLESHOOTING.md`
+   - Se esistono entrambi: merge contenuti → `TROUBLESHOOTING.md`, elimina `TROUBLESHOOTING.md`
 3. Aggiornare link interni che puntano a file rinominati
 4. Eseguire `verify_links.py` per conferma
 
@@ -506,7 +506,7 @@ Vedi [COMPLIANCE-MATRIX.md](./COMPLIANCE-MATRIX.md#sp11) per dettagli implementa
 | Link Rotti | Sconosciuto (no script) |
 | Errori JSON | Sconosciuto (no validazione) |
 | Riferimenti Orfani | Sconosciuto |
-| File con Errori Battitura | 11 (TROUBLESHOUTING) |
+| File con Errori Battitura | 11 (TROUBLESHOOTING) |
 | Pseudo-codice in SP | 3 file |
 | Hyperlink Espliciti | <5% riferimenti |
 
@@ -562,7 +562,7 @@ gantt
 
     section Fase 1: Fondamenta
     Script Verifica      :f1-1, 2025-11-20, 3d
-    Fix TROUBLESHOUTING  :f1-2, 2025-11-23, 1d
+    Fix TROUBLESHOOTING  :f1-2, 2025-11-23, 1d
     Doc Gap SP28         :f1-3, 2025-11-24, 1d
 
     section Fase 2: Qualità

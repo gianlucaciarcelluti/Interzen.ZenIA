@@ -1,4 +1,4 @@
-# TROUBLESHOUTING - MS15-CONFIG
+# TROUBLESHOOTING - MS15-CONFIG
 
 ## Problemi comuni e soluzioni
 

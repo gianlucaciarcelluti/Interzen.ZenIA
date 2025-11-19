@@ -1,4 +1,4 @@
-# TROUBLESHOUTING - MS16-REGISTRY
+# TROUBLESHOOTING - MS16-REGISTRY
 
 ## Problemi comuni e soluzioni
 
