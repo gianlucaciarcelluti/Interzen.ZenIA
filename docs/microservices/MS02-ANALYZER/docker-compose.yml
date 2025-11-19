@@ -37,7 +37,7 @@ services:
       retries: 3
 
     networks:
-      - zendata-network
+      - zenia-network
 
     restart: unless-stopped
 
@@ -60,7 +60,7 @@ services:
       retries: 5
 
     networks:
-      - zendata-network
+      - zenia-network
 
   # Redis Cache
   redis:
@@ -78,10 +78,10 @@ services:
       retries: 5
 
     networks:
-      - zendata-network
+      - zenia-network
 
 networks:
-  zendata-network:
+  zenia-network:
     driver: bridge
 
 volumes:

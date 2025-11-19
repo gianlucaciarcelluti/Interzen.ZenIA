@@ -62,7 +62,7 @@ services:
       - classifier-data:/data
 
     networks:
-      - zendata-network
+      - zenia-network
 
     restart: unless-stopped
 
@@ -100,7 +100,7 @@ services:
       retries: 5
 
     networks:
-      - zendata-network
+      - zenia-network
 
     restart: unless-stopped
 
@@ -127,7 +127,7 @@ services:
       retries: 5
 
     networks:
-      - zendata-network
+      - zenia-network
 
     restart: unless-stopped
 
@@ -136,7 +136,7 @@ services:
     image: dpage/pgadmin4:latest
     container_name: classifier-pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@zendata.local
+      PGADMIN_DEFAULT_EMAIL: admin@zenia.local
       PGADMIN_DEFAULT_PASSWORD: admin
 
     ports:
@@ -146,7 +146,7 @@ services:
       - postgres
 
     networks:
-      - zendata-network
+      - zenia-network
 
     restart: unless-stopped
 
@@ -154,7 +154,7 @@ services:
       - debug  # Run only with: docker-compose --profile debug up
 
 networks:
-  zendata-network:
+  zenia-network:
     driver: bridge
 
 volumes:
@@ -187,7 +187,7 @@ volumes:
 #
 # Access pgAdmin:
 #   http://localhost:5050
-#   Email: admin@zendata.local
+#   Email: admin@zenia.local
 #   Password: admin
 #
 # Connect to PostgreSQL from CLI:

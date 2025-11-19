@@ -626,7 +626,7 @@ Ogni voce contiene:
 - **Termine Inglese**: Uniform Resource Locator
 - **Definizione**: Indirizzo web
 - **Contesto**: Usare **URL** (è acronimo internazionale)
-- **Esempio**: "L'URL dell'API è https://api.zendata.local"
+- **Esempio**: "L'URL dell'API è https://api.zenia.local"
 - **Note**: Non tradurre, è standard internazionale
 
 ---

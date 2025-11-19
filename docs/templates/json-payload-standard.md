@@ -196,7 +196,7 @@ Ogni response **DEVE** contenere:
   "metadata": {
     "http_status": 500,
     "error_type": "SERVER_ERROR",
-    "support_contact": "support@zendata.local"
+    "support_contact": "support@zenia.local"
   }
 }
 ```
@@ -246,7 +246,7 @@ Ogni response **DEVE** contenere:
     "parsing_status": "success",
     "metadata": {
       "sender": "protocollo@comune.example.it",
-      "recipients": ["protocollo@zendata.local"],
+      "recipients": ["protocollo@zenia.local"],
       "subject": "Richiesta protocollo - Documento allegato",
       "received_at": "2025-11-19T14:25:00Z"
     },
@@ -343,7 +343,7 @@ Quando crei un nuovo SP, assicurati che:
   "status": "accepted",
   "data": {
     "job_id": "JOB-2025-001",
-    "status_url": "https://api.zendata.local/jobs/JOB-2025-001/status"
+    "status_url": "https://api.zenia.local/jobs/JOB-2025-001/status"
   }
 }
 ```

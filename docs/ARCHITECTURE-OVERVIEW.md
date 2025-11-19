@@ -169,7 +169,7 @@ Uso: Analytics continuo, monitoraggio
 
 ### Setup Kubernetes
 ```yaml
-Namespace: zendata
+Namespace: zenia
 Replicas: 3+ per servizio (Alta Disponibilità)
 Auto-scaling: HPA basato su CPU/Memory
 Monitoring: Prometheus + Grafana

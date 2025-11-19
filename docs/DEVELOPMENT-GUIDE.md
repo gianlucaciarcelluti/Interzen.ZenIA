@@ -159,7 +159,7 @@ kubectl apply -f kubernetes/configmap.yaml
 kubectl rollout status deployment/ms01-classifier
 
 # 4. Verifica salute:
-curl http://ms01-classifier.zendata.local/health
+curl http://ms01-classifier.zenia.local/health
 ```
 
 ---
@@ -229,7 +229,7 @@ vi kubernetes/deployment.yaml
 kubectl apply -f kubernetes/deployment.yaml
 
 # 3. Monitora rollout
-kubectl rollout status deployment/ms01-classifier -n zendata
+kubectl rollout status deployment/ms01-classifier -n zenia
 
 # 4. Verifica salute
 kubectl exec -it pod/ms01-classifier-xxx -- curl localhost:8001/health
@@ -245,8 +245,8 @@ kubectl exec -it pod/ms01-classifier-xxx -- curl localhost:8001/health
 docker-compose logs -f classifier
 
 # Kubernetes
-kubectl logs -f deployment/ms01-classifier -n zendata
-kubectl logs -f pod/ms01-classifier-xxx -n zendata --previous  # Pod crashato
+kubectl logs -f deployment/ms01-classifier -n zenia
+kubectl logs -f pod/ms01-classifier-xxx -n zenia --previous  # Pod crashato
 ```
 
 ### Accesso Database
@@ -299,7 +299,7 @@ curl http://ms01-classifier:9090/metrics | grep -i latency
 # Crea Kubernetes secret per credenziali database
 kubectl create secret generic classifier-db-secret \
   --from-literal=database-url="postgresql://user:pass@host:5432/db" \
-  -n zendata
+  -n zenia
 
 # Riferimento in deployment.yaml
 env:
@@ -408,7 +408,7 @@ Prima di submitare una PR:
 
 1. **Controlla Documentazione**: TROUBLESHOOTING.md nella cartella microservizio
 2. **Rivedi Esempi**: Vedi cartella examples/ per utilizzo API
-3. **Chiedi al Team**: #zendata-dev Slack channel
+3. **Chiedi al Team**: #zenia-dev Slack channel
 4. **Controlla Issue**: GitHub issues per problemi noti
 5. **Leggi Spec**: SPECIFICATION.md per dettagli tecnici
 

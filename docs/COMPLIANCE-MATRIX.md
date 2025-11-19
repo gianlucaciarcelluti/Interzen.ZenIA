@@ -246,10 +246,10 @@ Mapping completo delle fonti normative ai microservizi (MS) e sub-progetti (SP).
 
 ## 📞 Contatti Compliance
 
-- **Data Protection Officer (DPO)**: [contact@zendata.local](mailto:contact@zendata.local)
-- **Team Compliance**: #zendata-compliance Slack
-- **Security Officer**: #zendata-security Slack
-- **Legal Review**: compliance-review@zendata.local
+- **Data Protection Officer (DPO)**: [contact@zenia.local](mailto:contact@zenia.local)
+- **Team Compliance**: #zenia-compliance Slack
+- **Security Officer**: #zenia-security Slack
+- **Legal Review**: compliance-review@zenia.local
 
 ---
 

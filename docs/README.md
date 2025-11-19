@@ -245,7 +245,7 @@ kubectl apply -f microservices/MS01-CLASSIFIER/kubernetes/
 # Access Prometheus/Grafana dashboard
 
 # 4. Test e verify (20 min)
-curl http://ms01-classifier.zendata.local/health
+curl http://ms01-classifier.zenia.local/health
 ```
 
 ---
@@ -340,11 +340,11 @@ MSxx-NAME/
 
 ### Compliance Questions
 - Controlla **[COMPLIANCE-MATRIX.md](COMPLIANCE-MATRIX.md)**
-- Contatta DPO: compliance-review@zendata.local
+- Contatta DPO: compliance-review@zenia.local
 
 ### Architecture Questions
 - Vedi **[ARCHITECTURE-OVERVIEW.md](ARCHITECTURE-OVERVIEW.md)**
-- Contatta architect: #zendata-architecture Slack
+- Contatta architect: #zenia-architecture Slack
 
 ---
 
