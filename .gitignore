@@ -63,3 +63,4 @@ huggingface/
 # OS
 .DS_Store
 Thumbs.db
+scripts/reports/*

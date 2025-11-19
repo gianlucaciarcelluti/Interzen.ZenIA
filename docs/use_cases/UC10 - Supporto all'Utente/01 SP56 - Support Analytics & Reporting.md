@@ -141,6 +141,43 @@ Il testing garantisce accuratezza e affidabilità degli analytics e reporting:
 - Report generation validation per content accuracy
 - Performance testing per large dataset handling
 - Cross-browser compatibility per accessibility
+## 🏛️ Conformità Normativa
+
+### Framework Normativi Applicabili
+
+☑ CAD
+☑ D.Lgs 33/2013
+☑ GDPR
+☐ L. 241/1990 - Procedimento Amministrativo
+☐ eIDAS - Regolamento 2014/910
+☐ AI Act - Regolamento 2024/1689
+☐ D.Lgs 42/2004 - Codice Beni Culturali
+☐ D.Lgs 152/2006 - Codice dell'Ambiente
+
+**Per mappatura completa articoli → implementazioni**, vedi [Conformità Normativa Standard Template](../../templates/conformita-normativa-standard.md) e [COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md).
+
+### Requisiti Principali Implementati
+
+| Framework | Requisiti Principali | Status | Riferimenti |
+|-----------|-------------------|--------|-------------|
+| CAD | Art. 1, Art. 21, Art. 22, Art. 62 | ✅ Implementato | [Dettagli](../../templates/conformita-normativa-standard.md) |
+| D.Lgs 33/2013 | Art. 1, Art. 5 | ✅ Implementato | [Dettagli](../../templates/conformita-normativa-standard.md) |
+| GDPR | Art. 5, Art. 32 | ✅ Implementato | [Dettagli](../../templates/conformita-normativa-standard.md) |
+
+### Conformità Normativa - Checklist
+
+- [ ] Tutti i framework normativi applicabili identificati
+- [ ] Articoli rilevanti mappati alle responsabilità SP
+- [ ] GDPR: Data protection by design implementato (se applicabile)
+- [ ] eIDAS: Firma digitale supportata (se applicabile)
+- [ ] AI Act: Supervisione umana e trasparenza (se applicabile)
+- [ ] Tracciabilità audit completa mantenuta
+- [ ] Documentation conformità aggiornata
+
+**Nota**: Dettagli di conformità completi nella sezione "## 🏛️ Conformità Normativa" del template standard.
+
+---
+
 
 ## Roadmap
 

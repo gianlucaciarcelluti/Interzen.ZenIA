@@ -88,6 +88,43 @@ Il sistema di generazione automatica report produce documentazione compliance pe
 ### Compliance Testing Framework
 
 Il framework di testing compliance implementa metodologie complete per validare l'efficacia del sistema di monitoraggio. Include test di accuratezza regole, simulazioni di scenari compliance, validation di modelli predittivi e audit trail testing per garantire affidabilità del sistema in ambienti produttivi.
+## 🏛️ Conformità Normativa
+
+### Framework Normativi Applicabili
+
+☑ L. 241/1990
+☑ CAD
+☑ GDPR
+☐ eIDAS - Regolamento 2014/910
+☐ AI Act - Regolamento 2024/1689
+☐ D.Lgs 42/2004 - Codice Beni Culturali
+☐ D.Lgs 152/2006 - Codice dell'Ambiente
+☐ D.Lgs 33/2013 - Decreto Trasparenza
+
+**Per mappatura completa articoli → implementazioni**, vedi [Conformità Normativa Standard Template](../../templates/conformita-normativa-standard.md) e [COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md).
+
+### Requisiti Principali Implementati
+
+| Framework | Requisiti Principali | Status | Riferimenti |
+|-----------|-------------------|--------|-------------|
+| L. 241/1990 | Art. 1, Art. 3, Art. 6, Art. 27 | ✅ Implementato | [Dettagli](../../templates/conformita-normativa-standard.md) |
+| CAD | Art. 1, Art. 21, Art. 22, Art. 62 | ✅ Implementato | [Dettagli](../../templates/conformita-normativa-standard.md) |
+| GDPR | Art. 5, Art. 32 | ✅ Implementato | [Dettagli](../../templates/conformita-normativa-standard.md) |
+
+### Conformità Normativa - Checklist
+
+- [ ] Tutti i framework normativi applicabili identificati
+- [ ] Articoli rilevanti mappati alle responsabilità SP
+- [ ] GDPR: Data protection by design implementato (se applicabile)
+- [ ] eIDAS: Firma digitale supportata (se applicabile)
+- [ ] AI Act: Supervisione umana e trasparenza (se applicabile)
+- [ ] Tracciabilità audit completa mantenuta
+- [ ] Documentation conformità aggiornata
+
+**Nota**: Dettagli di conformità completi nella sezione "## 🏛️ Conformità Normativa" del template standard.
+
+---
+
 
 ## Roadmap
 
