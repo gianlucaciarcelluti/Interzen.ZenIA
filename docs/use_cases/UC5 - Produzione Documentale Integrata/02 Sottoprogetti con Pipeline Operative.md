@@ -1,6 +1,6 @@
 # Sottoprogetti per Generazione Atti Amministrativi - Pipeline Operative Dettagliate
 
-## SP03 - Procedural Classifier per Classificazione Procedimenti Amministrativi
+## SP03 - Classificatore Procedurale per Classificazione Procedimenti Amministrativi
 
 ### Descrizione
 Sistema AI-powered per la classificazione automatica dell'istanza di parte (richiesta utente) al fine di identificare il procedimento amministrativo applicabile e il tipo di provvedimento da generare.

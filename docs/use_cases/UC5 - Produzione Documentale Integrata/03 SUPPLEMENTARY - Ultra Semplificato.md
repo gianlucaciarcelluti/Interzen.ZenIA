@@ -83,7 +83,7 @@ sequenceDiagram
 | 1 | SP03 - Procedural | Classifica procedimento | Procedimento identificato (96% conf) |
 | 2 | SP04 - Knowledge Base | RAG normativa | Contesto giuridico |
 | 3 | SP05 - Template Engine | Genera con GPT-4/Groq | Draft documento |
-| 4 | SP06 - Validator | Valida conformità | Score validazione (0-100) |
+| 4 | SP06 - Validatore | Valida conformità | Score validazione (0-100) |
 | 5 | SP07 - Content Classifier | Classifica tipo atto | Categoria documento |
 | 6 | SP08 - Quality Checker | Controllo linguistico | Score qualità (0-100) |
 

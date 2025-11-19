@@ -1,4 +1,4 @@
-# SP03 - Procedural Classifier: Sequence Diagram
+# SP03 - Classificatore Procedurale: Sequence Diagram
 
 ## Classificazione Iniziale del Procedimento Amministrativo
 

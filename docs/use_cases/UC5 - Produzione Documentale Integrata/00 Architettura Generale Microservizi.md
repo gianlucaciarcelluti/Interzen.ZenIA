@@ -22,10 +22,10 @@ graph TB
     end
     
     subgraph "Core AI Services"
-        PROC[SP03 - Procedural Classifier<br/>DistilBERT/spaCy]
+        PROC[SP03 - Classificatore Procedurale<br/>DistilBERT/spaCy]
         KB[SP04 - Knowledge Base<br/>RAG/Mistral]
         TPL[SP05 - Template Engine<br/>GPT-4/LangChain]
-        VAL[SP06 - Validator<br/>BERT/RoBERTa]
+        VAL[SP06 - Validatore<br/>BERT/RoBERTa]
         CLS[SP07 - Classifier<br/>DistilBERT/spaCy]
         QC[SP08 - Quality Checker<br/>LanguageTool/spaCy]
     end
@@ -155,10 +155,10 @@ graph TB
 |--------------|-----------|-----------|----------|---------------|-----------|
 | SP01 - EML Parser & Email Intelligence | Python | FastAPI | PostgreSQL + MinIO | NiFi FlowFiles | Docker |
 | SP02 - Document Extractor & Classifier | Python | FastAPI | PostgreSQL + MinIO | NiFi FlowFiles | Docker |
-| SP03 - Procedural Classifier | Python | FastAPI | PostgreSQL + MinIO | NiFi FlowFiles | Docker |
+| SP03 - Classificatore Procedurale | Python | FastAPI | PostgreSQL + MinIO | NiFi FlowFiles | Docker |
 | SP04 - Legal Knowledge Base | Python | FastAPI | FAISS + Neo4j | NiFi FlowFiles | Docker |
 | SP05 - Template Engine | Python | FastAPI | PostgreSQL | NiFi FlowFiles | Docker |
-| SP06 - Validator | Python | FastAPI | PostgreSQL | NiFi FlowFiles | Docker |
+| SP06 - Validatore | Python | FastAPI | PostgreSQL | NiFi FlowFiles | Docker |
 | SP07 - Content Classifier | Python | FastAPI | PostgreSQL + MinIO | NiFi FlowFiles | Docker |
 | SP08 - Quality Checker | Python | FastAPI | Redis | NiFi FlowFiles | Docker |
 | SP09 - Workflow Engine | Python | Apache NiFi | PostgreSQL | - | Docker |
@@ -357,9 +357,9 @@ spec:
 |----------|-------------|-------------|----------|---------|
 | SP01 - EML Parser | 2 | 8 | Alta | Entry point email, parsing PEC |
 | SP02 - Document Extractor | 3 | 12 | Alta | OCR CPU-intensive, alto traffico allegati |
-| SP03 - Procedural Classifier | 3 | 10 | Alta | Classificazione critica |
+| SP03 - Classificatore Procedurale | 3 | 10 | Alta | Classificazione critica |
 | SP05 - Template Engine | 3 | 10 | Alta | CPU intensive (LLM) |
-| SP06 - Validator | 2 | 8 | Media | Validation critica |
+| SP06 - Validatore | 2 | 8 | Media | Validation critica |
 | SP04 - Knowledge Base | 2 | 6 | Media | RAG queries frequenti |
 | SP08 - Quality Checker | 2 | 5 | Bassa | Non bloccante |
 | SP09 - Workflow Engine | 2 | 4 | Media | Orchestrazione critica |

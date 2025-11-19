@@ -36,10 +36,10 @@ Questo UC copre tutti gli aspetti della **Produzione Documentale Integrata**, in
 |-----------|------|------|--------|-------------|
 | SP01 - EML Parser & Email Intelligence | `01 SP01 - Parser EML e Intelligenza Email.md` | Specification | ✅ | [Vai](./01 SP01 - Parser EML e Intelligenza Email.md) |
 | SP02 - Document Extractor & Attachment Classifier | `01 SP02 - Estrattore Documenti e Classificatore Allegati.md` | Specification | ✅ | [Vai](./01 SP02 - Estrattore Documenti e Classificatore Allegati.md) |
-| SP03 - Procedural Classifier | `01 SP03 - Procedural Classifier.md` | Specification | ✅ | [Vai](./01 SP03 - Procedural Classifier.md) |
+| SP03 - Classificatore Procedurale | `01 SP03 - Classificatore Procedurale.md` | Specification | ✅ | [Vai](./01 SP03 - Classificatore Procedurale.md) |
 | SP04 - Knowledge Base | `01 SP04 - Base Conoscenze.md` | Specification | ✅ | [Vai](./01 SP04 - Base Conoscenze.md) |
 | SP05 - Template Engine | `01 SP05 - Motore Template.md` | Specification | ✅ | [Vai](./01 SP05 - Motore Template.md) |
-| SP06 - Validator | `01 SP06 - Validator.md` | Specification | ✅ | [Vai](./01 SP06 - Validator.md) |
+| SP06 - Validatore | `01 SP06 - Validatore.md` | Specification | ✅ | [Vai](./01 SP06 - Validatore.md) |
 | SP07 - Content Classifier | `01 SP07 - Classificatore Contenuti.md` | Specification | ✅ | [Vai](./01 SP07 - Classificatore Contenuti.md) |
 | SP08 - Quality Checker | `01 SP08 - Verificatore Qualità.md` | Specification | ✅ | [Vai](./01 SP08 - Verificatore Qualità.md) |
 | SP09 - Workflow Engine | `01 SP09 - Motore Workflow.md` | Specification | ✅ | [Vai](./01 SP09 - Motore Workflow.md) |
@@ -60,7 +60,7 @@ Questo UC copre tutti gli aspetti della **Produzione Documentale Integrata**, in
 
 ### Procedural
 
-- **[SP03](./01 SP03 - Procedural Classifier.md)** - Procedural Classifier
+- **[SP03](./01 SP03 - Classificatore Procedurale.md)** - Procedural Classifier
 
 ### Knowledge
 
@@ -72,7 +72,7 @@ Questo UC copre tutti gli aspetti della **Produzione Documentale Integrata**, in
 
 ### Validator.md
 
-- **[SP06](./01 SP06 - Validator.md)** - Validator
+- **[SP06](./01 SP06 - Validatore.md)** - Validator
 
 ### Content
 
@@ -123,10 +123,10 @@ UC5 - Produzione Documentale Integrata/
 ├── 00 Architettura UC5.md       ← Architecture
 ├── 01 SP01 - Parser EML e Intelligenza Email.md
 ├── 01 SP02 - Estrattore Documenti e Classificatore Allegati.md
-├── 01 SP03 - Procedural Classifier.md
+├── 01 SP03 - Classificatore Procedurale.md
 ├── 01 SP04 - Base Conoscenze.md
 ├── 01 SP05 - Motore Template.md
-├── 01 SP06 - Validator.md
+├── 01 SP06 - Validatore.md
 ├── 01 SP07 - Classificatore Contenuti.md
 ├── 01 SP08 - Verificatore Qualità.md
 ├── 01 SP09 - Motore Workflow.md

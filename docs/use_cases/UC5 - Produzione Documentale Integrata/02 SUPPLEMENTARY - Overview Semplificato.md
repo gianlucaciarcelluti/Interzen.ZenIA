@@ -88,10 +88,10 @@ sequenceDiagram
 |---------------|----------------|------------|-------|
 | **SP01 - EML Parser** | Parse email PEC, valida firma | Python email lib, cryptography | 0.8s |
 | **SP02 - Document Extractor** | OCR, classifica allegati, NER | Tesseract, DistilBERT, spaCy | 2.5s |
-| **SP03 - Procedural Classifier** | Classifica procedimento amministrativo | DistilBERT, NER, KB | 0.5s |
+| **SP03 - Classificatore Procedurale** | Classifica procedimento amministrativo | DistilBERT, NER, KB | 0.5s |
 | **SP04 - Knowledge Base** | RAG normativa e contesto | FAISS, Neo4j, Mistral-7B | 1.2s |
 | **SP05 - Template Engine** | Genera documento con AI | GPT-4/Groq, LangChain | 2.3s |
-| **SP06 - Validator** | Validazione conformità | BERT, Drools | 0.8s |
+| **SP06 - Validatore** | Validazione conformità | BERT, Drools | 0.8s |
 | **SP07 - Content Classifier** | Classifica tipo documento | DistilBERT | 0.4s |
 | **SP08 - Quality Checker** | Controllo qualità linguistica | LanguageTool, spaCy | 0.3s |
 | **SP09 - Workflow Engine** | Orchestrazione | Apache NiFi | - |

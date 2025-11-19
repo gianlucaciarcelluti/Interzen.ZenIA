@@ -62,7 +62,7 @@ docs/
 │       │   ├── 01 CANONICAL - Generazione Atto Completo.md
 │       │   ├── 01_SP01 - EML Parser & Email Intelligence.md
 │       │   ├── 01_SP02 - Document Extractor & Attachment Classifier.md
-│       │   ├── 01_SP03 - Procedural Classifier.md
+│       │   ├── 01_SP03 - Classificatore Procedurale.md
 │       │   ├── 01_SP04 - Knowledge Base.md
 │       │   ├── 01_SP05 - Template Engine.md
 │       │   ├── ... SP06-SP12 ...

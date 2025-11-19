@@ -1,4 +1,4 @@
-# SP06 - Validator
+# SP06 - Validatore
 
 ## Validazione Semantica e Conformità
 
