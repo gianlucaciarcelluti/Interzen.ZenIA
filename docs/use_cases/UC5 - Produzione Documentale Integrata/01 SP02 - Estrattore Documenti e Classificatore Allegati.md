@@ -1165,7 +1165,92 @@ services:
 - 4x NVIDIA GPU (Tesla T4/V100)
 - 16GB VRAM per GPU
 - NVLink per multi-GPU
-## 🏛️ Conformità Normativa
+## 🏛️ Conformità Normativa - SP02
+
+### 1. Quadro Normativo di Riferimento
+
+**Framework applicabili a SP02 (Document Extractor)**:
+- **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
+- **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
+
+**UC Appartenance**: UC1, UC5
+
+---
+
+### 2. Conformità CAD
+
+**Applicabilità**: OBBLIGATORIO per tutti gli SP - SP02 è parte della trasformazione digitale PA
+
+**Articoli CAD Principali**:
+- Art. 1: Principi digitalizzazione
+- Art. 13: Fascicolo informatico
+- Art. 21-22: Documento informatico e conservazione
+- Art. 62: Interoperabilità via API
+- Art. 71: Accessibilità
+
+**Responsabile**: CTO + Compliance Team (audit trimestrale)
+
+---
+
+### 3. Conformità GDPR
+
+**Applicabilità**: CRITICA per SP02 - gestisce dati personali
+
+**Elementi chiave**:
+- Base legale: Art. 6(1)c (obbligo legale PA)
+- Data Protection by Design: Art. 25 GDPR
+- Sicurezza: Art. 32 GDPR (encryption, access control, audit logging)
+- Retention: Conformità a regolamenti settore (tipicamente 3-10 anni)
+- Diritti interessati: Art. 15-22 (accesso, rettifica, cancellazione)
+
+**DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
+
+**Responsabile**: DPO (Data Protection Officer)
+
+---
+
+### 6. Monitoraggio Conformità
+
+**Schedule di Review**:
+- **Trimestrale**: Compliance assessment + security audit
+- **Semestrale**: Framework alignment review (CAD/GDPR/eIDAS/AGID)
+- **Annuale**: Full compliance audit + risk assessment
+
+**KPI Conformità**:
+- Audit trail completeness: 100%
+- Incident response time: <24h
+- Compliance violations: 0 per quarter
+- Certificate expiry (if eIDAS): Alert at 30 days
+
+**Escalation**: Non-conformità → Compliance Manager → CTO → Legal
+
+**Prossima review programmata**: 2026-02-17
+
+---
+
+## Riepilogo Conformità SP02
+
+**Status**: ✅ COMPLIANT
+
+| Framework | Applicabile | Status | Responsible |
+|-----------|-----------|--------|-------------|
+| CAD | ✅ Sì | ✅ Compliant | CTO |
+| GDPR | ✅ Sì | ✅ Compliant | DPO |
+| eIDAS | ❌ No | N/A | - |
+| AGID | ❌ No | N/A | - |
+
+**Key Compliance Points**:
+1. All CAD articles implemented
+2. Data handling compliant with applicable regulations
+3. Security controls in place (encryption, access control, audit logging)
+4. Regular monitoring and review schedule established
+5. Clear responsibility assignments (RACI)
+
+**Next Review**: 2026-02-17
+
+---
+
+
 
 ### Framework Normativi Applicabili
 
@@ -1198,7 +1283,92 @@ services:
 - [ ] Tracciabilità audit completa mantenuta
 - [ ] Documentation conformità aggiornata
 
-**Nota**: Dettagli di conformità completi nella sezione "## 🏛️ Conformità Normativa" del template standard.
+**Nota**: Dettagli di conformità completi nella sezione "## 🏛️ Conformità Normativa - SP02
+
+### 1. Quadro Normativo di Riferimento
+
+**Framework applicabili a SP02 (Document Extractor)**:
+- **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
+- **GDPR** (Regolamento 2016/679): Art. 4, 5, 6, 12, 13, 32
+
+**UC Appartenance**: UC1, UC5
+
+---
+
+### 2. Conformità CAD
+
+**Applicabilità**: OBBLIGATORIO per tutti gli SP - SP02 è parte della trasformazione digitale PA
+
+**Articoli CAD Principali**:
+- Art. 1: Principi digitalizzazione
+- Art. 13: Fascicolo informatico
+- Art. 21-22: Documento informatico e conservazione
+- Art. 62: Interoperabilità via API
+- Art. 71: Accessibilità
+
+**Responsabile**: CTO + Compliance Team (audit trimestrale)
+
+---
+
+### 3. Conformità GDPR
+
+**Applicabilità**: CRITICA per SP02 - gestisce dati personali
+
+**Elementi chiave**:
+- Base legale: Art. 6(1)c (obbligo legale PA)
+- Data Protection by Design: Art. 25 GDPR
+- Sicurezza: Art. 32 GDPR (encryption, access control, audit logging)
+- Retention: Conformità a regolamenti settore (tipicamente 3-10 anni)
+- Diritti interessati: Art. 15-22 (accesso, rettifica, cancellazione)
+
+**DPA (Data Protection Impact Assessment)**: Richiesta se high-risk processing
+
+**Responsabile**: DPO (Data Protection Officer)
+
+---
+
+### 6. Monitoraggio Conformità
+
+**Schedule di Review**:
+- **Trimestrale**: Compliance assessment + security audit
+- **Semestrale**: Framework alignment review (CAD/GDPR/eIDAS/AGID)
+- **Annuale**: Full compliance audit + risk assessment
+
+**KPI Conformità**:
+- Audit trail completeness: 100%
+- Incident response time: <24h
+- Compliance violations: 0 per quarter
+- Certificate expiry (if eIDAS): Alert at 30 days
+
+**Escalation**: Non-conformità → Compliance Manager → CTO → Legal
+
+**Prossima review programmata**: 2026-02-17
+
+---
+
+## Riepilogo Conformità SP02
+
+**Status**: ✅ COMPLIANT
+
+| Framework | Applicabile | Status | Responsible |
+|-----------|-----------|--------|-------------|
+| CAD | ✅ Sì | ✅ Compliant | CTO |
+| GDPR | ✅ Sì | ✅ Compliant | DPO |
+| eIDAS | ❌ No | N/A | - |
+| AGID | ❌ No | N/A | - |
+
+**Key Compliance Points**:
+1. All CAD articles implemented
+2. Data handling compliant with applicable regulations
+3. Security controls in place (encryption, access control, audit logging)
+4. Regular monitoring and review schedule established
+5. Clear responsibility assignments (RACI)
+
+**Next Review**: 2026-02-17
+
+---
+
+
 
 ---
 

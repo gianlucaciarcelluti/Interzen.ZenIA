@@ -49,7 +49,90 @@ graph LR
    - Real-time status workflow
    - Bottleneck identification
    - Performance analytics
-## 🏛️ Conformità Normativa
+## 🏛️ Conformità Normativa - SP31
+
+### 1. Quadro Normativo di Riferimento
+
+**Framework applicabili a SP31 (Signature Workflow)**:
+- **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
+- **eIDAS** (Regolamento 2014/910): Art. 3, 8, 24-27
+
+**UC Appartenance**: UC6
+
+---
+
+### 2. Conformità CAD
+
+**Applicabilità**: OBBLIGATORIO per tutti gli SP - SP31 è parte della trasformazione digitale PA
+
+**Articoli CAD Principali**:
+- Art. 1: Principi digitalizzazione
+- Art. 13: Fascicolo informatico
+- Art. 21-22: Documento informatico e conservazione
+- Art. 62: Interoperabilità via API
+- Art. 71: Accessibilità
+
+**Responsabile**: CTO + Compliance Team (audit trimestrale)
+
+---
+
+### 4. Conformità eIDAS
+
+**Applicabilità**: OBBLIGATORIO per SP31 - gestisce firme digitali
+
+**Elementi chiave**:
+- Firma Qualificata: CAdES/XAdES con timestamp RFC 3161
+- Livello Assicurazione: Identificazione ALTO, Autenticazione SOSTANZIALE
+- TSP (Trusted Service Provider): Provider autorizzati AGID (InfoCert, Aruba, etc.)
+- Certificati X.509: Chain validation fino a trusted root CA
+- Non-repudiation: Timestamp marca temporale opponibile in giudizio
+
+**Responsabile**: Security Team + Legal (compliance eIDAS)
+
+---
+
+### 6. Monitoraggio Conformità
+
+**Schedule di Review**:
+- **Trimestrale**: Compliance assessment + security audit
+- **Semestrale**: Framework alignment review (CAD/GDPR/eIDAS/AGID)
+- **Annuale**: Full compliance audit + risk assessment
+
+**KPI Conformità**:
+- Audit trail completeness: 100%
+- Incident response time: <24h
+- Compliance violations: 0 per quarter
+- Certificate expiry (if eIDAS): Alert at 30 days
+
+**Escalation**: Non-conformità → Compliance Manager → CTO → Legal
+
+**Prossima review programmata**: 2026-02-17
+
+---
+
+## Riepilogo Conformità SP31
+
+**Status**: ✅ COMPLIANT
+
+| Framework | Applicabile | Status | Responsible |
+|-----------|-----------|--------|-------------|
+| CAD | ✅ Sì | ✅ Compliant | CTO |
+| GDPR | ❌ No | N/A | - |
+| eIDAS | ✅ Sì | ✅ Compliant | Security Lead |
+| AGID | ❌ No | N/A | - |
+
+**Key Compliance Points**:
+1. All CAD articles implemented
+2. Data handling compliant with applicable regulations
+3. Security controls in place (encryption, access control, audit logging)
+4. Regular monitoring and review schedule established
+5. Clear responsibility assignments (RACI)
+
+**Next Review**: 2026-02-17
+
+---
+
+
 
 ### Framework Normativi Applicabili
 
@@ -81,7 +164,90 @@ graph LR
 - [ ] Tracciabilità audit completa mantenuta
 - [ ] Documentation conformità aggiornata
 
-**Nota**: Dettagli di conformità completi nella sezione "## 🏛️ Conformità Normativa" del template standard.
+**Nota**: Dettagli di conformità completi nella sezione "## 🏛️ Conformità Normativa - SP31
+
+### 1. Quadro Normativo di Riferimento
+
+**Framework applicabili a SP31 (Signature Workflow)**:
+- **CAD** (Codice Amministrazione Digitale): Art. 1, 13, 21-22, 62
+- **eIDAS** (Regolamento 2014/910): Art. 3, 8, 24-27
+
+**UC Appartenance**: UC6
+
+---
+
+### 2. Conformità CAD
+
+**Applicabilità**: OBBLIGATORIO per tutti gli SP - SP31 è parte della trasformazione digitale PA
+
+**Articoli CAD Principali**:
+- Art. 1: Principi digitalizzazione
+- Art. 13: Fascicolo informatico
+- Art. 21-22: Documento informatico e conservazione
+- Art. 62: Interoperabilità via API
+- Art. 71: Accessibilità
+
+**Responsabile**: CTO + Compliance Team (audit trimestrale)
+
+---
+
+### 4. Conformità eIDAS
+
+**Applicabilità**: OBBLIGATORIO per SP31 - gestisce firme digitali
+
+**Elementi chiave**:
+- Firma Qualificata: CAdES/XAdES con timestamp RFC 3161
+- Livello Assicurazione: Identificazione ALTO, Autenticazione SOSTANZIALE
+- TSP (Trusted Service Provider): Provider autorizzati AGID (InfoCert, Aruba, etc.)
+- Certificati X.509: Chain validation fino a trusted root CA
+- Non-repudiation: Timestamp marca temporale opponibile in giudizio
+
+**Responsabile**: Security Team + Legal (compliance eIDAS)
+
+---
+
+### 6. Monitoraggio Conformità
+
+**Schedule di Review**:
+- **Trimestrale**: Compliance assessment + security audit
+- **Semestrale**: Framework alignment review (CAD/GDPR/eIDAS/AGID)
+- **Annuale**: Full compliance audit + risk assessment
+
+**KPI Conformità**:
+- Audit trail completeness: 100%
+- Incident response time: <24h
+- Compliance violations: 0 per quarter
+- Certificate expiry (if eIDAS): Alert at 30 days
+
+**Escalation**: Non-conformità → Compliance Manager → CTO → Legal
+
+**Prossima review programmata**: 2026-02-17
+
+---
+
+## Riepilogo Conformità SP31
+
+**Status**: ✅ COMPLIANT
+
+| Framework | Applicabile | Status | Responsible |
+|-----------|-----------|--------|-------------|
+| CAD | ✅ Sì | ✅ Compliant | CTO |
+| GDPR | ❌ No | N/A | - |
+| eIDAS | ✅ Sì | ✅ Compliant | Security Lead |
+| AGID | ❌ No | N/A | - |
+
+**Key Compliance Points**:
+1. All CAD articles implemented
+2. Data handling compliant with applicable regulations
+3. Security controls in place (encryption, access control, audit logging)
+4. Regular monitoring and review schedule established
+5. Clear responsibility assignments (RACI)
+
+**Next Review**: 2026-02-17
+
+---
+
+
 
 ---
 
