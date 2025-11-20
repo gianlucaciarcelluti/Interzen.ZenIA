@@ -34,12 +34,12 @@ Questo UC copre tutti gli aspetti della **BPM e Automazione Processi**, incluse:
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| Architettura Generale | `00 Architettura UC4.md` | Architecture | ✅ | [Vai](./00 Architettura UC4.md) |
-| SP24 - Process Mining Engine | `01 SP24 - Motore Process Mining.md` | Specification | ✅ | [Vai](./01 SP24 - Motore Process Mining.md) |
-| SP25 - Forecasting & Predictive Scheduling Engine | `01 SP25 - Motore Previsioni e Pianificazione Predittiva.md` | Specification | ✅ | [Vai](./01 SP25 - Motore Previsioni e Pianificazione Predittiva.md) |
-| SP26 - Intelligent Workflow Designer | `01 SP26 - Progettista Workflow Intelligente.md` | Specification | ✅ | [Vai](./01 SP26 - Progettista Workflow Intelligente.md) |
-| SP27 - Process Analytics | `01 SP27 - Analitiche Processi.md` | Specification | ✅ | [Vai](./01 SP27 - Analitiche Processi.md) |
-| Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | [Vai](./01 Sequence diagrams.md) |
+| Architettura Generale | `00 Architettura UC4.md` | Architecture | ✅ | @-ARCHITETTURA.md) |
+| SP24 - Process Mining Engine | `01 SP24 - Motore Process Mining.md` | Specification | ✅ | [Vai](./SP24 - Motore Process Mining.md) |
+| SP25 - Forecasting & Predictive Scheduling Engine | `01 SP25 - Motore Previsioni e Pianificazione Predittiva.md` | Specification | ✅ | [Vai](./SP25 - Motore Previsioni e Pianificazione Predittiva.md) |
+| SP26 - Intelligent Workflow Designer | `01 SP26 - Progettista Workflow Intelligente.md` | Specification | ✅ | [Vai](./SP26 - Progettista Workflow Intelligente.md) |
+| SP27 - Process Analytics | `01 SP27 - Analitiche Processi.md` | Specification | ✅ | [Vai](./SP27 - Analitiche Processi.md) |
+| Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | C-SEQUENCES.md) |
 
 ---
 
@@ -47,16 +47,16 @@ Questo UC copre tutti gli aspetti della **BPM e Automazione Processi**, incluse:
 
 ### Process
 
-- **[SP24](./01 SP24 - Motore Process Mining.md)** - Process Mining Engine
-- **[SP27](./01 SP27 - Analitiche Processi.md)** - Process Analytics
+- **[SP24](./SP24 - Motore Process Mining.md)** - Process Mining Engine
+- **[SP27](./SP27 - Analitiche Processi.md)** - Process Analytics
 
 ### Forecasting
 
-- **[SP25](./01 SP25 - Motore Previsioni e Pianificazione Predittiva.md)** - Forecasting & Predictive Scheduling Engine
+- **[SP25](./SP25 - Motore Previsioni e Pianificazione Predittiva.md)** - Forecasting & Predictive Scheduling Engine
 
 ### Intelligent
 
-- **[SP26](./01 SP26 - Progettista Workflow Intelligente.md)** - Intelligent Workflow Designer
+- **[SP26](./SP26 - Progettista Workflow Intelligente.md)** - Intelligent Workflow Designer
 
 ---
 

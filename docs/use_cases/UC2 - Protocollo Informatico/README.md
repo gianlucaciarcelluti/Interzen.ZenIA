@@ -34,11 +34,11 @@ Questo UC copre tutti gli aspetti della **Protocollo Informatico**, incluse:
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| SP16 - Correspondence Classifier | `01 SP16 - Classificatore Corrispondenza.md` | Specification | ✅ | [Vai](./01 SP16 - Classificatore Corrispondenza.md) |
-| SP17 - Registry Suggester | `01 SP17 - Suggeritore Registro.md` | Specification | ✅ | [Vai](./01 SP17 - Suggeritore Registro.md) |
-| SP18 - Anomaly Detector | `01 SP18 - Rilevatore Anomalie.md` | Specification | ✅ | [Vai](./01 SP18 - Rilevatore Anomalie.md) |
-| SP19 - Protocol Workflow Orchestrator | `01 SP19 - Orchestratore Workflow Protocollo.md` | Specification | ✅ | [Vai](./01 SP19 - Orchestratore Workflow Protocollo.md) |
-| Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | [Vai](./01 Sequence diagrams.md) |
+| SP16 - Correspondence Classifier | `01 SP16 - Classificatore Corrispondenza.md` | Specification | ✅ | [Vai](./SP16 - Classificatore Corrispondenza.md) |
+| SP17 - Registry Suggester | `01 SP17 - Suggeritore Registro.md` | Specification | ✅ | [Vai](./SP17 - Suggeritore Registro.md) |
+| SP18 - Anomaly Detector | `01 SP18 - Rilevatore Anomalie.md` | Specification | ✅ | [Vai](./SP18 - Rilevatore Anomalie.md) |
+| SP19 - Protocol Workflow Orchestrator | `01 SP19 - Orchestratore Workflow Protocollo.md` | Specification | ✅ | [Vai](./SP19 - Orchestratore Workflow Protocollo.md) |
+| Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | C-SEQUENCES.md) |
 
 ---
 
@@ -47,19 +47,19 @@ Questo UC copre tutti gli aspetti della **Protocollo Informatico**, incluse:
 
 ### Correspondence
 
-- **[SP16](./01 SP16 - Classificatore Corrispondenza.md)** - Correspondence Classifier
+- **[SP16](./SP16 - Classificatore Corrispondenza.md)** - Correspondence Classifier
 
 ### Registry
 
-- **[SP17](./01 SP17 - Suggeritore Registro.md)** - Registry Suggester
+- **[SP17](./SP17 - Suggeritore Registro.md)** - Registry Suggester
 
 ### Anomaly
 
-- **[SP18](./01 SP18 - Rilevatore Anomalie.md)** - Anomaly Detector
+- **[SP18](./SP18 - Rilevatore Anomalie.md)** - Anomaly Detector
 
 ### Protocol
 
-- **[SP19](./01 SP19 - Orchestratore Workflow Protocollo.md)** - Protocol Workflow Orchestrator
+- **[SP19](./SP19 - Orchestratore Workflow Protocollo.md)** - Protocol Workflow Orchestrator
 
 ---
 

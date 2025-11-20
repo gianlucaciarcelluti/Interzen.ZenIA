@@ -34,12 +34,12 @@ Questo UC copre tutti gli aspetti della **Governance (Organigramma, Procedimenti
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| Architettura Generale | `00 Architettura UC3.md` | Architecture | ✅ | [Vai](./00 Architettura UC3.md) |
-| SP20 - Organization Chart Manager | `01 SP20 - Gestione Organigramma.md` | Specification | ✅ | [Vai](./01 SP20 - Gestione Organigramma.md) |
-| SP21 - Procedure Manager | `01 SP21 - Gestore Procedure.md` | Specification | ✅ | [Vai](./01 SP21 - Gestore Procedure.md) |
-| SP22 - Process Governance | `01 SP22 - Governance Processi.md` | Specification | ✅ | [Vai](./01 SP22 - Governance Processi.md) |
-| SP23 - Compliance Monitor | `01 SP23 - Monitor Conformità.md` | Specification | ✅ | [Vai](./01 SP23 - Monitor Conformità.md) |
-| Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | [Vai](./01 Sequence diagrams.md) |
+| Architettura Generale | `00 Architettura UC3.md` | Architecture | ✅ | @-ARCHITETTURA.md) |
+| SP20 - Organization Chart Manager | `01 SP20 - Gestione Organigramma.md` | Specification | ✅ | [Vai](./SP20 - Gestione Organigramma.md) |
+| SP21 - Procedure Manager | `01 SP21 - Gestore Procedure.md` | Specification | ✅ | [Vai](./SP21 - Gestore Procedure.md) |
+| SP22 - Process Governance | `01 SP22 - Governance Processi.md` | Specification | ✅ | [Vai](./SP22 - Governance Processi.md) |
+| SP23 - Compliance Monitor | `01 SP23 - Monitor Conformità.md` | Specification | ✅ | [Vai](./SP23 - Monitor Conformità.md) |
+| Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | C-SEQUENCES.md) |
 
 ---
 
@@ -47,19 +47,19 @@ Questo UC copre tutti gli aspetti della **Governance (Organigramma, Procedimenti
 
 ### Organization
 
-- **[SP20](./01 SP20 - Gestione Organigramma.md)** - Organization Chart Manager
+- **[SP20](./SP20 - Gestione Organigramma.md)** - Organization Chart Manager
 
 ### Procedure
 
-- **[SP21](./01 SP21 - Gestore Procedure.md)** - Procedure Manager
+- **[SP21](./SP21 - Gestore Procedure.md)** - Procedure Manager
 
 ### Process
 
-- **[SP22](./01 SP22 - Governance Processi.md)** - Process Governance
+- **[SP22](./SP22 - Governance Processi.md)** - Process Governance
 
 ### Compliance
 
-- **[SP23](./01 SP23 - Monitor Conformità.md)** - Compliance Monitor
+- **[SP23](./SP23 - Monitor Conformità.md)** - Compliance Monitor
 
 ---
 

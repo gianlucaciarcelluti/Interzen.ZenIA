@@ -34,12 +34,12 @@ Questo UC copre tutti gli aspetti della **Integrazione con SIEM (Sicurezza Infor
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| Architettura Generale | `00 Architettura UC8.md` | Architecture | ✅ | [Vai](./00 Architettura UC8.md) |
-| SP38 - SIEM Collector | `01 SP38 - Collettore SIEM.md` | Specification | ✅ | [Vai](./01 SP38 - Collettore SIEM.md) |
-| SP39 - SIEM Processor | `01 SP39 - Elaboratore SIEM.md` | Specification | ✅ | [Vai](./01 SP39 - Elaboratore SIEM.md) |
-| SP40 - SIEM Storage | `01 SP40 - Archiviazione SIEM.md` | Specification | ✅ | [Vai](./01 SP40 - Archiviazione SIEM.md) |
-| SP41 - SIEM Analytics & Reporting | `01 SP41 - Analitiche SIEM e Reporting.md` | Specification | ✅ | [Vai](./01 SP41 - Analitiche SIEM e Reporting.md) |
-| Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | [Vai](./01 Sequence diagrams.md) |
+| Architettura Generale | `00 Architettura UC8.md` | Architecture | ✅ | @-ARCHITETTURA.md) |
+| SP38 - SIEM Collector | `01 SP38 - Collettore SIEM.md` | Specification | ✅ | [Vai](./SP38 - Collettore SIEM.md) |
+| SP39 - SIEM Processor | `01 SP39 - Elaboratore SIEM.md` | Specification | ✅ | [Vai](./SP39 - Elaboratore SIEM.md) |
+| SP40 - SIEM Storage | `01 SP40 - Archiviazione SIEM.md` | Specification | ✅ | [Vai](./SP40 - Archiviazione SIEM.md) |
+| SP41 - SIEM Analytics & Reporting | `01 SP41 - Analitiche SIEM e Reporting.md` | Specification | ✅ | [Vai](./SP41 - Analitiche SIEM e Reporting.md) |
+| Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | C-SEQUENCES.md) |
 
 ---
 
@@ -47,10 +47,10 @@ Questo UC copre tutti gli aspetti della **Integrazione con SIEM (Sicurezza Infor
 
 ### SIEM
 
-- **[SP38](./01 SP38 - Collettore SIEM.md)** - SIEM Collector
-- **[SP39](./01 SP39 - Elaboratore SIEM.md)** - SIEM Processor
-- **[SP40](./01 SP40 - Archiviazione SIEM.md)** - SIEM Storage
-- **[SP41](./01 SP41 - Analitiche SIEM e Reporting.md)** - SIEM Analytics & Reporting
+- **[SP38](./SP38 - Collettore SIEM.md)** - SIEM Collector
+- **[SP39](./SP39 - Elaboratore SIEM.md)** - SIEM Processor
+- **[SP40](./SP40 - Archiviazione SIEM.md)** - SIEM Storage
+- **[SP41](./SP41 - Analitiche SIEM e Reporting.md)** - SIEM Analytics & Reporting
 
 ---
 

@@ -38,9 +38,9 @@ Razionalizziamo la nomenclatura dei file nelle cartelle Use Case (UC1-UC11) elim
 
 3. **UC5 Usa Nomi Non-Standard**
    ```
-   ❌ 01 CANONICAL - Generazione Atto Completo.md     (prefisso non standard)
-   ❌ 02 SUPPLEMENTARY - Overview Semplificato.md      (incoerente)
-   ❌ 03 SUPPLEMENTARY - Ultra Semplificato.md         (salto numerazione)
+   ❌ CANONICAL-Complete-Flow.md     (prefisso non standard)
+   ❌ OVERVIEW-Simplified.md      (incoerente)
+   ❌ OVERVIEW-Ultra-Simplified.md         (salto numerazione)
    ```
 
 4. **Sottoprogetti Duplicati Tra UC**
@@ -182,10 +182,10 @@ README.md                                       # Indice (standard)
 | 01 SP10 - ... | SP/10-Pannello-Controllo.md | Documentazione SP |
 | 01 SP11 - ... | SP/11-Sicurezza-Audit.md | Documentazione SP |
 | 02 Matrice Dipendenze... | 02-DIPENDENZE.md | Dipendenze |
-| 02 SUPPLEMENTARY - Overview Semplificato.md | SUPPLEMENTARY/OVERVIEW-Simplified.md | Supplementare |
+| OVERVIEW-Simplified.md | SUPPLEMENTARY/OVERVIEW-Simplified.md | Supplementare |
 | 02 Sottoprogetti con Pipeline... | 01-OVERVIEW.md | Overview |
 | 03 Human in the Loop... | 05-HITL.md | HITL |
-| 03 SUPPLEMENTARY - Ultra Semplificato.md | SUPPLEMENTARY/OVERVIEW-Ultra-Simplified.md | Supplementare |
+| OVERVIEW-Ultra-Simplified.md | SUPPLEMENTARY/OVERVIEW-Ultra-Simplified.md | Supplementare |
 | Guida_Generazione_Atti... | 04-GUIDA.md | Guida |
 | TEMPLATE_SP_STRUCTURE.md | TEMPLATE-SP-STRUCTURE.md | Template |
 | README.md | README.md | Indice |

@@ -76,7 +76,7 @@ MS14-AUDIT, MS15-CONFIG, MS16-REGISTRY
 #### A3. Link Testuali Senza Hyperlink
 **Problema**: Maggior parte dei riferimenti SP/MS sono testuali (es. "SP02", "MS01") senza link espliciti.
 
-**Esempio Verificato**: Solo 1 link trovato in `UC5/01 CANONICAL - Generazione Atto Completo.md`.
+**Esempio Verificato**: Solo 1 link trovato in `UC5/CANONICAL-Complete-Flow.md`.
 
 **Impatto**: Navigazione manuale inefficiente, difficoltà seguire dipendenze.
 

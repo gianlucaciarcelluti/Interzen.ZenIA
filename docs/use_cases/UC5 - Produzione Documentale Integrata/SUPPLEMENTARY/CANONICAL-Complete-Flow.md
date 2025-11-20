@@ -3,8 +3,8 @@
 🏆 **CANONICAL REFERENCE**: Questo è il diagramma di sequenza autoritativo e completo per UC5. Contiene tutti i dettagli tecnici, API endpoints, payload JSON, timing, e strategie di caching/scalabilità.
 
 **Versioni Supplementari**:
-- [02 SUPPLEMENTARY - Overview Semplificato.md](02 SUPPLEMENTARY - Overview Semplificato.md) - Per stakeholder business
-- [03 SUPPLEMENTARY - Ultra Semplificato.md](03 SUPPLEMENTARY - Ultra Semplificato.md) - Per presentazioni executive
+- [OVERVIEW-Simplified.md](OVERVIEW-Simplified.md) - Per stakeholder business
+- [OVERVIEW-Ultra-Simplified.md](OVERVIEW-Ultra-Simplified.md) - Per presentazioni executive
 
 ---
 

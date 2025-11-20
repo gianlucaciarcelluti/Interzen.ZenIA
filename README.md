@@ -48,7 +48,7 @@ cp infrastructure/nifi-workflows/.env.example infrastructure/nifi-workflows/.env
 - [UC11 - Analisi Dati e Reporting](docs/use_cases/UC11%20-%20Analisi%20Dati%20e%20Reporting/)
 
 ### Guide Tecniche
-- [🏗️ Architettura Microservizi](docs/use_cases/UC5%20-%20Produzione%20Documentale%20Integrata/00%20Architettura%20Generale%20Microservizi.md)
+- [🏗️ Architettura Microservizi](docs/use_cases/UC5%20-%20Produzione%20Documentale%20Integrata/00-ARCHITECTURE.md)
 - [🚀 Infrastructure README](infrastructure/README.md)
 - [📦 Services Documentation](infrastructure/nifi-workflows/services/README.md)
 

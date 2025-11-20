@@ -1,6 +1,6 @@
 # Sequence Diagram: Overview Semplificato - Generazione Atto da Email PEC
 
-📋 **SUPPLEMENTARY DIAGRAM**: Versione semplificata della [sequenza canonica completa](01 CANONICAL - Generazione Atto Completo.md). Ideale per stakeholder e presentazioni di business. Per dettagli tecnici completi, consultare la versione canonica.
+📋 **SUPPLEMENTARY DIAGRAM**: Versione semplificata della [sequenza canonica completa](CANONICAL-Complete-Flow.md). Ideale per stakeholder e presentazioni di business. Per dettagli tecnici completi, consultare la versione canonica.
 
 ## Flusso End-to-End con Blocchi Sottoprogetti (Aggiornato con SP01-SP02)
 

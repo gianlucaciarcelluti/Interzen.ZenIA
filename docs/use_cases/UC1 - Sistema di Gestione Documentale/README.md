@@ -34,15 +34,15 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Documentale**, inc
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| SP02 - Document Extractor & Attachment Classifier | `01 SP02 - Estrattore Documenti e Classificatore Allegati.md` | Specification | ✅ | [Vai](./01 SP02 - Estrattore Documenti e Classificatore Allegati.md) |
-| SP07 - Content Classifier | `01 SP07 - Classificatore Contenuti.md` | Specification | ✅ | [Vai](./01 SP07 - Classificatore Contenuti.md) |
-| SP12 - Semantic Search & Q&A Engine | `01 SP12 - Ricerca Semantica e Motore Q&A.md` | Specification | ✅ | [Vai](./01 SP12 - Ricerca Semantica e Motore Q&A.md) |
-| SP13 - Document Summarizer | `01 SP13 - Sintetizzatore Documenti.md` | Specification | ✅ | [Vai](./01 SP13 - Sintetizzatore Documenti.md) |
-| SP14 - Metadata Indexer | `01 SP14 - Indicizzatore Metadati.md` | Specification | ✅ | [Vai](./01 SP14 - Indicizzatore Metadati.md) |
-| SP15 - Document Workflow Orchestrator | `01 SP15 - Orchestratore Workflow Documenti.md` | Specification | ✅ | [Vai](./01 SP15 - Orchestratore Workflow Documenti.md) |
-| Sequence - Document Processing Completo | `01 Sequence - Document Processing Completo.md` | Diagram | ✅ | [Vai](./01 Sequence - Document Processing Completo.md) |
-| Sequence - Overview Semplificato | `01 Sequence - Overview Semplificato.md` | Diagram | ✅ | [Vai](./01 Sequence - Overview Semplificato.md) |
-| Sequence - Ultra Semplificato | `01 Sequence - Ultra Semplificato.md` | Diagram | ✅ | [Vai](./01 Sequence - Ultra Semplificato.md) |
+| SP02 - Document Extractor & Attachment Classifier | `01 SP02 - Estrattore Documenti e Classificatore Allegati.md` | Specification | ✅ | [Vai](./SP02 - Estrattore Documenti e Classificatore Allegati.md) |
+| SP07 - Content Classifier | `01 SP07 - Classificatore Contenuti.md` | Specification | ✅ | [Vai](./SP07 - Classificatore Contenuti.md) |
+| SP12 - Semantic Search & Q&A Engine | `01 SP12 - Ricerca Semantica e Motore Q&A.md` | Specification | ✅ | [Vai](./SP12 - Ricerca Semantica e Motore Q&A.md) |
+| SP13 - Document Summarizer | `01 SP13 - Sintetizzatore Documenti.md` | Specification | ✅ | [Vai](./SP13 - Sintetizzatore Documenti.md) |
+| SP14 - Metadata Indexer | `01 SP14 - Indicizzatore Metadati.md` | Specification | ✅ | [Vai](./SP14 - Indicizzatore Metadati.md) |
+| SP15 - Document Workflow Orchestrator | `01 SP15 - Orchestratore Workflow Documenti.md` | Specification | ✅ | [Vai](./SP15 - Orchestratore Workflow Documenti.md) |
+| Sequence - Document Processing Completo | `01 Sequence - Document Processing Completo.md` | Diagram | ✅ | C-SEQUENCES.md) |
+| Sequence - Overview Semplificato | `01 Sequence - Overview Semplificato.md` | Diagram | ✅ | C-SEQUENCES-SIMPLIFIED.md) |
+| Sequence - Ultra Semplificato | `01 Sequence - Ultra Semplificato.md` | Diagram | ✅ | C-SEQUENCES-ULTRA-SIMPLIFIED.md) |
 
 ---
 
@@ -50,21 +50,21 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Documentale**, inc
 
 ### Document
 
-- **[SP02](./01 SP02 - Estrattore Documenti e Classificatore Allegati.md)** - Document Extractor & Attachment Classifier
-- **[SP13](./01 SP13 - Sintetizzatore Documenti.md)** - Document Summarizer
-- **[SP15](./01 SP15 - Orchestratore Workflow Documenti.md)** - Document Workflow Orchestrator
+- **[SP02](./SP02 - Estrattore Documenti e Classificatore Allegati.md)** - Document Extractor & Attachment Classifier
+- **[SP13](./SP13 - Sintetizzatore Documenti.md)** - Document Summarizer
+- **[SP15](./SP15 - Orchestratore Workflow Documenti.md)** - Document Workflow Orchestrator
 
 ### Content
 
-- **[SP07](./01 SP07 - Classificatore Contenuti.md)** - Content Classifier
+- **[SP07](./SP07 - Classificatore Contenuti.md)** - Content Classifier
 
 ### Semantic
 
-- **[SP12](./01 SP12 - Ricerca Semantica e Motore Q&A.md)** - Semantic Search & Q&A Engine
+- **[SP12](./SP12 - Ricerca Semantica e Motore Q&A.md)** - Semantic Search & Q&A Engine
 
 ### Metadata
 
-- **[SP14](./01 SP14 - Indicizzatore Metadati.md)** - Metadata Indexer
+- **[SP14](./SP14 - Indicizzatore Metadati.md)** - Metadata Indexer
 
 ---
 

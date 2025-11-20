@@ -60,7 +60,7 @@ docs/
 │       │
 │       ├── UC5 - Produzione Documentale Integrata/ ⭐
 │       │   ├── 00_OVERVIEW.md
-│       │   ├── 01 CANONICAL - Generazione Atto Completo.md
+│       │   ├── CANONICAL-Complete-Flow.md
 │       │   ├── 01_SP01 - EML Parser & Email Intelligence.md
 │       │   ├── 01_SP02 - Document Extractor & Attachment Classifier.md
 │       │   ├── 01_SP03 - Classificatore Procedurale.md
@@ -91,7 +91,7 @@ docs/
       Cosa fa UC5, attori, SLA
 
 2. Leggi diagrammi 5 min:
-   └─ docs/use_cases/UC5 - .../01 CANONICAL - Generazione Atto Completo.md
+   └─ docs/use_cases/UC5 - .../CANONICAL-Complete-Flow.md
       Sequence diagram completo flow
 
 3. Scegli SP (es. SP02):

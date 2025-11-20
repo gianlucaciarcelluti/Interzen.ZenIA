@@ -34,14 +34,14 @@ Questo UC copre tutti gli aspetti della **Supporto all'Utente**, incluse:
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| Architettura Generale | `00 Architettura UC10.md` | Architecture | ✅ | [Vai](./00 Architettura UC10.md) |
-| SP51 - Help Desk System | `01 SP51 - Sistema Help Desk.md` | Specification | ✅ | [Vai](./01 SP51 - Sistema Help Desk.md) |
-| SP52 - Knowledge Base Management | `01 SP52 - Gestione Base Conoscenze.md` | Specification | ✅ | [Vai](./01 SP52 - Gestione Base Conoscenze.md) |
-| SP53 - Virtual Assistant & Chatbot | `01 SP53 - Assistente Virtuale e Chatbot.md` | Specification | ✅ | [Vai](./01 SP53 - Assistente Virtuale e Chatbot.md) |
-| SP54 - User Training Platform | `01 SP54 - Piattaforma Formazione Utenti.md` | Specification | ✅ | [Vai](./01 SP54 - Piattaforma Formazione Utenti.md) |
-| SP55 - Self-Service Portal | `01 SP55 - Portale Self-Service.md` | Specification | ✅ | [Vai](./01 SP55 - Portale Self-Service.md) |
-| SP56 - Support Analytics & Reporting | `01 SP56 - Analitiche Supporto e Reporting.md` | Specification | ✅ | [Vai](./01 SP56 - Analitiche Supporto e Reporting.md) |
-| SP57 - User Feedback Management | `01 SP57 - Gestione Feedback Utenti.md` | Specification | ✅ | [Vai](./01 SP57 - Gestione Feedback Utenti.md) |
+| Architettura Generale | `00 Architettura UC10.md` | Architecture | ✅ | @-ARCHITETTURA.md) |
+| SP51 - Help Desk System | `01 SP51 - Sistema Help Desk.md` | Specification | ✅ | [Vai](./SP51 - Sistema Help Desk.md) |
+| SP52 - Knowledge Base Management | `01 SP52 - Gestione Base Conoscenze.md` | Specification | ✅ | [Vai](./SP52 - Gestione Base Conoscenze.md) |
+| SP53 - Virtual Assistant & Chatbot | `01 SP53 - Assistente Virtuale e Chatbot.md` | Specification | ✅ | [Vai](./SP53 - Assistente Virtuale e Chatbot.md) |
+| SP54 - User Training Platform | `01 SP54 - Piattaforma Formazione Utenti.md` | Specification | ✅ | [Vai](./SP54 - Piattaforma Formazione Utenti.md) |
+| SP55 - Self-Service Portal | `01 SP55 - Portale Self-Service.md` | Specification | ✅ | [Vai](./SP55 - Portale Self-Service.md) |
+| SP56 - Support Analytics & Reporting | `01 SP56 - Analitiche Supporto e Reporting.md` | Specification | ✅ | [Vai](./SP56 - Analitiche Supporto e Reporting.md) |
+| SP57 - User Feedback Management | `01 SP57 - Gestione Feedback Utenti.md` | Specification | ✅ | [Vai](./SP57 - Gestione Feedback Utenti.md) |
 
 ---
 
@@ -49,28 +49,28 @@ Questo UC copre tutti gli aspetti della **Supporto all'Utente**, incluse:
 
 ### Help
 
-- **[SP51](./01 SP51 - Sistema Help Desk.md)** - Help Desk System
+- **[SP51](./SP51 - Sistema Help Desk.md)** - Help Desk System
 
 ### Knowledge
 
-- **[SP52](./01 SP52 - Gestione Base Conoscenze.md)** - Knowledge Base Management
+- **[SP52](./SP52 - Gestione Base Conoscenze.md)** - Knowledge Base Management
 
 ### Virtual
 
-- **[SP53](./01 SP53 - Assistente Virtuale e Chatbot.md)** - Virtual Assistant & Chatbot
+- **[SP53](./SP53 - Assistente Virtuale e Chatbot.md)** - Virtual Assistant & Chatbot
 
 ### User
 
-- **[SP54](./01 SP54 - Piattaforma Formazione Utenti.md)** - User Training Platform
-- **[SP57](./01 SP57 - Gestione Feedback Utenti.md)** - User Feedback Management
+- **[SP54](./SP54 - Piattaforma Formazione Utenti.md)** - User Training Platform
+- **[SP57](./SP57 - Gestione Feedback Utenti.md)** - User Feedback Management
 
 ### Self
 
-- **[SP55](./01 SP55 - Portale Self-Service.md)** - Self-Service Portal
+- **[SP55](./SP55 - Portale Self-Service.md)** - Self-Service Portal
 
 ### Support
 
-- **[SP56](./01 SP56 - Analitiche Supporto e Reporting.md)** - Support Analytics & Reporting
+- **[SP56](./SP56 - Analitiche Supporto e Reporting.md)** - Support Analytics & Reporting
 
 ---
 

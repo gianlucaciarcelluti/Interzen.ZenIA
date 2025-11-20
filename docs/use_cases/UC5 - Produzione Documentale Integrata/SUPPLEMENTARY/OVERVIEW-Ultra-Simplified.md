@@ -1,6 +1,6 @@
 # Sequence Diagram: Ultra Semplificato - Email to Atto
 
-📊 **SUPPLEMENTARY DIAGRAM - EXECUTIVE SUMMARY**: Versione estremamente semplificata della [sequenza canonica](01 CANONICAL - Generazione Atto Completo.md). Mostra solo 3 macro-blocchi (Email + AI + Sistema). Ideale per C-level executives e product demos veloce. **Nota**: Non include dettagli tecnici - consultare versione canonica per specifiche complete.
+📊 **SUPPLEMENTARY DIAGRAM - EXECUTIVE SUMMARY**: Versione estremamente semplificata della [sequenza canonica](CANONICAL-Complete-Flow.md). Mostra solo 3 macro-blocchi (Email + AI + Sistema). Ideale per C-level executives e product demos veloce. **Nota**: Non include dettagli tecnici - consultare versione canonica per specifiche complete.
 
 ## Il Flusso in 3 Macro-Blocchi
 

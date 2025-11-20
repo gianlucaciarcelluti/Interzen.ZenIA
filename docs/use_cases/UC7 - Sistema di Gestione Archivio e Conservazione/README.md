@@ -34,13 +34,13 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Archivio e Conserv
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| Architettura Generale | `00 Architettura UC7.md` | Architecture | ✅ | [Vai](./00 Architettura UC7.md) |
-| SP33 - Archive Manager | `01 SP33 - Gestore Archivio.md` | Specification | ✅ | [Vai](./01 SP33 - Gestore Archivio.md) |
-| SP34 - Preservation Engine | `01 SP34 - Motore Conservazione.md` | Specification | ✅ | [Vai](./01 SP34 - Motore Conservazione.md) |
-| SP35 - Integrity Validator | `01 SP35 - Validatore Integrità.md` | Specification | ✅ | [Vai](./01 SP35 - Validatore Integrità.md) |
-| SP36 - Storage Optimizer | `01 SP36 - Ottimizzatore Archiviazione.md` | Specification | ✅ | [Vai](./01 SP36 - Ottimizzatore Archiviazione.md) |
-| SP37 - Archive Metadata Manager | `01 SP37 - Gestore Metadati Archivio.md` | Specification | ✅ | [Vai](./01 SP37 - Gestore Metadati Archivio.md) |
-| Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | [Vai](./01 Sequence diagrams.md) |
+| Architettura Generale | `00 Architettura UC7.md` | Architecture | ✅ | @-ARCHITETTURA.md) |
+| SP33 - Archive Manager | `01 SP33 - Gestore Archivio.md` | Specification | ✅ | [Vai](./SP33 - Gestore Archivio.md) |
+| SP34 - Preservation Engine | `01 SP34 - Motore Conservazione.md` | Specification | ✅ | [Vai](./SP34 - Motore Conservazione.md) |
+| SP35 - Integrity Validator | `01 SP35 - Validatore Integrità.md` | Specification | ✅ | [Vai](./SP35 - Validatore Integrità.md) |
+| SP36 - Storage Optimizer | `01 SP36 - Ottimizzatore Archiviazione.md` | Specification | ✅ | [Vai](./SP36 - Ottimizzatore Archiviazione.md) |
+| SP37 - Archive Metadata Manager | `01 SP37 - Gestore Metadati Archivio.md` | Specification | ✅ | [Vai](./SP37 - Gestore Metadati Archivio.md) |
+| Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | C-SEQUENCES.md) |
 
 ---
 
@@ -48,20 +48,20 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Archivio e Conserv
 
 ### Archive
 
-- **[SP33](./01 SP33 - Gestore Archivio.md)** - Archive Manager
-- **[SP37](./01 SP37 - Gestore Metadati Archivio.md)** - Archive Metadata Manager
+- **[SP33](./SP33 - Gestore Archivio.md)** - Archive Manager
+- **[SP37](./SP37 - Gestore Metadati Archivio.md)** - Archive Metadata Manager
 
 ### Preservation
 
-- **[SP34](./01 SP34 - Motore Conservazione.md)** - Preservation Engine
+- **[SP34](./SP34 - Motore Conservazione.md)** - Preservation Engine
 
 ### Integrity
 
-- **[SP35](./01 SP35 - Validatore Integrità.md)** - Integrity Validator
+- **[SP35](./SP35 - Validatore Integrità.md)** - Integrity Validator
 
 ### Storage
 
-- **[SP36](./01 SP36 - Ottimizzatore Archiviazione.md)** - Storage Optimizer
+- **[SP36](./SP36 - Ottimizzatore Archiviazione.md)** - Storage Optimizer
 
 ---
 

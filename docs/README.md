@@ -59,7 +59,7 @@ Indice completo della documentazione della piattaforma ZenIA in lingua italiana.
   - Checklist completezza per UC e MS
 
 ### 📝 Template Concreto SP
-- **[use_cases/UC5 - Produzione Documentale Integrata/TEMPLATE_SP_STRUCTURE.md](use_cases/UC5%20-%20Produzione%20Documentale%20Integrata/TEMPLATE_SP_STRUCTURE.md)**
+- **[use_cases/UC5 - Produzione Documentale Integrata/TEMPLATE-SP-STRUCTURE.md](use_cases/UC5%20-%20Produzione%20Documentale%20Integrata/TEMPLATE-SP-STRUCTURE.md)**
   - Esempio completo UC5-SP02
   - 7 sezioni standardizzate per SP
   - Sequence diagram con Mermaid

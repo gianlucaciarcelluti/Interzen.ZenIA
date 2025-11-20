@@ -34,12 +34,12 @@ Questo UC copre tutti gli aspetti della **Firma Digitale Integrata**, incluse:
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| Architettura Generale | `00 Architettura UC6.md` | Architecture | ✅ | [Vai](./00 Architettura UC6.md) |
-| SP29 - Digital Signature Engine | `01 SP29 - Motore Firma Digitale.md` | Specification | ✅ | [Vai](./01 SP29 - Motore Firma Digitale.md) |
-| SP30 - Certificate Manager | `01 SP30 - Gestore Certificati.md` | Specification | ✅ | [Vai](./01 SP30 - Gestore Certificati.md) |
-| SP31 - Signature Workflow | `01 SP31 - Workflow Firma.md` | Specification | ✅ | [Vai](./01 SP31 - Workflow Firma.md) |
-| SP32 - Timestamp Authority & Temporal Marking | `01 SP32 - Autorità Timestamp e Marcatura Temporale.md` | Specification | ✅ | [Vai](./01 SP32 - Autorità Timestamp e Marcatura Temporale.md) |
-| Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | [Vai](./01 Sequence diagrams.md) |
+| Architettura Generale | `00 Architettura UC6.md` | Architecture | ✅ | @-ARCHITETTURA.md) |
+| SP29 - Digital Signature Engine | `01 SP29 - Motore Firma Digitale.md` | Specification | ✅ | [Vai](./SP29 - Motore Firma Digitale.md) |
+| SP30 - Certificate Manager | `01 SP30 - Gestore Certificati.md` | Specification | ✅ | [Vai](./SP30 - Gestore Certificati.md) |
+| SP31 - Signature Workflow | `01 SP31 - Workflow Firma.md` | Specification | ✅ | [Vai](./SP31 - Workflow Firma.md) |
+| SP32 - Timestamp Authority & Temporal Marking | `01 SP32 - Autorità Timestamp e Marcatura Temporale.md` | Specification | ✅ | [Vai](./SP32 - Autorità Timestamp e Marcatura Temporale.md) |
+| Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | C-SEQUENCES.md) |
 
 ---
 
@@ -47,19 +47,19 @@ Questo UC copre tutti gli aspetti della **Firma Digitale Integrata**, incluse:
 
 ### Digital
 
-- **[SP29](./01 SP29 - Motore Firma Digitale.md)** - Digital Signature Engine
+- **[SP29](./SP29 - Motore Firma Digitale.md)** - Digital Signature Engine
 
 ### Certificate
 
-- **[SP30](./01 SP30 - Gestore Certificati.md)** - Certificate Manager
+- **[SP30](./SP30 - Gestore Certificati.md)** - Certificate Manager
 
 ### Signature
 
-- **[SP31](./01 SP31 - Workflow Firma.md)** - Signature Workflow
+- **[SP31](./SP31 - Workflow Firma.md)** - Signature Workflow
 
 ### Timestamp
 
-- **[SP32](./01 SP32 - Autorità Timestamp e Marcatura Temporale.md)** - Timestamp Authority & Temporal Marking
+- **[SP32](./SP32 - Autorità Timestamp e Marcatura Temporale.md)** - Timestamp Authority & Temporal Marking
 
 ---
 

@@ -50,47 +50,47 @@ Questo UC copre tutti gli aspetti della **Produzione Documentale Integrata**, in
 
 ### EML
 
-- **[SP01](./01 SP01 - Parser EML e Intelligenza Email.md)** - SP- EML Parser & Email Intelligence
+- **[SP01](./SP01 - Parser EML e Intelligenza Email.md)** - SP- EML Parser & Email Intelligence
 
 ### Document
 
-- **[SP02](./01 SP02 - Estrattore Documenti e Classificatore Allegati.md)** - Document Extractor & Attachment Classifier
+- **[SP02](./SP02 - Estrattore Documenti e Classificatore Allegati.md)** - Document Extractor & Attachment Classifier
 
 ### Procedural
 
-- **[SP03](./01 SP03 - Classificatore Procedurale.md)** - Procedural Classifier
+- **[SP03](./SP03 - Classificatore Procedurale.md)** - Procedural Classifier
 
 ### Knowledge
 
-- **[SP04](./01 SP04 - Base Conoscenze.md)** - Knowledge Base
+- **[SP04](./SP04 - Base Conoscenze.md)** - Knowledge Base
 
 ### Template
 
-- **[SP05](./01 SP05 - Motore Template.md)** - Template Engine
+- **[SP05](./SP05 - Motore Template.md)** - Template Engine
 
 ### Validator.md
 
-- **[SP06](./01 SP06 - Validatore.md)** - Validator
+- **[SP06](./SP06 - Validatore.md)** - Validator
 
 ### Content
 
-- **[SP07](./01 SP07 - Classificatore Contenuti.md)** - Content Classifier
+- **[SP07](./SP07 - Classificatore Contenuti.md)** - Content Classifier
 
 ### Quality
 
-- **[SP08](./01 SP08 - Verificatore Qualità.md)** - Quality Checker
+- **[SP08](./SP08 - Verificatore Qualità.md)** - Quality Checker
 
 ### Workflow
 
-- **[SP09](./01 SP09 - Motore Workflow.md)** - Workflow Engine
+- **[SP09](./SP09 - Motore Workflow.md)** - Workflow Engine
 
 ### Dashboard.md
 
-- **[SP10](./01 SP10 - Pannello di Controllo.md)** - Dashboard
+- **[SP10](./SP10 - Pannello di Controllo.md)** - Dashboard
 
 ### Security
 
-- **[SP11](./01 SP11 - Sicurezza e Audit.md)** - Security & Audit
+- **[SP11](./SP11 - Sicurezza e Audit.md)** - Security & Audit
 
 ---
 

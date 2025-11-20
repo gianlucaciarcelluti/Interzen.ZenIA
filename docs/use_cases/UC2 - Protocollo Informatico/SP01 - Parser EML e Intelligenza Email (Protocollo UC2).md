@@ -12,7 +12,7 @@ Questa è una **variante UC2-specifica** del componente generale SP01 documentat
 
 ## Relazione con UC5
 
-**Canonical documentation**: [UC5 SP01 - EML Parser & Email Intelligence](../UC5 - Produzione Documentale Integrata/01 SP01 - Parser EML e Intelligenza Email.md)
+**Canonical documentation**: [UC5 SP01 - EML Parser & Email Intelligence](../UC5 - Produzione Documentale Integrata/SP01 - Parser EML e Intelligenza Email.md)
 
 Questo documento è una **specializzazione UC2** che enfatizza gli aspetti specifici per protocollo informatico.
 
@@ -284,10 +284,10 @@ Email (PEC/SMTP)
 
 ## Documentazione Correlata
 
-- **Canonical**: [UC5 SP01 - EML Parser & Email Intelligence](../UC5 - Produzione Documentale Integrata/01 SP01 - Parser EML e Intelligenza Email.md)
-- **UC2 SP16**: [Correspondence Classifier](./01 SP16 - Classificatore Corrispondenza.md)
-- **UC2 SP17**: [Registry Suggester](./01 SP17 - Suggeritore Registro.md)
-- **UC2 SP19**: [Protocol Workflow Orchestrator](./01 SP19 - Orchestratore Workflow Protocollo.md)
+- **Canonical**: [UC5 SP01 - EML Parser & Email Intelligence](../UC5 - Produzione Documentale Integrata/SP01 - Parser EML e Intelligenza Email.md)
+- **UC2 SP16**: [Correspondence Classifier](./SP16 - Classificatore Corrispondenza.md)
+- **UC2 SP17**: [Registry Suggester](./SP17 - Suggeritore Registro.md)
+- **UC2 SP19**: [Protocol Workflow Orchestrator](./SP19 - Orchestratore Workflow Protocollo.md)
 
 ---
 
