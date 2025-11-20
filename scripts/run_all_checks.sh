@@ -186,13 +186,13 @@ if [ "$QUICK_MODE" = false ]; then
     run_check "🔟" "Whitespace" "verify_whitespace_formatting.py"
     WHITESPACE_RESULT=$?
 
-    run_check "1️⃣1️⃣" "Orphaned Images" "verify_orphaned_images.py"
+    run_check "1️⃣ 1️⃣" "Orphaned Images" "verify_orphaned_images.py"
     IMAGE_RESULT=$?
 
-    run_check "1️⃣2️⃣" "Content Duplicates" "verify_content_duplicates.py"
+    run_check "1️⃣ 2️⃣" "Content Duplicates" "verify_content_duplicates.py"
     DUPLICATE_RESULT=$?
 
-    run_check "1️⃣3️⃣" "README Metadata" "verify_readme_metadata.py"
+    run_check "1️⃣ 3️⃣" "README Metadata" "verify_readme_metadata.py"
     README_RESULT=$?
 
     if [ "$VERBOSE" = false ]; then

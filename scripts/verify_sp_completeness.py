@@ -205,10 +205,10 @@ class SPValidator:
         completeness = (summary['found_sp_count'] / summary['expected_sp_count'] * 100) if summary['expected_sp_count'] > 0 else 0
         print(f"Completeness: {completeness:.1f}% ({summary['found_sp_count']}/{summary['expected_sp_count']})")
 
-        if summary['errors'] == 0 and summary['extra_sp'] == 0 and summary['duplicated_sp'] == 0:
+        if summary['errors'] == 0 and len(summary['extra_sp']) == 0 and summary['duplicated_sp'] == 0:
             print("✅ SP COMPLETENESS: PERFECT")
             return 0
-        elif summary['missing_sp'] == 0 and summary['errors'] == 0:
+        elif len(summary['missing_sp']) == 0 and summary['errors'] == 0:
             print("⚠️  SP COMPLETENESS: GOOD (some duplicates/extra)")
             return 0
         else:
