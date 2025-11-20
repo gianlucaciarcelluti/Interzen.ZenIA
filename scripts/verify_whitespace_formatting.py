@@ -21,7 +21,10 @@ REPORTS_DIR = Path(__file__).parent / "reports"
 REPORTS_DIR.mkdir(exist_ok=True)
 
 # Thresholds
-MAX_LINE_LENGTH = 120
+# Increased to 250 to accommodate Mermaid diagrams, long URLs, and structured content
+# Original 120 was too strict for technical documentation with inline code/diagrams
+# Only flag egregiously long lines (>250 chars) which may indicate actual issues
+MAX_LINE_LENGTH = 250
 MAX_CONSECUTIVE_BLANKS = 2
 
 class WhitespaceValidator:
