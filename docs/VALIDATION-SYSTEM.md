@@ -347,10 +347,10 @@ if summary['errors'] == 0 and len(summary['extra_sp']) == 0:
 
 ## References
 
-- [Validation Scripts](./scripts/)
+- [Validation Scripts](../scripts/)
 - [UC Archetype Specification](./DOCUMENTATION-STRUCTURE-GUIDE.md)
 - [SP Mapping](./ARCHITECTURE-OVERVIEW.md)
-- [GitHub Actions Workflows](.github/workflows/)
+- [GitHub Actions Workflows](../.github/workflows/)
 
 ---
 
