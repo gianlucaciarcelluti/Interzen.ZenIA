@@ -3,310 +3,180 @@
 ###############################################################################
 # Script per eseguire tutte le verifiche sulla documentazione ZenIA
 #
-# Utilizzo: ./run_all_checks.sh [--quick]
+# Utilizzo: ./run_all_checks.sh [--quick] [--verbose]
 # Output: report/ directory con 15 file JSON
 #
 # TIER 1 (Critical): SP/MS References, UC Archetype, SP Completeness, Headings, Mermaid
 # TIER 2 (Warnings): Sections, Language, Payload, Cross-References
 # TIER 3 (Lint):    Whitespace, Images, Duplicates, README Metadata
-# Legacy:           JSON, Links
 ###############################################################################
-
-# Note: Non usiamo 'set -e' per permettere continuazione anche se alcuni script falliscono
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 REPORTS_DIR="$SCRIPT_DIR/reports"
 QUICK_MODE=false
+VERBOSE=false
 
 # Parsing args
-if [[ "$1" == "--quick" ]]; then
-    QUICK_MODE=true
+[[ "$1" == "--quick" ]] && QUICK_MODE=true
+[[ "$1" == "--verbose" || "$2" == "--verbose" ]] && VERBOSE=true
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Helper functions
+run_check() {
+    local check_num=$1
+    local check_name=$2
+    local script=$3
+
+    if [ "$VERBOSE" = true ]; then
+        echo -e "${BLUE}${check_num}${NC} ${check_name}..."
+        python3 "$SCRIPT_DIR/$script" 2>&1
+        return $?
+    else
+        echo -ne "${BLUE}${check_num}${NC} ${check_name}... "
+        output=$(python3 "$SCRIPT_DIR/$script" 2>&1)
+        result=$?
+
+        # Extract status from output
+        if echo "$output" | grep -q "ERRORI TROVATI\|NEEDS WORK\|FAIL"; then
+            echo -e "${RED}⚠️${NC}"
+        elif echo "$output" | grep -q "PERFECT\|EXCELLENT\|VALID\|PASS\|OK\|NESSUN\|ALL VALID"; then
+            echo -e "${GREEN}✅${NC}"
+        else
+            echo -e "${YELLOW}~${NC}"
+        fi
+        return $result
+    fi
+}
+
+# Header
+if [ "$VERBOSE" = true ]; then
+    echo "📋 ZenIA Documentation Validation Suite"
+    echo "========================================"
+    echo "Mode: VERBOSE"
+    echo ""
 fi
 
-echo "📋 ZenIA Documentation Validation Suite (Complete)"
-echo "=================================================="
-echo ""
-
-# Verifica Python disponibile
+# Check Python
 if ! command -v python3 &> /dev/null; then
-    echo "❌ Python3 non trovato. Installa Python3."
+    echo "❌ Python3 non trovato"
     exit 1
 fi
 
-echo "Python: $(python3 --version)"
-echo ""
-
-# Crea directory reports se non esiste
 mkdir -p "$REPORTS_DIR"
 
 # ============================================================================
-# TIER 1: CRITICAL CHECKS (Structural)
+# TIER 1: CRITICAL CHECKS
 # ============================================================================
-echo ""
-echo "🏗️  TIER 1 - CRITICAL STRUCTURAL CHECKS"
-echo "=================================================="
-echo ""
-
-# 1. Verifica SP/MS References
-echo "1️⃣  Verifica SP/MS References..."
-python3 "$SCRIPT_DIR/verify_sp_references.py"
-SP_RESULT=$?
-echo ""
-
-# 2. Verifica UC Archetype Completeness
-echo "2️⃣  Verifica Completamento Archetipo UC..."
-python3 "$SCRIPT_DIR/verify_uc_archetype.py"
-UC_ARCHETYPE_RESULT=$?
-echo ""
-
-# 3. Verifica SP Completeness
-echo "3️⃣  Verifica Completamento e Mappatura SP..."
-python3 "$SCRIPT_DIR/verify_sp_completeness.py"
-SP_COMPLETE_RESULT=$?
-echo ""
-
-# 4. Verifica Markdown Headings
-echo "4️⃣  Verifica Coerenza Heading Markdown..."
-python3 "$SCRIPT_DIR/verify_markdown_headings.py"
-HEADING_RESULT=$?
-echo ""
-
-# 5. Verifica Mermaid Diagrams
-echo "5️⃣  Verifica Validità Diagram Mermaid..."
-python3 "$SCRIPT_DIR/verify_mermaid_diagrams.py"
-MERMAID_RESULT=$?
-echo ""
-
-if [ "$QUICK_MODE" = true ]; then
-    echo "⚡ QUICK MODE: Skipping TIER 2-3 checks"
-    echo ""
-else
-
-# ============================================================================
-# TIER 2: WARNING CHECKS (Content Quality)
-# ============================================================================
-echo ""
-echo "📝 TIER 2 - CONTENT QUALITY CHECKS"
-echo "=================================================="
-echo ""
-
-# 6. Verifica Section Completeness
-echo "6️⃣  Verifica Completamento Sezioni SP..."
-python3 "$SCRIPT_DIR/verify_section_completeness.py"
-SECTION_RESULT=$?
-echo ""
-
-# 7. Verifica Language Coherence
-echo "7️⃣  Verifica Coerenza Linguistica..."
-python3 "$SCRIPT_DIR/verify_language_coherence.py"
-LANGUAGE_RESULT=$?
-echo ""
-
-# 8. Verifica Payload Validation
-echo "8️⃣  Verifica Validazione Payload JSON..."
-python3 "$SCRIPT_DIR/verify_payload_validation.py"
-PAYLOAD_RESULT=$?
-echo ""
-
-# 9. Verifica Cross References
-echo "9️⃣  Verifica Validazione Cross-Reference..."
-python3 "$SCRIPT_DIR/verify_cross_references.py"
-CROSSREF_RESULT=$?
-echo ""
-
-# ============================================================================
-# TIER 3: LINT CHECKS (Formatting & Metadata)
-# ============================================================================
-echo ""
-echo "🧹 TIER 3 - FORMATTING & LINT CHECKS"
-echo "=================================================="
-echo ""
-
-# 10. Verifica Whitespace
-echo "🔟 Verifica Whitespace e Formattazione..."
-python3 "$SCRIPT_DIR/verify_whitespace_formatting.py"
-WHITESPACE_RESULT=$?
-echo ""
-
-# 11. Verifica Orphaned Images
-echo "1️⃣1️⃣  Verifica Immagini Orfane..."
-python3 "$SCRIPT_DIR/verify_orphaned_images.py"
-IMAGE_RESULT=$?
-echo ""
-
-# 12. Verifica Content Duplicates
-echo "1️⃣2️⃣  Verifica Duplicati di Contenuto..."
-python3 "$SCRIPT_DIR/verify_content_duplicates.py"
-DUPLICATE_RESULT=$?
-echo ""
-
-# 13. Verifica README Metadata
-echo "1️⃣3️⃣  Verifica Metadati README..."
-python3 "$SCRIPT_DIR/verify_readme_metadata.py"
-README_RESULT=$?
-echo ""
-
+if [ "$VERBOSE" = false ]; then
+    echo "🏗️  TIER 1 (Critical):"
 fi
 
-# ============================================================================
-# LEGACY CHECKS (Original)
-# ============================================================================
-echo ""
-echo "📚 LEGACY CHECKS"
-echo "=================================================="
-echo ""
+run_check "1️⃣" "SP/MS References" "verify_sp_references.py"
+SP_RESULT=$?
 
-# JSON Examples
-echo "🔸 Verifica JSON Examples..."
-python3 "$SCRIPT_DIR/verify_json_examples.py"
-JSON_RESULT=$?
-echo ""
+run_check "2️⃣" "UC Archetype" "verify_uc_archetype.py"
+UC_ARCHETYPE_RESULT=$?
 
-# Links
-echo "🔗 Verifica Link Markdown..."
-python3 "$SCRIPT_DIR/verify_links.py"
-LINKS_RESULT=$?
-echo ""
+run_check "3️⃣" "SP Completeness" "verify_sp_completeness.py"
+SP_COMPLETE_RESULT=$?
 
-# ============================================================================
-# SUMMARY
-# ============================================================================
-echo ""
-echo "========================================"
-echo "📊 SUMMARY - VALIDATION RESULTS"
-echo "========================================"
-echo ""
+run_check "4️⃣" "Markdown Headings" "verify_markdown_headings.py"
+HEADING_RESULT=$?
+
+run_check "5️⃣" "Mermaid Diagrams" "verify_mermaid_diagrams.py"
+MERMAID_RESULT=$?
+
+if [ "$VERBOSE" = false ]; then
+    echo ""
+fi
 
 TIER1_PASS=true
+[ $SP_RESULT -ne 0 ] && TIER1_PASS=false
+[ $UC_ARCHETYPE_RESULT -ne 0 ] && TIER1_PASS=false
+[ $SP_COMPLETE_RESULT -ne 0 ] && TIER1_PASS=false
 
-# TIER 1 Results
-echo "🏗️  TIER 1 (CRITICAL):"
-if [ $SP_RESULT -eq 0 ]; then
-    echo "  ✅ SP/MS References: OK"
-else
-    echo "  ❌ SP/MS References: FAIL"
-    TIER1_PASS=false
-fi
-
-if [ $UC_ARCHETYPE_RESULT -eq 0 ]; then
-    echo "  ✅ UC Archetype: OK"
-else
-    echo "  ⚠️  UC Archetype: ISSUES"
-    TIER1_PASS=false
-fi
-
-if [ $SP_COMPLETE_RESULT -eq 0 ]; then
-    echo "  ✅ SP Completeness: OK"
-else
-    echo "  ⚠️  SP Completeness: ISSUES"
-    TIER1_PASS=false
-fi
-
-if [ $HEADING_RESULT -eq 0 ]; then
-    echo "  ✅ Markdown Headings: OK"
-else
-    echo "  ⚠️  Markdown Headings: ISSUES"
-fi
-
-if [ $MERMAID_RESULT -eq 0 ]; then
-    echo "  ✅ Mermaid Diagrams: OK"
-else
-    echo "  ⚠️  Mermaid Diagrams: WARNINGS"
-fi
-
+# TIER 2: CONTENT QUALITY CHECKS
 if [ "$QUICK_MODE" = false ]; then
+    if [ "$VERBOSE" = false ]; then
+        echo "📝 TIER 2 (Content):"
+    fi
 
-# TIER 2 Results
-echo ""
-echo "📝 TIER 2 (CONTENT):"
-if [ $SECTION_RESULT -eq 0 ]; then
-    echo "  ✅ Section Completeness: OK"
-else
-    echo "  ⚠️  Section Completeness: ISSUES"
+    run_check "6️⃣" "Section Completeness" "verify_section_completeness.py"
+    SECTION_RESULT=$?
+
+    run_check "7️⃣" "Language Coherence" "verify_language_coherence.py"
+    LANGUAGE_RESULT=$?
+
+    run_check "8️⃣" "Payload Validation" "verify_payload_validation.py"
+    PAYLOAD_RESULT=$?
+
+    run_check "9️⃣" "Cross-References" "verify_cross_references.py"
+    CROSSREF_RESULT=$?
+
+    if [ "$VERBOSE" = false ]; then
+        echo ""
+        echo "🧹 TIER 3 (Lint):"
+    fi
+
+    # TIER 3: LINT CHECKS
+    run_check "🔟" "Whitespace" "verify_whitespace_formatting.py"
+    WHITESPACE_RESULT=$?
+
+    run_check "1️⃣1️⃣" "Orphaned Images" "verify_orphaned_images.py"
+    IMAGE_RESULT=$?
+
+    run_check "1️⃣2️⃣" "Content Duplicates" "verify_content_duplicates.py"
+    DUPLICATE_RESULT=$?
+
+    run_check "1️⃣3️⃣" "README Metadata" "verify_readme_metadata.py"
+    README_RESULT=$?
+
+    if [ "$VERBOSE" = false ]; then
+        echo ""
+    fi
 fi
 
-if [ $LANGUAGE_RESULT -eq 0 ]; then
-    echo "  ✅ Language Coherence: OK"
-else
-    echo "  ⚠️  Language Coherence: WARNINGS"
+# LEGACY CHECKS
+if [ "$VERBOSE" = false ]; then
+    echo "📚 Legacy:"
 fi
 
-if [ $PAYLOAD_RESULT -eq 0 ]; then
-    echo "  ✅ Payload Validation: OK"
-else
-    echo "  ⚠️  Payload Validation: WARNINGS"
-fi
+run_check "🔸" "JSON Examples" "verify_json_examples.py"
+JSON_RESULT=$?
 
-if [ $CROSSREF_RESULT -eq 0 ]; then
-    echo "  ✅ Cross-References: OK"
-else
-    echo "  ⚠️  Cross-References: WARNINGS"
-fi
-
-# TIER 3 Results
-echo ""
-echo "🧹 TIER 3 (LINT):"
-if [ $WHITESPACE_RESULT -eq 0 ]; then
-    echo "  ✅ Whitespace: OK"
-else
-    echo "  ⚠️  Whitespace: WARNINGS"
-fi
-
-if [ $IMAGE_RESULT -eq 0 ]; then
-    echo "  ✅ Images: OK"
-else
-    echo "  ⚠️  Images: WARNINGS"
-fi
-
-if [ $DUPLICATE_RESULT -eq 0 ]; then
-    echo "  ✅ Duplicates: OK"
-else
-    echo "  ⚠️  Duplicates: WARNINGS"
-fi
-
-if [ $README_RESULT -eq 0 ]; then
-    echo "  ✅ README Metadata: OK"
-else
-    echo "  ⚠️  README Metadata: WARNINGS"
-fi
-
-fi
-
-# Legacy Checks
-echo ""
-echo "📚 LEGACY:"
-if [ $JSON_RESULT -eq 0 ]; then
-    echo "  ✅ JSON Examples: OK"
-else
-    echo "  ⚠️  JSON Examples: ISSUES"
-fi
-
-if [ $LINKS_RESULT -eq 0 ]; then
-    echo "  ✅ Links: OK"
-else
-    echo "  ⚠️  Links: ISSUES"
-fi
-
-echo ""
-echo "📁 Report completi in: $REPORTS_DIR"
-echo "   (15 file JSON con dettagli completi)"
-echo ""
+run_check "🔗" "Links" "verify_links.py"
+LINKS_RESULT=$?
 
 # ============================================================================
 # FINAL DECISION
 # ============================================================================
-echo ""
-echo "========================================"
-echo "📋 FINAL DECISION"
-echo "========================================"
-echo ""
+if [ "$VERBOSE" = false ]; then
+    echo ""
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+fi
 
 if [ "$TIER1_PASS" = true ]; then
-    echo "✅ TIER 1 CRITICAL: PASS"
-    echo "✅ Documentation is ready for commit"
+    if [ "$VERBOSE" = false ]; then
+        echo -e "${GREEN}✅ TIER 1 PASS${NC} - Documentation ready for commit"
+    else
+        echo ""
+        echo "✅ TIER 1 CRITICAL: PASS"
+        echo "✅ Documentation is ready for commit"
+    fi
     exit 0
 else
-    echo "❌ TIER 1 CRITICAL: FAIL"
-    echo "❌ Fix critical issues before committing"
+    if [ "$VERBOSE" = false ]; then
+        echo -e "${RED}❌ TIER 1 FAIL${NC} - Fix critical issues before committing"
+    else
+        echo ""
+        echo "❌ TIER 1 CRITICAL: FAIL"
+        echo "❌ Fix critical issues before committing"
+    fi
     exit 1
 fi
