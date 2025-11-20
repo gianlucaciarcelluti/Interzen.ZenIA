@@ -21,12 +21,12 @@ REPORTS_DIR = Path(__file__).parent / "reports"
 REPORTS_DIR.mkdir(exist_ok=True)
 
 # Thresholds
-# Increased to 500 to accommodate long descriptions, embedded JSON payloads, Mermaid, URLs
-# Original 120 was too strict for technical documentation with inline code/diagrams
-# Only flag egregiously long lines (>500 chars) which indicate real formatting issues
-# Most markdown lines stay well under 500 chars; this avoids false positives entirely
+# Set to 300 chars for regular markdown content
+# JSON key-value pairs are automatically excluded from length validation
+# Smart validation: detects true formatting issues while excluding structured data
+# Only flag lines without JSON keys that exceed 300 chars (actual formatting issues)
 # MAX_CONSECUTIVE_BLANKS increased to 3 for legitimate documentation section spacing
-MAX_LINE_LENGTH = 500
+MAX_LINE_LENGTH = 300
 MAX_CONSECUTIVE_BLANKS = 3
 
 class WhitespaceValidator:
