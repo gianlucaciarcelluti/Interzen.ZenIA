@@ -6,17 +6,19 @@ on:
     paths:
       - 'docs/**'
       - 'scripts/verify_*.py'
+      - 'scripts/run_all_checks.sh'
       - '.github/workflows/docs-validation.yml'
   pull_request:
     branches: [ main, razionalizzazione-sp ]
     paths:
       - 'docs/**'
       - 'scripts/verify_*.py'
+      - 'scripts/run_all_checks.sh'
 
 jobs:
   validate-documentation:
     runs-on: ubuntu-latest
-    name: Validate Documentation
+    name: Validate Documentation (TIER 1 Critical)
 
     steps:
       - name: Checkout code
@@ -27,20 +29,23 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run SP/MS References Validation
+      - name: Run Complete Validation Suite
+        id: validation
         run: |
-          python3 scripts/verify_sp_references.py
-          echo "SP/MS References validation completed"
+          chmod +x scripts/run_all_checks.sh
 
-      - name: Run JSON Examples Validation
-        run: |
-          python3 scripts/verify_json_examples.py
-          echo "JSON Examples validation completed"
+          # Run validation suite and capture output
+          ./scripts/run_all_checks.sh 2>&1 | tee validation_output.txt
+          validation_exit_code=${PIPESTATUS[0]}
 
-      - name: Run Links Validation
-        run: |
-          python3 scripts/verify_links.py
-          echo "Links validation completed"
+          echo "exit_code=$validation_exit_code" >> $GITHUB_OUTPUT
+
+          # Check TIER 1 result
+          if grep -q "✅ TIER 1 PASS" validation_output.txt; then
+            echo "tier1_result=PASS" >> $GITHUB_OUTPUT
+          else
+            echo "tier1_result=FAIL" >> $GITHUB_OUTPUT
+          fi
 
       - name: Upload validation reports
         if: always()
@@ -50,37 +55,61 @@ jobs:
           path: scripts/reports/
           retention-days: 30
 
-      # Commenting on PRs is now handled by `.github/workflows/docs-comment.yml`
-      # which runs in `pull_request_target` context to safely post comments
-      # (avoids 403 on PRs from forks). The validation job only uploads artifacts.
-
-      - name: Fail if validation errors found
+      - name: Display validation summary
+        if: always()
         run: |
-          if [ -f scripts/reports/sp_ms_references.json ]; then
-            errors=$(python3 -c "import json; f=open('scripts/reports/sp_ms_references.json'); data=json.load(f); print(data['summary']['errors'])" 2>/dev/null || echo "0")
-            if [ "$errors" != "0" ]; then
-              echo "❌ SP/MS References validation failed with $errors errors"
-              exit 1
+          echo "════════════════════════════════════════════════════════════"
+          echo "VALIDATION SUMMARY"
+          echo "════════════════════════════════════════════════════════════"
+          tail -50 validation_output.txt
+          echo "════════════════════════════════════════════════════════════"
+
+      - name: Check TIER 1 Results
+        id: check_tier1
+        run: |
+          if grep -q "✅ TIER 1 PASS" validation_output.txt; then
+            echo "status=success"
+            echo "TIER 1: ✅ PASS - Documentation is production ready"
+            exit 0
+          else
+            echo "status=failure"
+            echo "TIER 1: ❌ FAIL - Critical validation errors must be fixed"
+
+            # Extract critical issues for clearer feedback
+            if grep -q "Critical Issues:" validation_output.txt; then
+              echo ""
+              echo "Critical issues found. See validation-reports artifact for details:"
+              grep -A 20 "Critical Issues:" validation_output.txt || true
             fi
+            exit 1
           fi
 
-          if [ -f scripts/reports/json_validation.json ]; then
-            errors=$(python3 -c "import json; f=open('scripts/reports/json_validation.json'); data=json.load(f); print(data['summary']['errors'])" 2>/dev/null || echo "0")
-            if [ "$errors" != "0" ]; then
-              echo "❌ JSON validation failed with $errors errors"
-              exit 1
-            fi
-          fi
+      - name: Comment on PR (if applicable)
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const output = fs.readFileSync('validation_output.txt', 'utf8');
 
-          # Links validation è FASE 1 non-critico: solo reporting
-          # Gli errori rimangono visibili nei report per FASE 2-3
-          if [ -f scripts/reports/links_validation.json ]; then
-            errors=$(python3 -c "import json; f=open('scripts/reports/links_validation.json'); data=json.load(f); print(data['summary']['errors'])" 2>/dev/null || echo "0")
-            if [ "$errors" != "0" ]; then
-              echo "⚠️  Links validation: $errors broken links (will be fixed in FASE 2-3)"
-            else
-              echo "✅ Links validation: All links OK"
-            fi
-          fi
+            let comment = '## 📋 Documentation Validation Results\n\n';
 
-          echo "✅ All critical documentation validations passed"
+            if (output.includes('✅ TIER 1 PASS')) {
+              comment += '### ✅ TIER 1 (Critical): PASS\n';
+              comment += 'All critical documentation validations passed!\n\n';
+            } else {
+              comment += '### ❌ TIER 1 (Critical): FAIL\n';
+              comment += 'Critical validation errors must be fixed before merging.\n\n';
+            }
+
+            comment += '**Validation Artifacts**: Download "validation-reports" from Actions tab for detailed JSON reports\n\n';
+            comment += '---\n';
+            comment += '_Run: ' + context.runId + ' | Workflow: ' + context.workflow + '_';
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
