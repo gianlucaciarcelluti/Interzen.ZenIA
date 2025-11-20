@@ -149,6 +149,48 @@ Located in `use_cases/`:
 
 ---
 
+## 🔗 Integrazione con Piattaforme Esterne
+
+### ZenShareUp - Document Management Platform
+
+ZenIA si integra strettamente con **ZenShareUp**, la piattaforma enterprise di gestione documentale:
+
+**Documentazione ZenShareUp:**
+- **[ZENSHAREUP-ARCHITECTURE.md](ZENSHAREUP-ARCHITECTURE.md)** - Architettura di ZenShareUp
+  - 8 Microservizi principali
+  - 186 Data Transfer Objects (DTOs)
+  - Multi-tenancy e isolamento dati
+  - Sicurezza e compliance
+
+**Integrazione ZenShareUp ↔ ZenIA:**
+- **[ZENSHAREUP-ZENIA-INTEGRATION.md](ZENSHAREUP-ZENIA-INTEGRATION.md)** - Dettagli tecnici di integrazione
+  - Input/output per ogni microservizio ZenIA (MS01-MS16)
+  - Protocolli di comunicazione (REST/HTTP, RabbitMQ, Redis)
+  - 3 Workflow end-to-end completi
+  - Gestione errori e strategie di resilienza
+  - Metriche di performance e SLA
+
+**Flusso Principale:**
+```
+ZenShareUp (Document Storage)
+    ↓
+    Invia documenti per elaborazione
+    ↓
+ZenIA (Intelligent Processing)
+    - Classificazione automatica
+    - Validazione struttura
+    - Trasformazione formato
+    - Arricchimento metadati
+    ↓
+    Ritorna risultati arricchiti
+    ↓
+ZenShareUp (Document Storage)
+    ↓
+    Archivia con metadata intelligenti
+```
+
+---
+
 ## 🗺️ Navigazione per Ruolo
 
 ### 👤 Per Sviluppatori
@@ -359,10 +401,12 @@ MSxx-NAME/
 
 | Documento | Versione | Ultimo Update | Prossimo Review |
 |-----------|----------|---------------|-----------------|
-| ARCHITECTURE-OVERVIEW | 1.0 | 2024-11-18 | 2025-05-18 |
+| ARCHITECTURE-OVERVIEW | 1.0 | 2025-11-20 | 2025-05-20 |
 | DEVELOPMENT-GUIDE | 1.0 | 2024-11-18 | 2025-05-18 |
 | COMPLIANCE-MATRIX | 1.0 | 2024-11-18 | 2025-05-18 |
 | MS-ARCHITECTURE-MASTER | 1.0 | 2024-11-18 | 2025-02-18 |
+| ZENSHAREUP-ARCHITECTURE | 1.0 | 2025-11-20 | 2025-05-20 |
+| ZENSHAREUP-ZENIA-INTEGRATION | 1.0 | 2025-11-20 | 2025-05-20 |
 
 ---
 
