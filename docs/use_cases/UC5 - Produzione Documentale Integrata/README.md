@@ -1,8 +1,8 @@
 # UC5 - Produzione Documentale Integrata
 
 **Status**: Active
-**Version**: 1.0
-**Last Updated**: 2025-11-19
+**Version**: 1.1
+**Last Updated**: 2025-11-20 (File naming standardization)
 **Owner**: Architecture Team
 
 ---
@@ -34,17 +34,15 @@ Questo UC copre tutti gli aspetti della **Produzione Documentale Integrata**, in
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| SP01 - EML Parser & Email Intelligence | `01 SP01 - Parser EML e Intelligenza Email.md` | Specification | ✅ | [Vai](./01 SP01 - Parser EML e Intelligenza Email.md) |
-| SP02 - Document Extractor & Attachment Classifier | `01 SP02 - Estrattore Documenti e Classificatore Allegati.md` | Specification | ✅ | [Vai](./01 SP02 - Estrattore Documenti e Classificatore Allegati.md) |
-| SP03 - Classificatore Procedurale | `01 SP03 - Classificatore Procedurale.md` | Specification | ✅ | [Vai](./01 SP03 - Classificatore Procedurale.md) |
-| SP04 - Knowledge Base | `01 SP04 - Base Conoscenze.md` | Specification | ✅ | [Vai](./01 SP04 - Base Conoscenze.md) |
-| SP05 - Template Engine | `01 SP05 - Motore Template.md` | Specification | ✅ | [Vai](./01 SP05 - Motore Template.md) |
-| SP06 - Validatore | `01 SP06 - Validatore.md` | Specification | ✅ | [Vai](./01 SP06 - Validatore.md) |
-| SP07 - Content Classifier | `01 SP07 - Classificatore Contenuti.md` | Specification | ✅ | [Vai](./01 SP07 - Classificatore Contenuti.md) |
-| SP08 - Quality Checker | `01 SP08 - Verificatore Qualità.md` | Specification | ✅ | [Vai](./01 SP08 - Verificatore Qualità.md) |
-| SP09 - Workflow Engine | `01 SP09 - Motore Workflow.md` | Specification | ✅ | [Vai](./01 SP09 - Motore Workflow.md) |
-| SP10 - Dashboard | `01 SP10 - Pannello di Controllo.md` | Specification | ✅ | [Vai](./01 SP10 - Pannello di Controllo.md) |
-| SP11 - Security & Audit | `01 SP11 - Sicurezza e Audit.md` | Specification | ✅ | [Vai](./01 SP11 - Sicurezza e Audit.md) |
+| Architecture Overview | `00-ARCHITECTURE.md` | Overview | ✅ | [Vai](./00-ARCHITECTURE.md) |
+| Subprojects Overview | `01-OVERVIEW.md` | Overview | ✅ | [Vai](./01-OVERVIEW.md) |
+| Dependencies | `02-DEPENDENCIES.md` | Matrix | ✅ | [Vai](./02-DEPENDENCIES.md) |
+| Canonical Sequence Diagram | `SUPPLEMENTARY/CANONICAL-Complete-Flow.md` | Diagram | ✅ | [Vai](./SUPPLEMENTARY/CANONICAL-Complete-Flow.md) |
+| Simplified Overview | `SUPPLEMENTARY/OVERVIEW-Simplified.md` | Diagram | ✅ | [Vai](./SUPPLEMENTARY/OVERVIEW-Simplified.md) |
+| Ultra-Simplified Overview | `SUPPLEMENTARY/OVERVIEW-Ultra-Simplified.md` | Diagram | ✅ | [Vai](./SUPPLEMENTARY/OVERVIEW-Ultra-Simplified.md) |
+| Implementation Guide | `04-GUIDE.md` | Guide | ✅ | [Vai](./04-GUIDE.md) |
+| Human-in-the-Loop | `05-HITL.md` | Specification | ✅ | [Vai](./05-HITL.md) |
+| SP Specifications | `01 SP0X - *.md` | Specification | ✅ | [Vai lista completa sotto] |
 
 ---
 
@@ -119,19 +117,31 @@ Mappa completa: [COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md)
 
 ```
 UC5 - Produzione Documentale Integrata/
-├── 00 INDEX.md                          ← START HERE
-├── 00 Architettura UC5.md       ← Architecture
-├── 01 SP01 - Parser EML e Intelligenza Email.md
-├── 01 SP02 - Estrattore Documenti e Classificatore Allegati.md
-├── 01 SP03 - Classificatore Procedurale.md
-├── 01 SP04 - Base Conoscenze.md
-├── 01 SP05 - Motore Template.md
-├── 01 SP06 - Validatore.md
-├── 01 SP07 - Classificatore Contenuti.md
-├── 01 SP08 - Verificatore Qualità.md
-├── 01 SP09 - Motore Workflow.md
-├── 01 SP10 - Pannello di Controllo.md
-├── 01 SP11 - Sicurezza e Audit.md
+├── 00-ARCHITECTURE.md                   ← START HERE (Architecture overview)
+├── 01-OVERVIEW.md                       ← Business overview & subprojects
+├── 02-DEPENDENCIES.md                   ← Dependency matrix
+├── 03-SEQUENCES.md                      ← Sequence diagrams (if applicable)
+├── 04-GUIDE.md                          ← Implementation guide
+├── 05-HITL.md                           ← Human-in-the-loop section
+├── TEMPLATE-SP-STRUCTURE.md             ← SP documentation template
+├── README.md                            ← This file (navigation index)
+│
+├── SUPPLEMENTARY/                       ← Variant documentation
+│   ├── CANONICAL-Complete-Flow.md       ← Full canonical sequence diagram
+│   ├── OVERVIEW-Simplified.md           ← Simplified stakeholder view
+│   └── OVERVIEW-Ultra-Simplified.md     ← Executive summary
+│
+└── 01 SP01 - Parser EML e Intelligenza Email.md
+    01 SP02 - Estrattore Documenti e Classificatore Allegati.md
+    01 SP03 - Classificatore Procedurale.md
+    01 SP04 - Base Conoscenze.md
+    01 SP05 - Motore Template.md
+    01 SP06 - Validatore.md
+    01 SP07 - Classificatore Contenuti.md
+    01 SP08 - Verificatore Qualità.md
+    01 SP09 - Motore Workflow.md
+    01 SP10 - Pannello di Controllo.md
+    01 SP11 - Sicurezza e Audit.md
 ```
 
 ---
@@ -142,11 +152,11 @@ UC5 - Produzione Documentale Integrata/
 
 | Role | Start Here | Tempo |
 |------|-----------|-------|
-| Product Manager | `00 Architettura UC5.md` | 15 min |
-| Developer | Sequence Diagram | 30 min |
-| Tester | Index + SP Rilevanti | 45 min |
-| Compliance | Conformità Normativa section | 30 min |
-| Architect | `00 Architettura UC5.md` | 1 hour |
+| Product Manager | `00-ARCHITECTURE.md` + `SUPPLEMENTARY/OVERVIEW-Simplified.md` | 15 min |
+| Developer | `00-ARCHITECTURE.md` + `SUPPLEMENTARY/CANONICAL-Complete-Flow.md` | 30 min |
+| Tester | `01-OVERVIEW.md` + SP Documentation | 45 min |
+| Compliance | Conformità Normativa section in `00-ARCHITECTURE.md` | 30 min |
+| Architect | `00-ARCHITECTURE.md` + `02-DEPENDENCIES.md` | 1 hour |
 
 ### Resource Links
 
