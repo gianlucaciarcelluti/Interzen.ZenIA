@@ -84,8 +84,8 @@ jobs:
             exit 1
           fi
 
-      - name: Comment on PR (if applicable)
-        if: github.event_name == 'pull_request'
+      - name: Post PR Comment with Validation Results
+        if: github.event_name == 'pull_request' && always()
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -93,21 +93,32 @@ jobs:
             const fs = require('fs');
             const output = fs.readFileSync('validation_output.txt', 'utf8');
 
-            let comment = '## 📋 Documentation Validation Results\n\n';
+            // Determine status
+            const tier1Pass = output.includes('✅ TIER 1 PASS');
+            const statusEmoji = tier1Pass ? '✅' : '❌';
+            const statusText = tier1Pass ? 'PASS' : 'FAIL';
 
-            if (output.includes('✅ TIER 1 PASS')) {
-              comment += '### ✅ TIER 1 (Critical): PASS\n';
-              comment += 'All critical documentation validations passed!\n\n';
+            let comment = '## 📋 Documentation Validation Results\n\n';
+            comment += `${statusEmoji} **TIER 1 (Critical)**: ${statusText}\n\n`;
+
+            if (tier1Pass) {
+              comment += 'All critical documentation validations passed! Your PR is ready for merge.\n\n';
+              comment += '**Status**: TIER 2-3 warnings may exist (non-blocking)\n';
             } else {
-              comment += '### ❌ TIER 1 (Critical): FAIL\n';
               comment += 'Critical validation errors must be fixed before merging.\n\n';
+              comment += '**Action Required**: Review the validation artifacts and fix the errors.\n';
             }
 
-            comment += '**Validation Artifacts**: Download "validation-reports" from Actions tab for detailed JSON reports\n\n';
-            comment += '---\n';
-            comment += '_Run: ' + context.runId + ' | Workflow: ' + context.workflow + '_';
+            comment += '\n### 📊 How to Review Results:\n';
+            comment += '1. Go to the [Actions tab](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})\n';
+            comment += '2. Download the "validation-reports" artifact\n';
+            comment += '3. Review the JSON files for detailed validation data\n';
+            comment += '4. Run locally: `./scripts/run_all_checks.sh` for debugging\n';
 
-            github.rest.issues.createComment({
+            comment += '\n---\n';
+            comment += '_Validation completed at ' + new Date().toISOString() + '_';
+
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,

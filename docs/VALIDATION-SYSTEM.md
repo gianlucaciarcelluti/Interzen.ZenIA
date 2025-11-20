@@ -218,53 +218,85 @@ cat scripts/reports/sp_ms_references.json | jq
 
 **File**: `.github/workflows/docs-validation.yml`
 
+**Workflow Sequence** (all steps run sequentially):
+
+```
+1️⃣ Checkout code
+     ↓
+2️⃣ Set up Python 3.11
+     ↓
+3️⃣ Run Complete Validation Suite (./scripts/run_all_checks.sh)
+     ↓
+4️⃣ Upload validation reports as artifacts (if any failures)
+     ↓
+5️⃣ Display validation summary to logs
+     ↓
+6️⃣ Check TIER 1 Results (blocks if FAIL)
+     ↓
+7️⃣ Post PR Comment with Results (sequential after validation)
+     ↓
+✅ or ❌ Workflow completes
+```
+
 **Triggers**:
 - On push to: `main`, `razionalizzazione-sp`, `develop`
 - On PR to: `main`, `razionalizzazione-sp`
 - When docs or scripts change
 
 **Behavior**:
-1. Runs complete validation suite (`run_all_checks.sh`)
-2. Uploads all reports as artifacts
-3. **BLOCKS merge only if TIER 1 FAIL**
-4. Posts comment on PR with results
+- All steps run sequentially (not in parallel)
+- Validation completes first
+- PR comment posted AFTER validation results are available
+- Comment includes links to artifacts and debug instructions
+- Only blocks merge if TIER 1 validation FAILS
 
 **Checking Results**:
-1. Go to Actions tab
-2. Click on validation run
-3. Scroll to "Validation Summary" step
-4. Download "validation-reports" artifact
-5. Review JSON files for detailed errors
-
-### PR Commenting
-
-**File**: `.github/workflows/docs-comment.yml`
-
-**Behavior**:
-- Posts validation summary on each PR
-- Links to workflow run
-- Shows PASS/FAIL status
-- Instructions for reviewing reports
+1. Go to Actions tab → Click validation run
+2. See real-time validation summary in logs
+3. Download "validation-reports" artifact
+4. Review JSON files for detailed errors
+5. PR comment provides direct links and instructions
 
 ## Decision Logic
 
 ### When Workflow PASSES ✅
 
 ```
-✅ TIER 1 PASS → PR can be merged
-├─ All critical checks successful
-├─ TIER 2 warnings may exist (non-blocking)
-└─ TIER 3 warnings may exist (non-blocking)
+Validation Suite Completes
+     ↓
+✅ TIER 1 PASS
+     ↓
+📝 PR Comment Posted (with artifacts links)
+     ↓
+🟢 Merge Enabled
+     ├─ All critical checks successful
+     ├─ TIER 2 warnings logged (non-blocking)
+     └─ TIER 3 warnings logged (non-blocking)
 ```
 
 ### When Workflow FAILS ❌
 
 ```
-❌ TIER 1 FAIL → PR must be fixed before merging
-├─ One or more critical checks failed
-├─ Must fix failing check(s)
-└─ Run locally to debug
+Validation Suite Completes
+     ↓
+❌ TIER 1 FAIL
+     ↓
+📝 PR Comment Posted (with error details)
+     ↓
+🔴 Merge Blocked
+     ├─ One or more critical checks failed
+     ├─ PR comment shows which checks failed
+     └─ Developer must fix and re-push
 ```
+
+### PR Comment Experience
+
+**Automatic PR Comment Posted After Validation**:
+- Shows TIER 1 status (✅ PASS or ❌ FAIL)
+- Provides direct link to Actions tab
+- Lists artifact download instructions
+- Includes `./scripts/run_all_checks.sh` debugging tip
+- Timestamps completion for audit trail
 
 ## Configuration & Customization
 
@@ -344,6 +376,24 @@ if summary['errors'] == 0 and len(summary['extra_sp']) == 0:
 - Automated fixes for whitespace issues
 - Machine learning for duplicate detection
 - Historical trend analysis
+
+## Workflow Architecture
+
+### Single Consolidated Workflow Design
+
+The system uses **one unified workflow** (`docs-validation.yml`) that handles both validation and PR commenting sequentially:
+
+**Key Design Decisions**:
+- ✅ **Single Source of Truth**: One workflow file manages all validation logic
+- ✅ **Sequential Execution**: All steps run in order (no parallel race conditions)
+- ✅ **Reliable PR Commenting**: Comment posted after validation completes with accurate data
+- ✅ **Artifact Management**: Reports uploaded before comment posting ensures links work
+- ✅ **Clear Feedback**: Developers see validation results in PR comments immediately
+
+**Previous vs. Current**:
+- ❌ **Before**: Separate workflows (`docs-validation.yml` + `docs-comment.yml`) could race
+- ❌ **Before**: Comment might post before validation finished
+- ✅ **Now**: Single workflow ensures sequential, reliable execution
 
 ## References
 
