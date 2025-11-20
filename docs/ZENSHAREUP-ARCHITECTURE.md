@@ -3,13 +3,14 @@
 ## Indice
 
 1. [Overview Architettura](#overview-architettura)
-2. [Componenti Core](#componenti-core)
-3. [Microservizi](#microservizi)
-4. [Servizi di Supporto](#servizi-di-supporto)
-5. [DTO e Data Model](#dto-e-data-model)
-6. [Flussi Applicativi](#flussi-applicativi)
-7. [Integrazione tra Servizi](#integrazione-tra-servizi)
-8. [Sicurezza e Multi-tenancy](#sicurezza-e-multi-tenancy)
+2. [Integrazione ZenIA](#integrazione-zenia)
+3. [Componenti Core](#componenti-core)
+4. [Microservizi](#microservizi)
+5. [Servizi di Supporto](#servizi-di-supporto)
+6. [DTO e Data Model](#dto-e-data-model)
+7. [Flussi Applicativi](#flussi-applicativi)
+8. [Integrazione tra Servizi](#integrazione-tra-servizi)
+9. [Sicurezza e Multi-tenancy](#sicurezza-e-multi-tenancy)
 
 ---
 
@@ -96,6 +97,180 @@ graph TB
     style Queue fill:#f0f4c3,stroke:#33691e,stroke-width:2px
     style Storage fill:#e3f2fd,stroke:#0d47a1,stroke-width:2px
 ```
+
+---
+
+## Integrazione ZenIA
+
+### ZenShareUp ↔ ZenIA: Un Ecosistema Completo
+
+ZenShareUp non è una soluzione isolata. La piattaforma è progettata per integrarsi con **ZenIA**, la piattaforma intelligente di elaborazione documentale basata su IA. Insieme formano un ecosistema completo:
+
+```mermaid
+graph LR
+    ZS["🗄️ ZenShareUp<br/>(Document Storage & Management)"]
+    ZIA["🧠 ZenIA<br/>(Intelligent Processing & AI)"]
+    USERS["👥 Applications<br/>& Users"]
+
+    USERS -->|Crea/Modifica| ZS
+    ZS -->|📤 Invia Documenti<br/>per Elaborazione| ZIA
+    ZIA -->|📥 Ritorna Risultati<br/>Arricchiti| ZS
+    ZS -->|📊 Accede Dati| USERS
+
+    style ZS fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style ZIA fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+    style USERS fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+```
+
+### Ruoli Funzionali
+
+**ZenShareUp** è il **repository centralizzato**:
+- 📦 Archiviazione persistente dei documenti
+- 🔄 Gestione del ciclo di vita (creazione, modifica, versionamento)
+- 🏢 Multi-tenancy e isolamento dei dati
+- 📋 Audit trail e compliance
+- 🔐 Access control e sicurezza
+
+**ZenIA** è il **motore intelligente di elaborazione**:
+- 🤖 Classificazione automatica dei documenti con ML
+- ✅ Validazione intelligente delle strutture
+- 🔄 Trasformazione e normalizzazione formati
+- 📊 Estrazione intelligente di metadati
+- 🧠 Orchestrazione di processi complessi
+- 🔐 Controllo sicurezza e signature verification
+
+### Flusso Documentale Integrato
+
+```mermaid
+sequenceDiagram
+    participant USER as User/Application
+    participant ZS as ZenShareUp
+    participant MS11 as MS11 Gateway
+    participant MS01 as MS01 Classifier
+    participant MS04 as MS04 Validator
+    participant MS05 as MS05 Transformer
+    participant ZIA_DB as ZenIA DB
+
+    USER->>ZS: Upload Document
+    ZS->>ZS: Store Document
+    ZS->>MS11: Send for Processing
+
+    activate MS11
+    MS11->>MS01: Classify
+    activate MS01
+    MS01->>MS01: ML Analysis
+    MS01-->>MS11: Classification Result
+    deactivate MS01
+
+    MS11->>MS04: Validate
+    activate MS04
+    MS04->>MS04: Structure Check
+    MS04-->>MS11: Validation Result
+    deactivate MS04
+
+    MS11->>MS05: Transform
+    activate MS05
+    MS05->>MS05: Format Conversion
+    MS05-->>MS11: Transformed File
+    deactivate MS05
+
+    MS11-->>ZS: Enriched Metadata
+    deactivate MS11
+
+    ZS->>ZS: Store Classification,<br/>Validation & Transformation
+    ZS->>USER: Return Enriched Document
+```
+
+### Dati Scambiati
+
+Quando ZenShareUp invia un documento a ZenIA, fornisce:
+- 📄 **File originale** con hash di integrità
+- 📋 **Metadati di base** (nome, dimensione, MIME type, data)
+- 🏢 **Tenant ID** per isolamento multi-tenant
+- 🔐 **Credenziali** per l'accesso sicuro
+
+Quando ZenIA ritorna i risultati a ZenShareUp, fornisce:
+- 🏷️ **Classificazione** (tipo documento, confidence, labels)
+- ✅ **Validazione** (status, errori, compliance level)
+- 🔄 **Trasformazione** (formato convertito, file ID, metadati)
+- 📊 **Analisi** (entità estratte, termini chiave, riassunti)
+- 📈 **Metadati arricchiti** per indicizzazione e ricerca
+
+### Workflow Pratici
+
+#### 1. Ricezione Email con Allegato
+```
+Mailroom riceve email
+    ↓
+ZenShareUp estrae allegato
+    ↓
+ZenIA classifica (Fattura, Contratto, etc.)
+    ↓
+ZenIA valida (firma digitale, conformità)
+    ↓
+ZenIA trasforma (PDF optimized)
+    ↓
+ZenShareUp archivia con classificazione
+    ↓
+Sistema trova automaticamente il workflow corretto
+```
+
+#### 2. Acquisizione da Scanner
+```
+Scanner invia documento immagine
+    ↓
+ZenShareUp riceve e memorizza
+    ↓
+ZenIA esegue OCR se necessario
+    ↓
+ZenIA classifica per contenuto estratto
+    ↓
+ZenIA valida il testo estratto
+    ↓
+ZenShareUp archivia con testo full-text indexable
+```
+
+#### 3. Elaborazione Batch
+```
+Utente upload batch di 100 documenti
+    ↓
+ZenShareUp accoda in coda di elaborazione
+    ↓
+ZenIA processa asincrono in parallelo
+    ↓
+Risultati salvati nel database ZenIA
+    ↓
+ZenShareUp notifica al completamento
+    ↓
+Documenti pronti per flussi successivi
+```
+
+### Performance Integrate
+
+| Metrica | ZenShareUp | ZenIA | Totale |
+|---------|-----------|-------|--------|
+| **Latenza Classificazione** | < 10ms | 200-300ms | ~300ms |
+| **Latenza Validazione** | < 10ms | 400-600ms | ~600ms |
+| **Latenza Trasformazione** | < 10ms | 700-1000ms | ~1000ms |
+| **Throughput (doc/sec)** | 2000+ | 1200 | Limitato da ZenIA |
+| **Disponibilità** | 99.99% | 99.95% | 99.94% |
+| **SLA Response** | 95% < 500ms | 95% < 2000ms | 95% < 2500ms |
+
+### Prossimi Passi di Integrazione
+
+A mano a mano che l'architettura evolve, si prevedono ulteriori integrazioni:
+
+1. **Intelligenza di Routing**: ZenIA suggerisce workflow basato su classificazione
+2. **Predizioni di Metadati**: ZenIA predice valori mancanti
+3. **Quality Assessment**: ZenIA valuta qualità documento
+4. **Anomaly Detection**: ZenIA rileva pattern sospetti
+5. **Recommendation Engine**: ZenIA suggerisce azioni corrette
+
+Vedere **[ZENSHAREUP-ZENIA-INTEGRATION.md](ZENSHAREUP-ZENIA-INTEGRATION.md)** per dettagli tecnici completi su:
+- Input/output per microservizio
+- Protocolli di comunicazione
+- Gestione errori e fallback
+- Metriche e monitoring
 
 ---
 
