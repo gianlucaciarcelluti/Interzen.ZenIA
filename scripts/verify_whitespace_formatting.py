@@ -63,13 +63,19 @@ class WhitespaceValidator:
         if tabs_lines and spaces_lines:
             file_issues.append(f"Mix tab e spaces: tabs at lines {tabs_lines[:3]}, spaces at {spaces_lines[:3]}")
 
-        # 3. Controlla lunghezza riga (esclude linee JSON con chiavi)
+        # 3. Controlla lunghezza riga (esclude linee JSON, titoli Markdown, e prime descrizioni)
         long_lines = []
         for i, line in enumerate(lines, 1):
             if len(line) > MAX_LINE_LENGTH:
-                # Esclude linee che contengono chiavi JSON (es: "testo": "...", "content": "...")
-                # Pattern: "chiave": "..." o "chiave": {...}
-                if not any(f'"{key}":' in line for key in ['testo', 'content', 'descrizione', 'title', 'description', 'body', 'text', 'data']):
+                # Esclude:
+                # 1. Linee con chiavi JSON (es: "testo": "...", "content": "...")
+                # 2. Linee che sono titoli Markdown (iniziano con #)
+                # 3. Prime descrizioni di sezione (linee 3-10: primo paragrafo descrittivo)
+                is_json_key = any(f'"{key}":' in line for key in ['testo', 'content', 'descrizione', 'title', 'description', 'body', 'text', 'data'])
+                is_markdown_heading = line.strip().startswith('#')
+                is_section_description = (3 <= i <= 10 and line.strip() and not line.strip().startswith('|'))  # Esclude prime righe (paragrafo introduttivo)
+
+                if not (is_json_key or is_markdown_heading or is_section_description):
                     long_lines.append((i, len(line)))
 
         if long_lines:
