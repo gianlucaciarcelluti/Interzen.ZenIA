@@ -373,7 +373,37 @@ Usiamo questo per validare che documentazione è allineata:
 
 ---
 
-## 10. Contact & Escalation
+## 10. Integrazione con ZenShareUp
+
+ZenIA non opera in isolamento. Si integra strettamente con **ZenShareUp**, la piattaforma di document management:
+
+```
+┌──────────────────┐       ┌──────────────────┐
+│   ZenShareUp     │       │      ZenIA       │
+│  (Document Mgmt) │◄─────►│  (AI Processing) │
+│   8 Microservizi │       │  16 Microservizi │
+│   186 DTOs       │       │   11 Use Cases   │
+└──────────────────┘       │   72 Sub-Projects│
+                           └──────────────────┘
+```
+
+**Per dettagli tecnici completi su integrazione:**
+- Vedere **[ZENSHAREUP-ZENIA-INTEGRATION.md](./ZENSHAREUP-ZENIA-INTEGRATION.md)**
+  - Input/output di ogni microservizio
+  - Protocolli (REST, RabbitMQ, Redis)
+  - 3 workflow end-to-end
+  - Metriche e SLA
+
+**Documentazione ZenShareUp:**
+- Vedere **[ZENSHAREUP-ARCHITECTURE.md](./ZENSHAREUP-ARCHITECTURE.md)**
+  - Panoramica architettura ZenShareUp
+  - DTOs e data model (186 DTO objects)
+  - 8 microservizi principali
+  - Multi-tenancy e isolamento dati
+
+---
+
+## 11. Contact & Escalation
 
 Per domande su architettura:
 - **SP specifico**: Consulta doc UC#/01 SP##.md
@@ -381,4 +411,5 @@ Per domande su architettura:
 - **MS specifico**: Consulta doc /microservices/MS##.md
 - **Mapping**: Consulta SP-MS-MAPPING-MASTER.md
 - **Gap/Issue**: Consulta GAP-RESOLUTION.md
+- **Integrazione ZenShareUp**: Consulta ZENSHAREUP-ZENIA-INTEGRATION.md
 

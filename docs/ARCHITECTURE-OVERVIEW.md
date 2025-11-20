@@ -36,6 +36,14 @@ Ubicati in `docs/`:
 - [COMPLIANCE-MATRIX.md](COMPLIANCE-MATRIX.md) - Fonti normative → mapping MS/SP
 - [SP-MS-MAPPING-MASTER.md](SP-MS-MAPPING-MASTER.md) - Tutti i 72 mapping SP-to-MS
 
+### Integrazione con Piattaforme Esterne
+- **[ZENSHAREUP-ZENIA-INTEGRATION.md](ZENSHAREUP-ZENIA-INTEGRATION.md)** - Come ZenShareUp si integra con ZenIA
+  - Input/output per ogni microservizio
+  - Protocolli di comunicazione (REST, RabbitMQ, Redis)
+  - Workflow end-to-end completi
+  - Gestione errori e resilienza
+  - Metriche e monitoring
+
 ---
 
 ## 🏗️ Architettura di Sistema
