@@ -68,16 +68,16 @@ Ogni UC DEVE avere un file `00 INDEX.md` nella propria cartella come **punto di 
 
 ### [Categoria SP 1]
 
-#### [SP##] - [Nome]
-- **Responsabilità**: [Una riga]
+#### [SP##] - [Nome Primo SP]
+- **Responsabilità**: [Una riga per primo SP]
 - **Tecnologie**: [Tech stack principale]
 - **Input/Output**: [Brevissimo]
 - **Conformità**: [Framework normativi applicabili]
 - **Documentazione**: [Link a SPECIFICATION.md]
 
-#### [SP##] - [Nome]
-- **Responsabilità**: [Una riga]
-- **Tecnologie**: [Tech stack principale]
+#### [SP##] - [Nome Secondo SP]
+- **Responsabilità**: [Una riga per secondo SP]
+- **Tecnologie**: [Tech stack principale differente]
 - **Input/Output**: [Brevissimo]
 - **Conformità**: [Framework normativi applicabili]
 - **Documentazione**: [Link a SPECIFICATION.md]

@@ -26,6 +26,7 @@ class DuplicateValidator:
         self.section_hashes = defaultdict(list)  # hash -> list of (file, line)
         self.warnings = []
         self.errors = []
+        self.duplicate_sections = []  # Track all duplicate sections
 
     def get_content_hash(self, content: str) -> str:
         """Calcola hash di contenuto."""
@@ -145,6 +146,22 @@ class DuplicateValidator:
             if result["errors"]:
                 results.append(result)
 
+        # Passata finale: identifica tutti i duplicati
+        for section_hash, locations in self.section_hashes.items():
+            if len(locations) > 1:
+                # Questo hash appare più volte
+                location_strs = [f"{loc[0]}:{loc[1]}" for loc in locations]
+                dup_info = {
+                    "hash": section_hash,
+                    "locations": locations,
+                    "locations_str": " == ".join(location_strs)
+                }
+                self.duplicate_sections.append(dup_info)
+
+                # Aggiungi warning per ogni duplicato trovato
+                if len(locations) > 1:
+                    self.warnings.append(f"Sezione duplicata in: {dup_info['locations_str']}")
+
         return results
 
     def generate_report(self, results: List[Dict]) -> Dict:
@@ -162,6 +179,7 @@ class DuplicateValidator:
             },
             "details": results,
             "warnings": self.warnings,
+            "duplicate_locations": [d["locations_str"] for d in self.duplicate_sections],
         }
         return report
 
@@ -192,6 +210,15 @@ class DuplicateValidator:
                 print(f"... e altri {len(report['details']) - 20} file con duplicati")
             print()
 
+        # Mostra ubicazioni duplicati se trovate
+        if report.get("duplicate_locations"):
+            print("\n📍 UBICAZIONI SEZIONI DUPLICATE:\n")
+            for i, location in enumerate(report["duplicate_locations"][:10], 1):
+                print(f"{i}. {location}")
+            if len(report["duplicate_locations"]) > 10:
+                print(f"... e altri {len(report['duplicate_locations']) - 10} duplicati")
+            print()
+
         if report["warnings"]:
             print("⚠️  RIEPILOGO DUPLICATI (primi 15):")
             for warning in report["warnings"][:15]:
@@ -202,7 +229,7 @@ class DuplicateValidator:
         # Valutazione
         print("\n" + "="*70)
         if summary['duplicate_sections'] == 0:
-            print("✅ CONTENT DUPLICATES: NONE FOUND")
+            print("✅ CONTENT DUPLICATES: PERFECT")
             return 0
         else:
             print("⚠️  CONTENT DUPLICATES: FOUND (review recommended)")
