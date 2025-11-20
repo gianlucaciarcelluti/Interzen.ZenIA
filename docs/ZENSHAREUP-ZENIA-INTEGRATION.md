@@ -511,7 +511,7 @@ graph TB
   "documentId": "doc_uuid_12345",
   "enrichedDocument": {
     "classification": { "primaryType": "INVOICE", "confidence": 0.98 },
-    "analysis": { "entities": [...], "summary": "..." },
+    "analysis": { "entities": ["person", "organization"], "summary": "Invoice document from customer" },
     "validation": { "status": "VALID", "complianceLevel": "FULL" },
     "transformation": { "format": "PDF_OPTIMIZED", "size": 156000 },
     "metadata": {
@@ -530,7 +530,12 @@ graph TB
 {
   "aggregationId": "agg_uuid_55555",
   "documentId": "doc_uuid_12345",
-  "enrichedDocument": { ... },
+  "enrichedDocument": {
+    "classification": { "primaryType": "INVOICE", "confidence": 0.98 },
+    "analysis": { "entities": ["person", "organization"] },
+    "validation": { "status": "VALID" },
+    "transformation": { "format": "PDF_OPTIMIZED" }
+  },
   "targetRepository": "zenshareup_documents"
 }
 ```
@@ -542,10 +547,10 @@ graph TB
   "documentId": "doc_uuid_12345",
   "status": "READY_FOR_STORAGE",
   "enrichedData": {
-    "classification": { ... },
-    "analysis": { ... },
-    "validation": { ... },
-    "transformation": { ... }
+    "classification": { "primaryType": "INVOICE", "confidence": 0.98 },
+    "analysis": { "entities": ["person", "organization"], "summary": "Invoice document" },
+    "validation": { "status": "VALID", "complianceLevel": "FULL" },
+    "transformation": { "format": "PDF_OPTIMIZED", "size": 156000 }
   },
   "storageInstructions": {
     "location": "s3://zenshareup/documents/doc_uuid_12345",
