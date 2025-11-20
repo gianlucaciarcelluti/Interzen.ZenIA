@@ -267,7 +267,7 @@ docker-compose up -d
 ## 🔗 File Importanti
 
 ### Per Verificatori SAL e Collaudo
-- **[RENDICONTAZIONE-SAL-COLLAUDO.md](RENDICONTAZIONE-SAL-COLLAUDO.md)** ⭐ - Documento completo per enti verificatori (Executive Summary, metriche, conformità normativa, risultati, test plan)
+- **[PROGETTO-ZENIA.md](PROGETTO-ZENIA.md)** ⭐ - Documento completo di rendicontazione progetto per enti verificatori (Executive Summary, metriche, conformità normativa, risultati, test plan)
 
 ### Documentazione Tecnica
 - **[MS-ARCHITECTURE-MASTER.md](microservices/MS-ARCHITECTURE-MASTER.md)** - Matrice microservizi
