@@ -805,30 +805,25 @@ graph TB
 ```mermaid
 graph TB
     ZenProt["📋 ZenProtocollo<br/>Needs document info"]
+    ZenDocs["📄 ZenDocuments"]
+    Keycloak["🔐 Keycloak"]
 
-    ZenProt -->|REST API Call<br/>GET /documents/{id}| ZenDocs["📄 ZenDocuments"]
-    ZenDocs -->|JWT Validation| Keycloak["🔐 Keycloak"]
+    ZenProt -->|REST API Call<br/>GET /documents/{id}| ZenDocs
+    ZenDocs -->|JWT Validation| Keycloak
     Keycloak -->|Token Valid| ZenDocs
     ZenDocs -->|Return DocumentDTO<br/>with metadata| ZenProt
-
-    subgraph "Characteristics"
-        Direction["🔄 Synchronous"]
-        Auth["🔐 Server-to-server JWT"]
-        Timeout["⏱️ 5 second timeout"]
-        Retry["🔁 2x with backoff"]
-        Circuit["🛑 Circuit breaker"]
-    end
-
-    ZenProt --> Direction
-    ZenProt --> Auth
-    ZenProt --> Timeout
-    ZenProt --> Retry
-    ZenProt --> Circuit
 
     style ZenProt fill:#fce4ec,stroke:#880e4f,stroke-width:2px
     style ZenDocs fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
     style Keycloak fill:#fff3e0,stroke:#e65100,stroke-width:2px
 ```
+
+**Communication Characteristics:**
+- 🔄 **Type**: Synchronous (blocking call)
+- 🔐 **Authentication**: Server-to-server JWT validation via Keycloak
+- ⏱️ **Timeout**: 5 second timeout per request
+- 🔁 **Retry Strategy**: 2x retry with exponential backoff
+- 🛑 **Resilience**: Circuit breaker pattern (open after 5 consecutive failures)
 
 ### Event-Based Async Communication
 
