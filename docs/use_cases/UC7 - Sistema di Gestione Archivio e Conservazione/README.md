@@ -34,13 +34,13 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Archivio e Conserv
 
 | Componente | File | Tipo | Status | Riferimento |
 |-----------|------|------|--------|-------------|
-| Architettura Generale | `00 Architettura UC7.md` | Architecture | ✅ | @-ARCHITETTURA.md) |
-| SP33 - Archive Manager | `01 SP33 - Gestore Archivio.md` | Specification | ✅ | [Vai](./SP33 - Gestore Archivio.md) |
-| SP34 - Preservation Engine | `01 SP34 - Motore Conservazione.md` | Specification | ✅ | [Vai](./SP34 - Motore Conservazione.md) |
-| SP35 - Integrity Validator | `01 SP35 - Validatore Integrità.md` | Specification | ✅ | [Vai](./SP35 - Validatore Integrità.md) |
-| SP36 - Storage Optimizer | `01 SP36 - Ottimizzatore Archiviazione.md` | Specification | ✅ | [Vai](./SP36 - Ottimizzatore Archiviazione.md) |
-| SP37 - Archive Metadata Manager | `01 SP37 - Gestore Metadati Archivio.md` | Specification | ✅ | [Vai](./SP37 - Gestore Metadati Archivio.md) |
-| Sequence diagrams | `01 Sequence diagrams.md` | Diagram | ✅ | C-SEQUENCES.md) |
+| Architettura Generale | `00-ARCHITECTURE.md` | Architecture | ✅ | [Vai](./00-ARCHITECTURE.md) |
+| SP33 - Archive Manager | `SP33 - Gestore Archivio.md` | Specification | ✅ | [Vai in UC6](../UC6%20-%20Firma%20Digitale%20Integrata/SP33%20-%20Gestore%20Archivio.md) |
+| SP34 - Preservation Engine | `SP34 - Motore Conservazione.md` | Specification | ✅ | [Vai in UC6](../UC6%20-%20Firma%20Digitale%20Integrata/SP34%20-%20Motore%20Conservazione.md) |
+| SP35 - Integrity Validator | `SP35 - Validatore Integrità.md` | Specification | ✅ | [Vai in UC6](../UC6%20-%20Firma%20Digitale%20Integrata/SP35%20-%20Validatore%20Integrit%C3%A0.md) |
+| SP36 - Storage Optimizer | `SP36 - Ottimizzatore Archiviazione.md` | Specification | ✅ | [Vai in UC6](../UC6%20-%20Firma%20Digitale%20Integrata/SP36%20-%20Ottimizzatore%20Archiviazione.md) |
+| SP37 - Archive Metadata Manager | `SP37 - Gestore Metadati Archivio.md` | Specification | ✅ | [Vai in UC6](../UC6%20-%20Firma%20Digitale%20Integrata/SP37%20-%20Gestore%20Metadati%20Archivio.md) |
+| Sequence diagrams | `03-SEQUENCES.md` | Diagram | ✅ | [Vai](./03-SEQUENCES.md) |
 
 ---
 
@@ -48,20 +48,20 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Archivio e Conserv
 
 ### Archive
 
-- **[SP33](./SP33 - Gestore Archivio.md)** - Archive Manager
-- **[SP37](./SP37 - Gestore Metadati Archivio.md)** - Archive Metadata Manager
+- **[SP33](../UC6%20-%20Firma%20Digitale%20Integrata/SP33%20-%20Gestore%20Archivio.md)** - Archive Manager (in UC6)
+- **[SP37](../UC6%20-%20Firma%20Digitale%20Integrata/SP37%20-%20Gestore%20Metadati%20Archivio.md)** - Archive Metadata Manager (in UC6)
 
 ### Preservation
 
-- **[SP34](./SP34 - Motore Conservazione.md)** - Preservation Engine
+- **[SP34](../UC6%20-%20Firma%20Digitale%20Integrata/SP34%20-%20Motore%20Conservazione.md)** - Preservation Engine (in UC6)
 
 ### Integrity
 
-- **[SP35](./SP35 - Validatore Integrità.md)** - Integrity Validator
+- **[SP35](../UC6%20-%20Firma%20Digitale%20Integrata/SP35%20-%20Validatore%20Integrit%C3%A0.md)** - Integrity Validator (in UC6)
 
 ### Storage
 
-- **[SP36](./SP36 - Ottimizzatore Archiviazione.md)** - Storage Optimizer
+- **[SP36](../UC6%20-%20Firma%20Digitale%20Integrata/SP36%20-%20Ottimizzatore%20Archiviazione.md)** - Storage Optimizer (in UC6)
 
 ---
 
@@ -88,14 +88,15 @@ Mappa completa: [COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md)
 
 ```
 UC7 - Sistema di Gestione Archivio e Conservazione/
-├── 00 INDEX.md                          ← START HERE
-├── 00 Architettura UC7.md       ← Architecture
-├── 01 SP33 - Gestore Archivio.md
-├── 01 SP34 - Motore Conservazione.md
-├── 01 SP35 - Validatore Integrità.md
-├── 01 SP36 - Ottimizzatore Archiviazione.md
-├── 01 SP37 - Gestore Metadati Archivio.md
-├── 01 Sequence diagrams.md
+├── README.md                            ← START HERE
+├── 01-OVERVIEW.md                       ← SP Subprojects Overview
+├── 00-ARCHITECTURE.md                   ← Architecture
+├── 02-DEPENDENCIES.md                   ← Dependencies
+├── 03-SEQUENCES.md                      ← Main Sequence Diagrams
+├── 04-GUIDE.md                          ← Implementation Guide
+│
+└── NOTE: SP33-SP37 are in UC6 (Firma Digitale Integrata)
+    for proper SP mapping organization
 ```
 
 ---
