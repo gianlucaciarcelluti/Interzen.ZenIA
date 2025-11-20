@@ -27,49 +27,74 @@ ZenShareUp è una **piattaforma enterprise per la gestione documentale integrata
 
 ### Principi Architetturali
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     CLIENT APPLICATIONS                         │
-│                  (Web, Mobile, Desktop)                         │
-└──────────────────────────┬──────────────────────────────────────┘
-                           │
-                ┌──────────▼──────────┐
-                │  API GATEWAY        │
-                │  (Authentication)   │
-                └──────────┬──────────┘
-                           │
-        ┌──────────────────┼──────────────────┐
-        │                  │                  │
-    ┌───▼────┐      ┌──────▼──────┐    ┌────▼────┐
-    │ZenAdmin│      │ZenDocuments │    │ZenProtoll
-o│
-    │        │      │             │    │         │
-    └────────┘      └─────────────┘    └─────────┘
-        │                  │                  │
-    ┌───▼────┐      ┌──────▼──────┐    ┌────▼────┐
-    │ZenMaster│     │ZenMailroom  │    │ZenProcess│
-    │        │      │             │    │         │
-    └────────┘      └─────────────┘    └─────────┘
-        │                  │                  │
-    ┌───▼────┐      ┌──────▼──────┐    ┌────▼────┐
-    │ZenSuap │      │ZenScheduler │    │ZenArchiv
-e│
-    │        │      │             │    │         │
-    └────────┘      └─────────────┘    └─────────┘
-                           │
-        ┌──────────────────┼──────────────────┐
-        │                  │                  │
-    ┌───▼────┐      ┌──────▼──────┐    ┌────▼────┐
-    │PostgreSQL      │Redis        │    │RabbitMQ │
-    │(Primary DB)    │(Cache)      │    │(Events) │
-    └────────┘      └─────────────┘    └─────────┘
-        │                  │                  │
-        └──────────────────┼──────────────────┘
-                           │
-                    ┌──────▼──────┐
-                    │ SFTPGo      │
-                    │(File Share) │
-                    └─────────────┘
+```mermaid
+graph TB
+    Client["👥 CLIENT APPLICATIONS<br/>(Web, Mobile, Desktop)"]
+    Gateway["🚪 API GATEWAY<br/>msacloudgateway<br/>(Authentication)"]
+
+    Client --> Gateway
+
+    subgraph "Microservizi"
+        Admin["👤 ZenAdmin<br/>25 DTOs"]
+        Documents["📄 ZenDocuments<br/>65 DTOs"]
+        Protocol["📋 ZenProtocollo<br/>29 DTOs"]
+        Mailroom["📧 ZenMailroom<br/>13 DTOs"]
+        Process["⚙️ ZenProcess<br/>24 DTOs"]
+        Master["🏢 ZenMaster<br/>5 DTOs"]
+        Suap["🏪 ZenSuap<br/>7 DTOs"]
+        Scheduler["⏰ ZenScheduler<br/>1 DTO"]
+    end
+
+    Gateway --> Admin
+    Gateway --> Documents
+    Gateway --> Protocol
+    Gateway --> Mailroom
+    Gateway --> Process
+    Gateway --> Master
+    Gateway --> Suap
+    Gateway --> Scheduler
+
+    subgraph "Infrastructure"
+        DB["🗄️ PostgreSQL<br/>(Multi-Tenant DB)"]
+        Cache["⚡ Redis<br/>(Distributed Cache)"]
+        Queue["📦 RabbitMQ<br/>(Event Bus)"]
+        Storage["💾 SFTPGo<br/>(File Storage)"]
+    end
+
+    Admin --> DB
+    Documents --> DB
+    Protocol --> DB
+    Mailroom --> DB
+    Process --> DB
+    Master --> DB
+    Suap --> DB
+    Scheduler --> DB
+
+    Documents --> Cache
+    Admin --> Cache
+
+    Documents --> Queue
+    Protocol --> Queue
+    Mailroom --> Queue
+    Scheduler --> Queue
+
+    Documents --> Storage
+    Mailroom --> Storage
+
+    style Client fill:#e1f5ff,stroke:#01579b,stroke-width:2px
+    style Gateway fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style Admin fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    style Documents fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+    style Protocol fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    style Mailroom fill:#ede7f6,stroke:#311b92,stroke-width:2px
+    style Process fill:#fff8e1,stroke:#f57f17,stroke-width:2px
+    style Master fill:#f1f8e9,stroke:#33691e,stroke-width:2px
+    style Suap fill:#e0f2f1,stroke:#004d40,stroke-width:2px
+    style Scheduler fill:#fbe9e7,stroke:#bf360c,stroke-width:2px
+    style DB fill:#eceff1,stroke:#263238,stroke-width:2px
+    style Cache fill:#fff1f0,stroke:#c62828,stroke-width:2px
+    style Queue fill:#f0f4c3,stroke:#33691e,stroke-width:2px
+    style Storage fill:#e3f2fd,stroke:#0d47a1,stroke-width:2px
 ```
 
 ---
@@ -92,993 +117,504 @@ e│
 - CORS management
 - API versioning
 
-```
-┌─────────────┐
-│   Client    │
-└──────┬──────┘
-       │ (Username/Password)
-       ▼
-┌──────────────────────┐
-│   Keycloak           │ ◄─── (Validate Credentials)
-│   (Identity Provider)│
-└──────┬───────────────┘
-       │ JWT Token
-       ▼
-┌──────────────────────┐
-│   API Gateway        │ ◄─── (Validate Token)
-│   (msacloudgateway)  │
-└──────┬───────────────┘
-       │
-       ├─────► ZenAdmin (Manage Users, Roles)
-       ├─────► ZenDocuments (Manage Docs)
-       ├─────► ZenProtocollo (Register Protocol)
-       ├─────► ZenProcess (Execute Workflow)
-       ├─────► ZenMailroom (Send Email)
-       ├─────► ZenSuap (SUAP Integration)
-       └─────► ZenScheduler (Execute Tasks)
+```mermaid
+graph LR
+    Client["Client<br/>(Browser/App)"]
+    Keycloak["🔐 Keycloak<br/>(Identity Provider)"]
+    Gateway["🚪 API Gateway<br/>(msacloudgateway)"]
+
+    Admin["ZenAdmin"]
+    Documents["ZenDocuments"]
+    Protocol["ZenProtocollo"]
+    Process["ZenProcess"]
+    Mailroom["ZenMailroom"]
+
+    Client -->|Username/Password| Keycloak
+    Keycloak -->|JWT Token| Client
+    Client -->|JWT in Header| Gateway
+    Gateway -->|Validate Token| Keycloak
+
+    Gateway -->|route| Admin
+    Gateway -->|route| Documents
+    Gateway -->|route| Protocol
+    Gateway -->|route| Process
+    Gateway -->|route| Mailroom
+
+    style Client fill:#e3f2fd,stroke:#0d47a1,stroke-width:2px
+    style Keycloak fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style Gateway fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    style Admin fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+    style Documents fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    style Protocol fill:#ede7f6,stroke:#311b92,stroke-width:2px
+    style Process fill:#fff8e1,stroke:#f57f17,stroke-width:2px
+    style Mailroom fill:#f1f8e9,stroke:#33691e,stroke-width:2px
 ```
 
-### 2. Database Centrale - PostgreSQL
+### 2. Database - PostgreSQL
 
 **Scopo**: Persistenza dati per tutti i microservizi
 
 **Caratteristiche**:
 - Database relazionale centralizzato
-- Schema multi-tenancy (per ogni tenant un database logico)
-- Supporto per JSON fields (metadata dinamici)
-- Full-text search per documenti
+- Schema multi-tenancy
+- Supporto per JSON fields
+- Full-text search
 - Audit trails integrati
 
-**Principali Tabelle**:
-```
-┌─────────────────────────────────────────────┐
-│              ZENSHAREUP DATABASE             │
-├─────────────────────────────────────────────┤
-│ ADMIN SCHEMA                                │
-│  ├─ users                                   │
-│  ├─ groups                                  │
-│  ├─ companies                               │
-│  ├─ roles & permissions                     │
-│  └─ notification_settings                   │
-├─────────────────────────────────────────────┤
-│ DOCUMENTS SCHEMA                            │
-│  ├─ documents                               │
-│  ├─ folders                                 │
-│  ├─ document_versions                       │
-│  ├─ metadata_definitions                    │
-│  ├─ metadata_values                         │
-│  ├─ models (templates)                      │
-│  └─ assignments (smistamento)               │
-├─────────────────────────────────────────────┤
-│ PROTOCOL SCHEMA                             │
-│  ├─ protocols                               │
-│  ├─ correspondents                          │
-│  ├─ classifications                         │
-│  ├─ special_registers                       │
-│  └─ protocol_templates                      │
-├─────────────────────────────────────────────┤
-│ PROCESS SCHEMA                              │
-│  ├─ administrative_procedures               │
-│  ├─ technical_procedures                    │
-│  ├─ process_instances (Flowable)            │
-│  ├─ workflow_tasks                          │
-│  └─ form_definitions                        │
-├─────────────────────────────────────────────┤
-│ MAILROOM SCHEMA                             │
-│  ├─ email_parameters                        │
-│  ├─ email_signatures                        │
-│  ├─ receiving_logs                          │
-│  └─ sending_logs                            │
-├─────────────────────────────────────────────┤
-│ MASTER SCHEMA                               │
-│  ├─ tenants                                 │
-│  ├─ licenses (attive)                       │
-│  └─ events                                  │
-├─────────────────────────────────────────────┤
-│ ARCHIVE SCHEMA                              │
-│  ├─ legal_archive (archiviazione legale)    │
-│  ├─ historical_data                         │
-│  └─ retention_policies                      │
-└─────────────────────────────────────────────┘
+```mermaid
+graph TB
+    DB["🗄️ PostgreSQL<br/>(Central Database)"]
+
+    subgraph "Tenant Isolation"
+        TenantA["Tenant A<br/>(Roma)"]
+        TenantB["Tenant B<br/>(Milano)"]
+        TenantC["Tenant C<br/>(Company)"]
+    end
+
+    subgraph "Schemas"
+        AdminSchema["👤 ADMIN<br/>users, groups, roles"]
+        DocSchema["📄 DOCUMENTS<br/>docs, folders, versions"]
+        ProtSchema["📋 PROTOCOL<br/>protocols, correspondents"]
+        ProcSchema["⚙️ PROCESS<br/>procedures, tasks"]
+        EmailSchema["📧 EMAIL<br/>params, logs"]
+        ArchSchema["📦 ARCHIVE<br/>legal, retention"]
+    end
+
+    DB --> TenantA
+    DB --> TenantB
+    DB --> TenantC
+
+    TenantA --> AdminSchema
+    TenantA --> DocSchema
+    TenantA --> ProtSchema
+    TenantA --> ProcSchema
+    TenantA --> EmailSchema
+    TenantA --> ArchSchema
+
+    style DB fill:#eceff1,stroke:#263238,stroke-width:3px
+    style AdminSchema fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    style DocSchema fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+    style ProtSchema fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    style ProcSchema fill:#fff8e1,stroke:#f57f17,stroke-width:2px
+    style EmailSchema fill:#f1f8e9,stroke:#33691e,stroke-width:2px
+    style ArchSchema fill:#e0f2f1,stroke:#004d40,stroke-width:2px
+    style TenantA fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style TenantB fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style TenantC fill:#fff9c4,stroke:#f57f17,stroke-width:2px
 ```
 
 ### 3. Cache - Redis
 
-**Scopo**: Miglioramento performance con caching distribuito
+```mermaid
+graph LR
+    Redis["⚡ Redis<br/>(Distributed Cache)"]
 
-**Utilizzi**:
-- Cache lookup tables (utenti, gruppi, aziende)
-- Session management
-- Temporary data storage
-- Rate limiting counters
-- Distributed locks per operazioni critiche
+    Sessions["🔐 Sessions"]
+    Lookups["📋 Lookups<br/>(Users, Groups)"]
+    RateLimits["⏱️ Rate Limits"]
+    Locks["🔒 Distributed Locks"]
+    Temp["📝 Temp Data"]
+
+    Redis --> Sessions
+    Redis --> Lookups
+    Redis --> RateLimits
+    Redis --> Locks
+    Redis --> Temp
+
+    style Redis fill:#fff1f0,stroke:#c62828,stroke-width:2px
+    style Sessions fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style Lookups fill:#bbdefb,stroke:#1565c0,stroke-width:2px
+    style RateLimits fill:#ffe0b2,stroke:#e65100,stroke-width:2px
+    style Locks fill:#f8bbd0,stroke:#c2185b,stroke-width:2px
+    style Temp fill:#d1c4e9,stroke:#512da8,stroke-width:2px
+```
 
 ### 4. Message Broker - RabbitMQ
 
-**Scopo**: Comunicazione asincrona tra microservizi
+```mermaid
+graph TB
+    RabbitMQ["📦 RabbitMQ<br/>(Event Bus)"]
 
-**Topic Principali**:
-- `documents.events` - Creazione, modifica, eliminazione documenti
-- `protocol.events` - Registrazione, cancellazione protocolli
-- `workflow.events` - Avanzamento processi
-- `email.events` - Invio/ricezione email
-- `archive.events` - Archiviazione documenti
-- `audit.events` - Audit trail
+    subgraph "Topics"
+        DocTopic["documents.events"]
+        ProtTopic["protocols.events"]
+        WorkflowTopic["workflow.events"]
+        EmailTopic["email.events"]
+        ArchiveTopic["archive.events"]
+    end
 
-**Pattern di Utilizzo**:
-```
-Microservice A (Publisher)
-        │
-        ├─── Document Created Event
-        └───────────────────────┬───────────────────────┐
-                                │                       │
-                          RabbitMQ Exchange             │
-                                │                       │
-                    ┌───────────┴───────────┐           │
-                    │                       │           │
-                 Queue A                 Queue B       Queue C
-                    │                       │           │
-                    ▼                       ▼           ▼
-            Microservice B          Microservice C  Indexer
-          (Process Workflow)      (Send Notification) (Full-text)
+    subgraph "Publishers"
+        DocPub["📄 ZenDocuments"]
+        ProtPub["📋 ZenProtocollo"]
+        WorkflowPub["⚙️ ZenProcess"]
+        EmailPub["📧 ZenMailroom"]
+    end
+
+    subgraph "Consumers"
+        DocConsumer["Indexer"]
+        ProtConsumer["Archive Scheduler"]
+        WorkflowConsumer["Notification Service"]
+        EmailConsumer["Audit Service"]
+    end
+
+    RabbitMQ --> DocTopic
+    RabbitMQ --> ProtTopic
+    RabbitMQ --> WorkflowTopic
+    RabbitMQ --> EmailTopic
+    RabbitMQ --> ArchiveTopic
+
+    DocPub --> RabbitMQ
+    ProtPub --> RabbitMQ
+    WorkflowPub --> RabbitMQ
+    EmailPub --> RabbitMQ
+
+    DocTopic --> DocConsumer
+    ProtTopic --> ProtConsumer
+    WorkflowTopic --> WorkflowConsumer
+    EmailTopic --> EmailConsumer
+
+    style RabbitMQ fill:#f0f4c3,stroke:#33691e,stroke-width:3px
+    style DocPub fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+    style ProtPub fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    style WorkflowPub fill:#fff8e1,stroke:#f57f17,stroke-width:2px
+    style EmailPub fill:#f1f8e9,stroke:#33691e,stroke-width:2px
 ```
 
 ### 5. File Storage - SFTPGo
 
-**Scopo**: Archiviazione file documenti in modo sicuro
+```mermaid
+graph TB
+    SFTPGo["💾 SFTPGo<br/>(File Storage)"]
 
-**Caratteristiche**:
-- SFTP access per client
-- WebDAV support
-- Backup automated
-- Virus scanning
-- Encryption at rest
+    subgraph "Access Methods"
+        SFTP["SFTP Access"]
+        WebDAV["WebDAV Support"]
+    end
 
-**Organizzazione**:
-```
-/sftp
-├── /tenant-001
-│   ├── /documents
-│   │   ├── /year-2024
-│   │   ├── /year-2025
-│   │   └── ...
-│   ├── /archives
-│   └── /temp
-├── /tenant-002
-│   └── ...
-└── /shared-resources
+    subgraph "Features"
+        Backup["🔄 Auto Backup"]
+        VirusCheck["🛡️ Virus Scanning"]
+        Encrypt["🔐 Encryption"]
+    end
+
+    subgraph "Tenant Storage"
+        Tenant1["Tenant A<br/>sftp/tenant-a/"]
+        Tenant2["Tenant B<br/>sftp/tenant-b/"]
+        Shared["Shared Resources"]
+    end
+
+    SFTPGo --> SFTP
+    SFTPGo --> WebDAV
+    SFTPGo --> Backup
+    SFTPGo --> VirusCheck
+    SFTPGo --> Encrypt
+
+    SFTPGo --> Tenant1
+    SFTPGo --> Tenant2
+    SFTPGo --> Shared
+
+    style SFTPGo fill:#e3f2fd,stroke:#0d47a1,stroke-width:2px
+    style SFTP fill:#b3e5fc,stroke:#0277bd,stroke-width:2px
+    style WebDAV fill:#b3e5fc,stroke:#0277bd,stroke-width:2px
+    style Backup fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style VirusCheck fill:#ffccbc,stroke:#d84315,stroke-width:2px
+    style Encrypt fill:#f8bbd0,stroke:#c2185b,stroke-width:2px
 ```
 
 ---
 
 ## Microservizi
 
-### 1. ZenAdmin (msazenadmin)
+### 1. ZenAdmin - User & Organization Management
 
-**Responsabilità**: Gestione amministrativa della Suite
+```mermaid
+graph TB
+    ZenAdmin["👤 ZenAdmin<br/>(msazenadmin)"]
 
-```
-┌─────────────────────────────────────────────┐
-│         ZenAdmin Microservice               │
-├─────────────────────────────────────────────┤
-│ Core Entities:                              │
-│  ├─ Users (id, username, email, roles)      │
-│  ├─ Groups (organizational units)           │
-│  ├─ Companies/Organizations                 │
-│  ├─ Roles & Permissions                     │
-│  ├─ Protocol AOO (organizational areas)     │
-│  └─ Correspondents                          │
-│                                             │
-│ API Endpoints:                              │
-│  ├─ POST /users                             │
-│  ├─ GET /users/{id}                         │
-│  ├─ PUT /users/{id}                         │
-│  ├─ DELETE /users/{id}                      │
-│  ├─ GET /groups                             │
-│  ├─ GET /companies                          │
-│  └─ GET /roles                              │
-│                                             │
-│ DTOs (25 files):                            │
-│  ├─ UserDTO                                 │
-│  ├─ CompanyDTO                              │
-│  ├─ GroupDTO                                │
-│  ├─ ProtAOODTO                              │
-│  ├─ AdminLookupDTO                          │
-│  └─ NotificationDTO                         │
-│                                             │
-│ Events Published:                           │
-│  ├─ user.created                            │
-│  ├─ user.updated                            │
-│  ├─ user.deleted                            │
-│  ├─ group.updated                           │
-│  └─ company.updated                         │
-└─────────────────────────────────────────────┘
-```
+    subgraph "Entities"
+        Users["👥 Users"]
+        Groups["👨‍👩‍👧‍👦 Groups"]
+        Companies["🏢 Companies"]
+        Roles["🔐 Roles & Permissions"]
+        AOO["🏛️ Protocol AOO"]
+    end
 
-**Flusso di Creazione Utente**:
-```
-1. Client Request (POST /users)
-   {
-     "username": "mario.rossi",
-     "email": "mario@example.com",
-     "roles": ["DocumentManger"]
-   }
+    subgraph "DTOs - 25 files"
+        UserDTO["UserDTO"]
+        CompanyDTO["CompanyDTO"]
+        GroupDTO["GroupDTO"]
+        RoleDTO["RoleDTO"]
+        NotifDTO["NotificationDTO"]
+    end
 
-2. ZenAdmin Service
-   ├─ Validate input
-   ├─ Check uniqueness (email, username)
-   ├─ Generate password (or ask client)
-   ├─ Hash password
-   ├─ Create user in DB
-   ├─ Add to cache
-   └─ Publish event
+    subgraph "Events"
+        UserCreated["user.created"]
+        UserUpdated["user.updated"]
+        GroupUpdated["group.updated"]
+    end
 
-3. Keycloak Integration
-   ├─ Create user in Keycloak
-   ├─ Assign roles
-   └─ Enable/disable
+    ZenAdmin --> Users
+    ZenAdmin --> Groups
+    ZenAdmin --> Companies
+    ZenAdmin --> Roles
+    ZenAdmin --> AOO
 
-4. Event Published
-   ├─ ZenDocuments (update permissions)
-   ├─ ZenProtocollo (update responsibility)
-   └─ ZenMailroom (notify)
+    ZenAdmin --> UserDTO
+    ZenAdmin --> CompanyDTO
+    ZenAdmin --> GroupDTO
+    ZenAdmin --> RoleDTO
+    ZenAdmin --> NotifDTO
 
-5. Response
-   {
-     "id": 123,
-     "username": "mario.rossi",
-     "email": "mario@example.com",
-     "status": "ACTIVE"
-   }
+    ZenAdmin --> UserCreated
+    ZenAdmin --> UserUpdated
+    ZenAdmin --> GroupUpdated
+
+    style ZenAdmin fill:#f3e5f5,stroke:#4a148c,stroke-width:3px
 ```
 
-### 2. ZenDocuments (msazendocuments)
+### 2. ZenDocuments - Document Lifecycle
 
-**Responsabilità**: Gestione completa del ciclo di vita documentale
+```mermaid
+graph TB
+    ZenDocuments["📄 ZenDocuments<br/>(msazendocuments)"]
 
-```
-┌──────────────────────────────────────────────────┐
-│         ZenDocuments Microservice                │
-├──────────────────────────────────────────────────┤
-│ Core Entities:                                   │
-│  ├─ Documents                                    │
-│  │  ├─ Metadata (custom fields)                  │
-│  │  ├─ Versions                                  │
-│  │  ├─ Assignments (smistamento)                 │
-│  │  └─ Permissions                               │
-│  ├─ Folders (dossiers)                           │
-│  │  ├─ Hierarchical structure                    │
-│  │  ├─ Classification schemas                    │
-│  │  └─ Dossier management                        │
-│  ├─ Models (document templates)                  │
-│  │  ├─ Metadata definitions                      │
-│  │  ├─ Configuration                             │
-│  │  └─ Validation rules                          │
-│  └─ Archive                                      │
-│     ├─ Legal archive (GDPR)                      │
-│     ├─ Historical archive                        │
-│     └─ Retention policies                        │
-│                                                  │
-│ Document Lifecycle:                              │
-│  DRAFT ──► CURRENT ──► DEPOSIT ──► HISTORICAL   │
-│                             │                    │
-│                             └──► LEGAL ARCHIVE   │
-│                                                  │
-│ DTOs (65 files):                                 │
-│  ├─ DocumentDTO (full entity)                    │
-│  ├─ DocumentBaseDTO (base properties)            │
-│  ├─ FolderDTO                                    │
-│  ├─ ModelDTO (templates)                         │
-│  ├─ MetadataDefinitionDTO                       │
-│  ├─ AssignmentDetailsOutDTO (smistamento)        │
-│  └─ Various specialized DTOs                     │
-│                                                  │
-│ Key API Endpoints:                               │
-│  ├─ POST /documents (create)                     │
-│  ├─ GET /documents/{id}                          │
-│  ├─ PUT /documents/{id}                          │
-│  ├─ DELETE /documents/{id}                       │
-│  ├─ POST /documents/{id}/assign (smistamento)    │
-│  ├─ POST /documents/{id}/version (new version)   │
-│  ├─ GET /documents/search                        │
-│  ├─ POST /documents/archive (to legal archive)   │
-│  ├─ GET /folders (hierarchy)                     │
-│  └─ POST /models (create templates)              │
-│                                                  │
-│ Events Published:                                │
-│  ├─ document.created                             │
-│  ├─ document.updated                             │
-│  ├─ document.versioned                           │
-│  ├─ document.assigned                            │
-│  ├─ document.archived                            │
-│  └─ document.deleted                             │
-└──────────────────────────────────────────────────┘
+    subgraph "Lifecycle"
+        Draft["📝 DRAFT"]
+        Current["✅ CURRENT"]
+        Deposit["📦 DEPOSIT"]
+        Historical["📚 HISTORICAL"]
+        Legal["⚖️ LEGAL ARCHIVE"]
+    end
+
+    subgraph "Core Entities"
+        Documents["📄 Documents"]
+        Folders["📁 Folders"]
+        Versions["📑 Versions"]
+        Metadata["🏷️ Metadata"]
+        Models["🎨 Templates"]
+        Assignment["📤 Smistamento"]
+    end
+
+    Draft --> Current
+    Current --> Deposit
+    Deposit --> Historical
+    Historical --> Legal
+
+    ZenDocuments --> Documents
+    ZenDocuments --> Folders
+    ZenDocuments --> Versions
+    ZenDocuments --> Metadata
+    ZenDocuments --> Models
+    ZenDocuments --> Assignment
+
+    style ZenDocuments fill:#e8f5e9,stroke:#1b5e20,stroke-width:3px
+    style Draft fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style Current fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style Deposit fill:#b2dfdb,stroke:#004d40,stroke-width:2px
+    style Historical fill:#cfd8dc,stroke:#455a64,stroke-width:2px
+    style Legal fill:#f8bbd0,stroke:#c2185b,stroke-width:2px
 ```
 
-**Document Metadata System**:
-```
-┌────────────────────────────────────────────┐
-│        Model (Template)                     │
-├────────────────────────────────────────────┤
-│ Name: Fattura                               │
-│ Code: INVOICE_2024                          │
-│                                             │
-│ Metadata Definitions:                       │
-│  ├─ numero_fattura (String, Required)       │
-│  ├─ data_fattura (Date, Required)           │
-│  ├─ importo (Decimal, Required)             │
-│  ├─ cliente (String, Required)              │
-│  ├─ note (Text, Optional)                   │
-│  └─ categoria (Enum, Optional)              │
-└────────────────────────────────────────────┘
-           │
-           │ (Used to create)
-           ▼
-┌────────────────────────────────────────────┐
-│      Document Instance                      │
-├────────────────────────────────────────────┤
-│ FileName: fattura_001_2024.pdf              │
-│                                             │
-│ Metadata Values:                            │
-│  ├─ numero_fattura: "001/2024"              │
-│  ├─ data_fattura: "2024-11-20"              │
-│  ├─ importo: 1500.00                        │
-│  ├─ cliente: "Acme Corp"                    │
-│  ├─ note: "Pagamento a 30 giorni"           │
-│  └─ categoria: "SALES"                      │
-│                                             │
-│ Document Info:                              │
-│  ├─ ID: doc_12345                           │
-│  ├─ Status: CURRENT                         │
-│  ├─ Created: 2024-11-20 10:30               │
-│  ├─ CreatedBy: mario.rossi                  │
-│  ├─ Version: 1.0                            │
-│  └─ FolderId: folder_001                    │
-└────────────────────────────────────────────┘
-```
+### 3. ZenProtocollo - Protocol Registration
 
-**Smistamento (Assignment) Process**:
-```
-┌─────────────────────────────┐
-│ Document Created/Updated    │
-└──────────────┬──────────────┘
-               │
-               ▼
-   ┌───────────────────────┐
-   │ Need Assignment?      │
-   │ (Smistamento)         │
-   └───────────┬───────────┘
-               │
-        ┌──────┴──────┐
-        │             │
-       YES            NO
-        │             │
-        ▼             ▼
-  ┌──────────┐   ┌─────────┐
-  │ Assign   │   │ Stored  │
-  │ To:      │   │ in      │
-  │ - User   │   │ Folder  │
-  │ - Group  │   └─────────┘
-  │ - Role   │
-  └─────┬────┘
-        │
-        ▼
-  ┌──────────────────────────┐
-  │ Send Notification        │
-  │ ├─ Assigned To: User     │
-  │ ├─ Document: Name        │
-  │ ├─ Action: Review/Sign   │
-  │ └─ Deadline: 5 days      │
-  └──────────────────────────┘
-        │
-        ▼
-  ┌──────────────────────────┐
-  │ Assignee Actions:        │
-  │ ├─ View                  │
-  │ ├─ Comment               │
-  │ ├─ Sign/Approve          │
-  │ ├─ Reject                │
-  │ └─ Forward to Another    │
-  └──────────────────────────┘
+```mermaid
+graph TB
+    ZenProtocollo["📋 ZenProtocollo<br/>(msazenprotocollo)"]
+
+    subgraph "Core Entities"
+        Protocol["📋 Protocols"]
+        Correspondents["👥 Correspondents"]
+        Classification["📂 Classifications"]
+        Registers["📖 Registers"]
+    end
+
+    subgraph "Features"
+        Sequential["🔢 Sequential Numbers"]
+        Confidential["🔒 Confidentiality Levels"]
+        Emergency["🚨 Emergency Protocols"]
+        SpecialReg["📜 Special Registers"]
+    end
+
+    subgraph "Events"
+        RegEvent["protocol.registered"]
+        UpdateEvent["protocol.updated"]
+        CancelEvent["protocol.canceled"]
+    end
+
+    ZenProtocollo --> Protocol
+    ZenProtocollo --> Correspondents
+    ZenProtocollo --> Classification
+    ZenProtocollo --> Registers
+
+    Protocol --> Sequential
+    Protocol --> Confidential
+    Protocol --> Emergency
+    Protocol --> SpecialReg
+
+    ZenProtocollo --> RegEvent
+    ZenProtocollo --> UpdateEvent
+    ZenProtocollo --> CancelEvent
+
+    style ZenProtocollo fill:#fce4ec,stroke:#880e4f,stroke-width:3px
 ```
 
-### 3. ZenProtocollo (msazenprotocollo)
+### 4. ZenProcess - Workflow Automation
 
-**Responsabilità**: Protocollazione informatica conforme a normative italiane
+```mermaid
+graph TB
+    ZenProcess["⚙️ ZenProcess<br/>(msazenprocess)"]
 
-```
-┌──────────────────────────────────────────────────┐
-│         ZenProtocollo Microservice               │
-├──────────────────────────────────────────────────┤
-│ Core Entities:                                   │
-│  ├─ Protocols (Registration)                     │
-│  │  ├─ Protocol Number (sequential/by AOO)       │
-│  │  ├─ Registration Date/Time                    │
-│  │  ├─ Subject                                   │
-│  │  ├─ Main Document (Link to ZenDocuments)      │
-│  │  ├─ Confidentiality Level                     │
-│  │  └─ Status (DRAFT, CLOSED, CANCELED)          │
-│  ├─ Correspondents                               │
-│  │  ├─ Sender (Input protocols)                  │
-│  │  ├─ Recipient (Output protocols)              │
-│  │  ├─ Type (Person, Organization, Public Admin)│
-│  │  └─ Reference (Email, PEC, Physical)          │
-│  ├─ Classifications (Document Classification)    │
-│  │  ├─ Classification Schema                     │
-│  │  ├─ Category Path                             │
-│  │  └─ Hierarchical Structure                    │
-│  ├─ Special Registers                            │
-│  │  ├─ Special handling types                    │
-│  │  └─ Tracking separate from main register      │
-│  └─ Emergency Protocols                          │
-│     ├─ Temporary protocol numbers                │
-│     └─ Validation within timeframe               │
-│                                                  │
-│ Protocol Types:                                  │
-│  ├─ Input (from external)                        │
-│  ├─ Output (to external)                         │
-│  ├─ Internal                                     │
-│  └─ Return (protocol di ritorno)                 │
-│                                                  │
-│ DTOs (29 files):                                 │
-│  ├─ ProtocolDTO (full protocol)                  │
-│  ├─ ProtocolRegistrationDTO (input for creation)│
-│  ├─ ClassificationOutDTO                         │
-│  ├─ CorrespondentOutDTO                          │
-│  └─ ProtocolRegistrationManagerDTO               │
-│                                                  │
-│ Key API Endpoints:                               │
-│  ├─ POST /protocols/register (register)          │
-│  ├─ GET /protocols/{protocolNumber}              │
-│  ├─ PUT /protocols/{id} (update metadata)        │
-│  ├─ DELETE /protocols/{id} (cancel)              │
-│  ├─ GET /protocols/search                        │
-│  ├─ GET /special-registers                       │
-│  ├─ POST /protocols/{id}/urgent (emergency)      │
-│  └─ GET /correspondents                          │
-│                                                  │
-│ Events Published:                                │
-│  ├─ protocol.registered                          │
-│  ├─ protocol.updated                             │
-│  ├─ protocol.canceled                            │
-│  └─ protocol.correspondent.added                 │
-└──────────────────────────────────────────────────┘
+    subgraph "Engine"
+        Flowable["Flowable BPMN 2.0"]
+        Tasks["User & Service Tasks"]
+        Gateway["Gateways"]
+    end
+
+    subgraph "Entities"
+        Procedures["📋 Administrative Procedures"]
+        Forms["📝 Web Forms"]
+        Variables["📊 Process Variables"]
+    end
+
+    subgraph "Example Flow"
+        Task1["Task: Submit Application"]
+        Task2["Task: Officer Review"]
+        Task3["Approval/Rejection"]
+    end
+
+    ZenProcess --> Flowable
+    ZenProcess --> Tasks
+    ZenProcess --> Gateway
+    ZenProcess --> Procedures
+    ZenProcess --> Forms
+    ZenProcess --> Variables
+
+    Flowable --> Task1
+    Flowable --> Task2
+    Flowable --> Task3
+
+    style ZenProcess fill:#fff8e1,stroke:#f57f17,stroke-width:3px
+    style Flowable fill:#ffe082,stroke:#f57f17,stroke-width:2px
 ```
 
-**Protocol Registration Flow**:
-```
-1. Client Prepares Document
-   ├─ Create/Upload in ZenDocuments
-   ├─ Get Document ID
-   └─ Prepare metadata (subject, confidentiality)
+### 5. ZenMailroom - Email Integration
 
-2. Client Requests Protocol Registration
-   POST /protocols/register
-   {
-     "mainDocumentId": "doc_12345",
-     "protocolType": "INPUT",
-     "subject": "Richiesta autorizzazione...",
-     "documentDate": "2024-11-20",
-     "confidentiality": "PUBLIC",
-     "correspondents": [
-       {
-         "type": "PERSON",
-         "name": "Giovanni Rossi",
-         "email": "giovanni@example.com"
-       }
-     ],
-     "classificationId": "classification_path_001"
-   }
+```mermaid
+graph LR
+    External["📧 External Sender"]
+    ZenMailroom["📧 ZenMailroom<br/>(msazenmailroom)"]
 
-3. ZenProtocollo Service
-   ├─ Validate document exists (call ZenDocuments)
-   ├─ Validate correspondents
-   ├─ Check business rules
-   ├─ Generate protocol number (sequential by AOO)
-   │  Example: 2024/001234 (year/progressive)
-   ├─ Create protocol record with status=CLOSED
-   ├─ Link to document
-   ├─ Store correspondents
-   ├─ Update document status to REGISTERED
-   └─ Publish protocol.registered event
+    subgraph "Reception"
+        IMAP["IMAP Polling"]
+        Parse["Email Parse"]
+        Attach["Download Attachments"]
+    end
 
-4. Response to Client
-   {
-     "id": "prot_12345",
-     "protocolNumber": "2024/001234",
-     "registrationDate": "2024-11-20T10:35:00Z",
-     "subject": "Richiesta autorizzazione...",
-     "mainDocumentId": "doc_12345",
-     "status": "CLOSED"
-   }
+    subgraph "Sending"
+        SMTP["SMTP/PEC"]
+        Template["Templates"]
+        Sign["Signatures"]
+    end
 
-5. Other Services React to Event
-   ├─ ZenDocuments (update status, add protocol link)
-   ├─ ZenMailroom (send email with protocol number)
-   ├─ ZenScheduler (schedule archive if retention expires)
-   └─ Indexer (full-text indexing for search)
+    subgraph "Integration"
+        CreateDoc["Create Document"]
+        RegProtocol["Register Protocol"]
+        Route["Route/Assign"]
+    end
 
-6. Client Can Now
-   ├─ View protocol details
-   ├─ Print protocol report
-   ├─ Send protocol via email/PEC
-   ├─ Export as XML for external systems
-   └─ Track status
+    External -->|Email + Attach| ZenMailroom
+    ZenMailroom --> IMAP
+    ZenMailroom --> SMTP
+
+    IMAP --> Parse
+    Parse --> Attach
+    Attach --> CreateDoc
+    CreateDoc --> RegProtocol
+    RegProtocol --> Route
+
+    SMTP --> Template
+    SMTP --> Sign
+
+    style ZenMailroom fill:#f1f8e9,stroke:#33691e,stroke-width:3px
+    style External fill:#ffecb3,stroke:#f57f17,stroke-width:2px
 ```
 
-### 4. ZenProcess (msazenprocess)
+### 6. ZenMaster - Multi-Tenancy Management
 
-**Responsabilità**: Automazione di workflow e procedure amministrative
+```mermaid
+graph TB
+    ZenMaster["🏢 ZenMaster<br/>(msazenmaster)"]
 
-```
-┌──────────────────────────────────────────────────┐
-│         ZenProcess Microservice                  │
-├──────────────────────────────────────────────────┤
-│ Core Components:                                 │
-│  ├─ Workflow Engine (Flowable)                   │
-│  │  ├─ BPMN 2.0 process definitions              │
-│  │  ├─ Process instances execution               │
-│  │  └─ Task management                           │
-│  ├─ Administrative Procedures                    │
-│  │  ├─ Name, description, legislation            │
-│  │  ├─ Deadline (days)                           │
-│  │  ├─ Silence expiration rules                  │
-│  │  └─ Required documents                        │
-│  ├─ Technical Procedures                         │
-│  │  ├─ System-level procedures                   │
-│  │  └─ Automated workflows                       │
-│  ├─ Web Forms (Form Builder)                     │
-│  │  ├─ Dynamic form creation                     │
-│  │  ├─ Field types, validation                   │
-│  │  └─ Conditional visibility                    │
-│  ├─ Tasks                                        │
-│  │  ├─ User tasks (manual steps)                 │
-│  │  ├─ Service tasks (automated)                 │
-│  │  ├─ Message tasks (async operations)          │
-│  │  └─ Gateway (parallel/exclusive)              │
-│  └─ Process History                              │
-│     ├─ Historic instances                        │
-│     └─ Audit trail                               │
-│                                                  │
-│ Flowable Integration:                            │
-│  ├─ PostgreSQL backend for persistence           │
-│  ├─ Async job execution                          │
-│  └─ Event listener integration                   │
-│                                                  │
-│ DTOs (24 files):                                 │
-│  ├─ TaskDTO (workflow task)                      │
-│  ├─ AdministrativeProcedureDTO                   │
-│  ├─ TechnicalProcedureDTO                        │
-│  ├─ FormBuilderFormDTO                           │
-│  └─ VariableDTO (process variables)              │
-│                                                  │
-│ Key API Endpoints:                               │
-│  ├─ POST /processes/start                        │
-│  ├─ GET /tasks (user tasks)                      │
-│  ├─ POST /tasks/{id}/complete                    │
-│  ├─ GET /tasks/{id}/form (get form data)         │
-│  ├─ POST /tasks/{id}/submit (submit form)        │
-│  ├─ GET /process/{id}/history                    │
-│  ├─ GET /procedures (list administrative)        │
-│  └─ POST /forms (create form)                    │
-│                                                  │
-│ Events Published:                                │
-│  ├─ task.created                                 │
-│  ├─ task.assigned                                │
-│  ├─ task.completed                               │
-│  ├─ process.started                              │
-│  ├─ process.completed                            │
-│  └─ process.cancelled                            │
-└──────────────────────────────────────────────────┘
+    subgraph "Tenant Configuration"
+        Tenant1["🏛️ Tenant A<br/>Comune di Roma<br/>License: Enterprise"]
+        Tenant2["🏛️ Tenant B<br/>Comune di Milano<br/>License: Professional"]
+        Tenant3["🏛️ Tenant C<br/>Private Company<br/>License: Starter"]
+    end
+
+    subgraph "License Management"
+        Users["👥 User Seats"]
+        Features["✨ Features Enabled"]
+        Expiry["⏰ Expiration"]
+    end
+
+    ZenMaster --> Tenant1
+    ZenMaster --> Tenant2
+    ZenMaster --> Tenant3
+
+    Tenant1 --> Users
+    Tenant1 --> Features
+    Tenant1 --> Expiry
+
+    style ZenMaster fill:#e0f2f1,stroke:#004d40,stroke-width:3px
+    style Tenant1 fill:#b2dfdb,stroke:#004d40,stroke-width:2px
+    style Tenant2 fill:#b2dfdb,stroke:#004d40,stroke-width:2px
+    style Tenant3 fill:#b2dfdb,stroke:#004d40,stroke-width:2px
 ```
 
-**Workflow Example - Autorizzazione (Authorization Process)**:
-```
-┌─────────────────────────────────────────────────────┐
-│     Procedura: Autorizzazione Commerciale           │
-│     Deadline: 30 giorni                             │
-│     Silence: Positive (assenso tacito)              │
-└──────────────────┬──────────────────────────────────┘
-                   │
-         Start Process (Client)
-                   │
-                   ▼
-         ┌─────────────────────┐
-         │ Receive Application │ (Service Task: Auto)
-         │ Store in DB         │
-         │ Generate Number     │
-         └────────┬────────────┘
-                  │
-                  ▼
-         ┌─────────────────────────────────┐
-         │ Create Form for Officer Review  │ (User Task)
-         │ - Form: Review Application      │
-         │ - Assignee: Officer (Role)      │
-         │ - Deadline: 5 days              │
-         │ - Status: PENDING REVIEW        │
-         └────────┬────────────────────────┘
-                  │
-      ┌───────────┴───────────┐
-      │                       │
-   APPROVE                  REJECT
-      │                       │
-      ▼                       ▼
-  ┌────────────┐         ┌──────────────┐
-  │ Send Email │         │ Send Rejection
-  │ (RabbitMQ) │         │ (RabbitMQ)    │
-  │ To: Client │         │ To: Client    │
-  └────────┬───┘         └────────┬──────┘
-           │                      │
-           ▼                      ▼
-    ┌────────────────┐      ┌─────────────┐
-    │ Close Process  │      │ Close Process
-    │ Status: GRANTED      │ Status: DENIED
-    └────────────────┘      └─────────────┘
-           │                      │
-           └──────────┬───────────┘
-                      │
-              Publish Event
-              process.completed
-                      │
-                      ▼
-           ┌──────────────────────┐
-           │ ZenDocuments         │
-           │ Update document      │
-           │ Add metadata:        │
-           │ - status: GRANTED    │
-           │ - protocol_ref:...   │
-           └──────────────────────┘
+### 7. ZenSuap - SUAP Integration
+
+```mermaid
+graph LR
+    ZenShareUp["ZenShareUp"]
+    ZenSuap["🏪 ZenSuap<br/>(msazensuap)"]
+    SUAP["SUAP<br/>Backoffice"]
+
+    ZenShareUp -->|Integration Request| ZenSuap
+    ZenSuap -->|Transform & Send| SUAP
+    SUAP -->|Response| ZenSuap
+    ZenSuap -->|Update Document| ZenShareUp
+
+    style ZenShareUp fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    style ZenSuap fill:#e0f2f1,stroke:#004d40,stroke-width:2px
+    style SUAP fill:#fff9c4,stroke:#f57f17,stroke-width:2px
 ```
 
-### 5. ZenMailroom (msazenmailroom)
+### 8. ZenScheduler - Task Scheduling
 
-**Responsabilità**: Gestione comunicazioni via email con integrazione documentale
+```mermaid
+graph TB
+    ZenScheduler["⏰ ZenScheduler<br/>(zenscheduler)"]
 
+    subgraph "Scheduled Tasks"
+        Archive["📦 Document Archival"]
+        Email["📧 Email Polling"]
+        Cleanup["🧹 Workflow Cleanup"]
+        Protocol["📋 Protocol Deadlines"]
+        Cache["⚡ Cache Invalidation"]
+        Backup["💾 Backup & Maintenance"]
+        Reports["📊 Report Generation"]
+    end
+
+    ZenScheduler --> Archive
+    ZenScheduler --> Email
+    ZenScheduler --> Cleanup
+    ZenScheduler --> Protocol
+    ZenScheduler --> Cache
+    ZenScheduler --> Backup
+    ZenScheduler --> Reports
+
+    style ZenScheduler fill:#fbe9e7,stroke:#bf360c,stroke-width:3px
 ```
-┌──────────────────────────────────────────────────┐
-│         ZenMailroom Microservice                 │
-├──────────────────────────────────────────────────┤
-│ Core Responsibilities:                           │
-│  ├─ Email Reception                              │
-│  │  ├─ IMAP/POP3 polling                         │
-│  │  ├─ Attachment download                       │
-│  │  ├─ Email parsing                             │
-│  │  └─ Automatic document creation               │
-│  ├─ Email Sending                                │
-│  │  ├─ SMTP with authentication                  │
-│  │  ├─ PEC (Posta Elettronica Certificata)       │
-│  │  ├─ Template support                          │
-│  │  └─ Batch sending                             │
-│  ├─ Email Signatures                             │
-│  │  ├─ HTML signatures                           │
-│  │  └─ Company branding                          │
-│  ├─ Automatic Protocol Registration              │
-│  │  ├─ Detect incoming mail                      │
-│  │  └─ Register automatically as INPUT protocol  │
-│  └─ Email Parameter Management                   │
-│     ├─ IMAP/SMTP credentials                     │
-│     ├─ OAuth for Gmail/Office365                 │
-│     └─ Tenant-specific configurations            │
-│                                                  │
-│ DTOs (13 files):                                 │
-│  ├─ EmailDTO (send/receive)                      │
-│  ├─ EmailParameterDTO (configuration)            │
-│  ├─ OauthEmailParameterDTO                       │
-│  ├─ EmailSignatureDTO                            │
-│  ├─ ReceivingLogDTO (history)                    │
-│  └─ SendingLogDTO (history)                      │
-│                                                  │
-│ Key API Endpoints:                               │
-│  ├─ POST /emails/send                            │
-│  ├─ GET /emails/received                         │
-│  ├─ GET /email-parameters                        │
-│  ├─ POST /email-parameters                       │
-│  ├─ PUT /email-signatures/{id}                   │
-│  ├─ GET /receiving-logs                          │
-│  └─ GET /sending-logs                            │
-│                                                  │
-│ Events Published:                                │
-│  ├─ email.received                               │
-│  ├─ email.sent                                   │
-│  ├─ email.failed                                 │
-│  ├─ document.auto_created (from email)           │
-│  └─ protocol.auto_registered (from email)        │
-└──────────────────────────────────────────────────┘
-```
-
-**Email to Document Flow**:
-```
-┌────────────────────┐
-│ External Sender    │
-│ sender@external.com
-└─────────┬──────────┘
-          │ (Email + Attachments)
-          ▼
-   ┌──────────────────────────┐
-   │ ZenMailroom              │
-   │ ├─ Connect to IMAP       │
-   │ ├─ Retrieve email        │
-   │ ├─ Parse content         │
-   │ └─ Download attachments  │
-   └──────┬───────────────────┘
-          │
-          ▼
-   ┌────────────────────────────────┐
-   │ Automatic Processing           │
-   ├────────────────────────────────┤
-   │ 1. Create Document             │
-   │    - Store in SFTPGo           │
-   │    - Add metadata              │
-   │    └─ Subject: Email subject   │
-   │    └─ Sender: Email from       │
-   │                                 │
-   │ 2. Register Protocol (if       │
-   │    configured)                  │
-   │    - Type: INPUT               │
-   │    - Correspondent: Sender     │
-   │    - Document: Created above   │
-   │                                 │
-   │ 3. Route Document              │
-   │    - Via smistamento if rules  │
-   │    - Or store in folder        │
-   │                                 │
-   │ 4. Send Notification           │
-   │    - To: Configured recipient  │
-   │    - Content: Email received   │
-   └──────┬──────────────────────────┘
-          │
-          ▼
-   ┌──────────────────┐
-   │ Inbox Updated    │
-   │ User can:        │
-   │ ├─ View document │
-   │ ├─ Download      │
-   │ ├─ Comment       │
-   │ └─ Forward       │
-   └──────────────────┘
-```
-
-### 6. ZenMaster (msazenmaster)
-
-**Responsabilità**: Gestione tenants e licenze
-
-```
-┌──────────────────────────────────┐
-│    ZenMaster Microservice        │
-├──────────────────────────────────┤
-│ Core Entities:                   │
-│  ├─ Tenants                      │
-│  │  ├─ ID, Name                  │
-│  │  ├─ Database connection       │
-│  │  │  ├─ Host, Port             │
-│  │  │  ├─ Database name          │
-│  │  │  └─ Credentials            │
-│  │  ├─ OAuth/JWT settings        │
-│  │  ├─ Storage account (Azure)   │
-│  │  └─ License                   │
-│  ├─ Licenses                     │
-│  │  ├─ License type              │
-│  │  ├─ Expiration                │
-│  │  ├─ User seats                │
-│  │  └─ Features enabled          │
-│  └─ Events                       │
-│     ├─ Audit trail               │
-│     └─ System events             │
-│                                  │
-│ DTOs (5 files):                  │
-│  ├─ TenantDTO                    │
-│  ├─ AddTenantRequestDTO          │
-│  ├─ LicenzaAttivaFiltrataDTO     │
-│  └─ EventDTO                     │
-│                                  │
-│ Key API Endpoints:               │
-│  ├─ POST /tenants (create)       │
-│  ├─ GET /tenants/{id}            │
-│  ├─ PUT /tenants/{id}            │
-│  ├─ GET /licenses                │
-│  └─ POST /maintenance            │
-│                                  │
-│ Multi-tenant Architecture:       │
-│ ┌────────────────────────────┐   │
-│ │ Per-Tenant Database        │   │
-│ │ ├─ postgres1 (Tenant-A)    │   │
-│ │ ├─ postgres2 (Tenant-B)    │   │
-│ │ └─ postgres3 (Tenant-C)    │   │
-│ └────────────────────────────┘   │
-│                                  │
-│ API Gateway uses Tenant ID       │
-│ from JWT token to route to       │
-│ correct database                 │
-└──────────────────────────────────┘
-```
-
-### 7. ZenSuap (msazensuap)
-
-**Responsabilità**: Integrazione con Sportelli Unici delle Attività Produttive
-
-```
-┌─────────────────────────────────────┐
-│      ZenSuap Microservice           │
-├─────────────────────────────────────┤
-│ Purpose:                            │
-│ Bridge between ZenShareUp and SUAP  │
-│ Backoffice systems                  │
-│                                     │
-│ Core Responsibilities:              │
-│  ├─ Receive integration requests    │
-│  ├─ Transform data formats          │
-│  ├─ Send to SUAP Backoffice         │
-│  ├─ Receive responses               │
-│  └─ Update documents/protocols      │
-│                                     │
-│ DTOs (7 files):                     │
-│  ├─ IntegrationRequestDTO           │
-│  ├─ RequestCdssDTO                  │
-│  ├─ SendConclusionsRequestDTO       │
-│  └─ SuapJournalDTO                  │
-│                                     │
-│ Key API Endpoints:                  │
-│  ├─ POST /integration/send          │
-│  ├─ GET /integration/status         │
-│  ├─ POST /conclusions/send          │
-│  └─ GET /journal                    │
-│                                     │
-│ Events Published:                   │
-│  ├─ suap.request.sent               │
-│  ├─ suap.response.received          │
-│  └─ suap.error                      │
-└─────────────────────────────────────┘
-```
-
-### 8. ZenScheduler (zenscheduler)
-
-**Responsabilità**: Pianificazione e esecuzione di task ricorrenti
-
-```
-┌──────────────────────────────────────┐
-│      ZenScheduler Microservice       │
-├──────────────────────────────────────┤
-│ Purpose:                             │
-│ Execute scheduled operations across  │
-│ all microservices                    │
-│                                      │
-│ Typical Scheduled Tasks:             │
-│  ├─ Document Archival                │
-│  │  ├─ Move to legal archive         │
-│  │  ├─ Apply retention policies      │
-│  │  └─ Cleanup old versions          │
-│  ├─ Email Polling                    │
-│  │  ├─ Check IMAP every 5 min        │
-│  │  ├─ Process new emails            │
-│  │  └─ Retry failed sends            │
-│  ├─ Workflow Cleanup                 │
-│  │  ├─ Complete stale tasks          │
-│  │  ├─ Send escalation emails        │
-│  │  └─ Archive closed instances      │
-│  ├─ Protocol Management              │
-│  │  ├─ Process deadline expirations  │
-│  │  ├─ Apply silence rules           │
-│  │  └─ Auto-close procedures         │
-│  ├─ Cache Invalidation               │
-│  │  ├─ Refresh lookup tables         │
-│  │  └─ Clear expired entries         │
-│  ├─ Backup & Maintenance             │
-│  │  ├─ Database backup               │
-│  │  ├─ Log rotation                  │
-│  │  └─ Performance optimization      │
-│  ├─ Report Generation                │
-│  │  ├─ Daily/weekly reports          │
-│  │  └─ Compliance reports            │
-│  └─ Notification Sending             │
-│     ├─ Digest emails                 │
-│     └─ Alert notifications           │
-│                                      │
-│ Implementation:                      │
-│  ├─ Quartz Scheduler                 │
-│  ├─ Spring Task Scheduler             │
-│  └─ Message-driven (RabbitMQ)        │
-│                                      │
-│ Configuration:                       │
-│  ├─ Cron expressions                 │
-│  ├─ Fixed delays                     │
-│  └─ One-time tasks                   │
-└──────────────────────────────────────┘
-```
-
----
-
-## Servizi di Supporto
-
-### 1. Keycloak - Identity & Access Management
-
-```
-┌──────────────────────────────────────────┐
-│           Keycloak                       │
-├──────────────────────────────────────────┤
-│ Capabilities:                            │
-│  ├─ User Authentication                  │
-│  │  ├─ Username/Password                 │
-│  │  ├─ LDAP/Active Directory              │
-│  │  ├─ Social login (Google, GitHub)      │
-│  │  └─ Multi-factor authentication        │
-│  ├─ Role-Based Access Control (RBAC)     │
-│  │  ├─ Assign roles to users              │
-│  │  ├─ Map roles to permissions           │
-│  │  └─ Hierarchical roles                 │
-│  ├─ OAuth 2.0 / OpenID Connect           │
-│  │  ├─ Token generation                   │
-│  │  ├─ Token validation                   │
-│  │  └─ Refresh tokens                     │
-│  ├─ User Management                      │
-│  │  ├─ Create/update/delete users         │
-│  │  ├─ Manage passwords                   │
-│  │  └─ User sessions                      │
-│  └─ Audit Logs                           │
-│     ├─ Login attempts                     │
-│     ├─ Role changes                       │
-│     └─ Permission updates                 │
-│                                          │
-│ JWT Token Flow:                          │
-│                                          │
-│ 1. Login Request                         │
-│    POST /auth/realms/zenshareup/protocol/openid-connect/token
-│    {                                     │
-│      "client_id": "zenshareup-api"       │
-│      "username": "mario.rossi"           │
-│      "password": "secret123"             │
-│    }                                     │
-│                                          │
-│ 2. Token Response                        │
-│    {                                     │
-│      "access_token": "eyJ0...",           │
-│      "expires_in": 3600,                  │
-│      "refresh_token": "eyJ0...",          │
-│      "token_type": "Bearer"               │
-│    }                                     │
-│                                          │
-│ 3. Use Token in Requests                 │
-│    GET /documents                        │
-│    Authorization: Bearer eyJ0...        │
-│                                          │
-│ 4. API Gateway Validates                 │
-│    ├─ Check signature                    │
-│    ├─ Verify not expired                 │
-│    ├─ Extract user info                  │
-│    └─ Extract roles/permissions          │
-└──────────────────────────────────────────┘
-```
-
-### 2. PostgreSQL - Primary Database
-
-- Multi-schema architecture per tenant
-- JSONB columns per metadata flessibile
-- Full-text search indexes
-- Audit trigger logging
-- Replication per HA
-
-### 3. Redis - Distributed Cache
-
-- Session store
-- User/group/company lookup cache
-- Distributed locks
-- Rate limiting data
-- Temporary operation tracking
-
-### 4. RabbitMQ - Message Broker
-
-- Reliable message delivery
-- Topic exchanges per service
-- Dead letter queues per failed messages
-- Message TTL e durability
-- Consumer groups per processing
-
-### 5. SFTPGo - Secure File Storage
-
-- SFTP/WebDAV access
-- Multi-tenant file segregation
-- Automatic backups
-- Virus scanning integration
-- Encryption at rest
 
 ---
 
@@ -1086,82 +622,52 @@ Microservice A (Publisher)
 
 ### DTO Hierarchy Completa
 
+```mermaid
+graph TB
+    BaseDTO["BaseDTO&lt;T&gt;<br/>(Base - unused)"]
+
+    TrackBasic["TrackBasicChangesDTO<br/>(Audit: createdBy, modifiedBy)"]
+    TrackID["TrackBasicChangesDTOHasID&lt;PK&gt;"]
+    TrackLongID["TrackBasicChangesDTOHasLongID"]
+
+    EntityDTOs["Entity DTOs<br/>UserDTO, DocumentDTO<br/>ProtocolDTO, etc.<br/>(65+ DTOs)"]
+
+    LookupBase["LookupElementDTOBase&lt;T,PK&gt;<br/>(id, code, description)"]
+    LookupLong["LookupElementDTOLong&lt;T&gt;"]
+    LookupString["LookupElementDTOString&lt;T&gt;"]
+
+    TrackLookup["Tracking Lookups<br/>UtenteTrackBasicChangesDTO<br/>GroupTrackBasicChangesDTO<br/>CompanyTrackBasicChangesDTO"]
+
+    TableLookupBase["TableLookupEntityDTOGBase&lt;T,PK&gt;"]
+    TableLookupLong["TableLookupEntityDTOGLongPK&lt;T&gt;"]
+
+    Utilities["Utility DTOs<br/>PagedResponseDTO<br/>FilterDTO<br/>MapperConfig"]
+
+    TrackBasic --> TrackID
+    TrackID --> TrackLongID
+    TrackLongID --> EntityDTOs
+
+    LookupBase --> LookupLong
+    LookupBase --> LookupString
+    LookupLong --> TrackLookup
+
+    TableLookupBase --> TableLookupLong
+
+    TrackBasic --> Utilities
+
+    style BaseDTO fill:#f0f4c3,stroke:#f57f17,stroke-width:2px
+    style TrackBasic fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style TrackID fill:#b3e5fc,stroke:#0277bd,stroke-width:2px
+    style TrackLongID fill:#bbdefb,stroke:#1565c0,stroke-width:2px
+    style EntityDTOs fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+    style LookupBase fill:#ede7f6,stroke:#311b92,stroke-width:2px
+    style LookupLong fill:#d1c4e9,stroke:#512da8,stroke-width:2px
+    style LookupString fill:#d1c4e9,stroke:#512da8,stroke-width:2px
+    style TrackLookup fill:#f8bbd0,stroke:#c2185b,stroke-width:2px
+    style TableLookupBase fill:#ffccbc,stroke:#d84315,stroke-width:2px
+    style TableLookupLong fill:#ffab91,stroke:#e64a19,stroke-width:2px
+    style Utilities fill:#fff9c4,stroke:#f57f17,stroke-width:2px
 ```
-┌─────────────────────────────────────────┐
-│        BaseDTO<T> (unused)              │
-└─────────────────────────────────────────┘
-
-┌─────────────────────────────────────────┐
-│     TrackBasicChangesDTO                │
-│  (createdBy, modifiedBy, dates)         │
-│                                         │
-│  └─ TrackBasicChangesDTOHasID<PK>       │
-│      ├─ TrackBasicChangesDTOHasLongID   │
-│      │   └─ [Most Entity DTOs]          │
-│      │       ├─ UserDTO                 │
-│      │       ├─ CompanyDTO              │
-│      │       ├─ GroupDTO                │
-│      │       ├─ ProtocolDTO             │
-│      │       ├─ DocumentDTO             │
-│      │       ├─ FolderDTO               │
-│      │       ├─ ModelDTO                │
-│      │       ├─ AdministrativeProcedureDTO
-│      │       └─ [65+ more entity DTOs]  │
-│      │                                  │
-│      └─ AdminLookupDTO                  │
-│          (admin lookup tables)          │
-└─────────────────────────────────────────┘
-
-┌─────────────────────────────────────────┐
-│    LookupElementDTOBase<T, PK>          │
-│  (id, code, description, name)          │
-│                                         │
-│  ├─ LookupElementDTOLong<T>             │
-│  │   ├─ UtenteTrackBasicChangesDTO      │
-│  │   ├─ GroupTrackBasicChangesDTO       │
-│  │   ├─ CompanyTrackBasicChangesDTO     │
-│  │   └─ ProtAOOTrackBasicChangesDTO     │
-│  │                                      │
-│  └─ LookupElementDTOString<T>           │
-│      (for string PKs)                   │
-└─────────────────────────────────────────┘
-
-┌─────────────────────────────────────────┐
-│  TableLookupEntityDTOGBase<T, PK>       │
-│  (extends TrackBasicChangesDTO +        │
-│   code/description for lookup tables)   │
-│                                         │
-│  └─ TableLookupEntityDTOGLongPK<T>      │
-│      ├─ CompanyDTO                      │
-│      ├─ GroupDTO                        │
-│      └─ [Other lookup table DTOs]       │
-└─────────────────────────────────────────┘
-
-┌─────────────────────────────────────────┐
-│      Utility DTOs                       │
-├─────────────────────────────────────────┤
-│  ├─ PagedResponseDTO<T>                 │
-│  │  (paginated list results)            │
-│  ├─ FilterDTO                           │
-│  │  (dynamic filtering criteria)        │
-│  └─ MapperConfigurationBase             │
-│     (DTO ↔ Entity mapping)              │
-└─────────────────────────────────────────┘
-```
-
-### DTO Naming Conventions
-
-| Pattern | Usage | Example |
-|---------|-------|---------|
-| `[Entity]DTO` | Full entity | `UserDTO`, `DocumentDTO` |
-| `[Entity]CreateDTO` | Input for creation | `DocumentCreateDTO` |
-| `[Entity]RegistrationDTO` | Specialized create | `ProtocolRegistrationDTO` |
-| `[Entity]OutDTO` | Output/read | `ClassificationOutDTO` |
-| `[Entity]PatchDTO` | Partial update | `DocumentPatchDTO` |
-| `[Entity]SearchDTO` | Search criteria | `DocumentSearchDTO` |
-| `[Entity]LookupDTO` | Reference only | `AdminLookupDTO` |
-| `[Entity]BaseDTO` | Shared base props | `DocumentBaseDTO` |
-| `PagedResponseDTO<T>` | Paginated results | `PagedResponseDTO<DocumentDTO>` |
 
 ---
 
@@ -1169,157 +675,125 @@ Microservice A (Publisher)
 
 ### Flusso 1: Creazione e Protocollazione di Documento
 
-```
-CLIENTE FINAL
-    │
-    ├─► 1. Upload Document (ZenDocuments)
-    │       POST /documents
-    │       ├─ File upload
-    │       ├─ Metadata (subject, model)
-    │       └─ Response: DocumentDTO
-    │
-    ├─► 2. Assign to Colleague (Smistamento)
-    │       POST /documents/{id}/assign
-    │       ├─ Assignee: User/Group/Role
-    │       ├─ Action: Review/Sign/Approve
-    │       └─ Deadline: 5 days
-    │
-    ├─► 3. Assignee Reviews & Approves
-    │       PUT /documents/{id}/comment
-    │       POST /documents/{id}/approve
-    │
-    ├─► 4. Create New Version (if edits)
-    │       POST /documents/{id}/version
-    │       ├─ Updated file
-    │       └─ Response: New version
-    │
-    └─► 5. Register Protocol
-            POST /protocols/register
-            ├─ Main Document ID
-            ├─ Confidentiality Level
-            ├─ Correspondents
-            └─ Classification Path
-            │
-            ▼ (ZenProtocollo)
-            ├─ Validate all inputs
-            ├─ Generate Protocol Number
-            ├─ Create Protocol Record
-            └─ Link to Document
-            │
-            ▼ (Event: protocol.registered)
-            ├─ ZenDocuments updates doc status
-            ├─ ZenMailroom sends email
-            └─ ZenScheduler schedules archive
-            │
-            Response: ProtocolDTO with number
-            {
-              "protocolNumber": "2024/001234",
-              "registrationDate": "2024-11-20T10:35:00Z"
-            }
+```mermaid
+sequenceDiagram
+    participant User as 👤 User
+    participant Web as 🌐 Web App
+    participant ZenDocs as 📄 ZenDocuments
+    participant ZenProt as 📋 ZenProtocollo
+    participant Queue as 📦 RabbitMQ
+    participant Scheduler as ⏰ Scheduler
+
+    User->>Web: Upload documento
+    Web->>ZenDocs: POST /documents
+    ZenDocs->>ZenDocs: Save file in SFTPGo
+    ZenDocs-->>Web: DocumentDTO
+    Web-->>User: ✅ Documento salvato
+
+    User->>Web: Assegna documento
+    Web->>ZenDocs: POST /documents/{id}/assign
+    ZenDocs->>ZenDocs: Create assignment
+    ZenDocs-->>Web: ✅ Assegnato
+
+    User->>Web: Approva documento
+    Web->>ZenDocs: POST /documents/{id}/approve
+    ZenDocs->>ZenDocs: Update status
+    ZenDocs->>Queue: document.approved event
+    ZenDocs-->>Web: ✅ Approvato
+
+    User->>Web: Registra protocollo
+    Web->>ZenProt: POST /protocols/register
+    ZenProt->>ZenDocs: Verify document exists
+    ZenDocs-->>ZenProt: ✅ Document found
+    ZenProt->>ZenProt: Generate protocol #
+    ZenProt->>ZenProt: Save protocol
+    ZenProt->>Queue: protocol.registered event
+    ZenProt-->>Web: ProtocolDTO (numero 2024/001)
+    Web-->>User: ✅ Protocollo registrato
+
+    Queue->>Scheduler: protocol.registered event
+    Scheduler->>Scheduler: Schedule archive task
+    Scheduler->>ZenDocs: Update document
+    ZenDocs->>ZenDocs: Link to protocol
 ```
 
-### Flusso 2: Ricezione Email e Auto-registrazione Protocollo
+### Flusso 2: Ricezione Email e Auto-registrazione
 
-```
-EXTERNAL SENDER
-    │
-    ├─► Email sent to: ricevute@company.it
-    │
-    ▼ (ZenMailroom - Scheduled every 5 min)
-    ├─ Connect to IMAP mailbox
-    ├─ Retrieve new emails
-    ├─ Download attachments
-    ├─ Parse sender info
-    │
-    ▼ For each email:
-    ├─► 1. Create Document (ZenDocuments)
-    │       ├─ Store email body as file
-    │       ├─ Store attachments
-    │       ├─ Add metadata:
-    │       │  ├─ Subject: from email subject
-    │       │  ├─ Sender: from email
-    │       │  └─ ReceivedDate: email date
-    │       └─ Response: DocumentDTO
-    │
-    ├─► 2. Register Protocol (ZenProtocollo)
-    │       ├─ Type: INPUT
-    │       ├─ Main Document: from step 1
-    │       ├─ Correspondent: email sender
-    │       └─ Auto protocol registration
-    │
-    ├─► 3. Route Document (Smistamento)
-    │       ├─ Check routing rules
-    │       ├─ Assign to officer if rule matches
-    │       └─ Or store in inbox
-    │
-    ├─► 4. Send Notification
-    │       ├─ To: assigned user or inbox owner
-    │       ├─ Subject: "New email received"
-    │       └─ Link to document
-    │
-    ▼ RESULT in Dashboard:
-    User sees:
-    ├─ New document
-    ├─ From: sender email
-    ├─ Protocol#: 2024/001235
-    ├─ Subject: email subject
-    ├─ Attachments: list
-    └─ Action: Review/Comment/Forward
+```mermaid
+sequenceDiagram
+    participant Sender as 📧 External Sender
+    participant Mail as 📧 Mail Server
+    participant ZenMail as 📧 ZenMailroom
+    participant ZenDocs as 📄 ZenDocuments
+    participant ZenProt as 📋 ZenProtocollo
+    participant Queue as 📦 RabbitMQ
+    participant User as 👤 Officer
+
+    Sender->>Mail: Send email + attachments
+
+    Note over ZenMail: Every 5 minutes polling
+
+    ZenMail->>Mail: IMAP Poll
+    Mail-->>ZenMail: New email
+    ZenMail->>ZenMail: Parse email
+    ZenMail->>ZenMail: Download attachments
+
+    ZenMail->>ZenDocs: POST /documents
+    ZenDocs->>ZenDocs: Create document
+    ZenDocs->>ZenDocs: Store in SFTPGo
+    ZenDocs-->>ZenMail: DocumentDTO
+
+    ZenMail->>ZenProt: POST /protocols/register
+    ZenProt->>ZenProt: Type: INPUT
+    ZenProt->>ZenProt: Generate protocol #
+    ZenProt-->>ZenMail: ProtocolDTO
+
+    ZenMail->>Queue: document.created event
+    ZenMail->>Queue: protocol.registered event
+
+    Queue->>User: 🔔 Notification email
+    User-->>User: ✅ See new document in inbox
 ```
 
-### Flusso 3: Workflow Amministrativo (Autorizzazione)
+### Flusso 3: Workflow Amministrativo
 
-```
-CITIZEN / COMPANY
-    │
-    ├─► 1. Start Process (ZenProcess)
-    │       POST /processes/start
-    │       ├─ Process: "Authorization"
-    │       └─ Input variables: company_data
-    │
-    ▼ (Process Instance Created)
-    ├─► 2. User Task: Submit Application
-    │       ├─ Form: Autorizzazione form
-    │       ├─ Fields: azienda, address, activity
-    │       └─ Submit: POST /tasks/{id}/submit
-    │
-    ├─► 3. Automatic Task: Validate
-    │       (Service Task)
-    │       ├─ Business rules validation
-    │       ├─ Document checks
-    │       └─ If invalid: notify applicant
-    │
-    ├─► 4. User Task: Officer Review
-    │       ├─ Form: Review & Decision
-    │       ├─ Assignee: Officer (role-based)
-    │       ├─ Actions:
-    │       │  ├─ APPROVE
-    │       │  ├─ REQUEST_INFO
-    │       │  └─ REJECT
-    │       └─ Deadline: 30 days (process deadline)
-    │
-    ├─► 5a. If APPROVED:
-    │       ├─ Document status: GRANTED
-    │       ├─ Send authorization letter
-    │       ├─ Register as OUTPUT protocol
-    │       └─ Close process
-    │
-    ├─► 5b. If REJECTED:
-    │       ├─ Document status: DENIED
-    │       ├─ Send rejection notice
-    │       ├─ Allow appeal process
-    │       └─ Close process
-    │
-    ├─► 5c. If REQUEST_INFO:
-    │       ├─ Send request to applicant
-    │       ├─ Wait for response (deadline: 10 days)
-    │       └─ If response: return to Officer Review
-    │       └─ If no response: auto-REJECT
-    │
-    ▼ (Process Complete)
-    ├─ Citizen receives decision
-    ├─ Authority archives decision
-    └─ Scheduler records metrics
+```mermaid
+graph TB
+    Start["👤 Citizen<br/>Submits Application"]
+
+    Start --> CreateProcess["1️⃣ Create Process<br/>ZenProcess"]
+    CreateProcess --> FormSubmit["2️⃣ User Task<br/>Submit Application<br/>(Web Form)"]
+
+    FormSubmit --> ValidateTask["3️⃣ Service Task<br/>Validate<br/>(Auto)"]
+
+    ValidateTask -->|Invalid| NotifyReject["Notify: Data Error<br/>Return to Step 2"]
+    NotifyReject --> FormSubmit
+
+    ValidateTask -->|Valid| ReviewTask["4️⃣ User Task<br/>Officer Review<br/>(Form + Decision)"]
+
+    ReviewTask -->|Approve| ApproveDecision["✅ APPROVED"]
+    ReviewTask -->|Reject| RejectDecision["❌ REJECTED"]
+    ReviewTask -->|Request Info| InfoRequest["❓ REQUEST_INFO<br/>(10 day deadline)"]
+
+    ApproveDecision --> SendLetter["Send Authorization Letter<br/>Register OUTPUT protocol"]
+    RejectDecision --> SendRejection["Send Rejection Notice<br/>Allow Appeal"]
+    InfoRequest --> WaitResponse["Wait for Response"]
+    WaitResponse -->|Response| FormSubmit
+    WaitResponse -->|No Response| AutoReject["Auto-REJECT"]
+
+    SendLetter --> Archive["Archive Decision"]
+    SendRejection --> Archive
+    AutoReject --> Archive
+    Archive --> End["Process Closed"]
+
+    style Start fill:#e3f2fd,stroke:#0d47a1,stroke-width:2px
+    style CreateProcess fill:#fff8e1,stroke:#f57f17,stroke-width:2px
+    style FormSubmit fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style ValidateTask fill:#f8bbd0,stroke:#c2185b,stroke-width:2px
+    style ReviewTask fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style ApproveDecision fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style RejectDecision fill:#ffccbc,stroke:#d84315,stroke-width:2px
+    style End fill:#b2dfdb,stroke:#004d40,stroke-width:2px
 ```
 
 ---
@@ -1328,98 +802,62 @@ CITIZEN / COMPANY
 
 ### Service-to-Service Communication
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                 REST API Direct Calls                   │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│ ZenProtocollo needs document info:                      │
-│                                                         │
-│   ZenProtocollo ─────────────────────────────►          │
-│                  GET /documents/{doc_id}                │
-│                                                         │
-│                  ◄─────────────────────────── ZenDocuments
-│                  DocumentDTO with metadata              │
-│                                                         │
-│ Authentication: Service JWT token (server-to-server)   │
-│ Timeout: 5 seconds                                      │
-│ Retry: 2x with exponential backoff                      │
-│ Circuit breaker: If 3 failures in 60s, fail fast       │
-└─────────────────────────────────────────────────────────┘
+```mermaid
+graph TB
+    ZenProt["📋 ZenProtocollo<br/>Needs document info"]
 
-┌─────────────────────────────────────────────────────────┐
-│             Event-Based Async Communication            │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│ Document Registered Event:                              │
-│                                                         │
-│ ZenDocuments Publisher:                                 │
-│     document.created ─────┐                            │
-│                           │                            │
-│                    RabbitMQ Exchange                     │
-│                   (documents.topic)                      │
-│                           │                            │
-│                    ┌──────┴──────┬──────────────┐        │
-│                    │             │              │        │
-│              Queue-A       Queue-B         Queue-C        │
-│                    │             │              │        │
-│                    ▼             ▼              ▼        │
-│             ZenProtocollo  ZenMailroom    ZenScheduler   │
-│             (register as   (send notify)   (schedule      │
-│              protocol)                      archive)      │
-│                                                         │
-│ Advantages:                                             │
-│ ├─ Decoupled services                                   │
-│ ├─ Retry on failure (dead letter queue)                │
-│ ├─ Audit trail of all events                           │
-│ └─ Horizontal scaling of consumers                     │
-└─────────────────────────────────────────────────────────┘
+    ZenProt -->|REST API Call<br/>GET /documents/{id}| ZenDocs["📄 ZenDocuments"]
+    ZenDocs -->|JWT Validation| Keycloak["🔐 Keycloak"]
+    Keycloak -->|Token Valid| ZenDocs
+    ZenDocs -->|Return DocumentDTO<br/>with metadata| ZenProt
+
+    subgraph "Characteristics"
+        Direction["🔄 Synchronous"]
+        Auth["🔐 Server-to-server JWT"]
+        Timeout["⏱️ 5 second timeout"]
+        Retry["🔁 2x with backoff"]
+        Circuit["🛑 Circuit breaker"]
+    end
+
+    ZenProt --> Direction
+    ZenProt --> Auth
+    ZenProt --> Timeout
+    ZenProt --> Retry
+    ZenProt --> Circuit
+
+    style ZenProt fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    style ZenDocs fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+    style Keycloak fill:#fff3e0,stroke:#e65100,stroke-width:2px
 ```
 
-### Event Publish/Subscribe Pattern
+### Event-Based Async Communication
 
-```
-┌──────────────────────────────────────────────────┐
-│         Documents Topic Exchange                 │
-│  zenshareup.documents (fanout or topic)          │
-├──────────────────────────────────────────────────┤
-│                                                  │
-│ Events:                                          │
-│  ├─ document.created                             │
-│  ├─ document.updated                             │
-│  ├─ document.versioned                           │
-│  ├─ document.assigned (smistamento)              │
-│  ├─ document.archived                            │
-│  └─ document.deleted                             │
-│                                                  │
-│ Subscribers (Queues):                            │
-│  ├─ zenshareup.documents.search                  │
-│  │  └─ Indexer (full-text search)                │
-│  ├─ zenshareup.documents.audit                   │
-│  │  └─ Audit Service (compliance)                │
-│  ├─ zenshareup.documents.archive                 │
-│  │  └─ ZenScheduler (auto-archive)               │
-│  ├─ zenshareup.documents.notification            │
-│  │  └─ Notification Service (email alerts)       │
-│  └─ zenshareup.documents.protocol                │
-│     └─ ZenProtocollo (link to protocol)          │
-│                                                  │
-│ Message Format (RabbitMQ):                       │
-│ {                                                │
-│   "eventId": "evt_12345",                        │
-│   "eventType": "document.created",               │
-│   "timestamp": "2024-11-20T10:30:00Z",           │
-│   "tenantId": "tenant_001",                      │
-│   "userId": "user_123",                          │
-│   "sourceService": "ZenDocuments",               │
-│   "payload": {                                   │
-│     "documentId": "doc_12345",                   │
-│     "fileName": "invoice.pdf",                   │
-│     "folderId": "folder_001",                    │
-│     "modelId": "invoice_template"                │
-│   }                                              │
-│ }                                                │
-└──────────────────────────────────────────────────┘
+```mermaid
+graph TB
+    ZenDocs["📄 ZenDocuments<br/>(Publisher)"]
+
+    ZenDocs -->|Publish Event<br/>document.created| Exchange["📦 RabbitMQ<br/>Exchange<br/>(documents.topic)"]
+
+    Exchange --> Queue1["Queue 1<br/>documents.protocol"]
+    Exchange --> Queue2["Queue 2<br/>documents.email"]
+    Exchange --> Queue3["Queue 3<br/>documents.search"]
+    Exchange --> Queue4["Queue 4<br/>documents.audit"]
+
+    Queue1 -->|Consume| ZenProt["📋 ZenProtocollo<br/>(Register as protocol)"]
+    Queue2 -->|Consume| ZenMail["📧 ZenMailroom<br/>(Send notification)"]
+    Queue3 -->|Consume| Indexer["🔍 Indexer<br/>(Full-text search)"]
+    Queue4 -->|Consume| AuditSvc["📊 Audit Service<br/>(Compliance)"]
+
+    style ZenDocs fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+    style Exchange fill:#f0f4c3,stroke:#33691e,stroke-width:3px
+    style Queue1 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style Queue2 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style Queue3 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style Queue4 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style ZenProt fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    style ZenMail fill:#f1f8e9,stroke:#33691e,stroke-width:2px
+    style Indexer fill:#e0f2f1,stroke:#004d40,stroke-width:2px
+    style AuditSvc fill:#ede7f6,stroke:#311b92,stroke-width:2px
 ```
 
 ---
@@ -1428,235 +866,135 @@ CITIZEN / COMPANY
 
 ### Multi-Tenancy Architecture
 
-```
-┌────────────────────────────────────────────────┐
-│         ZenMaster Service                      │
-│     (Tenant Management)                        │
-├────────────────────────────────────────────────┤
-│ Configured Tenants:                            │
-│  ├─ Tenant A (Comune di Roma)                  │
-│  │  ├─ Database: postgres_roma                 │
-│  │  ├─ Storage: sftp/tenant-roma               │
-│  │  └─ License: Enterprise (unlimited users)   │
-│  ├─ Tenant B (Comune di Milano)                │
-│  │  ├─ Database: postgres_milano               │
-│  │  ├─ Storage: sftp/tenant-milano             │
-│  │  └─ License: Professional (50 users)        │
-│  └─ Tenant C (Private Company)                 │
-│     ├─ Database: postgres_company              │
-│     ├─ Storage: sftp/tenant-company            │
-│     └─ License: Starter (10 users)             │
-└────────────────────────────────────────────────┘
+```mermaid
+graph TB
+    Request["📥 Client Request<br/>(with JWT token)"]
 
-┌────────────────────────────────────────────────┐
-│     API Gateway (msacloudgateway)              │
-│  Tenant Routing                                │
-├────────────────────────────────────────────────┤
-│                                                │
-│ Client Request with JWT:                       │
-│ {                                              │
-│   "iss": "https://keycloak/realms/...",        │
-│   "sub": "user_id",                            │
-│   "aud": "zenshareup-api",                     │
-│   "tenant_id": "tenant_A",  ◄── KEY            │
-│   "roles": ["USER", "DOC_MANAGER"],            │
-│   "exp": 1734769800                            │
-│ }                                              │
-│                                                │
-│ Gateway extracts tenant_id and routes to:      │
-│ ├─ PostgreSQL connection pool (tenant_A DB)   │
-│ ├─ Redis cache key prefix (tenant_A:...)      │
-│ ├─ SFTP folder (sftp/tenant-a/...)            │
-│ └─ RabbitMQ queue (tenant_A.events)           │
-│                                                │
-│ Result:                                        │
-│ User A sees only Tenant A data                 │
-│ User B sees only Tenant B data                 │
-│ Complete data isolation                        │
-└────────────────────────────────────────────────┘
+    Request -->|Extract tenant_id| Gateway["🚪 API Gateway"]
+
+    Gateway -->|tenant_id: 'tenant_A'| Router["Routing Decision"]
+
+    Router -->|PostgreSQL| DB_A["🗄️ PostgreSQL<br/>Tenant A Database"]
+    Router -->|Redis key prefix| Cache_A["⚡ Redis<br/>tenant_A:*"]
+    Router -->|SFTP folder| Storage_A["💾 SFTPGo<br/>sftp/tenant-a/"]
+    Router -->|Queue prefix| Queue_A["📦 RabbitMQ<br/>tenant_A.events"]
+
+    subgraph "Isolation Level"
+        IsoData["✅ Complete Data Isolation"]
+        IsoStorage["✅ File Segregation"]
+        IsoBusiness["✅ Business Logic Separation"]
+    end
+
+    Router --> IsoData
+    Router --> IsoStorage
+    Router --> IsoBusiness
+
+    subgraph "Result"
+        UserA["User A<br/>sees only<br/>Tenant A data"]
+        UserB["User B<br/>sees only<br/>Tenant B data"]
+    end
+
+    DB_A --> UserA
+    Cache_A --> UserA
+    Storage_A --> UserA
+    Queue_A --> UserA
+
+    style Request fill:#e3f2fd,stroke:#0d47a1,stroke-width:2px
+    style Gateway fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    style Router fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style DB_A fill:#eceff1,stroke:#263238,stroke-width:2px
+    style Cache_A fill:#fff1f0,stroke:#c62828,stroke-width:2px
+    style Storage_A fill:#e3f2fd,stroke:#0d47a1,stroke-width:2px
+    style Queue_A fill:#f0f4c3,stroke:#33691e,stroke-width:2px
 ```
 
 ### Security Layers
 
-```
-┌───────────────────────────────────────────────────┐
-│          ZENSHAREUP SECURITY MODEL                │
-├───────────────────────────────────────────────────┤
-│                                                   │
-│ 1. PERIMETER SECURITY (API Gateway)              │
-│    ├─ TLS/HTTPS only (no HTTP)                   │
-│    ├─ CORS policy enforcement                    │
-│    ├─ Rate limiting (per user/IP)                │
-│    ├─ DDoS protection                            │
-│    └─ WAF rules                                  │
-│                                                   │
-│ 2. AUTHENTICATION & AUTHORIZATION                │
-│    ├─ OAuth 2.0 / OpenID Connect                 │
-│    ├─ JWT token validation                       │
-│    ├─ Multi-factor authentication (optional)     │
-│    ├─ Role-Based Access Control (RBAC)           │
-│    │  ├─ User roles (Admin, Manager, User)       │
-│    │  ├─ Document permissions                    │
-│    │  ├─ Protocol responsibility                 │
-│    │  └─ Workflow task assignment                │
-│    └─ Tenant isolation via tenant_id in JWT      │
-│                                                   │
-│ 3. DATA SECURITY                                 │
-│    ├─ Database encryption at rest (PostgreSQL)   │
-│    ├─ Field-level encryption for sensitive data  │
-│    ├─ File encryption in SFTPGo                  │
-│    ├─ Encrypted connections (TLS)                │
-│    └─ Secure password hashing (bcrypt)           │
-│                                                   │
-│ 4. AUDIT & COMPLIANCE                            │
-│    ├─ All data changes logged                    │
-│    ├─ createdBy/modifiedBy tracking              │
-│    ├─ Timestamp audit trails                     │
-│    ├─ Event audit log (RabbitMQ)                 │
-│    ├─ Legal archive (GDPR compliance)            │
-│    └─ Retention policies enforcement             │
-│                                                   │
-│ 5. API SECURITY                                  │
-│    ├─ Input validation & sanitization            │
-│    ├─ SQL injection prevention (Parameterized)   │
-│    ├─ XSS prevention (output encoding)           │
-│    ├─ CSRF protection (token validation)         │
-│    └─ Secure headers (HSTS, CSP, etc.)           │
-│                                                   │
-│ 6. INFRASTRUCTURE SECURITY                       │
-│    ├─ Network segmentation (microservices)       │
-│    ├─ Database firewall rules                    │
-│    ├─ Service-to-service auth (JWT)              │
-│    ├─ Secrets management (vault)                 │
-│    └─ Regular security updates                   │
-└───────────────────────────────────────────────────┘
-```
+```mermaid
+graph TB
+    Layer1["🛡️ LAYER 1: Perimeter<br/>TLS/HTTPS, CORS, WAF<br/>DDoS Protection"]
+    Layer2["🔐 LAYER 2: Authentication<br/>OAuth 2.0, JWT<br/>Multi-factor Auth"]
+    Layer3["🔑 LAYER 3: Authorization<br/>RBAC, Role Hierarchy<br/>Permission Model"]
+    Layer4["🔒 LAYER 4: Data Security<br/>Encryption at rest<br/>Encrypted in transit"]
+    Layer5["📋 LAYER 5: Audit<br/>Audit trail, createdBy/modifiedBy<br/>Event logging"]
+    Layer6["🔍 LAYER 6: API Security<br/>Input validation<br/>SQL injection prevention"]
 
-### Permission Model
+    Layer1 --> Layer2
+    Layer2 --> Layer3
+    Layer3 --> Layer4
+    Layer4 --> Layer5
+    Layer5 --> Layer6
 
-```
-┌─────────────────────────────────────────────────┐
-│         Permission Hierarchy                    │
-├─────────────────────────────────────────────────┤
-│                                                 │
-│ ROLES:                                          │
-│  ├─ ADMIN                                       │
-│  │  └─ Full system access, tenant management    │
-│  ├─ DOCUMENT_MANAGER                            │
-│  │  └─ Create, edit, delete, assign documents   │
-│  ├─ PROTOCOL_MANAGER                            │
-│  │  └─ Register, manage, close protocols        │
-│  ├─ WORKFLOW_MANAGER                            │
-│  │  └─ Create procedures, assign tasks          │
-│  └─ USER                                        │
-│     └─ View assigned documents, complete tasks  │
-│                                                 │
-│ DOCUMENT PERMISSIONS (per document):            │
-│  ├─ VIEW: Can see document                      │
-│  ├─ EDIT: Can modify metadata/content           │
-│  ├─ DELETE: Can delete                          │
-│  ├─ ASSIGN: Can assign to others                │
-│  ├─ VERSION: Can create new versions            │
-│  └─ ARCHIVE: Can archive                        │
-│                                                 │
-│ PROTOCOL PERMISSIONS (per protocol):            │
-│  ├─ VIEW: Can see protocol details              │
-│  ├─ MANAGE: Can edit metadata                   │
-│  ├─ CLOSE: Can close protocol                   │
-│  ├─ CANCEL: Can cancel protocol                 │
-│  └─ EXPORT: Can export data                     │
-│                                                 │
-│ WORKFLOW PERMISSIONS:                           │
-│  ├─ VIEW_TASKS: Can see assigned tasks          │
-│  ├─ CLAIM_TASK: Can claim unassigned tasks      │
-│  ├─ COMPLETE_TASK: Can complete/submit          │
-│  ├─ DELEGATE_TASK: Can delegate to others       │
-│  └─ REASSIGN_TASK: Can reassign                 │
-└─────────────────────────────────────────────────┘
+    style Layer1 fill:#ffcdd2,stroke:#c62828,stroke-width:2px
+    style Layer2 fill:#f8bbd0,stroke:#c2185b,stroke-width:2px
+    style Layer3 fill:#f5c6b8,stroke:#d84315,stroke-width:2px
+    style Layer4 fill:#ffccbc,stroke:#e64a19,stroke-width:2px
+    style Layer5 fill:#ffe0b2,stroke:#e65100,stroke-width:2px
+    style Layer6 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
 ```
 
 ---
 
 ## Deployment Architecture
 
-```
-┌─────────────────────────────────────────────────────────┐
-│            Docker/Kubernetes Deployment                │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│  Load Balancer                                          │
-│  ├─ nginx / HAProxy                                     │
-│  └─ TLS termination                                     │
-│       │                                                 │
-│       ├─────► Pod: API Gateway (msacloudgateway)        │
-│       ├─────► Pod: Keycloak                             │
-│       │                                                 │
-│       └─────► Service Mesh (Istio)                      │
-│              ├─ Pod: ZenAdmin                           │
-│              ├─ Pod: ZenDocuments (replicas: 3)        │
-│              ├─ Pod: ZenProtocollo (replicas: 2)       │
-│              ├─ Pod: ZenMailroom (replicas: 2)         │
-│              ├─ Pod: ZenProcess                         │
-│              ├─ Pod: ZenScheduler                       │
-│              ├─ Pod: ZenSuap                            │
-│              └─ Pod: ZenMaster                          │
-│                                                         │
-│  StatefulSet:                                           │
-│  ├─ PostgreSQL (Primary + Standby)                      │
-│  ├─ Redis (Master + Replicas)                           │
-│  ├─ RabbitMQ (Cluster)                                  │
-│  └─ SFTPGo (Replicated Storage)                         │
-│                                                         │
-│  ConfigMaps/Secrets:                                    │
-│  ├─ Database credentials                               │
-│  ├─ JWT signing keys                                   │
-│  ├─ Email SMTP settings                                │
-│  ├─ OAuth client credentials                           │
-│  └─ Feature flags                                       │
-│                                                         │
-│  Storage:                                               │
-│  ├─ PersistentVolume: PostgreSQL data                   │
-│  ├─ PersistentVolume: Redis data                        │
-│  ├─ PersistentVolume: RabbitMQ messages                │
-│  └─ S3/Azure Blob: Document backup                      │
-└─────────────────────────────────────────────────────────┘
-```
+```mermaid
+graph TB
+    LB["⚖️ Load Balancer<br/>nginx / HAProxy<br/>TLS Termination"]
 
----
+    LB --> Gateway["🚪 API Gateway<br/>(msacloudgateway)<br/>replicas: 2"]
+    LB --> Keycloak["🔐 Keycloak<br/>replicas: 2"]
 
-## Metriche di Monitoraggio
+    subgraph "Service Mesh (Istio)"
+        Admin["👤 ZenAdmin<br/>replicas: 1"]
+        Documents["📄 ZenDocuments<br/>replicas: 3"]
+        Protocol["📋 ZenProtocollo<br/>replicas: 2"]
+        Mailroom["📧 ZenMailroom<br/>replicas: 2"]
+        Process["⚙️ ZenProcess<br/>replicas: 1"]
+        Master["🏢 ZenMaster<br/>replicas: 1"]
+        Scheduler["⏰ Scheduler<br/>replicas: 1"]
+    end
 
-```
-┌──────────────────────────────────────────────┐
-│      Key Performance Indicators (KPI)        │
-├──────────────────────────────────────────────┤
-│                                              │
-│ PERFORMANCE:                                 │
-│  ├─ API response time: < 500ms (p99)         │
-│  ├─ Document upload: < 2s for 10MB          │
-│  ├─ Search results: < 1s (1000 docs)         │
-│  ├─ Protocol registration: < 3s              │
-│  └─ Email processing: < 5s per message       │
-│                                              │
-│ AVAILABILITY:                                │
-│  ├─ System uptime: 99.9%                     │
-│  ├─ API availability: 99.95%                 │
-│  ├─ Database availability: 99.95%            │
-│  └─ RTO (Recovery Time): < 15 min            │
-│                                              │
-│ CAPACITY:                                    │
-│  ├─ Concurrent users: 1000+                  │
-│  ├─ Documents per day: 10,000+               │
-│  ├─ Protocols per day: 5,000+                │
-│  ├─ Workflows per day: 2,000+                │
-│  └─ Storage growth: 100GB+/month             │
-│                                              │
-│ RELIABILITY:                                 │
-│  ├─ Error rate: < 0.1%                       │
-│  ├─ Failed document uploads: < 0.01%         │
-│  ├─ Failed protocol registrations: < 0.01%   │
-│  └─ Message loss: 0%                         │
-└──────────────────────────────────────────────┘
+    subgraph "StatefulSet"
+        PostgreSQL["🗄️ PostgreSQL<br/>Primary + Standby"]
+        Redis["⚡ Redis<br/>Master + Replicas"]
+        RabbitMQ["📦 RabbitMQ<br/>Cluster"]
+        SFTPGo["💾 SFTPGo<br/>Replicated"]
+    end
+
+    Gateway --> Admin
+    Gateway --> Documents
+    Gateway --> Protocol
+    Gateway --> Mailroom
+    Gateway --> Process
+    Gateway --> Master
+    Gateway --> Scheduler
+
+    Admin --> PostgreSQL
+    Documents --> PostgreSQL
+    Protocol --> PostgreSQL
+    Mailroom --> PostgreSQL
+    Process --> PostgreSQL
+    Master --> PostgreSQL
+    Scheduler --> PostgreSQL
+
+    Documents --> Redis
+    Admin --> Redis
+
+    Documents --> RabbitMQ
+    Protocol --> RabbitMQ
+    Mailroom --> RabbitMQ
+    Process --> RabbitMQ
+
+    Documents --> SFTPGo
+    Mailroom --> SFTPGo
+
+    style LB fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style Gateway fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    style Keycloak fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style PostgreSQL fill:#eceff1,stroke:#263238,stroke-width:2px
+    style Redis fill:#fff1f0,stroke:#c62828,stroke-width:2px
+    style RabbitMQ fill:#f0f4c3,stroke:#33691e,stroke-width:2px
+    style SFTPGo fill:#e3f2fd,stroke:#0d47a1,stroke-width:2px
 ```
 
 ---
