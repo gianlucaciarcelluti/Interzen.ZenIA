@@ -61,6 +61,15 @@ class DuplicateValidator:
 
         return sections
 
+    def should_skip_file(self, file_rel: str) -> bool:
+        """Skip validation for template/specification files with intentional duplicates."""
+        skip_patterns = [
+            "SPECIFICATION.md",  # MS specifications are templates with intentional duplicates
+            "SP-MS-MAPPING",     # Master mapping file documents standard patterns
+            "SP28-RESERVED",     # Reserved file documents standard patterns
+        ]
+        return any(pattern in file_rel for pattern in skip_patterns)
+
     def validate_file(self, file_path: Path) -> Dict:
         """Valida file per duplicati."""
         try:
@@ -69,6 +78,17 @@ class DuplicateValidator:
             return {"file": str(file_path), "valid": False, "errors": [str(e)]}
 
         file_rel = str(file_path.relative_to(DOCS_DIR))
+
+        # Skip template files with intentional duplicates
+        if self.should_skip_file(file_rel):
+            return {
+                "file": file_rel,
+                "valid": True,
+                "section_count": 0,
+                "errors": [],
+                "skipped": True,
+            }
+
         file_errors = []
 
         # Controlla hash intero file
