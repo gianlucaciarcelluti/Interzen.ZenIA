@@ -25,7 +25,37 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
+CYAN='\033[0;36m'
 NC='\033[0m' # No Color
+
+# Track failed checks for final report
+declare -a FAILED_CHECKS=()
+declare -a FAILED_REPORTS=()
+declare -a ISSUES_CHECKS=()
+declare -a ISSUES_REPORTS=()
+
+# Helper to map check name to report file
+get_report_file() {
+    local check_name="$1"
+    case "$check_name" in
+        "SP/MS References") echo "sp_ms_references.json" ;;
+        "UC Archetype") echo "uc_archetype_validation.json" ;;
+        "SP Completeness") echo "sp_completeness_validation.json" ;;
+        "Markdown Headings") echo "markdown_headings_validation.json" ;;
+        "Mermaid Diagrams") echo "mermaid_diagrams_validation.json" ;;
+        "Section Completeness") echo "section_completeness_validation.json" ;;
+        "Language Coherence") echo "language_coherence_validation.json" ;;
+        "Payload Validation") echo "payload_validation.json" ;;
+        "Cross-References") echo "cross_references_validation.json" ;;
+        "Whitespace") echo "whitespace_formatting_validation.json" ;;
+        "Orphaned Images") echo "orphaned_images_validation.json" ;;
+        "Content Duplicates") echo "content_duplicates_validation.json" ;;
+        "README Metadata") echo "readme_metadata_validation.json" ;;
+        "JSON Examples") echo "json_validation.json" ;;
+        "Links") echo "links_validation.json" ;;
+        *) echo "unknown.json" ;;
+    esac
+}
 
 # Helper functions
 run_check() {
@@ -45,12 +75,40 @@ run_check() {
         # Extract status from output
         if echo "$output" | grep -q "ERRORI TROVATI\|NEEDS WORK\|FAIL"; then
             echo -e "${RED}⚠️${NC}"
+            FAILED_CHECKS+=("$check_name")
+            FAILED_REPORTS+=("$(get_report_file "$check_name")")
         elif echo "$output" | grep -q "PERFECT\|EXCELLENT\|VALID\|PASS\|OK\|NESSUN\|ALL VALID"; then
             echo -e "${GREEN}✅${NC}"
         else
             echo -e "${YELLOW}~${NC}"
+            ISSUES_CHECKS+=("$check_name")
+            ISSUES_REPORTS+=("$(get_report_file "$check_name")")
         fi
         return $result
+    fi
+}
+
+# Helper to show report paths
+show_report_hint() {
+    echo ""
+    echo -e "${CYAN}📁 View detailed reports:${NC}"
+
+    if [ ${#FAILED_CHECKS[@]} -gt 0 ]; then
+        echo ""
+        echo -e "${RED}❌ Critical Issues:${NC}"
+        for i in "${!FAILED_CHECKS[@]}"; do
+            echo "   • ${FAILED_CHECKS[$i]}"
+            echo "     ${CYAN}→ cat scripts/reports/${FAILED_REPORTS[$i]}${NC}"
+        done
+    fi
+
+    if [ ${#ISSUES_CHECKS[@]} -gt 0 ]; then
+        echo ""
+        echo -e "${YELLOW}⚠️ Warnings:${NC}"
+        for i in "${!ISSUES_CHECKS[@]}"; do
+            echo "   • ${ISSUES_CHECKS[$i]}"
+            echo "     ${CYAN}→ cat scripts/reports/${ISSUES_REPORTS[$i]}${NC}"
+        done
     fi
 }
 
@@ -169,6 +227,12 @@ if [ "$TIER1_PASS" = true ]; then
         echo "✅ TIER 1 CRITICAL: PASS"
         echo "✅ Documentation is ready for commit"
     fi
+
+    # Show hint if there are warnings
+    if [ ${#ISSUES_CHECKS[@]} -gt 0 ] && [ "$VERBOSE" = false ]; then
+        show_report_hint
+    fi
+
     exit 0
 else
     if [ "$VERBOSE" = false ]; then
@@ -178,5 +242,11 @@ else
         echo "❌ TIER 1 CRITICAL: FAIL"
         echo "❌ Fix critical issues before committing"
     fi
+
+    # Show detailed hints for failed checks
+    if [ "$VERBOSE" = false ]; then
+        show_report_hint
+    fi
+
     exit 1
 fi
