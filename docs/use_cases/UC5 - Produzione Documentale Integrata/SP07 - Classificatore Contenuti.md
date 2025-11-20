@@ -1,5 +1,9 @@
 # SP07 - Content Classifier
 
+## Panoramica
+
+**SP07 - Content Classifier** è il componente che classifica il contenuto dei documenti generati per categorizzazione, routing e conformità normativa. Riceve documenti da SP05 o SP08, esegue NLP semantica per estrarre tema principale, sottotemi e entità, classifica livello di confidenzialità (pubblico/riservato/segretato), e determina routing automatico verso archivi o sistemi specifici.
+
 ## Diagrammi Architetturali
 
 ### Flowchart — Pipeline Classificazione Contenuto

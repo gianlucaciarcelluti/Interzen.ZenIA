@@ -20,6 +20,39 @@ graph LR
     style SP02 fill:#ffd700
 ```
 
+## Use Cases
+
+### Elaborazione Istanza Procedimento con Allegati Scansionati
+**Scenario**: PA riceve istanza con 5 allegati, alcuni scansionati (immagini), altri nativi PDF.
+**Flusso**:
+1. SP02 riceve array allegati da SP01
+2. Per ogni allegato:
+   - Se immagine (JPEG/PNG): applica Tesseract OCR, estrae testo
+   - Se PDF: estrae testo nativo, oppure OCR se scansionato
+3. Classifica ciascun doc: es. istanza_procedimento, documento_identita, visura_camerale
+4. Esegue NER su testo estratto:
+   - Estrae CF richiedente
+   - Individua indirizzi
+   - Rileva date (nascita, rilascio documenti)
+   - Identifica importi monetari (se presente ricevuta pagamento)
+5. Valida completezza documentale per tipo procedimento
+6. Salva documenti processati in MinIO con metadata
+7. Passa a SP03 (procedural classifier) per determinare tipo procedimento
+
+**Outcome**: Documenti OCR'd, classificati, NER estratte, validità documentale confermata
+
+### Rilevamento Documento Mancante
+**Scenario**: Istanza richiede 3 allegati obbligatori (identità + visura + planimetria), ma arrivano solo 2.
+**Flusso**:
+1. SP02 classifica documenti pervenuti
+2. Valida contro checklist procedimento (da SP04 Knowledge Base)
+3. Rileva che manca "planimetria_tecnica"
+4. Flag documento come "incomplete"
+5. Genera alert per operatore
+6. Passa metadati incompleti a SP03 con flag `documentazione_incompleta=true`
+
+**Outcome**: Incompletezza documentale rilevata, workflow fermato fino a integrazione
+
 ## Responsabilità
 
 ### Core Functions

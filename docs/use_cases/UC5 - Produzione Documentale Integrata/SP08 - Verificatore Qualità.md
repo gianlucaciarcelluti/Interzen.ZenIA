@@ -1,5 +1,9 @@
 # SP08 - Quality Checker
 
+## Panoramica
+
+**SP08 - Quality Checker** è il componente che verifica la qualità intrinseca dei documenti generati. Riceve documenti da SP06 (validator), esegue controlli grammaticali (LanguageTool), analisi NLP (POS tagging), verifica readability (Flesch index), estrae metriche di qualità (lunghezza, complessità, coerenza), e genera score di qualità complessiva. Può iterare con SP05 per miglioramenti automatici o notificare operatore.
+
 ## Diagrammi Architetturali
 
 ### Flowchart — Pipeline Verifica Qualità

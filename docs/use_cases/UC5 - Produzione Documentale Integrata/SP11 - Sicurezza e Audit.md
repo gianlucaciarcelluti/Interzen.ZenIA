@@ -1,5 +1,39 @@
 # SP11 - Security & Audit
 
+## Panoramica
+
+**SP11 - Security & Audit** è il componente che implementa sicurezza end-to-end e tracciabilità completa del sistema. Gestisce autenticazione (credenziali, JWT, MFA), autorizzazione (RBAC, ACL per documenti), encryption (AES-256 at rest, TLS 1.3 in transit), firma digitale QES su documenti, e audit trail immutabile su blockchain/WORM storage. Protegge il sistema da accessi non autorizzati e garantisce non-ripudio di tutte le operazioni.
+
+## Technical Details
+
+### Componenti Principali
+
+**1. Identity & Access Management (IAM)**
+- Autenticazione: Username/password + MFA (TOTP/SMS)
+- Token JWT (RS256 signing) con refresh token rotation
+- RBAC: role-based access control (Amministratore, Operatore, Responsabile Settore, Cittadino)
+- ACL: access control list per documento (chi può leggere/modificare/firmare)
+- Integrazione LDAP/AD per PA aziendali
+
+**2. Encryption & Key Management**
+- Data at rest: AES-256-GCM in PostgreSQL + MinIO
+- Data in transit: TLS 1.3 enforced via API Gateway
+- Key management: HashiCorp Vault per rotazione chiavi
+- Certificati digitali: PKI per firme QES
+
+**3. Digital Signature (QES)**
+- Algoritmo: RSA-2048 + SHA-256 (eIDAS compliant)
+- Timestamp RFC 3161 da trusted TSA (Aruba, Infocert)
+- Controfirma multi-level (responsabili diversi)
+- Validazione certificati X.509
+
+**4. Audit Trail**
+- Storage: PostgreSQL (structured logs) + Elasticsearch (searchable logs)
+- Formato: JSON con timestamp ISO-8601, user ID, action, resource, result, IP client
+- Immutabilità: Write-Once-Read-Many (WORM) policy, replicazione blockchain opzionale
+- Retention: 5-7 anni per compliance normativo
+- Real-time alerting: anomalie di sicurezza, accessi sospetti
+
 ## Security, Autenticazione e Registro di Audit
 
 Questo diagramma mostra tutte le interazioni del **Security & Audit (SP11)** per la sicurezza e tracciabilità.

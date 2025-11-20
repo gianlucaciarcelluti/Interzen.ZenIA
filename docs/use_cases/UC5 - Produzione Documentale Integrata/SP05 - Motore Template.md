@@ -1,5 +1,9 @@
 # SP05 - Template Engine
 
+## Panoramica
+
+**SP05 - Template Engine** è il componente responsabile della generazione automatica di bozze documentali. Riceve il tipo di procedimento da SP03, accede ai template memorizzati in SP04, integra dati strutturati dalla forma di istanza, applica regole di logica di business, e genera documenti in formato Word/PDF pronti per validazione. Supporta template Jinja2 e LLM-assisted content generation.
+
 ## Diagrammi Architetturali
 
 ### Flowchart — Pipeline Generazione Template

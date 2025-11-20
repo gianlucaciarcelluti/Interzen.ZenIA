@@ -1,5 +1,9 @@
 # SP03 - Classificatore Procedurale
 
+## Panoramica
+
+**SP03 - Procedural Classifier** è il componente che identifica il tipo di procedimento amministrativo dal contenuto dell'istanza. Riceve i documenti elaborati da SP02, esegue NLP semantica con modelli DistilBERT, interroga la knowledge base SP04 per recuperare procedimenti simili, e determina il tipo di provvedimento da generare (decreto, ordinanza, determine, etc.). Funziona con confidence scoring e può delegare a review umano se la confidenza è bassa.
+
 ## Diagrammi Architetturali
 
 ### Flowchart — Pipeline Classificazione Procedimento

@@ -1,5 +1,9 @@
 # SP06 - Validatore
 
+## Panoramica
+
+**SP06 - Validator** è il componente che verifica la correttezza, completezza e conformità dei documenti generati da SP05. Esegue validazioni semantiche (coerenza logica), validazioni strutturali (formato, campi obbligatori), controlli normativi (conformità a leggi), e validazione di integrità (grammar check, readability). Genera report dettagliati di errori e anomalie.
+
 ## Diagrammi Architetturali
 
 ### Flowchart — Pipeline Validazione Documento

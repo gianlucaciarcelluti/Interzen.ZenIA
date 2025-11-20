@@ -17,6 +17,35 @@ graph LR
     style SP01 fill:#ffd700
 ```
 
+## Use Cases
+
+### Email PEC di Istanza Completa
+**Scenario**: Una PA riceve email PEC con istanza di parte + firma digitale + 3 allegati PDF.
+**Flusso**:
+1. SP01 riceve email dalla coda PEC
+2. Valida firma CAdES (marca temporale + certificato)
+3. Estrae headers (mittente, destinatario, subject)
+4. Estrae body testo e HTML
+5. Enumera 3 allegati, li salva in MinIO, calcola hash SHA-256
+6. Classifica intent: `nuova_istanza`
+7. Arricchisce metadata: geocodifica mittente, lookup CF
+8. Passa a SP02 (documento extractor) per elaborazione allegati
+
+**Outcome**: Email validata, allegati pronti, metadata completo, passa downstream pipeline
+
+### Email PEC Integrazione Documenti
+**Scenario**: PA riceve email di FOLLOW-UP con documentazione integrativa, riferimento a email precedente.
+**Flusso**:
+1. SP01 riceve email PEC integrazione
+2. Valida firma
+3. Estrae 2 nuovi allegati
+4. Correlazione thread: lookup `In-Reply-To` e `Message-ID` email precedente in DB
+5. Classifica intent: `integrazione_documenti`
+6. Tag email: `urgent=true` (se subject contiene "URGENTE")
+7. Passa metadati correlati a SP02
+
+**Outcome**: Documentazione integrativa correlata a istanza principale, ready for processing
+
 ## Responsabilità
 
 ### Core Functions

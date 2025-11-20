@@ -1,5 +1,9 @@
 # SP04 - Knowledge Base
 
+## Panoramica
+
+**SP04 - Knowledge Base** è il componente che memorizza e gestisce tutta la normativa, i procedimenti amministrativi, i template documentali e le regole di business della PA. Funziona come fonte di verità centrale che alimenta SP03 (procedural classifier), SP05 (template engine), e SP06 (validator). Supporta versionamento, full-text search e correlazione tra normative.
+
 ## Diagrammi Architetturali
 
 ### Flowchart — Architettura e Flusso Recupero Normativa

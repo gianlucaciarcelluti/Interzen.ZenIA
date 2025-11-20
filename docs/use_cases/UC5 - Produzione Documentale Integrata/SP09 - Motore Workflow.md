@@ -1,5 +1,42 @@
 # SP09 - Workflow Engine
 
+## Panoramica
+
+**SP09 - Workflow Engine** è il motore di orchestrazione centrale del sistema di generazione atti. Implementato su Apache NiFi, coordina il flusso di dati attraverso tutti i sottocomponenti (SP01-SP08, SP10-SP11), gestisce transazioni, implementa retry logic, monitora SLA, e può eseguire branching condizionale basato su esiti di step precedenti. Supporta workflow parallelizzati e long-running processes.
+
+## Use Cases
+
+### Workflow Normale: Istanza Completa e Valida
+**Scenario**: Istanza ricevuta con documentazione completa, procedimento identificabile, nessun errore.
+**Flusso**:
+1. SP09 riceve trigger da SP01 (email validata)
+2. Crea work item WF-2024-001234
+3. Chiama SP02 (doc extraction) - attesa output
+4. Chiama SP03 (procedural classifier) - confidence > 80%
+5. Chiama SP05 (template generation) - genera documento
+6. Chiama SP06 (validator) - passate tutte le validazioni
+7. Chiama SP08 (quality checker) - score qualità > 85%
+8. Chiama SP11 (security & audit) - firma digitale applicata
+9. Registra outcome in dashboard SP10
+10. Salva documento finale in MinIO
+11. Notifica operatore: "Documento finalizzato, pronto per protocollazione"
+12. Workflow completato (stato: SUCCESS)
+
+**Outcome**: Documento pronto, SLA rispettato, audit trail completo
+
+### Workflow con Richiesta Integrazione Documentale
+**Scenario**: Istanza iniziale incompleta, manca un allegato obbligatorio, workflow sospeso.
+**Flusso**:
+1. SP09 riceve email da SP01
+2. SP02 rileva documentazione incompleta
+3. SP09 entra in stato PENDING_INTEGRATION
+4. Invia notifica utente richiedente
+5. Attende max 30 giorni per ricevimento integrazione
+6. Se integrazione arriva: SP09 riprende workflow da SP02
+7. Se timeout 30gg: SP09 marca istanza come ABANDONED
+
+**Outcome**: Workflow non bloccato, iterazione con cittadino
+
 ## Diagrammi Architetturali
 
 ### Flowchart — Orchestrazione Workflow Completo
