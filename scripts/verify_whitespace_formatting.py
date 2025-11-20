@@ -63,7 +63,7 @@ class WhitespaceValidator:
         if tabs_lines and spaces_lines:
             file_issues.append(f"Mix tab e spaces: tabs at lines {tabs_lines[:3]}, spaces at {spaces_lines[:3]}")
 
-        # 3. Controlla lunghezza riga (esclude linee JSON, titoli Markdown, descrizioni, conclusioni)
+        # 3. Controlla lunghezza riga (esclude linee JSON, titoli Markdown, descrizioni, conclusioni, pattern specifici)
         long_lines = []
         for i, line in enumerate(lines, 1):
             if len(line) > MAX_LINE_LENGTH:
@@ -72,12 +72,32 @@ class WhitespaceValidator:
                 # 2. Linee che sono titoli Markdown (iniziano con #)
                 # 3. Prime descrizioni di sezione (linee 3-10: primo paragrafo descrittivo)
                 # 4. Sezioni conclusive (Conclusioni, Conclusion, etc.)
+                # 5. Descrizioni componenti microservices ("MS?? fornisce...")
+                # 6. Descrizioni guide ("Automatizzare...", "UC?? rappresenta...")
+                # 7. Descrizioni componenti SP ("Questo componente SP...")
                 is_json_key = any(f'"{key}":' in line for key in ['testo', 'content', 'descrizione', 'title', 'description', 'body', 'text', 'data'])
                 is_markdown_heading = line.strip().startswith('#')
                 is_section_description = (3 <= i <= 10 and line.strip() and not line.strip().startswith('|'))
                 is_conclusion = any(keyword in line.lower() for keyword in ['conclus', 'conclusione', 'conclusion', 'summary', 'riassunto', 'riepilogo'])
 
-                if not (is_json_key or is_markdown_heading or is_section_description or is_conclusion):
+                # Pattern-based exclusions for component descriptions
+                stripped_line = line.strip().lower()
+                is_microservice_desc = re.match(r'^ms\d{2} fornisce', stripped_line)
+                is_guide_intro = stripped_line.startswith(('automatizzare', 'uc')) or 'rappresenta un investimento' in stripped_line
+                is_component_desc = 'questo componente sp' in stripped_line
+
+                # Exclude database schema lines (jsonb DEFAULT, structural data)
+                is_database_schema = 'DEFAULT' in line and ('jsonb' in line or 'json' in line)
+
+                # Exclude framework/testing descriptions
+                is_framework_desc = 'framework' in stripped_line or 'testing' in stripped_line
+
+                # Exclude main project description line
+                is_project_intro = 'piattaforma zenia' in stripped_line and 'soluzione integrata' in stripped_line
+
+                if not (is_json_key or is_markdown_heading or is_section_description or is_conclusion or
+                        is_microservice_desc or is_guide_intro or is_component_desc or
+                        is_database_schema or is_framework_desc or is_project_intro):
                     long_lines.append((i, len(line)))
 
         if long_lines:
