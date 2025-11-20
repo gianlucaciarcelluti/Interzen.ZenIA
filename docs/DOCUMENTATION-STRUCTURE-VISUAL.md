@@ -21,11 +21,11 @@ docs/
 ├── MICROSERVICES LAYER
 │   └── microservices/
 │       ├── MS-ARCHITECTURE-MASTER.md
-│       ├── MS01-CLASSIFIER/ ⭐ Reference Implementation
+│       ├── MS01-CLASSIFIER/ ⭐ Implementazione di riferimento
 │       │   ├── README.md (5 min)
-│       │   ├── SPECIFICATION.md (30 min + diagrams)
-│       │   ├── API.md (reference)
-│       │   ├── DATABASE-SCHEMA.md (ER diagram)
+│       │   ├── SPECIFICATION.md (30 min + diagrammi)
+│       │   ├── API.md (riferimento)
+│       │   ├── DATABASE-SCHEMA.md (diagramma ER)
 │       │   ├── init-schema.sql (DDL script)
 │       │   ├── TROUBLESHOOTING.md
 │       │   ├── docker-compose.yml
@@ -34,15 +34,15 @@ docs/
 │       │       ├── request.json
 │       │       └── response.json
 │       │
-│       ├── MS02-ANALYZER/ → Same structure
-│       ├── MS03-ORCHESTRATOR/ → Same structure
+│       ├── MS02-ANALYZER/ → Stessa struttura
+│       ├── MS03-ORCHESTRATOR/ → Stessa struttura
 │       └── ... MS04-MS16 (15 template structures)
 │
 ├── USE CASES LAYER
 │   └── use_cases/
 │       ├── SP-MS-MAPPING-MASTER.md
 │       │
-│       ├── UC1 - Email Integration/
+│       ├── UC1 - Integrazione Email/
 │       │   ├── 00_OVERVIEW.md
 │       │   ├── 01_SPxx - NAME.md (for each SP in UC1)
 │       │   │   ├── Descrizione
@@ -54,8 +54,8 @@ docs/
 │       │   ├── 02_ARCHITECTURE.md
 │       │   └── 03_ACCEPTANCE-CRITERIA.md
 │       │
-│       ├── UC2 - Document Classification/ → Same pattern
-│       ├── UC3 - Governance/ → Same pattern
+│       ├── UC2 - Classificazione Documenti/ → Stesso schema
+│       ├── UC3 - Governance/ → Stesso schema
 │       ├── ...
 │       │
 │       ├── UC5 - Produzione Documentale Integrata/ ⭐
@@ -71,7 +71,7 @@ docs/
 │       │   ├── 02_SUPPLEMENTARY - Overview Semplificato.md
 │       │   ├── 03_ACCEPTANCE-CRITERIA.md
 │       │   ├── 03 Human in the Loop (HITL).md
-│       │   ├── TEMPLATE_SP_STRUCTURE.md ← Use this template
+│       │   ├── TEMPLATE_SP_STRUCTURE.md ← Usa questo template
 │       │   └── Guida_Generazione_Atti_Amministrativi.md
 │       │
 │       ├── UC6 - Firma Digitale Integrata/ → Same pattern
@@ -87,19 +87,19 @@ docs/
 
 ```
 1. Leggi 2-3 min:
-   └─ docs/use_cases/UC5 - .../00_OVERVIEW.md
-      Cosa fa UC5, attori, SLA
+  └─ docs/use_cases/UC5 - .../00_OVERVIEW.md
+    Cosa fa UC5, attori, SLA
 
 2. Leggi diagrammi 5 min:
-   └─ docs/use_cases/UC5 - .../CANONICAL-Complete-Flow.md
-      Sequence diagram completo flow
+  └─ docs/use_cases/UC5 - .../CANONICAL-Complete-Flow.md
+    Sequence diagram completo del flusso
 
 3. Scegli SP (es. SP02):
-   └─ docs/use_cases/UC5 - .../01_SP02 - Document Extractor.md
-      ├─ Descrizione: cosa fa SP02
-      ├─ Sequence: come funziona internamente
-      ├─ Payloads: request/response esempi
-      └─ Integration: come si collega ad altri SP
+  └─ docs/use_cases/UC5 - .../01_SP02 - Document Extractor.md
+    ├─ Descrizione: cosa fa SP02
+    ├─ Sequence: come funziona internamente
+    ├─ Payloads: esempi request/response
+    └─ Integrazione: come si collega ad altri SP
 ```
 
 ---
@@ -118,12 +118,12 @@ docs/
       └─ Alternative paths (cache, errors)
 
 3. MS Implementation (30 min):
-   └─ docs/microservices/MS02-ANALYZER/
-      ├─ README.md (quick overview)
-      ├─ SPECIFICATION.md (technical deep-dive)
-      ├─ API.md (endpoint reference)
-      ├─ DATABASE-SCHEMA.md (data model)
-      └─ examples/ (payload examples)
+  └─ docs/microservices/MS02-ANALYZER/
+    ├─ README.md (panoramica rapida)
+    ├─ SPECIFICATION.md (approfondimento tecnico)
+    ├─ API.md (endpoint di riferimento)
+    ├─ DATABASE-SCHEMA.md (modello dati)
+    └─ examples/ (esempi payload)
 
 4. Setup Local (10 min):
    └─ docs/microservices/MS02-ANALYZER/
@@ -135,7 +135,7 @@ docs/
       └─ kubernetes/ (production manifests)
 ```
 
-**Total: ~70 minutes** to go from requirements to deployment
+**Totale: ~70 minuti** per passare da requisiti a deployment
 
 ---
 
@@ -143,10 +143,10 @@ docs/
 
 ```
 1. Payload Examples (2 min):
-   └─ docs/use_cases/UC5 - .../01_SP02 - Document Extractor.md
-      ├─ Request Payload (copy-paste to Postman)
-      ├─ Response Success (expected output)
-      └─ Response Error (edge cases)
+  └─ docs/use_cases/UC5 - .../01_SP02 - Document Extractor.md
+    ├─ Request Payload (copia/incolla in Postman)
+    ├─ Response Success (output atteso)
+    └─ Response Error (casi limite)
 
 2. API Reference (5 min):
    └─ docs/microservices/MS02-ANALYZER/API.md
@@ -166,7 +166,7 @@ docs/
       └─ response.json (expected output)
 ```
 
-**Total: ~12 minutes** to execute a test
+**Totale: ~12 minuti** per eseguire un test
 
 ---
 
@@ -175,7 +175,7 @@ docs/
 ### Phase 1: Discovery (Day 1)
 
 ```
-Developer reads:
+Developer legge:
 1. UC Overview (00_OVERVIEW.md) ← Understand what
 2. SP Description (01_SPxx.md) ← Understand why
 3. Sequence Diagram (01_SPxx.md) ← Understand how
@@ -186,7 +186,7 @@ Deliverable: Requirement specification document
 ### Phase 2: Architecture (Day 1-2)
 
 ```
-Developer creates:
+Developer crea:
 1. MS SPECIFICATION.md (architecture)
 2. DATABASE-SCHEMA.md (ER diagram)
 3. Sequence diagrams (multiple paths)
@@ -200,7 +200,7 @@ Validates:
 ### Phase 3: Implementation (Day 2-4)
 
 ```
-Developer implements:
+Developer implementa:
 1. MS API endpoints
 2. Database migrations
 3. Business logic
@@ -214,7 +214,7 @@ Follows:
 ### Phase 4: Testing (Day 4-5)
 
 ```
-Tester verifies:
+Tester verifica:
 1. SP request/response payloads
 2. Sequence diagram flows
 3. Error scenarios
@@ -228,7 +228,7 @@ Uses:
 ### Phase 5: Deployment (Day 5)
 
 ```
-Operations deploys:
+Operations esegue il deploy di:
 1. Kubernetes manifests (kubernetes/)
 2. Startup procedures
 3. Monitoring setup
@@ -244,8 +244,8 @@ References:
 ## 📊 Documentation Levels
 
 ### Level 1: Governance (Root Level)
-**Time to read**: 30 min total
-**Audience**: Everyone
+**Tempo di lettura**: 30 min totali
+**Audience**: Tutti
 
 ```
 README.md ⭐
@@ -257,8 +257,8 @@ README.md ⭐
 ```
 
 ### Level 2: Use Cases
-**Time to read**: 15-30 min per UC
-**Audience**: Product, Business Analysts, Developers
+**Tempo di lettura**: 15-30 min per UC
+**Audience**: Product, Business Analyst, Developer
 
 ```
 UC5/ Overview
@@ -269,8 +269,8 @@ UC5/ Overview
 ```
 
 ### Level 3: Sub-Projects (SP)
-**Time to read**: 10-15 min per SP
-**Audience**: Developers, QA, Architects
+**Tempo di lettura**: 10-15 min per SP
+**Audience**: Sviluppatori, QA, Architetti
 
 ```
 UC5/ Details
@@ -285,8 +285,8 @@ UC5/ Details
 ```
 
 ### Level 4: Microservices
-**Time to read**: 35 min per MS
-**Audience**: Developers, DevOps, Architects
+**Tempo di lettura**: 35 min per MS
+**Audience**: Sviluppatori, DevOps, Architetti
 
 ```
 MS02-ANALYZER/
@@ -390,41 +390,41 @@ MS02-ANALYZER/
 
 ## 🎯 Key Benefits of This Structure
 
-### For Developers
-✅ Linear, intuitive navigation
-✅ Examples ready to copy-paste
-✅ Understand MS dependencies immediately
-✅ Test payloads provided
+### Per gli Sviluppatori
+✅ Navigazione lineare e intuitiva
+✅ Esempi pronti da copia/incollare
+✅ Comprendere immediatamente le dipendenze MS
+✅ Payload di test forniti
 
-### For Testers
-✅ Clear acceptance criteria
-✅ Test scenarios from sequence diagrams
-✅ Payload examples for automation
-✅ SLA thresholds documented
+### Per i Tester
+✅ Criteri di accettazione chiari
+✅ Scenari di test derivati dai sequence diagram
+✅ Esempi di payload per automazione
+✅ Soglie SLA documentate
 
-### For Operations
-✅ SLA and timing visible immediately
-✅ Sequence diagrams for troubleshooting
-✅ Dependencies clear (failure impact analysis)
-✅ Deployment procedures step-by-step
+### Per le Operations
+✅ SLA e tempi immediatamente visibili
+✅ Sequence diagram per troubleshooting
+✅ Dipendenze chiare (analisi impatto fallimenti)
+✅ Procedure di deployment passo-passo
 
-### For Architects
-✅ Architecture visible at multiple levels
-✅ Dependency matrices
-✅ Compliance traceability
-✅ Integration patterns documented
+### Per gli Architetti
+✅ Architettura visibile a più livelli
+✅ Matrici delle dipendenze
+✅ Tracciabilità della conformità
+✅ Modelli di integrazione documentati
 
-### For Business
-✅ UC overviews in plain language
-✅ Actors and roles clear
-✅ SLA and success metrics defined
-✅ Compliance mapping to regulations
+### Per il Business
+✅ Panoramiche UC in linguaggio chiaro
+✅ Attori e ruoli definiti
+✅ SLA e metriche di successo definite
+✅ Mappatura conformità verso le normative
 
 ---
 
 ## 🔗 Cross-References
 
-All files link to each other in a web:
+Tutti i file sono interconnessi tramite link:
 
 ```
 README.md
@@ -449,16 +449,16 @@ README.md
 ---
 
 **Versione**: 1.0
-**Creata**: 2024-11-18
+**Creato**: 2024-11-18
 **Lingua**: Italiano
-**Maintainers**: ZenIA Documentation Team
+**Maintainer**: Team Documentazione ZenIA
 
 ---
 
 ## 🚀 Next Steps
 
-1. **Apply this structure** to UC5-UC11 SPs
-2. **Populate each SP** with sequence diagrams and payloads
-3. **Update MS documentation** with real API endpoints
-4. **Link everything** through markdown cross-references
-5. **Review with team** for clarity and completeness
+1. **Applicare questa struttura** a UC5-UC11 SP
+2. **Popolare ogni SP** con sequence diagram e payload
+3. **Aggiornare la documentazione MS** con endpoint API reali
+4. **Collegare tutto** tramite cross-reference in markdown
+5. **Revisionare con il team** per chiarezza e completezza

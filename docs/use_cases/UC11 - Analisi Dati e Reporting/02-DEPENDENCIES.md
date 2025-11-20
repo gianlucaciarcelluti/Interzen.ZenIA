@@ -1,33 +1,33 @@
 # Matrice Dipendenze - UC11 Analisi Dati e Reporting
 
-## Overview: Complete UC11 Stack (Analytics + Infrastructure)
+## Panoramica: Stack completo UC11 (Analytics + Infrastruttura)
 
 ```mermaid
 graph TD
-    subgraph "Data Layer"
-        SP58[SP58<br/>Data Lake & Storage]
-        SP59[SP59<br/>ETL Pipeline]
+    subgraph "Livello Dati"
+        SP58[SP58<br/>Data Lake e Storage]
+        SP59[SP59<br/>Pipeline ETL]
     end
 
-    subgraph "Analytics Layer"
-        SP62[SP62<br/>Data Quality & Governance]
-        SP60[SP60<br/>Advanced Analytics & ML]
-        SP63[SP63<br/>Real-Time Analytics & Streaming]
-        SP64[SP64<br/>Predictive Analytics & Forecasting]
+    subgraph "Livello Analitico"
+        SP62[SP62<br/>Qualità Dati e Governance]
+        SP60[SP60<br/>Analitiche Avanzate & ML]
+        SP63[SP63<br/>Analitiche Real-Time & Streaming]
+        SP64[SP64<br/>Analitiche Predittive & Forecasting]
     end
 
-    subgraph "Presentation Layer"
-        SP61[SP61<br/>Self-Service Portal]
+    subgraph "Livello Presentazione"
+        SP61[SP61<br/>Portale Self-Service]
     end
 
-    subgraph "Infrastructure Layer"
-        SP66[SP66<br/>Data Security & Compliance]
-        SP67[SP67<br/>API Gateway & Integration]
-        SP65[SP65<br/>Performance Monitoring]
+    subgraph "Livello Infrastruttura"
+        SP66[SP66<br/>Sicurezza Dati & Conformità]
+        SP67[SP67<br/>API Gateway & Integrazione]
+        SP65[SP65<br/>Monitoraggio Prestazioni]
         SP69[SP69<br/>Disaster Recovery]
-        SP70[SP70<br/>Compliance & Audit]
-        SP71[SP71<br/>Performance Optimization]
-        SP72[SP72<br/>Incident Management]
+        SP70[SP70<br/>Conformità & Audit]
+        SP71[SP71<br/>Ottimizzazione Prestazioni]
+        SP72[SP72<br/>Gestione Incidenti]
         SP68[SP68<br/>DevOps & CI/CD]
     end
 
@@ -65,139 +65,139 @@ graph TD
     style SP70 fill:#87ceeb
 ```
 
-## Analytics Dipendenze
+## Dipendenze Analitiche
 
-| SP | Nome | Input From | Output To | Criticità |
+| SP | Nome | Input da | Output verso | Criticità |
 |---|---|---|---|---|
-| **SP58** | Data Lake & Storage Management | External sources | SP59 | CRITICA |
-| **SP59** | ETL & Data Processing Pipelines | SP58 | SP62 | CRITICA |
-| **SP62** | Data Quality & Governance | SP59 | SP60, SP63, SP64 | CRITICA |
-| **SP60** | Advanced Analytics & ML | SP62 | SP61 | ALTA |
-| **SP63** | Real-Time Analytics & Streaming | SP62 | SP61 | ALTA |
-| **SP64** | Predictive Analytics & Forecasting | SP62 | SP61 | ALTA |
-| **SP61** | Self-Service Analytics Portal | SP60, SP63, SP64 | BI Dashboards | ALTA |
+| **SP58** | Data Lake & Storage Management | Fonti esterne | SP59 | CRITICA |
+| **SP59** | Pipeline ETL | SP58 | SP62 | CRITICA |
+| **SP62** | Qualità Dati & Governance | SP59 | SP60, SP63, SP64 | CRITICA |
+| **SP60** | Analitiche Avanzate & ML | SP62 | SP61 | ALTA |
+| **SP63** | Analitiche Real-Time & Streaming | SP62 | SP61 | ALTA |
+| **SP64** | Analitiche Predittive & Forecasting | SP62 | SP61 | ALTA |
+| **SP61** | Portale Self-Service Analytics | SP60, SP63, SP64 | Pannelli BI | ALTA |
 
-## Infrastructure Layer Dipendenze
+## Dipendenze Livello Infrastruttura
 
 | SP | Nome | Supporta | Criticità | RTO | Fallback |
 |---|---|---|---|---|---|
-| **SP65** | Performance Monitoring & Alerting | SP60, SP63, SP64 | ALTA | 5min | Manual monitoring |
-| **SP66** | Data Security & Compliance | All data layers | CRITICA | 1min | Encryption key HSM |
-| **SP67** | API Gateway & Integration | SP61 interfaces | CRITICA | 15min | Load balancer failover |
-| **SP68** | DevOps & CI/CD Pipeline | SP59 (deployments) | MEDIA | 30min | Manual deployment |
-| **SP69** | Disaster Recovery & Business Continuity | All critical SPs | ALTA | 1h | Backup region activation |
-| **SP70** | Compliance & Audit Management | SP62 (governance) | CRITICA | 24h | Archived audit logs |
-| **SP71** | Performance Optimization & Scaling | SP60, SP63 (compute) | ALTA | 10min | Static resource allocation |
-| **SP72** | Incident Management & Escalation | SP60, SP63 (monitoring) | MEDIA | 10min | Manual incident response |
+| **SP65** | Monitoraggio Prestazioni & Alerting | SP60, SP63, SP64 | ALTA | 5min | Monitoraggio manuale |
+| **SP66** | Sicurezza Dati & Conformità | Tutti i livelli dati | CRITICA | 1min | Backup chiavi HSM |
+| **SP67** | API Gateway & Integrazione | Interfacce SP61 | CRITICA | 15min | Failover load balancer |
+| **SP68** | DevOps & CI/CD Pipeline | SP59 (deployments) | MEDIA | 30min | Deploy manuale |
+| **SP69** | Disaster Recovery & Business Continuity | Tutti gli SP critici | ALTA | 1h | Attivazione regione di backup |
+| **SP70** | Conformità & Gestione Audit | SP62 (governance) | CRITICA | 24h | Ripristino log di audit archiviati |
+| **SP71** | Ottimizzazione Prestazioni & Scaling | SP60, SP63 (compute) | ALTA | 10min | Allocazione risorse statica |
+| **SP72** | Gestione Incidenti & Escalation | SP60, SP63 (monitoraggio) | MEDIA | 10min | Risposta incidenti manuale |
 
 ## Flusso Principale (Analytics + Infrastructure)
 
-### Data Processing Pipeline
-Data Lake (SP58) → ETL (SP59) → Quality Gate (SP62) → Analytics (SP60/63/64) → Portal (SP61)
+### Pipeline di Elaborazione Dati
+Data Lake (SP58) → Pipeline ETL (SP59) → Quality Gate (SP62) → Analitiche (SP60/63/64) → Portale (SP61)
 
 ### Infrastructure Overlay
-- **Security**: SP66 covers all data layers
-- **Monitoring**: SP65 watches analytics tiers
-- **Compliance**: SP70 enforces governance (SP62)
-- **DR/Scaling**: SP69/SP71 support core components
-- **Incident**: SP72 responds to SP60/63 alerts
+- **Sicurezza**: SP66 copre tutti i livelli dati
+- **Monitoraggio**: SP65 osserva i livelli analitici
+- **Conformità**: SP70 applica governance (SP62)
+- **DR/Scaling**: SP69/SP71 supportano i componenti core
+- **Incident**: SP72 risponde agli alert di SP60/63
 
 ## Criticità
 
-### CRITICA (Blocking)
-- **SP58** (Data Lake): Loss of data = system down
-- **SP59** (ETL): Data flow blockage = no analytics
-- **SP62** (Quality Gate): Bad data → invalid decisions
-- **SP66** (Security): Breach = data loss + compliance violation
-- **SP67** (API Gateway): Portal offline = users blocked
-- **SP70** (Audit): Compliance violation = legal risk
+### CRITICA (Bloccante)
+- **SP58** (Data Lake): Perdita dati = sistema non operativo
+- **SP59** (Pipeline ETL): Blocco flusso dati = nessuna analisi
+- **SP62** (Quality Gate): Dati scadenti → decisioni non valide
+- **SP66** (Sicurezza): Violazione = perdita dati + violazione compliance
+- **SP67** (API Gateway): Portale offline = utenti bloccati
+- **SP70** (Audit): Violazione conformità = rischio legale
 
-### ALTA (Severe Degradation)
-- **SP60** (ML): Slow analytics = delayed insights
-- **SP63** (Real-Time): Delays analytics freshness
-- **SP61** (Portal): UX degradation, but data still processes
-- **SP65** (Monitoring): Blind spot until manual intervention
-- **SP69** (DR): Recovery delays impact RTO
-- **SP71** (Scaling): Performance degradation under load
+### ALTA (Degrado Severo)
+- **SP60** (ML): Analisi lente = insight ritardati
+- **SP63** (Real-Time): Ritardi nella freschezza degli analytics
+- **SP61** (Portale): Degrado UX, ma i dati vengono comunque processati
+- **SP65** (Monitoraggio): Zona cieca fino a intervento manuale
+- **SP69** (DR): Ritardi di recovery impattano RTO
+- **SP71** (Scaling): Degrado prestazioni sotto carico
 
-### MEDIA (Functional Impact)
-- **SP64** (Forecasting): Loss of predictive capability
-- **SP68** (DevOps): Manual deployments slower but possible
-- **SP72** (Incident): Response delays but escalation still works
+### MEDIA (Impatto Funzionale)
+- **SP64** (Forecasting): Perdita della capacità predittiva
+- **SP68** (DevOps): Deploy manuali più lenti ma possibili
+- **SP72** (Incident): Ritardi nella risposta ma escalation funzionante
 
 ## Mitigazioni
 
 | SP | Mitigation | RTO | Fallback | Cost |
 |---|---|---|---|---|
-| **SP58** | 3-way replication, multi-region, point-in-time recovery | 30min | Read-only replica | $$$ |
-| **SP59** | Data versioning, rollback capability, CDC (Change Data Capture) | 15min | Manual ETL trigger | $$ |
-| **SP62** | Quality rules versioning, test suite, staged deployment | 5min | Previous rule version | $ |
-| **SP60** | Model versioning, A/B testing, baseline metrics | 10min | Previous model version | $$ |
-| **SP63** | Kafka topic replication, stream backup, consumer lag alerts | 5min | Replay from checkpoint | $$ |
-| **SP61** | CDN caching, read replicas, query optimization | 10min | Cached results | $$ |
-| **SP66** | HSM backup, encrypted backup keys, security audit logs | 1min | HSM failover | $$$ |
-| **SP67** | Load balancer + failover, API versioning, rate limiting | 2min | Manual API endpoints | $ |
-| **SP69** | Automated failover, RTO <1h, RPO <15min | 1h | Manual restore | $$$ |
-| **SP70** | Audit log replication, immutable storage, blockchain hash | 24h | Archived logs restore | $$ |
-| **SP71** | Auto-scaling policies, resource reservations, burst capacity | 10min | Manual scaling | $ |
-| **SP72** | Alert routing, escalation chains, on-call rotation | 10min | Manual notification | $ |
+| **SP58** | Replicazione tripla, multi-region, point-in-time recovery | 30min | Replica in sola lettura | $$$ |
+| **SP59** | Versioning dei dati, rollback, CDC (Change Data Capture) | 15min | Trigger ETL manuale | $$ |
+| **SP62** | Versioning regole qualità, test suite, deployment staged | 5min | Versione regole precedente | $ |
+| **SP60** | Versioning modelli, A/B testing, metriche baseline | 10min | Versione modello precedente | $$ |
+| **SP63** | Replicazione topic Kafka, backup stream, alert consumer lag | 5min | Replay da checkpoint | $$ |
+| **SP61** | Caching CDN, read replica, ottimizzazione query | 10min | Risultati in cache | $$ |
+| **SP66** | Backup HSM, chiavi di backup criptate, log audit di sicurezza | 1min | Failover HSM | $$$ |
+| **SP67** | Load balancer + failover, versioning API, rate limiting | 2min | Endpoint API manuali | $ |
+| **SP69** | Failover automatico, RTO <1h, RPO <15min | 1h | Ripristino manuale | $$$ |
+| **SP70** | Replicazione log audit, storage immutabile, hash blockchain | 24h | Ripristino log archiviati | $$ |
+| **SP71** | Politiche auto-scaling, riserve risorse, capacità burst | 10min | Scaling manuale | $ |
+| **SP72** | Instradamento alert, catene di escalation, on-call rotation | 10min | Notifica manuale | $ |
 
-## KPIs (Analytics Layer)
-
-| SP | KPI | Target | Severity |
-|---|---|---|---|
-| **SP58** | Data availability | 99.99% (4h/year downtime) | CRITICA |
-| **SP59** | ETL freshness | < 1h max delay | CRITICA |
-| **SP62** | Data quality score | > 95% | CRITICA |
-| **SP60** | Model accuracy | > 90% | ALTA |
-| **SP63** | Real-time latency | < 5min | ALTA |
-| **SP64** | Forecast accuracy | > 85% | MEDIA |
-| **SP61** | Portal uptime | 99.9% (9h/year) | ALTA |
-
-## KPIs (Infrastructure Layer)
+## KPI (Livello Analitico)
 
 | SP | KPI | Target | Severity |
 |---|---|---|---|
-| **SP65** | Monitoring coverage | 100% of critical systems | ALTA |
-| **SP66** | Security compliance | 100% (PCI-DSS, GDPR) | CRITICA |
-| **SP67** | API gateway SLA | 99.95% uptime | CRITICA |
-| **SP68** | CI/CD success rate | > 95% deployment success | MEDIA |
-| **SP69** | RTO (Recovery Time Objective) | < 1h full failover | ALTA |
-| **SP69** | RPO (Recovery Point Objective) | < 15min data loss | ALTA |
-| **SP70** | Audit trail completeness | 100% event coverage | CRITICA |
-| **SP71** | Auto-scaling success | > 95% + 15% cost optimization | ALTA |
-| **SP72** | Incident resolution SLA | < 2h, detection < 10sec | MEDIA |
+| **SP58** | Disponibilità dati | 99.99% (4h/anno downtime) | CRITICA |
+| **SP59** | Freschezza ETL | < 1h ritardo massimo | CRITICA |
+| **SP62** | Punteggio qualità dati | > 95% | CRITICA |
+| **SP60** | Accuratezza modello | > 90% | ALTA |
+| **SP63** | Latency real-time | < 5min | ALTA |
+| **SP64** | Accuratezza previsioni | > 85% | MEDIA |
+| **SP61** | Uptime portale | 99.9% (9h/anno) | ALTA |
+
+## KPI (Livello Infrastruttura)
+
+| SP | KPI | Target | Severity |
+|---|---|---|---|
+| **SP65** | Copertura monitoring | 100% dei sistemi critici | ALTA |
+| **SP66** | Conformità di sicurezza | 100% (PCI-DSS, GDPR) | CRITICA |
+| **SP67** | SLA API gateway | 99.95% uptime | CRITICA |
+| **SP68** | Success rate CI/CD | > 95% deploy con successo | MEDIA |
+| **SP69** | RTO (Recovery Time Objective) | < 1h failover completo | ALTA |
+| **SP69** | RPO (Recovery Point Objective) | < 15min perdita dati | ALTA |
+| **SP70** | Completezza audit trail | 100% copertura eventi | CRITICA |
+| **SP71** | Successo auto-scaling | > 95% + 15% ottimizzazione costi | ALTA |
+| **SP72** | SLA risoluzione incidenti | < 2h, rilevamento < 10sec | MEDIA |
 
 ## Implementazione Ordine (Sequenziale con Parallelizzazione)
 
-### Phase 0: Foundation (Prerequisite)
-- **SP66** (Data Security & Compliance) - MUST exist before data processing
-- **SP68** (DevOps & CI/CD) - Build pipeline for all subsequent components
+### Phase 0: Foundation (Prerequisiti)
+- **SP66** (Sicurezza Dati & Conformità) - DEVE esistere prima dell'elaborazione dati
+- **SP68** (DevOps & CI/CD) - Costruire pipeline per tutti i componenti successivi
 
-### Phase 1: Core Data Layer (Week 1-3)
-1. **SP58** (Data Lake & Storage) - Foundation, everything depends on it
-2. **SP59** (ETL Pipeline) - Data flow, cannot proceed without SP58
-3. **SP62** (Data Quality Gate) - Quality rules before analytics consume data
+### Phase 1: Layer Dati Core (Settimane 1-3)
+1. **SP58** (Data Lake & Storage) - Fondazione, tutto dipende da esso
+2. **SP59** (Pipeline ETL) - Flusso dati, non si può procedere senza SP58
+3. **SP62** (Quality Gate) - Regole di qualità prima che le analitiche consumino i dati
 
-### Phase 2: Analytics Services (Week 4-6) - Parallel
-- **SP60** (Advanced Analytics & ML) - Depends on SP62 quality gate
-- **SP63** (Real-Time Analytics) - Depends on SP62, parallel with SP60
-- **SP64** (Predictive Analytics) - Depends on SP62, parallel with SP60/63
+### Phase 2: Servizi Analitici (Settimane 4-6) - Parallelo
+- **SP60** (Analitiche Avanzate & ML) - Dipende da SP62 quality gate
+- **SP63** (Analitiche Real-Time) - Dipende da SP62, parallelo a SP60
+- **SP64** (Analitiche Predittive) - Dipende da SP62, parallelo a SP60/63
 
-### Phase 3: Presentation Layer (Week 7)
-- **SP61** (Self-Service Portal) - Depends on SP60, SP63, SP64
+### Phase 3: Layer Presentazione (Settimana 7)
+- **SP61** (Portale Self-Service) - Dipende da SP60, SP63, SP64
 
-### Phase 4a: Infrastructure - Monitoring/Availability (Week 8-9) - Parallel
-- **SP65** (Performance Monitoring) - Watch SP60, SP63, SP64
+### Phase 4a: Infrastruttura - Monitoraggio/Disponibilità (Settimane 8-9) - Parallelo
+- **SP65** (Monitoraggio Prestazioni) - Monitora SP60, SP63, SP64
 - **SP69** (Disaster Recovery) - Backup SP58, SP59
-- **SP71** (Performance Optimization) - Scaling for SP60, SP63
+- **SP71** (Ottimizzazione Prestazioni) - Scaling per SP60, SP63
 
-### Phase 4b: Infrastructure - Governance/Integration (Week 10) - Parallel
-- **SP67** (API Gateway & Integration) - Frontend for SP61
-- **SP70** (Compliance & Audit) - Govern SP62, SP58
-- **SP72** (Incident Management) - Monitor SP60, SP63
+### Phase 4b: Infrastruttura - Governance/Integrazione (Settimana 10) - Parallelo
+- **SP67** (API Gateway & Integrazione) - Frontend per SP61
+- **SP70** (Conformità & Audit) - Gestisce SP62, SP58
+- **SP72** (Gestione Incidenti) - Monitora SP60, SP63
 
 ### Critical Path
-SP66 → SP68 → SP58 → SP59 → SP62 → SP60/63/64 (parallel) → SP61 → complete infra phase (parallel)
-**Total duration: ~10 weeks with parallelization, ~15 sequential**
+SP66 → SP68 → SP58 → SP59 → SP62 → SP60/63/64 (parallelo) → SP61 → completa fase infrastruttura (parallelo)
+**Durata totale: ~10 settimane con parallelizzazione, ~15 sequenziali**
 

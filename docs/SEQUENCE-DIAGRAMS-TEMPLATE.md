@@ -1,6 +1,6 @@
-# Sequence Diagrams Template - ZenIA
+# Template Diagrammi di Sequenza - ZenIA
 
-Questo documento contiene pattern e template di sequence diagrams in Mermaid che puoi utilizzare per documentare i flussi dei microservizi (MS) e sub-progetti (SP).
+Questo documento contiene pattern e template di diagrammi di sequenza (Mermaid) che puoi utilizzare per documentare i flussi dei microservizi (MS) e dei sottoprogetti (SP).
 
 ---
 
@@ -17,8 +17,8 @@ Questo documento contiene pattern e template di sequence diagrams in Mermaid che
 
 ## 1. Happy Path (Main Flow)
 
-### Template: Simple Request-Response
-Use this for basic synchronous operations.
+### Template: Richiesta-Risposta Semplice
+Usare per operazioni sincrone di base.
 
 ```mermaid
 sequenceDiagram
@@ -39,8 +39,8 @@ sequenceDiagram
     Gateway-->>Client: 200 OK
 ```
 
-### Template: With External Dependency
-Use this when service depends on another MS.
+### Template: Con Dipendenza Esterna
+Usare quando il servizio dipende da un altro microservizio.
 
 ```mermaid
 sequenceDiagram
@@ -66,7 +66,7 @@ sequenceDiagram
 
 ## 2. Alternative Paths
 
-### Template: Cache Hit (Performance Optimization)
+### Template: Cache Hit (Ottimizzazione delle prestazioni)
 
 ```mermaid
 sequenceDiagram
@@ -85,7 +85,7 @@ sequenceDiagram
     Note over Cache: Latency: < 50ms
 ```
 
-### Template: Fallback Path (Degraded Mode)
+### Template: Percorso di Fallback (Modalità degradata)
 
 ```mermaid
 sequenceDiagram
@@ -107,7 +107,7 @@ sequenceDiagram
     Service-->>Client: 200 OK<br/>(with fallback data)
 ```
 
-### Template: Retry Logic
+### Template: Logica di Retry
 
 ```mermaid
 sequenceDiagram
@@ -130,7 +130,7 @@ sequenceDiagram
 
 ## 3. Error Flows
 
-### Template: Validation Error
+### Template: Errore di Validazione
 
 ```mermaid
 sequenceDiagram
@@ -148,7 +148,7 @@ sequenceDiagram
     Note over Service: No further processing
 ```
 
-### Template: Authorization Error
+### Template: Errore di Autorizzazione
 
 ```mermaid
 sequenceDiagram
@@ -166,7 +166,7 @@ sequenceDiagram
     Note over Gateway: Request rejected at gateway<br/>Never reaches service
 ```
 
-### Template: Resource Not Found
+### Template: Risorsa Non Trovata
 
 ```mermaid
 sequenceDiagram
@@ -182,7 +182,7 @@ sequenceDiagram
     Service-->>Client: 404 Not Found
 ```
 
-### Template: Conflict/Duplicate
+### Template: Conflitto/Duplicato
 
 ```mermaid
 sequenceDiagram
@@ -204,7 +204,7 @@ sequenceDiagram
 
 ## 4. Integration Flows
 
-### Template: Multi-Service Pipeline (UC-style)
+### Template: Pipeline Multi-Servizio (stile UC)
 
 ```mermaid
 sequenceDiagram
@@ -230,7 +230,7 @@ sequenceDiagram
     Note over Source,Destination: Complete pipeline execution<br/>Total time: ~50 seconds
 ```
 
-### Template: Publish-Subscribe Pattern
+### Template: Pattern Publish-Subscribe
 
 ```mermaid
 sequenceDiagram
@@ -250,7 +250,7 @@ sequenceDiagram
     Note over EventBus: Non-blocking<br/>All subscribers process<br/>independently
 ```
 
-### Template: Saga Pattern (Distributed Transaction)
+### Template: Pattern Saga (Transazione distribuita)
 
 ```mermaid
 sequenceDiagram
@@ -283,7 +283,7 @@ sequenceDiagram
 
 ## 5. Lifecycle & State Changes
 
-### Template: Model/Version Lifecycle
+### Template: Ciclo di vita Modello/Versione
 
 ```mermaid
 sequenceDiagram
@@ -316,7 +316,7 @@ sequenceDiagram
     Monitor-->>Admin: Completion alert
 ```
 
-### Template: Data Migration/Upgrade
+### Template: Migrazione/Upgrade Dati
 
 ```mermaid
 sequenceDiagram
@@ -350,7 +350,7 @@ sequenceDiagram
 
 ## 6. Async Processing
 
-### Template: Background Job Queue
+### Template: Coda Job Background
 
 ```mermaid
 sequenceDiagram
@@ -382,7 +382,7 @@ sequenceDiagram
     Note over Client,Worker: Client polls for completion<br/>or uses WebSocket for push updates
 ```
 
-### Template: Event-Driven Processing
+### Template: Elaborazione Event-Driven
 
 ```mermaid
 sequenceDiagram
@@ -408,7 +408,7 @@ sequenceDiagram
     Note over Consumer: Next startup will<br/>resume from this offset
 ```
 
-### Template: Scheduled Task (Batch Processing)
+### Template: Attività Pianificata (Elaborazione Batch)
 
 ```mermaid
 sequenceDiagram
@@ -440,49 +440,49 @@ sequenceDiagram
 
 ## 🎓 Best Practices
 
-### 1. **Clarity**
-- Use descriptive labels on arrows
-- Include what data/message is passed
-- Show response values (not just 200 OK)
+### 1. **Chiarezza**
+- Usa etichette descrittive sulle frecce
+- Includi quali dati/messaggi vengono passati
+- Mostra i valori di risposta (non solo 200 OK)
 
-### 2. **Error Handling**
-- Show both success AND failure paths
-- Use `--x` for errors/exceptions
-- Include error codes (404, 500, etc.)
+### 2. **Gestione Errori**
+- Mostra sia i percorsi di successo che quelli di errore
+- Usa `--x` per errori/eccezioni
+- Include codici di errore (404, 500, ecc.)
 
-### 3. **Performance**
-- Annotate latency where relevant
-- Show caching/optimization paths
-- Include alternative faster paths
+### 3. **Prestazioni**
+- Annotare le latenze quando rilevanti
+- Mostrare percorsi di caching/ottimizzazione
+- Includere percorsi alternativi più veloci
 
-### 4. **Security**
-- Show authentication/authorization checks
-- Indicate encryption/validation steps
-- Mark sensitive data handling
+### 4. **Sicurezza**
+- Mostrare controlli di autenticazione/autorizzazione
+- Indicare passaggi di cifratura/validazione
+- Segnalare la gestione di dati sensibili
 
-### 5. **Readability**
-- Keep diagrams focused (max 6-8 participants)
-- Use `alt`/`loop`/`opt` for conditional logic
-- Break complex flows into multiple diagrams
+### 5. **Leggibilità**
+- Mantenere i diagrammi focalizzati (max 6-8 partecipanti)
+- Usare `alt`/`loop`/`opt` per la logica condizionale
+- Suddividere flussi complessi in più diagrammi
 
 ---
 
 ## 🚀 How to Use These Templates
 
-### For MS (Microservice) Documentation
+### Per la documentazione MS (Microservice)
 
-1. Copy the appropriate template above
-2. Replace generic names with your MS/service names
-3. Adapt flow to match your actual implementation
-4. Add error paths and alternatives
-5. Update timing/latency estimates
+1. Copiare il template appropriato sopra
+2. Sostituire i nomi generici con i nomi dei vostri MS/servizi
+3. Adattare il flusso alla vostra implementazione reale
+4. Aggiungere percorsi di errore e alternative
+5. Aggiornare stime di tempo/latency
 
-### For SP (Sub-Project) Documentation
+### Per la documentazione SP (Sottoprogetto)
 
-1. Use integration flow templates for SP-to-SP interactions
-2. Show how SP integrates with parent UC
-3. Include data transformation steps
-4. Add validation/quality checks
+1. Usare i template di integrazione per interazioni SP-to-SP
+2. Mostrare come lo SP si integra con la UC principale
+3. Includere i passaggi di trasformazione dati
+4. Aggiungere controlli di validazione/qualità
 
 ### Example: Adding to SPECIFICATION.md
 
@@ -548,4 +548,4 @@ sequenceDiagram
 
 **Versione**: 1.0
 **Creato**: 2024-11-18
-**Lingua**: Italiano/English (Mermaid syntax universal)
+**Lingua**: Italiano/English (la sintassi Mermaid è universale)

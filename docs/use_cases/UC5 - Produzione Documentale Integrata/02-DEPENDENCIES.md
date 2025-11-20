@@ -4,237 +4,247 @@
 
 ```mermaid
 graph TD
-    subgraph Input
-        PEC[PEC/Email]
-        DOCS[Documents]
-    end
+    ```markdown
+    # Matrice Dipendenze Sottoprogetti - UC5 Produzione Documentale Integrata
 
-    subgraph Processing
-        SP01[SP01<br/>EML Parser]
-        SP02[SP02<br/>Document Extractor]
-        SP03[SP03<br/>Procedural Classifier]
-        SP07[SP07<br/>Content Classifier]
-        SP04[SP04<br/>Knowledge Base]
-        SP05[SP05<br/>Template Engine]
-        SP06[SP06<br/>Validator]
-        SP08[SP08<br/>Quality Checker]
-    end
+    ## Overview Dipendenze
 
-    subgraph Orchestration & Output
-        SP09[SP09<br/>Workflow Engine]
-        SP10[SP10<br/>Dashboard]
-        SP11[SP11<br/>Security & Audit]
-    end
+    ```mermaid
+    graph TD
+        subgraph Input
+            PEC[PEC/Email]
+            DOCS[Documenti]
+        end
 
-    PEC --> SP01
-    DOCS --> SP02
+        subgraph Processing
+            SP01[SP01<br/>Parser EML]
+            SP02[SP02<br/>Document Extractor]
+            SP03[SP03<br/>Classificatore Procedurale]
+            SP07[SP07<br/>Classificatore Contenuti]
+            SP04[SP04<br/>Knowledge Base]
+            SP05[SP05<br/>Motore Template]
+            SP06[SP06<br/>Validator]
+            SP08[SP08<br/>Quality Checker]
+        end
 
-    SP01 --> SP02
-    SP02 --> SP03
-    SP02 --> SP07
+        subgraph Orchestration & Output
+            SP09[SP09<br/>Motore Workflow]
+            SP10[SP10<br/>Dashboard]
+            SP11[SP11<br/>Sicurezza & Audit]
+        end
 
-    SP03 --> SP04
-    SP03 --> SP05
-    SP04 --> SP05
+        PEC --> SP01
+        DOCS --> SP02
 
-    SP05 --> SP06
-    SP06 --> SP08
-    SP07 --> SP08
+        SP01 --> SP02
+        SP02 --> SP03
+        SP02 --> SP07
 
-    SP01 -.-> SP09
-    SP02 -.-> SP09
-    SP03 -.-> SP09
-    SP05 -.-> SP09
-    SP06 -.-> SP09
-    SP08 -.-> SP09
+        SP03 --> SP04
+        SP03 --> SP05
+        SP04 --> SP05
 
-    SP09 --> SP10
-    SP01 --> SP11
-    SP02 --> SP11
-    SP09 --> SP11
-```
+        SP05 --> SP06
+        SP06 --> SP08
+        SP07 --> SP08
 
-## Matrice Dipendenze Dettagliata
+        SP01 -.-> SP09
+        SP02 -.-> SP09
+        SP03 -.-> SP09
+        SP05 -.-> SP09
+        SP06 -.-> SP09
+        SP08 -.-> SP09
 
-| SP | Nome | Dipendenze In | Dipendenze Out | Criticità | Dati |
-|---|---|---|---|---|---|
-| **SP01** | EML Parser | PEC/Email | SP02, SP09, SP11 | CRITICA | Parsed email + attachments |
-| **SP02** | Document Extractor | SP01, Documents | SP03, SP07, SP09, SP11 | CRITICA | Extracted text + metadata |
-| **SP03** | Procedural Classifier | SP02 | SP04, SP05, SP09 | ALTA | Classification + procedimento type |
-| **SP04** | Knowledge Base | SP03 | SP05 | MEDIA | Normativa + templates + references |
-| **SP05** | Template Engine | SP03, SP04 | SP06, SP09 | ALTA | Document draft from template |
-| **SP06** | Validator | SP05 | SP08, SP09 | ALTA | Validation results + errors |
-| **SP07** | Content Classifier | SP02 | SP08, SP09 | MEDIA | Content classification tags |
-| **SP08** | Quality Checker | SP06, SP07 | SP09 | MEDIA | Quality score + suggestions |
-| **SP09** | Workflow Engine | All SP (soft deps) | SP10, SP11 | CRITICA | Workflow state + execution |
-| **SP10** | Dashboard | SP09 | Display | MEDIA | UI visualization |
-| **SP11** | Security & Audit | All SP | Logs | CRITICA | Audit trail + security events |
+        SP09 --> SP10
+        SP01 --> SP11
+        SP02 --> SP11
+        SP09 --> SP11
+    ```
 
-## Flusso Dati Principale
+    ## Matrice Dipendenze Dettagliata
 
-```
-PEC/Email
-  ↓
-SP01 (EML Parser)
-  ├─→ SP02 (Document Extractor)
-  │     ├─→ SP03 (Procedural Classifier)
-  │     │     ├─→ SP04 (Knowledge Base)
-  │     │     │     ↓
-  │     │     └─→ SP05 (Template Engine)
-  │     │           ├─→ SP06 (Validator)
-  │     │           │     ↓
-  │     │           └─→ SP08 (Quality Checker)
-  │     │                 ↓
-  │     └─→ SP07 (Content Classifier)
-  │           ↓
-  │         SP08 (Quality Checker)
-  │
-  └─→ SP09 (Workflow Engine) ◄─── All SP
-        ├─→ SP10 (Dashboard)
-        └─→ SP11 (Security & Audit)
-```
+    | SP | Nome | Dipendenze In | Dipendenze Out | Criticità | Dati |
+    |---|---|---|---|---|---|
+    | **SP01** | Parser EML | PEC/Email | SP02, SP09, SP11 | CRITICA | Email parsate + allegati |
+    | **SP02** | Document Extractor | SP01, Documenti | SP03, SP07, SP09, SP11 | CRITICA | Testo estratto + metadata |
+    | **SP03** | Classificatore Procedurale | SP02 | SP04, SP05, SP09 | ALTA | Classificazione + tipo procedimento |
+    | **SP04** | Knowledge Base | SP03 | SP05 | MEDIA | Normativa + template + riferimenti |
+    | **SP05** | Motore Template | SP03, SP04 | SP06, SP09 | ALTA | Bozza documento dal template |
+    | **SP06** | Validator | SP05 | SP08, SP09 | ALTA | Risultati validazione + errori |
+    | **SP07** | Classificatore Contenuti | SP02 | SP08, SP09 | MEDIA | Tag di classificazione contenuti |
+    | **SP08** | Quality Checker | SP06, SP07 | SP09 | MEDIA | Punteggio qualità + suggerimenti |
+    | **SP09** | Motore Workflow | Tutti gli SP (dip. soft) | SP10, SP11 | CRITICA | Stato workflow + esecuzione |
+    | **SP10** | Dashboard | SP09 | Visualizzazione | MEDIA | Visualizzazione UI |
+    | **SP11** | Sicurezza & Audit | Tutti gli SP | Log | CRITICA | Traccia di audit + eventi di sicurezza |
 
-## Dipendenze Critiche (Hard Dependencies)
+    ## Flusso Dati Principale
 
-### 1. SP01 → SP02 (Input pipeline)
-- **Tipo**: Hard dependency
-- **Dato**: Parsed email with attachments
-- **Criticità**: CRITICA - No email parsing = no document processing
-- **SLA**: Email parsing < 2 sec
-- **Mitigazione**: Queue for high volume, retry on failure
+    ```
+    PEC/Email
+      ↓
+    SP01 (Parser EML)
+      ├─→ SP02 (Document Extractor)
+      │     ├─→ SP03 (Classificatore Procedurale)
+      │     │     ├─→ SP04 (Knowledge Base)
+      │     │     │     ↓
+      │     │     └─→ SP05 (Motore Template)
+      │     │           ├─→ SP06 (Validator)
+      │     │           │     ↓
+      │     │           └─→ SP08 (Quality Checker)
+      │     │                 ↓
+      │     └─→ SP07 (Classificatore Contenuti)
+      │           ↓
+      │         SP08 (Quality Checker)
+      │
+      └─→ SP09 (Motore Workflow) ◄─── Tutti gli SP
+            ├─→ SP10 (Dashboard)
+            └─→ SP11 (Sicurezza & Audit)
+    ```
 
-### 2. SP02 → SP03/SP07 (Document Classification)
-- **Tipo**: Hard dependency
-- **Dato**: Extracted document content
-- **Criticità**: CRITICA - Classification required for routing
-- **SLA**: Classification < 5 sec per document
-- **Mitigazione**: Cache classifications, async processing for large docs
+    ## Dipendenze Critiche (Hard Dependencies)
 
-### 3. SP03 → SP05 (Procedural to Template)
-- **Tipo**: Hard dependency
-- **Dato**: Procedimento classification
-- **Criticità**: ALTA - Template selection depends on procedure type
-- **SLA**: Template selection < 1 sec
-- **Mitigazione**: Pre-load templates, versioning
+    ### 1. SP01 → SP02 (Pipeline di input)
+    - **Tipo**: Dipendenza hard
+    - **Dato**: Email parsata con allegati
+    - **Criticità**: CRITICA - Nessun parsing email = nessun processo documentale
+    - **SLA**: Parsing email < 2s
+    - **Mitigazione**: Accodamento per volumi elevati, retry su failure
 
-### 4. SP05 → SP06 → SP08 (Generation → Validation)
-- **Tipo**: Sequential hard dependencies
-- **Dato**: Generated document → validation errors → quality checks
-- **Criticità**: ALTA - Quality control is mandatory
-- **SLA**: Full validation < 10 sec
-- **Mitigazione**: Parallel validation, caching
+    ### 2. SP02 → SP03/SP07 (Classificazione documenti)
+    - **Tipo**: Dipendenza hard
+    - **Dato**: Contenuto documento estratto
+    - **Criticità**: CRITICA - La classificazione è necessaria per il routing
+    - **SLA**: Classificazione < 5s per documento
+    - **Mitigazione**: Cache delle classificazioni, processing asincrono per documenti grandi
 
-### 5. SP09 (Workflow Engine)
-- **Tipo**: Central orchestrator
-- **Dato**: Coordinates all SP
-- **Criticità**: CRITICA - SPOF for workflow execution
-- **SLA**: Workflow steps < 500ms
-- **Mitigazione**: High availability, multiple instances, queue for pending steps
+    ### 3. SP03 → SP05 (Da procedura a template)
+    - **Tipo**: Dipendenza hard
+    - **Dato**: Classificazione procedimento
+    - **Criticità**: ALTA - La selezione del template dipende dal tipo di procedimento
+    - **SLA**: Selezione template < 1s
+    - **Mitigazione**: Pre-load dei template, versioning
 
-### 6. SP11 (Security & Audit)
-- **Tipo**: Cross-cutting concern
-- **Dato**: Receives events from all SP
-- **Criticità**: CRITICA - Non-repudiation requirement
-- **SLA**: Audit logging < 100ms (async)
-- **Mitigazione**: Async logging, immutable audit log
+    ### 4. SP05 → SP06 → SP08 (Generazione → Validazione)
+    - **Tipo**: Dipendenze sequenziali hard
+    - **Dato**: Documento generato → errori di validazione → controlli di qualità
+    - **Criticità**: ALTA - Il controllo qualità è obbligatorio
+    - **SLA**: Validazione completa < 10s
+    - **Mitigazione**: Validazione parallela, caching
 
-## Dipendenze Soft (Optional/Async)
+    ### 5. SP09 (Motore Workflow)
+    - **Tipo**: Orchestratore centrale
+    - **Dato**: Coordina tutti gli SP
+    - **Criticità**: CRITICA - SPOF per l'esecuzione del workflow
+    - **SLA**: Step workflow < 500ms
+    - **Mitigazione**: High availability, istanze multiple, coda per step in attesa
 
-- **SP04**: Knowledge Base can be stale/cached (updated async)
-- **SP07**: Content classification is optional enhancement
-- **SP10**: Dashboard is read-only, can be delayed
+    ### 6. SP11 (Sicurezza & Audit)
+    - **Tipo**: Preoccupazione trasversale
+    - **Dato**: Riceve eventi da tutti gli SP
+    - **Criticità**: CRITICA - Requisito di non ripudio
+    - **SLA**: Logging audit < 100ms (asincrono)
+    - **Mitigazione**: Logging asincrono, audit log immutabile
 
-## Dipendenze Cicliche
+    ## Dipendenze Soft (Optional/Async)
 
-✅ **NESSUNA dipendenza ciclica** - DAG (Directed Acyclic Graph) structure confirmed.
+    - **SP04**: La Knowledge Base può essere obsoleta/cacheata (aggiornata asincrono)
+    - **SP07**: La classificazione dei contenuti è un miglioramento opzionale
+    - **SP10**: La dashboard è in sola lettura, può essere ritardata
 
-Linear chains:
-- PEC → SP01 → SP02 → SP03 → SP05 → SP06 → SP08
-- PEC → SP01 → SP02 → SP07 → SP08
-- All → SP09 → SP10/SP11
+    ## Dipendenze Cicliche
 
-## Matrice Tecnologica
+    ✅ **NESSUNA dipendenza ciclica** - Struttura DAG (Directed Acyclic Graph) confermata.
 
-| SP | Language | Framework | DB |
-|---|---|---|---|
-| SP01 | Python | email-parser | PostgreSQL |
-| SP02 | Python | Tesseract, spaCy | PostgreSQL |
-| SP03 | Python | DistilBERT | PostgreSQL |
-| SP04 | Python | RAG, Mistral | Vector DB |
-| SP05 | Python | LangChain, GPT-4 | PostgreSQL |
-| SP06 | Python | BERT | PostgreSQL |
-| SP07 | Python | spaCy | PostgreSQL |
-| SP08 | Python | LanguageTool | PostgreSQL |
-| SP09 | Python | Apache NiFi | PostgreSQL |
-| SP10 | React | Streamlit | -Redis |
-| SP11 | Python | FastAPI | PostgreSQL, ELK |
+    Catene lineari:
+    - PEC → SP01 → SP02 → SP03 → SP05 → SP06 → SP08
+    - PEC → SP01 → SP02 → SP07 → SP08
+    - Tutti → SP09 → SP10/SP11
 
-## KPIs per SP
+    ## Matrice Tecnologica
 
-- **SP01**: Email parsing latency < 2s, attachment extraction accuracy > 99%
-- **SP02**: OCR accuracy > 95%, document extraction latency < 5s
-- **SP03**: Classification accuracy > 90%, procedure detection > 95%
-- **SP04**: KB search accuracy > 85%, template match confidence > 80%
-- **SP05**: Document generation latency < 10s, template application accuracy > 98%
-- **SP06**: Validation latency < 2s, error detection accuracy > 90%
-- **SP07**: Content tagging accuracy > 85%
-- **SP08**: Quality score accuracy > 90%, suggestion relevance > 80%
-- **SP09**: Workflow execution latency < 500ms, completion rate > 99%
-- **SP10**: Dashboard refresh < 5s, uptime > 99.9%
-- **SP11**: Audit logging latency < 100ms, completeness 100%
+    | SP | Linguaggio | Framework | DB |
+    |---|---|---|---|
+    | SP01 | Python | email-parser | PostgreSQL |
+    | SP02 | Python | Tesseract, spaCy | PostgreSQL |
+    | SP03 | Python | DistilBERT | PostgreSQL |
+    | SP04 | Python | RAG, Mistral | Vector DB |
+    | SP05 | Python | LangChain, GPT-4 | PostgreSQL |
+    | SP06 | Python | BERT | PostgreSQL |
+    | SP07 | Python | spaCy | PostgreSQL |
+    | SP08 | Python | LanguageTool | PostgreSQL |
+    | SP09 | Python | Apache NiFi | PostgreSQL |
+    | SP10 | React | Streamlit | -Redis |
+    | SP11 | Python | FastAPI | PostgreSQL, ELK |
 
-## Ordine Implementazione Consigliato
+    ## KPI per SP
 
-1. **Phase 1 - Foundation**: SP04 (Knowledge Base - data layer)
-2. **Phase 2 - Input Processing**: SP01 (EML Parser), SP02 (Document Extractor)
-3. **Phase 3 - Classification**: SP03 (Procedural), SP07 (Content)
-4. **Phase 4 - Generation & Validation**: SP05 (Template), SP06 (Validator)
-5. **Phase 5 - Quality**: SP08 (Quality Checker)
-6. **Phase 6 - Orchestration**: SP09 (Workflow)
-7. **Phase 7 - Cross-Cutting**: SP11 (Security), SP10 (Dashboard)
+    - **SP01**: Latency parsing email < 2s, accuratezza estrazione allegati > 99%
+    - **SP02**: Accuratezza OCR > 95%, latency estrazione documento < 5s
+    - **SP03**: Accuratezza classificazione > 90%, rilevamento procedimento > 95%
+    - **SP04**: Accuratezza ricerca KB > 85%, confidenza matching template > 80%
+    - **SP05**: Latency generazione documento < 10s, accuratezza applicazione template > 98%
+    - **SP06**: Latency validazione < 2s, accuratezza rilevamento errori > 90%
+    - **SP07**: Accuratezza tagging contenuti > 85%
+    - **SP08**: Accuratezza punteggio qualità > 90%, rilevanza suggerimenti > 80%
+    - **SP09**: Latency esecuzione workflow < 500ms, tasso completamento > 99%
+    - **SP10**: Refresh dashboard < 5s, uptime > 99.9%
+    - **SP11**: Latency logging audit < 100ms, completezza 100%
 
-## Rischi e Mitigazioni
+    ## Ordine Implementazione Consigliato
 
-### SPOF (Single Point of Failure)
-- **SP09 Workflow Engine**: Central orchestrator
-  - **Mitigazione**: HA cluster, auto-failover, queue for pending
-- **SP01 EML Parser**: Input gate
-  - **Mitigazione**: Queue system, retry logic, fallback parsing
-- **SP05 Template Engine**: Document generation
-  - **Mitigazione**: Template caching, version management, fallback templates
+    1. **Fase 1 - Fondazione**: SP04 (Knowledge Base - livello dati)
+    2. **Fase 2 - Input Processing**: SP01 (Parser EML), SP02 (Document Extractor)
+    3. **Fase 3 - Classificazione**: SP03 (Procedurale), SP07 (Contenuti)
+    4. **Fase 4 - Generazione & Validazione**: SP05 (Motore Template), SP06 (Validator)
+    5. **Fase 5 - Qualità**: SP08 (Quality Checker)
+    6. **Fase 6 - Orchestrazione**: SP09 (Motore Workflow)
+    7. **Fase 7 - Cross-Cutting**: SP11 (Sicurezza), SP10 (Dashboard)
 
-### Performance Bottlenecks
-- **SP02 OCR**: Heavy computation
-  - **Mitigazione**: GPU acceleration, async processing, queue
-- **SP05 LLM Generation**: Token limits
-  - **Mitigazione**: Chunk documents, rate limiting, caching
-- **SP03 Model Inference**: ML latency
-  - **Mitigazione**: Model optimization, batch inference, caching
+    ## Rischi e Mitigazioni
 
-### Failure Scenarios
-- **SP01 fails**: No email processing - queue and retry
-- **SP03 fails**: Use default procedure or manual intervention
-- **SP05 fails**: Use template placeholder + HITL review
-- **SP09 fails**: Use sequential queue + manual execution
-- **SP11 fails**: Log to file + async recovery
+    ### SPOF (Single Point of Failure)
+    - **SP09 Motore Workflow**: Orchestratore centrale
+      - **Mitigazione**: Cluster HA, auto-failover, coda per step in attesa
+    - **SP01 Parser EML**: Gateway di input
+      - **Mitigazione**: Sistema di code, retry, parsing di fallback
+    - **SP05 Motore Template**: Generazione documenti
+      - **Mitigazione**: Caching template, gestione versioni, template di fallback
 
-## HITL (Human-in-the-Loop)
+    ### Colli di bottiglia prestazionali
+    - **SP02 OCR**: Computazione intensiva
+      - **Mitigazione**: Accelerazione GPU, processing asincrono, code
+    - **SP05 Generazione LLM**: Limiti token
+      - **Mitigazione**: Chunking dei documenti, rate limiting, caching
+    - **SP03 Inference modello**: Latency ML
+      - **Mitigazione**: Ottimizzazione modelli, inferenza batch, caching
 
-Special consideration for UC5: HITL interface for:
-- Uncertain classifications (SP03 < 80% confidence)
-- Template generation issues (SP05 validation errors)
-- Complex procedimento types (manual override)
-- Document quality issues (SP08 suggestions)
+    ### Scenari di Fallimento
+    - **SP01 fallisce**: Nessun processamento email - coda e retry
+    - **SP03 fallisce**: Usare procedimento di default o intervento manuale
+    - **SP05 fallisce**: Usare placeholder template + revisione HITL
+    - **SP09 fallisce**: Usare coda sequenziale + esecuzione manuale
+    - **SP11 fallisce**: Log su file + recovery asincrona
 
-HITL Manager coordinates with SP09 Workflow for decision tracking.
+    ## HITL (Human-in-the-Loop)
 
-## Testing Strategy
+    Considerazioni speciali per UC5: interfaccia HITL per:
+    - Classificazioni incerte (SP03 < 80% confidenza)
+    - Problemi generazione template (errori validazione SP05)
+    - Tipologie procedimento complesse (override manuale)
+    - Problemi qualità documento (suggerimenti SP08)
 
-| Type | Scenario | Dependency Chain |
-|---|---|---|
-| Unit | Individual SP | None |
-| Integration | SP01+SP02+SP03 | Input → Processing |
-| E2E | PEC → Generated Doc | All SP in sequence |
-| Load | 1000 emails/hour | All SP with stress |
-| Chaos | SP failure | Fallback + recovery |
+    Il manager HITL coordina con SP09 Motore Workflow per il tracciamento delle decisioni.
+
+    ## Strategia di Test
+
+    | Tipo | Scenario | Catena di Dipendenze |
+    |---|---|---|
+    | Unit | SP individuale | Nessuna |
+    | Integration | SP01+SP02+SP03 | Input → Processing |
+    | E2E | PEC → Documento Generato | Tutti gli SP in sequenza |
+    | Load | 1000 email/ora | Tutti gli SP sotto carico |
+    | Chaos | Fallimento SP | Fallback + recovery |
+
+
+    ```
 

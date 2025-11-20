@@ -1,6 +1,6 @@
-# 02 Sequence Diagrams UC10
+# Diagrammi di Sequenza UC10
 
-## Support Request Flow
+## Flusso Richiesta Supporto
 
 ```mermaid
 sequenceDiagram
@@ -12,38 +12,38 @@ sequenceDiagram
     participant AG as Agent
     participant FB as Feedback System
 
-    U->>SP: Access portal
-    SP->>U: Display dashboard
+    U->>SP: Accedi al portale
+    SP->>U: Mostra cruscotto
 
-    U->>SP: Search for help
-    SP->>KB: Query knowledge base
-    KB-->>SP: Return results
-    SP->>U: Display search results
+    U->>SP: Cerca aiuto
+    SP->>KB: Interroga knowledge base
+    KB-->>SP: Restituisce risultati
+    SP->>U: Mostra risultati ricerca
 
-    U->>VA: Start chat
-    VA->>U: Greeting & context gathering
+    U->>VA: Avvia chat
+    VA->>U: Saluto e raccolta contesto
 
-    U->>VA: Describe issue
-    VA->>VA: Intent recognition
-    VA->>KB: Check for solutions
-    KB-->>VA: Return relevant articles
+    U->>VA: Descrivi il problema
+    VA->>VA: Riconoscimento intenti
+    VA->>KB: Cerca soluzioni
+    KB-->>VA: Restituisce articoli rilevanti
 
-    alt Solution found
-        VA->>U: Provide solution
-        U->>VA: Confirm resolution
-        VA->>FB: Request feedback
-        U->>FB: Rate experience
-    else No solution
-        VA->>HD: Create ticket
-        HD->>AG: Assign to agent
-        AG->>U: Contact for resolution
-        AG->>U: Resolve issue
-        AG->>FB: Request feedback
-        U->>FB: Provide feedback
+    alt Soluzione trovata
+        VA->>U: Fornisce soluzione
+        U->>VA: Conferma risoluzione
+        VA->>FB: Richiedi feedback
+        U->>FB: Valuta esperienza
+    else Nessuna soluzione
+        VA->>HD: Crea ticket
+        HD->>AG: Assegna ad agente
+        AG->>U: Contatta per risoluzione
+        AG->>U: Risolve problema
+        AG->>FB: Richiedi feedback
+        U->>FB: Fornisci feedback
     end
 ```
 
-## Ticket Resolution Flow
+## Flusso Risoluzione Ticket
 
 ```mermaid
 sequenceDiagram
@@ -55,36 +55,36 @@ sequenceDiagram
     participant SA as Support Analytics
     participant FB as Feedback System
 
-    U->>HD: Submit ticket
-    HD->>RT: Route ticket
-    RT->>RT: Analyze priority & category
-    RT->>HD: Assign to queue
+    U->>HD: Invia ticket
+    HD->>RT: Inoltra ticket
+    RT->>RT: Analizza priorità e categoria
+    RT->>HD: Assegna alla coda
 
-    HD->>AG: Notify agent
-    AG->>HD: Accept ticket
-    AG->>KB: Research solution
-    KB-->>AG: Provide knowledge
+    HD->>AG: Notifica agente
+    AG->>HD: Accetta ticket
+    AG->>KB: Ricerca soluzione
+    KB-->>AG: Fornisce conoscenza
 
-    AG->>U: Contact user
-    U->>AG: Provide details
-    AG->>AG: Work on resolution
+    AG->>U: Contatta utente
+    U->>AG: Fornisce dettagli
+    AG->>AG: Lavora alla risoluzione
 
-    AG->>HD: Update ticket status
-    HD->>SA: Record metrics
+    AG->>HD: Aggiorna stato ticket
+    HD->>SA: Registra metriche
 
-    AG->>U: Deliver solution
-    U->>AG: Confirm resolution
+    AG->>U: Fornisce soluzione
+    U->>AG: Conferma risoluzione
 
-    AG->>HD: Close ticket
-    HD->>FB: Trigger feedback survey
-    FB->>U: Send survey
-    U->>FB: Complete survey
+    AG->>HD: Chiude ticket
+    HD->>FB: Avvia survey di feedback
+    FB->>U: Invia survey
+    U->>FB: Compila survey
 
-    FB->>SA: Send feedback data
-    SA->>SA: Update analytics
+    FB->>SA: Invia dati di feedback
+    SA->>SA: Aggiorna analytics
 ```
 
-## Knowledge Base Management Flow
+## Flusso Gestione Knowledge Base
 
 ```mermaid
 sequenceDiagram
@@ -96,30 +96,30 @@ sequenceDiagram
     participant SR as Search Engine
     participant US as Users
 
-    AU->>KB: Create new article
-    KB->>AU: Article template
+    AU->>KB: Crea nuovo articolo
+    KB->>AU: Modello articolo
 
-    AU->>KB: Submit draft
-    KB->>RV: Send for review
-    RV->>RV: Automated checks
-    RV->>AP: Route for approval
+    AU->>KB: Invia bozza
+    KB->>RV: Invia per revisione
+    RV->>RV: Controlli automatici
+    RV->>AP: Inoltra per approvazione
 
-    AP->>AP: Approval workflow
-    AP->>PB: Approve for publishing
+    AP->>AP: Flusso di approvazione
+    AP->>PB: Approva per pubblicazione
 
-    PB->>KB: Publish article
-    KB->>SR: Update search index
-    SR->>SR: Re-index content
+    PB->>KB: Pubblica articolo
+    KB->>SR: Aggiorna indice di ricerca
+    SR->>SR: Reindicizza contenuti
 
-    US->>SR: Search knowledge
-    SR->>US: Return results
-    US->>KB: Access article
+    US->>SR: Cerca nella knowledge
+    SR->>US: Restituisce risultati
+    US->>KB: Accede all'articolo
 
-    KB->>KB: Track usage metrics
-    KB->>AU: Send usage analytics
+    KB->>KB: Traccia metriche di utilizzo
+    KB->>AU: Invia analytics di utilizzo
 ```
 
-## Virtual Assistant Interaction Flow
+## Flusso Interazione Assistente Virtuale
 
 ```mermaid
 sequenceDiagram
@@ -131,34 +131,34 @@ sequenceDiagram
     participant WF as Workflow Engine
     participant HD as Help Desk
 
-    U->>VA: Send message
-    VA->>NLP: Process text
-    NLP->>NLP: Tokenize & analyze
-    NLP-->>VA: Intent & entities
+    U->>VA: Invia messaggio
+    VA->>NLP: Elabora testo
+    NLP->>NLP: Tokenizza e analizza
+    NLP-->>VA: Intenti e entità
 
-    VA->>DM: Get next action
-    DM->>DM: Update context
-    DM-->>VA: Response strategy
+    VA->>DM: Ottieni prossima azione
+    DM->>DM: Aggiorna contesto
+    DM-->>VA: Strategia di risposta
 
-    alt Knowledge query
-        VA->>KB: Search knowledge
-        KB-->>VA: Return articles
-        VA->>U: Provide information
-    else Workflow start
-        VA->>WF: Initiate workflow
-        WF-->>VA: First step
-        VA->>U: Request information
-    else Escalation needed
-        VA->>HD: Create ticket
-        HD-->>VA: Ticket created
-        VA->>U: Confirm ticket creation
+    alt Query alla knowledge
+        VA->>KB: Cerca nella knowledge
+        KB-->>VA: Restituisce articoli
+        VA->>U: Fornisce informazioni
+    else Avvio workflow
+        VA->>WF: Inizia workflow
+        WF-->>VA: Primo passo
+        VA->>U: Richiede informazioni
+    else Necessaria escalation
+        VA->>HD: Crea ticket
+        HD-->>VA: Ticket creato
+        VA->>U: Conferma creazione ticket
     end
 
-    VA->>VA: Update conversation state
-    VA->>U: Send response
+    VA->>VA: Aggiorna stato conversazione
+    VA->>U: Invia risposta
 ```
 
-## Self-Service Portal Flow
+## Flusso Self-Service Portal
 
 ```mermaid
 sequenceDiagram
@@ -169,36 +169,36 @@ sequenceDiagram
     participant KB as Knowledge Base
     participant FB as Feedback System
 
-    U->>SP: Login to portal
-    SP->>SP: Load user preferences
-    SP->>U: Display personalized dashboard
+    U->>SP: Login al portale
+    SP->>SP: Carica preferenze utente
+    SP->>U: Mostra cruscotto personalizzato
 
-    U->>SC: Browse services
-    SC->>SC: Filter & search
-    SC-->>U: Display service catalog
+    U->>SC: Sfoglia servizi
+    SC->>SC: Filtra e cerca
+    SC-->>U: Mostra catalogo servizi
 
-    U->>SC: Select service
-    SC->>WF: Check prerequisites
-    WF-->>SC: Prerequisites met
+    U->>SC: Seleziona servizio
+    SC->>WF: Verifica prerequisiti
+    WF-->>SC: Prerequisiti soddisfatti
 
-    SC->>WF: Start guided workflow
-    WF->>U: First step form
-    U->>WF: Submit form data
+    SC->>WF: Avvia workflow guidato
+    WF->>U: Primo modulo
+    U->>WF: Invia dati modulo
 
-    loop Workflow steps
-        WF->>WF: Process step
-        WF->>U: Next step or completion
+    loop Passi del workflow
+        WF->>WF: Elabora passo
+        WF->>U: Passo successivo o completamento
     end
 
-    WF->>U: Workflow completed
-    WF->>FB: Trigger satisfaction survey
-    FB->>U: Send survey
+    WF->>U: Workflow completato
+    WF->>FB: Avvia survey di soddisfazione
+    FB->>U: Invia survey
 
-    U->>FB: Complete survey
-    FB->>SP: Update user experience
+    U->>FB: Compila survey
+    FB->>SP: Aggiorna esperienza utente
 ```
 
-## Training Platform Flow
+## Flusso Piattaforma di Formazione
 
 ```mermaid
 sequenceDiagram
@@ -210,39 +210,39 @@ sequenceDiagram
     participant AS as Assessment Engine
     participant CE as Certification Engine
 
-    U->>TP: Access training portal
-    TP->>UP: Assess user profile
-    UP->>UP: Analyze skills & preferences
-    UP-->>TP: User profile
+    U->>TP: Accedi portale formazione
+    TP->>UP: Valuta profilo utente
+    UP->>UP: Analizza competenze e preferenze
+    UP-->>TP: Profilo utente
 
-    TP->>LP: Generate learning path
-    LP->>LP: Match courses to profile
-    LP-->>TP: Recommended path
+    TP->>LP: Genera percorso di apprendimento
+    LP->>LP: Adatta corsi al profilo
+    LP-->>TP: Percorso raccomandato
 
-    U->>CM: Enroll in course
-    CM->>CM: Check prerequisites
-    CM-->>U: Enrollment confirmed
+    U->>CM: Iscriviti al corso
+    CM->>CM: Verifica prerequisiti
+    CM-->>U: Iscrizione confermata
 
-    U->>CM: Start learning module
-    CM->>CM: Track progress
-    U->>CM: Complete module
+    U->>CM: Avvia modulo formativo
+    CM->>CM: Traccia avanzamento
+    U->>CM: Completa modulo
 
-    CM->>AS: Trigger assessment
-    AS->>U: Present questions
-    U->>AS: Submit answers
+    CM->>AS: Avvia valutazione
+    AS->>U: Presenta domande
+    U->>AS: Invia risposte
 
-    AS->>AS: Grade assessment
-    AS-->>U: Results & feedback
+    AS->>AS: Valuta assessment
+    AS-->>U: Risultati e feedback
 
-    alt Assessment passed
-        CM->>CE: Issue certificate
-        CE-->>U: Digital certificate
-    else Assessment failed
-        CM->>U: Remediation path
+    alt Assessment superato
+        CM->>CE: Emissione certificato
+        CE-->>U: Certificato digitale
+    else Assessment non superato
+        CM->>U: Percorso di recupero
     end
 ```
 
-## Support Analytics Flow
+## Flusso Support Analytics
 
 ```mermaid
 sequenceDiagram
@@ -254,29 +254,29 @@ sequenceDiagram
     participant RP as Report Engine
     participant MG as Management
 
-    SY->>RA: Generate events
-    RA->>RA: Process in real-time
-    RA->>RA: Update metrics
+    SY->>RA: Genera eventi
+    RA->>RA: Elabora in real-time
+    RA->>RA: Aggiorna metriche
 
-    RA->>PA: Feed historical data
-    PA->>PA: Train models
-    PA->>PA: Generate predictions
+    RA->>PA: Invia dati storici
+    PA->>PA: Allena modelli
+    PA->>PA: Genera previsioni
 
-    DB->>BI: Request dashboard data
-    BI->>RA: Get real-time metrics
-    BI->>PA: Get predictions
-    BI-->>DB: Compiled dashboard
+    DB->>BI: Richiesta dati dashboard
+    BI->>RA: Ottieni metriche real-time
+    BI->>PA: Ottieni previsioni
+    BI-->>DB: Dashboard compilata
 
-    MG->>RP: Request report
-    RP->>BI: Gather data
-    RP->>RP: Generate report
-    RP-->>MG: Deliver report
+    MG->>RP: Richiesta report
+    RP->>BI: Raccogli dati
+    RP->>RP: Genera report
+    RP-->>MG: Consegna report
 
-    RA->>RA: Detect anomalies
-    RA->>SY: Trigger alerts
+    RA->>RA: Rileva anomalie
+    RA->>SY: Genera alert
 ```
 
-## Feedback Management Flow
+## Flusso Gestione Feedback
 
 ```mermaid
 sequenceDiagram
@@ -288,27 +288,27 @@ sequenceDiagram
     participant HD as Help Desk
     participant KB as Knowledge Base
 
-    U->>FC: Provide feedback
-    FC->>FC: Collect via multiple channels
-    FC->>SA: Send for analysis
+    U->>FC: Fornisci feedback
+    FC->>FC: Raccoglie da diversi canali
+    FC->>SA: Invia per analisi
 
-    SA->>SA: Analyze sentiment & intent
-    SA-->>FC: Analysis results
+    SA->>SA: Analizza sentiment e intenti
+    SA-->>FC: Risultati dell'analisi
 
-    FC->>FP: Process feedback
-    FP->>FP: Categorize & prioritize
-    FP->>AM: Determine actions
+    FC->>FP: Elabora feedback
+    FP->>FP: Categoria e priorità
+    FP->>AM: Determina azioni
 
-    AM->>AM: Route actions
-    AM->>HD: Create tickets (if needed)
-    AM->>KB: Update knowledge (if needed)
-    AM->>U: Send responses (if needed)
+    AM->>AM: Instrada azioni
+    AM->>HD: Crea ticket (se necessario)
+    AM->>KB: Aggiorna knowledge (se necessario)
+    AM->>U: Invia risposte (se necessario)
 
-    FP->>FP: Track action completion
-    FP->>FC: Update feedback status
+    FP->>FP: Traccia completamento azioni
+    FP->>FC: Aggiorna stato feedback
 ```
 
-## Integration Flow UC10 Components
+## Flusso di Integrazione Componenti UC10
 
 ```mermaid
 sequenceDiagram
@@ -321,25 +321,25 @@ sequenceDiagram
     participant SA as Support Analytics
     participant FB as Feedback Management
 
-    U->>SP: Access support
-    SP->>VA: Route to assistant
-    VA->>KB: Query knowledge
-    KB-->>VA: Return solutions
+    U->>SP: Accedi supporto
+    SP->>VA: Instrada all'assistente
+    VA->>KB: Interroga knowledge
+    KB-->>VA: Restituisce soluzioni
 
-    VA->>HD: Escalate if needed
-    HD->>HD: Process ticket
-    HD->>TP: Recommend training
+    VA->>HD: Escala se necessario
+    HD->>HD: Elabora ticket
+    HD->>TP: Raccomanda formazione
 
-    HD->>SA: Send metrics
-    SA->>SA: Analyze performance
+    HD->>SA: Invia metriche
+    SA->>SA: Analizza performance
 
-    HD->>FB: Collect feedback
-    FB->>FB: Process & analyze
-    FB->>KB: Update knowledge base
-    FB->>HD: Trigger improvements
+    HD->>FB: Raccoglie feedback
+    FB->>FB: Elabora e analizza
+    FB->>KB: Aggiorna knowledge base
+    FB->>HD: Attiva miglioramenti
 
-    SA->>SP: Update portal content
-    SA->>VA: Improve responses
-    SA->>HD: Optimize routing
-```</content>
+    SA->>SP: Aggiorna contenuti portale
+    SA->>VA: Migliora risposte
+    SA->>HD: Ottimizza instradamento
+```
 <parameter name="filePath">/Users/giangio/Documents/GitHub/Interzen/Interzen.POC/ZenIA/docs/use_cases/UC10 - Supporto all'Utente/02 Sequence Diagrams UC10.md

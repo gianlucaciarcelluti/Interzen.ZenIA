@@ -64,61 +64,129 @@ Process, governance, and digital transformation. Template application: ~8-10 hou
 |-------|-------|------|-------|------|
 | SP16 | Correspondence Classifier | ✅ | ❌ | ❌ |
 | SP17 | Register Suggester | ✅ | ❌ | ❌ |
+---
+
+# A1 - Categorizzazione SP per Implementazione Conformità Normativa
+
+**Progetto**: ZenIA Documentazione Fase 2 - A1 Conformità Normativa
+**Stato**: In corso
+**Creato**: 2025-11-19
+**Completamento previsto**: 2025-11-23
+
+---
+
+## Executive Summary
+
+- **Totale SP**: 71 (SP28 riservato)
+- **TIER CRITICO**: 10 SP (applicare il template per primi)
+- **TIER ALTO**: 45 SP (applicare il template secondi)
+- **TIER MEDIO**: 15 SP (applicare il template per ultimi)
+- **Sforzo stimato**: 20-25 ore totali per l'applicazione del template A1
+
+---
+
+## TIER CRITICO (10 SP) - APPLICARE PRIMI ⭐
+
+Questi SP costituiscono la base fondamentale. Applicazione template: ~10-12 ore (1-2 giorni)
+
+| # | SP ID | Titolo | UC | GDPR | eIDAS | CAD | AGID | Priorità |
+|---|-------|--------|----|-----|-------|-----|------|----------|
+| 1 | SP01 | EML Parser & Email Intelligence | UC2, UC5 | ✅ | ✅ | ✅ | ❌ | **P0** |
+| 2 | SP02 | Document Extractor & Attachment Classifier | UC1, UC5 | ✅ | ❌ | ✅ | ❌ | **P0** |
+| 3 | SP04 | Knowledge Base & Legal Context Management | UC5 | ❌ | ❌ | ✅ | ❌ | **P0** |
+| 4 | SP05 | Template Engine | UC5 | ❌ | ❌ | ✅ | ❌ | **P0** |
+| 5 | SP07 | Content Classifier | UC1, UC5 | ✅ | ❌ | ✅ | ❌ | **P0** |
+| 6 | SP12 | Semantic Search & Q&A Engine | UC1 | ✅ | ❌ | ✅ | ✅ | **P0** |
+| 7 | SP29 | Digital Signature Engine | UC6 | ❌ | ✅ | ✅ | ❌ | **P0** |
+| 8 | SP42 | Policy Engine | UC9 | ✅ | ❌ | ✅ | ❌ | **P0** |
+| 9 | SP50 | Compliance Training & Certification | UC10 | ✅ | ❌ | ✅ | ✅ | **P0** |
+| 10 | SP70 | Compliance & Audit Management | UC11 | ✅ | ❌ | ✅ | ❌ | **P0** |
+
+**Note**:
+- SP01: Complesso - gestisce le firme PEC (eIDAS + GDPR)
+- SP29: Core dello stack di firma digitale (UC6)
+- SP42, SP50, SP70: Gatekeeper della conformità (UC9-11)
+- Tutti richiedono conformità CAD
+- 7 su 10 richiedono sezioni GDPR
+- 2 su 10 richiedono sezioni eIDAS
+- 3 su 10 richiedono sezioni AGID (accessibilità)
+
+**Approccio**: Creare sezioni Conformità dettagliate con tutti i framework e checkpoint HITL
+
+---
+
+## TIER ALTO (45 SP) - APPLICARE DOPO ✓
+
+Processi, governance e trasformazione digitale. Applicazione template: ~8-10 ore per batch
+
+### UC1 - Document Management System (4 SP)
+| SP ID | Titolo | GDPR | eIDAS | AGID |
+|-------|--------|------|-------|------|
+| SP13 | Document Summarizer | ✅ | ❌ | ❌ |
+| SP14 | Metadata Indexer | ❌ | ❌ | ❌ |
+| SP15 | Document Workflow Orchestrator | ✅ | ❌ | ❌ |
+| SP11 | Security & Audit | ✅ | ❌ | ❌ |
+
+### UC2 - Digital Protocol System (4 SP)
+| SP ID | Titolo | GDPR | eIDAS | AGID |
+|-------|--------|------|-------|------|
+| SP16 | Correspondence Classifier | ✅ | ❌ | ❌ |
+| SP17 | Register Suggester | ✅ | ❌ | ❌ |
 | SP18 | Anomaly Detector | ✅ | ❌ | ❌ |
 | SP19 | Protocol Workflow Orchestrator | ✅ | ❌ | ❌ |
 
 ### UC3 - Governance System (4 SP)
-| SP ID | Title | GDPR | eIDAS | AGID |
-|-------|-------|------|-------|------|
+| SP ID | Titolo | GDPR | eIDAS | AGID |
+|-------|--------|------|-------|------|
 | SP20 | Organization Management | ✅ | ❌ | ❌ |
 | SP21 | Procedure Manager | ✅ | ❌ | ❌ |
 | SP22 | Process Governance | ❌ | ❌ | ❌ |
 | SP23 | Compliance Monitor | ✅ | ❌ | ❌ |
 
 ### UC4 - BPM & Process Automation (4 SP)
-| SP ID | Title | GDPR | eIDAS | AGID |
-|-------|-------|------|-------|------|
+| SP ID | Titolo | GDPR | eIDAS | AGID |
+|-------|--------|------|-------|------|
 | SP24 | Process Mining Engine | ✅ | ❌ | ❌ |
 | SP25 | Predictive Planning & Forecasting | ❌ | ❌ | ❌ |
 | SP26 | Intelligent Workflow Designer | ✅ | ❌ | ❌ |
 | SP27 | Process Analytics | ✅ | ❌ | ❌ |
 
-### UC5 - Integrated Document Production (5 SP)
-| SP ID | Title | GDPR | eIDAS | AGID |
-|-------|-------|------|-------|------|
+### UC5 - Produzione Documentale Integrata (5 SP)
+| SP ID | Titolo | GDPR | eIDAS | AGID |
+|-------|--------|------|-------|------|
 | SP03 | Procedural Classifier | ✅ | ❌ | ❌ |
 | SP06 | Validator | ✅ | ❌ | ❌ |
 | SP08 | Quality Checker | ✅ | ❌ | ❌ |
 | SP09 | Workflow Engine | ✅ | ❌ | ❌ |
 | SP10 | Control Dashboard | ✅ | ❌ | ✅ |
 
-### UC6 - Digital Signature System (4 SP)
-| SP ID | Title | GDPR | eIDAS | AGID |
-|-------|-------|------|-------|------|
+### UC6 - Sistema Firma Digitale (4 SP)
+| SP ID | Titolo | GDPR | eIDAS | AGID |
+|-------|--------|------|-------|------|
 | SP30 | Certificate Manager | ❌ | ✅ | ❌ |
 | SP31 | Signature Workflow | ❌ | ✅ | ❌ |
 | SP32 | Timestamp Authority & Marking | ❌ | ✅ | ❌ |
 
-### UC7 - Archive Management & Preservation (5 SP)
-| SP ID | Title | GDPR | eIDAS | AGID |
-|-------|-------|------|-------|------|
+### UC7 - Gestione Archivio & Conservazione (5 SP)
+| SP ID | Titolo | GDPR | eIDAS | AGID |
+|-------|--------|------|-------|------|
 | SP33 | Archive Manager | ✅ | ❌ | ❌ |
 | SP34 | Preservation Engine | ✅ | ❌ | ❌ |
 | SP35 | Integrity Validator | ❌ | ❌ | ❌ |
 | SP36 | Storage Optimizer | ❌ | ❌ | ❌ |
 | SP37 | Archive Metadata Manager | ✅ | ❌ | ❌ |
 
-### UC8 - SIEM Integration & Security (4 SP)
-| SP ID | Title | GDPR | eIDAS | AGID |
-|-------|-------|------|-------|------|
+### UC8 - Integrazione SIEM & Sicurezza (4 SP)
+| SP ID | Titolo | GDPR | eIDAS | AGID |
+|-------|--------|------|-------|------|
 | SP38 | SIEM Collector | ✅ | ❌ | ❌ |
 | SP39 | SIEM Processor | ✅ | ❌ | ❌ |
 | SP40 | SIEM Storage | ✅ | ❌ | ❌ |
 | SP41 | SIEM Analytics & Reporting | ✅ | ❌ | ❌ |
 
 ### UC9 - Compliance & Risk Management (8 SP)
-| SP ID | Title | GDPR | eIDAS | AGID |
-|-------|-------|------|-------|------|
+| SP ID | Titolo | GDPR | eIDAS | AGID |
+|-------|--------|------|-------|------|
 | SP43 | Risk Assessment Engine | ✅ | ❌ | ❌ |
 | SP44 | Compliance Monitoring System | ✅ | ❌ | ❌ |
 | SP45 | Regulatory Intelligence Hub | ✅ | ❌ | ❌ |
@@ -127,35 +195,35 @@ Process, governance, and digital transformation. Template application: ~8-10 hou
 | SP48 | Compliance Intelligence Platform | ✅ | ❌ | ❌ |
 | SP49 | Regulatory Change Management | ✅ | ❌ | ❌ |
 
-### UC10 - User Support (6 SP)
-| SP ID | Title | GDPR | eIDAS | AGID |
-|-------|-------|------|-------|------|
+### UC10 - Supporto Utente (6 SP)
+| SP ID | Titolo | GDPR | eIDAS | AGID |
+|-------|--------|------|-------|------|
 | SP51 | Help Desk System | ✅ | ❌ | ✅ |
 | SP52 | Knowledge Base Management | ✅ | ❌ | ✅ |
 | SP53 | Virtual Assistant & Chatbot | ✅ | ❌ | ✅ |
 | SP54 | User Training Platform | ✅ | ❌ | ✅ |
 | SP55 | Self-Service Portal | ✅ | ❌ | ✅ |
 
-**Total HIGH Tier**: 45 SP
-- GDPR required: 40/45 (89%)
-- AGID required: 6/45 (13%)
-- eIDAS required: 0/45 (0%)
+**Totale TIER ALTO**: 45 SP
+- GDPR richiesto: 40/45 (89%)
+- AGID richiesto: 6/45 (13%)
+- eIDAS richiesto: 0/45 (0%)
 
 ---
 
-## MEDIUM Tier (15 SP) - APPLY LAST ◆
+## TIER MEDIO (15 SP) - APPLICARE PER ULTIMO ◆
 
-Analytics, DevOps, and monitoring infrastructure. Template application: ~4-5 hours per batch
+Analytics, DevOps e infrastruttura di monitoraggio. Applicazione template: ~4-5 ore per batch
 
-### UC10 - User Support (2 SP)
-| SP ID | Title | GDPR | eIDAS | AGID |
-|-------|-------|------|-------|------|
+### UC10 - Supporto Utente (2 SP)
+| SP ID | Titolo | GDPR | eIDAS | AGID |
+|-------|--------|------|-------|------|
 | SP56 | Support Analytics & Reporting | ✅ | ❌ | ❌ |
 | SP57 | User Feedback Management | ✅ | ❌ | ❌ |
 
-### UC11 - Data Analysis & Reporting (13 SP)
-| SP ID | Title | GDPR | eIDAS | AGID |
-|-------|-------|------|-------|------|
+### UC11 - Analisi Dati & Reporting (13 SP)
+| SP ID | Titolo | GDPR | eIDAS | AGID |
+|-------|--------|------|-------|------|
 | SP58 | Data Lake & Storage Management | ✅ | ❌ | ❌ |
 | SP59 | ETL Pipeline & Data Processing | ✅ | ❌ | ❌ |
 | SP60 | Advanced Analytics & Machine Learning | ✅ | ❌ | ❌ |
@@ -170,101 +238,101 @@ Analytics, DevOps, and monitoring infrastructure. Template application: ~4-5 hou
 | SP69 | Disaster Recovery & Business Continuity | ✅ | ❌ | ❌ |
 | SP72 | Incident Management & Escalation | ❌ | ❌ | ❌ |
 
-**Total MEDIUM Tier**: 15 SP
-- GDPR required: 12/15 (80%)
-- AGID required: 1/15 (7%)
-- eIDAS required: 0/15 (0%)
+**Totale TIER MEDIO**: 15 SP
+- GDPR richiesto: 12/15 (80%)
+- AGID richiesto: 1/15 (7%)
+- eIDAS richiesto: 0/15 (0%)
 
 ---
 
-## Compliance Requirements Summary
+## Riepilogo Requisiti di Conformità
 
-| Framework | Total SPs | % | Critical | High | Medium |
-|-----------|-----------|---|----------|------|--------|
+| Framework | Totale SP | % | Critico | Alto | Medio |
+|-----------|-----------|---|---------|------|-------|
 | **CAD** | 71/71 | 100% | 10 | 45 | 15 |
 | **GDPR** | 62/71 | 87% | 7 | 40 | 12 |
 | **eIDAS** | 5/71 | 7% | 2 | 0 | 0 |
 | **AGID** | 11/71 | 15% | 3 | 6 | 2 |
 
-**CAD Compliance**: All 71 SPs
-**GDPR Compliance**: 62 SPs (most DMS, classification, extraction, governance, monitoring)
-**Exempt from GDPR**: SP05, SP25, SP35, SP36, SP64, SP66, SP72 (9 non-sensitive SPs)
-**eIDAS Compliance**: 5 SPs (digital signature stack + email PEC validation)
-**AGID Compliance**: 11 SPs (UI + accessibility requirements)
+**Conformità CAD**: Tutti i 71 SP
+**Conformità GDPR**: 62 SP (DMS, classificazione, estrazione, governance, monitoraggio)
+**Esenti da GDPR**: SP05, SP25, SP35, SP36, SP64, SP66, SP72 (9 SP non sensibili)
+**Conformità eIDAS**: 5 SP (stack firma digitale + validazione PEC)
+**Conformità AGID**: 11 SP (UI + requisiti di accessibilità)
 
 ---
 
-## Implementation Schedule
+## Pianificazione Implementazione
 
-### Week 1: CRITICAL Tier (10 SP)
-- **Days 1-2**: SP01, SP02, SP04, SP05 (foundation)
-- **Days 3-4**: SP07, SP12, SP29 (processing + signatures)
-- **Days 5**: SP42, SP50, SP70 (compliance)
-- **Estimated effort**: 10-12 hours
-- **Validation**: Full HITL checkpoint testing
+### Settimana 1: TIER CRITICO (10 SP)
+- **Giorni 1-2**: SP01, SP02, SP04, SP05 (fondamenta)
+- **Giorni 3-4**: SP07, SP12, SP29 (processing + firme)
+- **Giorno 5**: SP42, SP50, SP70 (compliance)
+- **Sforzo stimato**: 10-12 ore
+- **Validazione**: Checkpoint HITL completo
 
-### Week 2: HIGH Tier (45 SP)
-- **Days 6-7**: UC1-2 batch (SP03, SP06, SP08-19) = 12 SP
-- **Days 8-9**: UC3-4 batch (SP20-27) = 8 SP
-- **Days 10**: UC5-6 batch (SP30-31) = 2 SP
-- **Plus continuation...** (SP33-55 = 23 SP)
-- **Estimated effort**: 8-10 hours per day = 40 hours total
-- **Parallel validation**: Cross-reference with GLOSSARIO
+### Settimana 2: TIER ALTO (45 SP)
+- **Giorni 6-7**: Batch UC1-2 (SP03, SP06, SP08-19) = 12 SP
+- **Giorni 8-9**: Batch UC3-4 (SP20-27) = 8 SP
+- **Giorno 10**: Batch UC5-6 (SP30-31) = 2 SP
+- **Continuazione**: (SP33-55 = 23 SP)
+- **Sforzo stimato**: 8-10 ore/giorno = 40 ore totali
+- **Validazione parallela**: Cross-reference con GLOSSARIO
 
-### Week 3: MEDIUM Tier (15 SP)
-- **Days 11-12**: SP56-57 + SP58-67 (10 SP)
-- **Days 13-14**: SP68-72 (5 SP) + final validation
-- **Estimated effort**: 4-5 hours
-- **Final validation & commit**
-
----
-
-## HITL Checkpoint Strategy
-
-For each SP Conformità section, apply 1-2 key HITL checkpoints:
-
-**CRITICAL SPs**: 2-3 HITL checkpoints
-- #1: Regulatory Completeness (all frameworks)
-- #2: Compliance Review (CAD/GDPR/eIDAS/AGID)
-- #3: Approval & Monitoring (if critical compliance)
-
-**HIGH SPs**: 1-2 HITL checkpoints
-- #1: Compliance Review (CAD + relevant framework)
-- #2: Approval (if governance-critical)
-
-**MEDIUM SPs**: 1 HITL checkpoint
-- #1: Monitoring Schedule (minimal intervention)
+### Settimana 3: TIER MEDIO (15 SP)
+- **Giorni 11-12**: SP56-57 + SP58-67 (10 SP)
+- **Giorni 13-14**: SP68-72 (5 SP) + validazione finale
+- **Sforzo stimato**: 4-5 ore
+- **Validazione finale & commit**
 
 ---
 
-## Validation Checklist Before Merge
+## Strategia Checkpoint HITL
 
-For each SP, before marking as complete:
+Per ogni sezione Conformità di uno SP applicare 1-2 checkpoint HITL chiave:
 
-- [ ] Template applied (section structure matches TEMPLATE-CONFORMITA-NORMATIVA.md)
-- [ ] All applicable frameworks included (CAD, GDPR, eIDAS, AGID)
-- [ ] HITL checkpoints defined with JSON tracking examples
-- [ ] Responsibility mapping complete (RACI matrix)
-- [ ] Guardrail compliance: section < 10 KB total
-- [ ] Terminología: all terms match GLOSSARIO-TERMINOLOGICO.md
-- [ ] Cross-references: links to other SPs where applicable
-- [ ] Monitoring schedule: next review date specified
-- [ ] Git: file updated with new timestamp + version bump
+**SP CRITICI**: 2-3 checkpoint HITL
+- #1: Completezza normativa (tutti i framework)
+- #2: Revisione conformità (CAD/GDPR/eIDAS/AGID)
+- #3: Approvazione & Monitoraggio (se compliance critica)
 
----
+**SP ALTI**: 1-2 checkpoint HITL
+- #1: Revisione conformità (CAD + framework rilevanti)
+- #2: Approvazione (se governance-critico)
 
-## Success Criteria for A1
-
-- ✅ All 71 SPs have Conformità Normativa sections
-- ✅ HITL checkpoints integrated (6 main checkpoint types)
-- ✅ Guardrails enforced (no section > 10 KB)
-- ✅ Full GLOSSARIO-TERMINOLOGICO.md alignment
-- ✅ Zero broken cross-references
-- ✅ Estimated increase to 97.5-98% completeness score
-- ✅ Estimated increase to 95-96% quality score
+**SP MEDI**: 1 checkpoint HITL
+- #1: Piano di monitoraggio (intervento minimo)
 
 ---
 
-**File version**: 1.0
-**Last updated**: 2025-11-19
-**Status**: Ready for implementation
+## Checklist di Validazione Prima del Merge
+
+Per ogni SP, prima di marcarlo completo:
+
+- [ ] Template applicato (struttura sezione conforme a `TEMPLATE-CONFORMITA-NORMATIVA.md`)
+- [ ] Tutti i framework applicabili inclusi (CAD, GDPR, eIDAS, AGID)
+- [ ] Checkpoint HITL definiti con esempi di tracciamento JSON
+- [ ] Mappatura responsabilità completa (matrice RACI)
+- [ ] Guardrail: sezione < 10 KB totali
+- [ ] Terminologia: tutti i termini coincidono con `GLOSSARIO-TERMINOLOGICO.md`
+- [ ] Cross-reference: link ad altri SP dove applicabile
+- [ ] Piano di monitoraggio: data della prossima revisione specificata
+- [ ] Git: file aggiornato con timestamp + bump di versione
+
+---
+
+## Criteri di Successo per A1
+
+- ✅ Tutti i 71 SP hanno sezioni Conformità Normativa
+- ✅ Checkpoint HITL integrati (6 tipi principali di checkpoint)
+- ✅ Guardrail applicati (nessuna sezione > 10 KB)
+- ✅ Allineamento completo con `GLOSSARIO-TERMINOLOGICO.md`
+- ✅ Zero cross-reference rotti
+- ✅ Stima incremento completamento a 97.5-98%
+- ✅ Stima incremento qualità a 95-96%
+
+---
+
+**Versione file**: 1.0
+**Ultimo aggiornamento**: 2025-11-19
+**Stato**: Pronto per implementazione

@@ -1,325 +1,325 @@
-# Documentation Validation System
+# Sistema di Validazione della Documentazione
 
-## Overview
+## Panoramica
 
-The ZenIA documentation validation system is a **3-TIER quality assurance framework** that ensures documentation quality while allowing iterative improvements. Only **TIER 1 (Critical)** checks block commits/merges. **TIER 2 and TIER 3** are warnings for continuous improvement.
+Il sistema di validazione della documentazione ZenIA è un framework di assicurazione qualità a **3 LIVELLI (TIER)** che garantisce la qualità della documentazione pur permettendo miglioramenti iterativi. Solo i controlli di **TIER 1 (Critici)** bloccano commit/merge. **TIER 2 e TIER 3** generano avvisi per il miglioramento continuo.
 
-## Architecture
+## Architettura
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  LOCAL: ./scripts/run_all_checks.sh                     │
-│  (Runs all 15 validators, shows real-time feedback)     │
+│  LOCALE: ./scripts/run_all_checks.sh                    │
+│  (Esegue i 15 validator, mostra feedback in tempo reale)│
 └─────────────────────────────────────────────────────────┘
          ↓
          ↓ (git push)
          ↓
 ┌─────────────────────────────────────────────────────────┐
 │  CI/CD: .github/workflows/docs-validation.yml           │
-│  (Runs complete validation suite on each commit/PR)     │
+│  (Esegue la suite di validazione completa per ogni commit/PR)
 └─────────────────────────────────────────────────────────┘
          ↓
     ┌────┴────┐
     ↓         ↓
-  PASS    FAIL (TIER 1 only)
+  PASS    FAIL (solo TIER 1)
    │        │
    ✅       ❌
-  MERGE   MUST FIX
-  READY
+  MERGE   DEVE ESSERE CORRETTO
+  PRONTO
 ```
 
-## Validation Tiers
+## Livelli di Validazione
 
-### TIER 1: CRITICAL (Blocking) 🚫
+### TIER 1: CRITICO (Bloccante) 🚫
 
-**Status**: MUST PASS before commit/merge
+**Stato**: DEVE PASSARE prima di commit/merge
 
-5 critical checks:
+5 controlli critici:
 
-1. **SP/MS References** (`verify_sp_references.py`)
-   - Validates SP01-SP72 references are correct
-   - No invalid UC mappings
-   - Only authorized files reference reserved SP28
-   - **Failure**: Blocks commit
+1. **Riferimenti SP/MS** (`verify_sp_references.py`)
+   - Verifica che i riferimenti SP01-SP72 siano corretti
+   - Nessuna mappatura UC non valida
+   - Solo i file autorizzati possono riferirsi allo SP28 riservato
+   - **Fallimento**: Blocca il commit
 
-2. **UC Archetype** (`verify_uc_archetype.py`)
-   - All 11 UC have required files: 00-ARCHITECTURE.md, 01-OVERVIEW.md, 02-DEPENDENCIES.md, README.md
-   - Minimum 70% structure completeness
-   - **Failure**: Blocks commit (when below threshold)
+2. **Archetipo UC** (`verify_uc_archetype.py`)
+   - Tutti gli 11 UC hanno i file richiesti: `00-ARCHITECTURE.md`, `01-OVERVIEW.md`, `02-DEPENDENCIES.md`, `README.md`
+   - Completezza struttura minima 70%
+   - **Fallimento**: Blocca il commit (se sotto soglia)
 
-3. **SP Completeness** (`verify_sp_completeness.py`)
-   - All 71 SP present (SP01-SP72 excluding SP28)
-   - No missing SP
-   - No duplicate SP across UC
-   - **Failure**: Blocks commit
+3. **Completezza SP** (`verify_sp_completeness.py`)
+   - Tutti i 71 SP presenti (SP01-SP72 escl. SP28)
+   - Nessuno SP mancante
+   - Nessun SP duplicato tra UC
+   - **Fallimento**: Blocca il commit
 
-4. **Markdown Headings** (`verify_markdown_headings.py`)
-   - Proper heading hierarchy (no H1→H3 jumps)
-   - No duplicate headings
-   - **Status**: Currently warnings only (non-blocking)
+4. **Intestazioni Markdown** (`verify_markdown_headings.py`)
+   - Gerarchia intestazioni corretta (no salti H1→H3)
+   - Nessuna intestazione duplicata
+   - **Stato**: Attualmente solo avvisi (non bloccante)
 
-5. **Mermaid Diagrams** (`verify_mermaid_diagrams.py`)
-   - Valid Mermaid diagram syntax
-   - Proper node definitions
-   - **Failure**: Blocks commit
+5. **Diagrammi Mermaid** (`verify_mermaid_diagrams.py`)
+   - Sintassi Mermaid valida
+   - Definizioni nodi corrette
+   - **Fallimento**: Blocca il commit
 
-**Typical errors that block**:
-- Missing required SP files
-- Broken UC archetype
-- Invalid diagram syntax
+**Errori tipici che bloccano**:
+- File SP richiesti mancanti
+- Archetipo UC rotto
+- Sintassi diagramma non valida
 
-**View results**:
+**Visualizza risultati**:
 ```bash
 ./scripts/run_all_checks.sh
-# Look for: ✅ TIER 1 PASS
+# Cerca: ✅ TIER 1 PASS
 ```
 
-## [Auto-generated heading level 2]
-### TIER 2: CONTENT QUALITY (Warnings) ⚠️
+## [Intestazione generata automaticamente livello 2]
+### TIER 2: QUALITÀ CONTENUTI (Avvisi) ⚠️
 
-**Status**: Non-blocking, but important to address
+**Stato**: Non bloccante, ma importante da risolvere
 
-4 content quality checks:
+4 controlli di qualità dei contenuti:
 
-1. **Section Completeness** (`verify_section_completeness.py`)
-   - SP files should have: Overview, Technical Details, Use Cases, Error Handling sections
-   - **Current**: 0% complete, non-blocking warning
-   - **Effort**: High (content creation)
+1. **Completezza Sezioni** (`verify_section_completeness.py`)
+   - I file SP dovrebbero avere: Panoramica, Dettagli Tecnici, Casi d'Uso, Gestione Errori
+   - **Attuale**: 0% completo, avviso non bloccante
+   - **Sforzo**: Alto (creazione contenuti)
 
-2. **Language Coherence** (`verify_language_coherence.py`)
-   - Consistent English/Italian usage
-   - No mixing languages in critical sections
-   - **Status**: ✅ PASSING
+2. **Coerenza Linguistica** (`verify_language_coherence.py`)
+   - Uso coerente di Italiano/Inglese
+   - Nessun mix di lingue in sezioni critiche
+   - **Stato**: ✅ PASSATO
 
-3. **Payload Validation** (`verify_payload_validation.py`)
-   - JSON request/response examples are valid
-   - **Status**: ✅ PASSING
+3. **Validazione Payload** (`verify_payload_validation.py`)
+   - Esempi JSON request/response validi
+   - **Stato**: ✅ PASSATO
 
 4. **Cross-References** (`verify_cross_references.py`)
-   - Internal UC/SP references are valid
-   - Link ranges correct
-   - **Status**: Warnings (non-blocking)
+   - I riferimenti interni UC/SP sono validi
+   - Intervalli link corretti
+   - **Stato**: Avvisi (non bloccante)
 
-**Typical warnings**:
-- Missing section headers
-- Language inconsistency
-- Invalid cross-reference ranges
+**Avvisi tipici**:
+- Intestazioni di sezione mancanti
+- Incoerenza linguistica
+- Intervalli di riferimenti non validi
 
-**View results**:
+**Visualizza risultati**:
 ```bash
 cat scripts/reports/section_completeness_validation.json
 cat scripts/reports/language_coherence_validation.json
 ```
 
-### TIER 3: LINT & STYLE (Warnings) 🧹
+### TIER 3: LINT & STYLE (Avvisi) 🧹
 
-**Status**: Non-blocking style/formatting issues
+**Stato**: Problemi di stile/formattazione non bloccanti
 
-6 lint checks:
+6 controlli lint:
 
-1. **Whitespace Formatting** (`verify_whitespace_formatting.py`)
-   - No trailing spaces
-   - No tab/space mixing
-   - Lines ≤120 characters
-   - **Current**: 1978 style warnings (non-blocking)
-   - **Effort**: Very high
+1. **Formattazione Spaziatura** (`verify_whitespace_formatting.py`)
+   - Nessuno spazio finale
+   - Nessuna mescolanza tab/spazi
+   - Linee ≤120 caratteri
+   - **Attuale**: 1978 avvisi di stile (non bloccante)
+   - **Sforzo**: Molto alto
 
-2. **Orphaned Images** (`verify_orphaned_images.py`)
-   - No unused images
-   - All referenced images exist
-   - **Status**: Warnings (low priority)
+2. **Immagini Orfane** (`verify_orphaned_images.py`)
+   - Nessuna immagine non usata
+   - Tutte le immagini referenziate esistono
+   - **Stato**: Avvisi (bassa priorità)
 
-3. **Content Duplicates** (`verify_content_duplicates.py`)
-   - No identical duplicate sections
-   - Detects copy-paste issues
-   - **Status**: Warnings (may be intentional)
+3. **Duplicati Contenuto** (`verify_content_duplicates.py`)
+   - Nessuna sezione identica duplicata
+   - Individua possibili copy-paste
+   - **Stato**: Avvisi (potrebbe essere intenzionale)
 
-4. **README Metadata** (`verify_readme_metadata.py`)
-   - README files have version, date, status
-   - **Status**: ✅ PASSING
+4. **Metadati README** (`verify_readme_metadata.py`)
+   - I README includono versione, data, stato
+   - **Stato**: ✅ PASSATO
 
-5. **JSON Examples** (`verify_json_examples.py`)
-   - JSON payloads are valid
-   - **Status**: ✅ PASSING
+5. **Esempi JSON** (`verify_json_examples.py`)
+   - Payload JSON validi
+   - **Stato**: ✅ PASSATO
 
-6. **Links** (`verify_links.py`)
-   - No broken internal links
-   - All references valid
-   - **Status**: ✅ PASSING (14→0 broken links)
+6. **Link** (`verify_links.py`)
+   - Nessun link interno rotto
+   - Tutti i riferimenti validi
+   - **Stato**: ✅ PASSATO (14→0 link rotti)
 
-**Typical warnings**:
-- Lines too long (>120 chars)
-- Trailing whitespace
-- Unused images
-- Duplicate sections
+**Avvisi tipici**:
+- Linee troppo lunghe (>120 char)
+- Spaziature finali
+- Immagini non usate
+- Sezioni duplicate
 
-**View results**:
+**Visualizza risultati**:
 ```bash
 cat scripts/reports/whitespace_formatting_validation.json
 cat scripts/reports/orphaned_images_validation.json
 ```
 
-## Local Usage
+## Utilizzo Locale
 
-### Run Complete Validation
+### Eseguire la Validazione Completa
 
 ```bash
-# Run all checks (15 total)
+# Esegui tutti i controlli (15 totali)
 ./scripts/run_all_checks.sh
 
-# Output shows:
-# - TIER 1 (Critical) checks
-# - TIER 2 (Content Quality) checks
-# - TIER 3 (Lint) checks
-# - Color-coded feedback (✅ 🟡 ~)
-# - Report hints for failures
+# L'output mostra:
+# - Controlli TIER 1 (Critici)
+# - Controlli TIER 2 (Qualità Contenuti)
+# - Controlli TIER 3 (Lint)
+# - Feedback colorato (✅ 🟡 ~)
+# - Suggerimenti nei report per i fallimenti
 ```
 
-## [Auto-generated heading level 2]
-### Run Specific Validator
+## [Intestazione generata automaticamente livello 2]
+### Eseguire un Validator Specifico
 
 ```bash
-# Run only SP references validation
+# Esegui solo la validazione riferimenti SP
 python3 scripts/verify_sp_references.py
 
-# Run only links validation
+# Esegui solo la validazione link
 python3 scripts/verify_links.py
 
-# Run only section completeness
+# Esegui solo la verifica completezza sezioni
 python3 scripts/verify_section_completeness.py
 ```
 
-## [Auto-generated heading level 2]
-### View Detailed Reports
+## [Intestazione generata automaticamente livello 2]
+### Visualizzare i Report Dettagliati
 
 ```bash
-# Open validation reports (JSON format)
+# Apri i report di validazione (formato JSON)
 cat scripts/reports/sp_ms_references.json
 cat scripts/reports/uc_archetype_validation.json
 cat scripts/reports/sp_completeness_validation.json
 
-# Use jq for pretty printing
+# Usa jq per una stampa leggibile
 cat scripts/reports/sp_ms_references.json | jq
 ```
 
-## [Auto-generated heading level 2]
-### Quick Mode vs Verbose
+## [Intestazione generata automaticamente livello 2]
+### Modalità Rapida vs Verbose
 
 ```bash
-# Quick mode (only TIER 1, ~20 lines output)
+# Modalità rapida (solo TIER 1, ~20 righe output)
 ./scripts/run_all_checks.sh
 
-# Quick with all TIER 2-3 checks
+# Rapida con tutti i controlli TIER 2-3
 ./scripts/run_all_checks.sh
 
-# Verbose mode (detailed output)
+# Modalità verbose (output dettagliato)
 ./scripts/run_all_checks.sh --verbose
 ```
 
-## CI/CD Integration
+## Integrazione CI/CD
 
-### GitHub Actions Workflow
+### Workflow GitHub Actions
 
 **File**: `.github/workflows/docs-validation.yml`
 
-**Workflow Sequence** (all steps run sequentially):
+**Sequenza Workflow** (tutti i passi eseguiti sequenzialmente):
 
 ```
-1️⃣ Checkout code
+1️⃣ Checkout codice
      ↓
-2️⃣ Set up Python 3.11
+2️⃣ Setup Python 3.11
      ↓
-3️⃣ Run Complete Validation Suite (./scripts/run_all_checks.sh)
+3️⃣ Esegui la suite completa di validazione (./scripts/run_all_checks.sh)
      ↓
-4️⃣ Upload validation reports as artifacts (if any failures)
+4️⃣ Carica i report di validazione come artifacts (se ci sono fallimenti)
      ↓
-5️⃣ Display validation summary to logs
+5️⃣ Mostra il riepilogo di validazione nei log
      ↓
-6️⃣ Check TIER 1 Results (blocks if FAIL)
+6️⃣ Controlla risultati TIER 1 (blocca se FAIL)
      ↓
-7️⃣ Post PR Comment with Results (sequential after validation)
+7️⃣ Pubblica commento PR con i risultati (sequenziale dopo la validazione)
      ↓
-✅ or ❌ Workflow completes
+✅ o ❌ Workflow completo
 ```
 
-**Triggers**:
-- On push to: `main`, `razionalizzazione-sp`, `develop`
-- On PR to: `main`, `razionalizzazione-sp`
-- When docs or scripts change
+**Trigger**:
+- On push su: `main`, `razionalizzazione-sp`, `develop`
+- On PR verso: `main`, `razionalizzazione-sp`
+- Quando cambiano docs o scripts
 
-**Behavior**:
-- All steps run sequentially (not in parallel)
-- Validation completes first
-- PR comment posted AFTER validation results are available
-- Comment includes links to artifacts and debug instructions
-- Only blocks merge if TIER 1 validation FAILS
+**Comportamento**:
+- Tutti i passi vengono eseguiti in sequenza (non in parallelo)
+- La validazione completa prima dell'azione successiva
+- Il commento PR viene postato DOPO che i risultati di validazione sono disponibili
+- Il commento include link agli artifacts e istruzioni di debug
+- Blocca il merge solo se la validazione TIER 1 FALLISCE
 
-**Checking Results**:
-1. Go to Actions tab → Click validation run
-2. See real-time validation summary in logs
-3. Download "validation-reports" artifact
-4. Review JSON files for detailed errors
-5. PR comment provides direct links and instructions
+**Come controllare i risultati**:
+1. Vai alla tab Actions → Clicca sulla run di validazione
+2. Visualizza il riepilogo di validazione in tempo reale nei log
+3. Scarica l'artifact "validation-reports"
+4. Rivedi i file JSON per errori dettagliati
+5. Il commento PR fornisce link diretti e istruzioni
 
-## Decision Logic
+## Logica di Decisione
 
-### When Workflow PASSES ✅
+### Quando il Workflow PASSA ✅
 
 ```
-Validation Suite Completes
+Suite di validazione completata
      ↓
 ✅ TIER 1 PASS
      ↓
-📝 PR Comment Posted (with artifacts links)
+📝 Commento PR pubblicato (con link agli artifacts)
      ↓
-🟢 Merge Enabled
-     ├─ All critical checks successful
-     ├─ TIER 2 warnings logged (non-blocking)
-     └─ TIER 3 warnings logged (non-blocking)
+🟢 Merge abilitato
+     ├─ Tutti i controlli critici superati
+     ├─ Avvisi TIER 2 registrati (non bloccanti)
+     └─ Avvisi TIER 3 registrati (non bloccanti)
 ```
 
-### When Workflow FAILS ❌
+### Quando il Workflow FALLISCE ❌
 
 ```
-Validation Suite Completes
+Suite di validazione completata
      ↓
 ❌ TIER 1 FAIL
      ↓
-📝 PR Comment Posted (with error details)
+📝 Commento PR pubblicato (con dettagli degli errori)
      ↓
-🔴 Merge Blocked
-     ├─ One or more critical checks failed
-     ├─ PR comment shows which checks failed
-     └─ Developer must fix and re-push
+🔴 Merge bloccato
+     ├─ Uno o più controlli critici non superati
+     ├─ Il commento PR mostra quali controlli sono falliti
+     └─ Lo sviluppatore deve correggere e rifare il push
 ```
 
-### PR Comment Experience
+### Esperienza Commento PR
 
-**Automatic PR Comment Posted After Validation**:
-- Shows TIER 1 status (✅ PASS or ❌ FAIL)
-- Provides direct link to Actions tab
-- Lists artifact download instructions
-- Includes `./scripts/run_all_checks.sh` debugging tip
-- Timestamps completion for audit trail
+**Commento PR automatico pubblicato dopo la validazione**:
+- Mostra stato TIER 1 (✅ PASS o ❌ FAIL)
+- Fornisce link diretto alla tab Actions
+- Elenca istruzioni per scaricare gli artifacts
+- Include il suggerimento di debug `./scripts/run_all_checks.sh`
+- Timestamp di completamento per tracciare audit
 
-## Configuration & Customization
+## Configurazione & Personalizzazione
 
-### Adjust TIER Levels
+### Regolare i Livelli TIER
 
-Edit `.github/workflows/docs-validation.yml`:
+Modifica `.github/workflows/docs-validation.yml`:
 
 ```yaml
-# Current: Only TIER 1 blocks
-# To make TIER 2 block too, change:
+# Attuale: Solo TIER 1 blocca
+# Per rendere TIER 2 bloccante, cambiare:
 if grep -q "TIER 2 FAIL" validation_output.txt; then
   exit 1
 fi
 ```
 
-## [Auto-generated heading level 2]
-### Adjust Thresholds
+## [Intestazione generata automaticamente livello 2]
+### Regolare le Soglie
 
-Edit individual validator scripts:
+Modifica gli script validator individuali:
 
 ```python
 # verify_sp_completeness.py, line 208
@@ -328,88 +328,88 @@ if summary['errors'] == 0 and len(summary['extra_sp']) == 0:
     return 0
 ```
 
-## [Auto-generated heading level 2]
-### Add New Validators
+## [Intestazione generata automaticamente livello 2]
+### Aggiungere Nuovi Validator
 
-1. Create `scripts/verify_my_check.py`
-2. Add to `scripts/run_all_checks.sh`:
+1. Crea `scripts/verify_my_check.py`
+2. Aggiungi a `scripts/run_all_checks.sh`:
    ```bash
    run_check "🔟" "My Check Name" "verify_my_check.py"
    ```
-3. Update workflow triggers in `.github/workflows/docs-validation.yml`
+3. Aggiorna i trigger del workflow in `.github/workflows/docs-validation.yml`
 
-## Troubleshooting
+## Risoluzione dei Problemi
 
-### Validation fails locally but passes in CI?
+### La validazione fallisce localmente ma passa in CI?
 
-- Ensure Python 3.11+ installed: `python3 --version`
-- Reinstall dependencies: `pip install -r requirements.txt` (if exists)
-- Run with `--verbose`: `./scripts/run_all_checks.sh --verbose`
+- Assicurati di avere Python 3.11+: `python3 --version`
+- Reinstalla le dipendenze: `pip install -r requirements.txt` (se presente)
+- Esegui con `--verbose`: `./scripts/run_all_checks.sh --verbose`
 
-### "TIER 1 FAIL" but don't see the error?
+### "TIER 1 FAIL" ma non vedo l'errore?
 
-1. Check workflow logs: Actions tab → Select run → Logs
-2. Download validation-reports artifact
-3. Look in reports/ JSON files for specific error details
-4. Run `./scripts/run_all_checks.sh --verbose` locally
+1. Controlla i log del workflow: Actions tab → Seleziona la run → Logs
+2. Scarica l'artifact validation-reports
+3. Cerca nei file JSON dei report i dettagli degli errori
+4. Esegui `./scripts/run_all_checks.sh --verbose` localmente
 
-### My PR comment didn't appear?
+### Il mio commento PR non è apparso?
 
-- Check Actions tab for `Documentation Commenter` workflow
-- If failed, check permissions in `.github/workflows/docs-comment.yml`
-- Ensure `GITHUB_TOKEN` has `issues: write` permission
+- Controlla la tab Actions per il workflow `Documentation Commenter`
+- Se fallito, verifica i permessi in `.github/workflows/docs-comment.yml`
+- Assicurati che `GITHUB_TOKEN` abbia permessi `issues: write`
 
 ## Performance
 
-- **Local**: ~5-10 seconds (277 files, 15 validators)
-- **CI**: ~20-30 seconds (includes artifact upload)
-- **Reports**: 15 JSON files in `scripts/reports/`
-- **Artifact retention**: 30 days
+- **Locale**: ~5-10 secondi (277 file, 15 validator)
+- **CI**: ~20-30 secondi (include upload artifacts)
+- **Report**: 15 file JSON in `scripts/reports/`
+- **Ritenzione artifacts**: 30 giorni
 
-## Future Enhancements
+## Miglioramenti Futuri
 
-### Planned for Next Phase
+### Pianificato per la Fase Successiva
 
-1. **Markdown Headings**: Make blocking (fix 202 heading errors)
-2. **Section Completeness**: Add SP section templates
-3. **Whitespace**: Auto-fix script for long lines
-4. **Content Duplicates**: Identify copy-paste candidates
-5. **Metrics Dashboard**: Weekly validation metrics tracking
+1. **Intestazioni Markdown**: Renderle bloccanti (correggere 202 errori heading)
+2. **Completezza Sezioni**: Aggiungere template sezioni SP
+3. **Spaziatura**: Script di auto-fix per righe lunghe
+4. **Duplicati Contenuto**: Identificare candidati copy-paste
+5. **Dashboard Metriche**: Tracking settimanale metriche di validazione
 
-### Optional Improvements
+### Miglioramenti Opzionali
 
-- Slack notifications on TIER 1 failures
-- Automated fixes for whitespace issues
-- Machine learning for duplicate detection
-- Historical trend analysis
+- Notifiche Slack su fallimenti TIER 1
+- Fix automatici per problemi di spaziatura
+- ML per rilevamento duplicati
+- Analisi trend storici
 
-## Workflow Architecture
+## Architettura del Workflow
 
-### Single Consolidated Workflow Design
+### Design Workflow Unificato
 
-The system uses **one unified workflow** (`docs-validation.yml`) that handles both validation and PR commenting sequentially:
+Il sistema utilizza **un unico workflow** (`docs-validation.yml`) che gestisce sia la validazione che il commento PR in modo sequenziale:
 
-**Key Design Decisions**:
-- ✅ **Single Source of Truth**: One workflow file manages all validation logic
-- ✅ **Sequential Execution**: All steps run in order (no parallel race conditions)
-- ✅ **Reliable PR Commenting**: Comment posted after validation completes with accurate data
-- ✅ **Artifact Management**: Reports uploaded before comment posting ensures links work
-- ✅ **Clear Feedback**: Developers see validation results in PR comments immediately
+**Decisioni di Progetto Chiave**:
+- ✅ **Single Source of Truth**: Un file workflow gestisce tutta la logica di validazione
+- ✅ **Esecuzione Sequenziale**: Tutti i passi eseguiti in ordine (nessuna race condition)
+- ✅ **Commento PR Affidabile**: Commento pubblicato dopo la validazione con dati accurati
+- ✅ **Gestione Artifacts**: I report sono caricati prima del posting del commento per assicurare link funzionanti
+- ✅ **Feedback Chiaro**: Gli sviluppatori vedono i risultati di validazione direttamente nel commento PR
 
-**Previous vs. Current**:
-- ❌ **Before**: Separate workflows (`docs-validation.yml` + `docs-comment.yml`) could race
-- ❌ **Before**: Comment might post before validation finished
-- ✅ **Now**: Single workflow ensures sequential, reliable execution
+**Prima vs Ora**:
+- ❌ **Prima**: Workflow separati (`docs-validation.yml` + `docs-comment.yml`) potevano creare race
+- ❌ **Prima**: Il commento poteva essere postato prima che la validazione fosse completa
+- ✅ **Ora**: Workflow unificato garantisce esecuzione sequenziale e affidabile
 
-## References
+## Riferimenti
 
-- [Validation Scripts](../scripts/)
-- [UC Archetype Specification](./DOCUMENTATION-STRUCTURE-GUIDE.md)
-- [SP Mapping](./ARCHITECTURE-OVERVIEW.md)
-- [GitHub Actions Workflows](../.github/workflows/)
+- [Script di Validazione](../scripts/)
+- [Spec Archetipo UC](./DOCUMENTATION-STRUCTURE-GUIDE.md)
+- [Mappatura SP](./ARCHITECTURE-OVERVIEW.md)
+- [Workflows GitHub Actions](../.github/workflows/)
 
 ---
 
-**Last Updated**: 2025-11-20
-**Status**: Production Ready ✅
+**Ultimo Aggiornamento**: 2025-11-20
+**Stato**: Production Ready ✅
 **TIER 1 Pass Rate**: 100%
