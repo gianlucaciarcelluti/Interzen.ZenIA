@@ -39,17 +39,24 @@ RESERVED_SP = {28}  # SP28: Reserved, accettato solo in SP28-RESERVED.md
 # File di documentazione che possono referenziare SP speciali
 DOCUMENTATION_FILES = {
     'PIANO-REFACTORING-DOCUMENTAZIONE.md',  # Documenta uso futuro SP28
+    'PIANO-AZIONE-AGGIORNATO-NOVEMBRE-2025.md',  # Piano azioni con riferimenti a SP28
+    'UC-RENAMING-STRATEGY.md',  # Strategia ridenominazione con mappatura SP28
+    'UC-RENAMING-COMPLETION.md',  # Completamento ridenominazione con riferimenti a SP28
     'VALIDATION-CHECKLIST.md',  # Documenta gap SP00 risolto
     'GAP-RESOLUTION.md',  # Documenta gap storage
     'QUICK-REFERENCE-ARCHITECTURE.md',  # Panoramica architettura
     'SP-MS-MAPPING-MASTER.md',  # Master mapping per SP28 reserved
     'ARCHITECTURE-OVERVIEW.md',  # Overview architettura
     'GLOSSARIO.md',  # Glossario terminologico con riferimenti storici SP00
+    'CURRENT-PROGRESS-SUMMARY.md',  # Riepilogo progressi con riferimenti a SP28
     'CANONICAL',  # Canonical docs che referenziano file deprecated
     '01 CANONICAL',  # Canonical diagrams che referenziano deprecated
     'SUPPLEMENTARY',  # Supplementary docs che referenziano deprecated
     '00 SP28-RESERVED.md',  # File che documenta SP28 reserved
     'SP28-RESERVED',  # File che documenta SP28 reserved
+    'RESERVED-SP28.md',  # File di riserva per SP28 in UC4
+    'A1-SP-CATEGORIZATION.md',  # Categorizzazione SP con riferimenti a SP28
+    'use_cases/README.md',  # README use cases con riferimenti a SP28 reserved
 }
 
 

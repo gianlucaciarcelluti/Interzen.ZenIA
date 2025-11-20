@@ -190,7 +190,7 @@ ecf9ed1 docs: Aggiunta strategia ridenominazione UC e script test pilota
 
 ## Questioni Conosciute e Note
 
-1. **Duplicazione SP**: Alcuni numeri SP appaiono in UC multipli (SP01, SP02, SP07 in UC2+UC5; SP12 in UC1+UC12)
+1. **Duplicazione SP**: Alcuni numeri SP appaiono in UC multipli (SP01, SP02, SP07 in UC2+UC5; SP12 in UC1)
    - **Stato**: Identificato, necessita investigazione e possibile reorganizzazione
    - **Impatto**: Basso — non influisce lavoro ridenominazione corrente
 
