@@ -10,7 +10,7 @@
 ## EXECUTIVE SUMMARY
 
 La documentazione di ZenIA rappresenta un esempio di **eccellenza documentale** per sistemi AI complessi in ambito PA italiana. Con un score di **97.2%**, la documentazione è:
-
+```
 ✅ **Completa**: 278 file markdown, 71/72 subprogetti, 16 microservizi, 11 use case
 ✅ **Coerente**: Standardizzazione strutturale 100%, naming conventions uniformi
 ✅ **Conforme**: CAD 100%, GDPR 87%, eIDAS 100%, AI Act 100%, L.241/1990 100%
@@ -22,6 +22,7 @@ La documentazione di ZenIA rappresenta un esempio di **eccellenza documentale** 
 - After Phase 1: 97.5%
 - After Phase 2 A1: 98.5%
 - **Current (Post-Comprehensive Review): 97.2% Quality Score**
+```
 
 ---
 
