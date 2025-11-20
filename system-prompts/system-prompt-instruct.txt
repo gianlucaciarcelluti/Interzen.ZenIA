@@ -9,3 +9,16 @@ Verifica che ogni SP (sottoprogetto) sia correttamente riferito e non ci siano c
 Crea un piano di refactoring per aggiornare e sistemare la documentazione in maniera incrementale.
 Se il piano è già implementato verifica il doc VALUTAZIONE-QUALITA-DOCUMENTAZIONE
  e riparti da dove ci siamo interrotti.
+
+ ZenShareUp
+ analizza la cartella docs/dto: contiene tutti i DTO contenuti nella libreria comune linkata dai microservizi di ZenShareUp.
+I microservizi sono i seguenti:
+1) ZenAdmin -> Gestisce tutte le informazioni amministrative della Suite (utenti, Gruppi, Ruoli, Corrispondenti etc.)
+2) ZenDocuments -> Gestisce tutte le informazioni relative ai documenti, metadati, fascicoli e permessi
+3) ZenMailroom -> Gestisce tutte le comunicazioni con le caselle email per spedire e riceve email trasformandole in documenti da inviare a ZenDocuments e eventualmente Protocollando automaticamente verso ZenProtocollo
+4) ZenMaster -> Gestisce tutte le informazioni relative ai tenants, licenze etc...
+5) ZenProcess -> Gestisce tutte le informazioni relative ai workflow con relativi webform tramite il motore Flowable
+6) ZenProtocollo -> Gestisce tutte le informazioni relative ai protocolli e ai repertori
+7) ZenScheduler -> Gestisce tutte le attività pianificate che eseguono chiamate ripetute a processi elaborativi di tutti i microservizi
+8) ZenSuap -> Gestisce la comunicazione con i sistemi di Backoffice degli sportelli unici delle attività produttive
+
