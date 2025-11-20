@@ -808,7 +808,7 @@ graph TB
     ZenDocs["📄 ZenDocuments"]
     Keycloak["🔐 Keycloak"]
 
-    ZenProt -->|REST API Call<br/>GET /documents/{id}| ZenDocs
+    ZenProt -->|REST API Call<br/>GET /documents/id| ZenDocs
     ZenDocs -->|JWT Validation| Keycloak
     Keycloak -->|Token Valid| ZenDocs
     ZenDocs -->|Return DocumentDTO<br/>with metadata| ZenProt
