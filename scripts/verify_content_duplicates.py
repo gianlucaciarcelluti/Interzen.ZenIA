@@ -178,12 +178,26 @@ class DuplicateValidator:
         print(f"  Sezioni duplicate: {summary['duplicate_sections']}")
         print(f"  ⚠️  Warnings: {summary['total_warnings']}\n")
 
+        # Mostra file con duplicati in dettaglio
+        if report["details"]:
+            print("📄 FILE CON DUPLICATI:\n")
+            for i, detail in enumerate(report["details"][:20], 1):
+                print(f"{i}. {detail['file']}")
+                for error in detail["errors"][:3]:
+                    print(f"   └─ {error}")
+                if len(detail["errors"]) > 3:
+                    print(f"   └─ ... e altri {len(detail['errors']) - 3} errori")
+                print()
+            if len(report["details"]) > 20:
+                print(f"... e altri {len(report['details']) - 20} file con duplicati")
+            print()
+
         if report["warnings"]:
-            print("⚠️  DUPLICATI TROVATI (primi 10):")
-            for warning in report["warnings"][:10]:
+            print("⚠️  RIEPILOGO DUPLICATI (primi 15):")
+            for warning in report["warnings"][:15]:
                 print(f"  • {warning}")
-            if len(report["warnings"]) > 10:
-                print(f"  ... e altri {len(report['warnings']) - 10} duplicati")
+            if len(report["warnings"]) > 15:
+                print(f"  ... e altri {len(report['warnings']) - 15} duplicati")
 
         # Valutazione
         print("\n" + "="*70)
