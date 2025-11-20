@@ -70,11 +70,15 @@ class ImageValidator:
         image_refs = self.extract_image_references(content)
 
         for img_ref in image_refs:
+            # Escludi URL esterni (HTTP/HTTPS) - sono validi e non "orfani"
+            if img_ref.startswith('http://') or img_ref.startswith('https://'):
+                continue
+
             self.referenced_images.add(img_ref)
 
-            # Controlla path assoluto (bad practice)
-            if img_ref.startswith('/') or img_ref.startswith('http'):
-                file_errors.append(f"Immagine con path assoluto/esterno: {img_ref}")
+            # Controlla path assoluto interno (bad practice)
+            if img_ref.startswith('/'):
+                file_errors.append(f"Immagine con path assoluto (usa relativi): {img_ref}")
                 continue
 
             # Risolvi path relativo
