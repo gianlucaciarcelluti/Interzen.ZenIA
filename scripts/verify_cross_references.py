@@ -56,7 +56,7 @@ class CrossReferenceValidator:
     def extract_sp_number(self, text: str) -> str:
         """Estrai numero SP da testo."""
         match = re.search(r'SP(\d{2,3})', text, re.IGNORECASE)
-        return f"SP{match.group(1):02d}" if match else None
+        return f"SP{int(match.group(1)):02d}" if match else None
 
     def validate_file(self, file_path: Path) -> Dict:
         """Valida file."""
@@ -96,10 +96,14 @@ class CrossReferenceValidator:
                 if ref_sp:
                     self.references[file_rel].append((ref_type, ref_sp))
 
-                    # Valida che SP sia valido (SP01-SP72 escluso SP28)
+                    # Valida che SP sia valido (SP01-SP72)
+                    # SP28 è riservato ma documentato in docs/use_cases/README.md
                     sp_num = int(re.search(r'\d+', ref_sp).group(0))
-                    if not ((1 <= sp_num <= 72) and sp_num != 28):
+                    if not (1 <= sp_num <= 72):
                         file_errors.append(f"Line {line_num}: Riferimento SP non valido: {ref_sp}")
+                    # SP28 è consentito solo nella documentazione root
+                    elif sp_num == 28 and "use_cases/README" not in file_rel and "SP28-RESERVED" not in file_rel:
+                        file_errors.append(f"Line {line_num}: SP28 è riservato, riferimento non autorizzato")
 
         self.errors.extend(file_errors)
         self.files_checked += 1
@@ -108,7 +112,7 @@ class CrossReferenceValidator:
             "file": file_rel,
             "current_uc": current_uc,
             "current_sp": current_sp,
-            "references": [(t, ref) for t, ref in references],
+            "references": [(line, t, ref) for line, t, ref in references],
             "valid": len(file_errors) == 0,
             "errors": file_errors,
         }
