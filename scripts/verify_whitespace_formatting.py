@@ -21,12 +21,12 @@ REPORTS_DIR = Path(__file__).parent / "reports"
 REPORTS_DIR.mkdir(exist_ok=True)
 
 # Thresholds
-# Increased to 1100 to accommodate long descriptions, embedded JSON payloads, Mermaid, URLs
+# Increased to 500 to accommodate long descriptions, embedded JSON payloads, Mermaid, URLs
 # Original 120 was too strict for technical documentation with inline code/diagrams
-# Only flag egregiously long lines (>1100 chars) which indicate real formatting issues
-# Most markdown lines stay well under 1100 chars; this avoids false positives entirely
+# Only flag egregiously long lines (>500 chars) which indicate real formatting issues
+# Most markdown lines stay well under 500 chars; this avoids false positives entirely
 # MAX_CONSECUTIVE_BLANKS increased to 3 for legitimate documentation section spacing
-MAX_LINE_LENGTH = 1100
+MAX_LINE_LENGTH = 500
 MAX_CONSECUTIVE_BLANKS = 3
 
 class WhitespaceValidator:
@@ -63,8 +63,15 @@ class WhitespaceValidator:
         if tabs_lines and spaces_lines:
             file_issues.append(f"Mix tab e spaces: tabs at lines {tabs_lines[:3]}, spaces at {spaces_lines[:3]}")
 
-        # 3. Controlla lunghezza riga
-        long_lines = [(i, len(line)) for i, line in enumerate(lines, 1) if len(line) > MAX_LINE_LENGTH]
+        # 3. Controlla lunghezza riga (esclude linee JSON con chiavi)
+        long_lines = []
+        for i, line in enumerate(lines, 1):
+            if len(line) > MAX_LINE_LENGTH:
+                # Esclude linee che contengono chiavi JSON (es: "testo": "...", "content": "...")
+                # Pattern: "chiave": "..." o "chiave": {...}
+                if not any(f'"{key}":' in line for key in ['testo', 'content', 'descrizione', 'title', 'description', 'body', 'text', 'data']):
+                    long_lines.append((i, len(line)))
+
         if long_lines:
             for line_num, length in long_lines[:5]:
                 file_issues.append(f"Line {line_num}: Troppo lunga ({length} > {MAX_LINE_LENGTH})")
