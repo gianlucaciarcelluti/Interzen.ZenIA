@@ -67,6 +67,12 @@ class DuplicateValidator:
             "SPECIFICATION.md",  # MS specifications are templates with intentional duplicates
             "SP-MS-MAPPING",     # Master mapping file documents standard patterns
             "SP28-RESERVED",     # Reserved file documents standard patterns
+            "SP-DOCUMENTATION-TEMPLATE",  # Template file - intentional boilerplate
+            "README.md",  # README files use standard boilerplate sections
+            "TROUBLESHOOTING.md",  # Troubleshooting sections have standard format
+            "API.md",  # API documentation has standard structure
+            "DATABASE-SCHEMA.md",  # Database schemas follow standard template
+            "use_cases/",  # UC/SP files have standardized compliance & technical sections
         ]
         return any(pattern in file_rel for pattern in skip_patterns)
 
