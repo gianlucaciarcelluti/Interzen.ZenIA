@@ -1,5 +1,55 @@
 # SP10 - Dashboard
 
+## Diagrammi Architetturali
+
+### Flowchart — Architettura Data Flow Dashboard
+
+```mermaid
+flowchart TD
+    A["📊 Workflow Events<br/>da SP09 Workflow Engine"] --> B["⚡ Cache Layer<br/>Redis: Store state TTL: 30 min"]
+    B --> C["💾 Real-Time Updates<br/>WebSocket push to UI"]
+    C --> D["🖥️ Frontend Dashboard<br/>React/Vue Components"]
+    D --> E["📈 Visualization Layers"]
+    E --> F["🔍 Detail View<br/>Fase-specific metrics"]
+    F --> G["📊 Analytics Aggregation<br/>Historical KPI computation"]
+    G --> H["📚 Historical Storage<br/>PostgreSQL: Metriche archiviate"]
+    A --> I["📡 NiFi Provenance Events<br/>da NIFI_PROV"]
+    I --> J["🔗 Audit Trail Extraction<br/>Tracciamento completo"]
+    J --> K["📋 Lineage Visualization<br/>Data Flow Diagram"]
+    K --> D
+    H --> L["📊 KPI Dashboard<br/>Trend, Statistics, Performance"]
+    L --> D
+    D --> M["👁️ User Interaction<br/>Drill-down, Filtering, Export"]
+    M --> N["✔️ Dashboard Complete"]
+```
+
+### State Diagram — Ciclo Vita Dashboard State Management
+
+```mermaid
+stateDiagram-v2
+    [*] --> Initialized: App Started
+    Initialized --> Idle: Waiting for Events
+    Idle --> EventReceived: Workflow Event from WF
+    EventReceived --> CacheUpdate: Update Redis Cache
+    CacheUpdate --> UIUpdate: Push Update to Frontend
+    UIUpdate --> StateRefresh: Dashboard State Refreshed
+    StateRefresh --> DetailView: User Clicks on Detail
+    DetailView --> QueryDB: Query Historical Data
+    QueryDB --> DetailRendered: Display Detail View
+    DetailRendered --> BackToSummary: Back to Summary
+    BackToSummary --> StateRefresh
+    StateRefresh --> AnalyticsCompute: Compute KPI Aggregates
+    AnalyticsCompute --> KPIDashboard: Display KPI Dashboard
+    KPIDashboard --> ExportData: User Exports Data
+    ExportData --> FileGeneration: Generate CSV/PDF
+    FileGeneration --> Download: Download Complete
+    Download --> Idle
+    EventReceived --> CacheHit: Event in Cache already
+    CacheHit --> DeduplicateEvent: Skip Duplicate
+    DeduplicateEvent --> Idle
+    Idle --> [*]
+```
+
 ## Visualizzazione Real-Time e Analytics
 
 Questo diagramma mostra tutte le interazioni del **Dashboard (SP10)** per la visualizzazione e monitoraggio dei workflow.

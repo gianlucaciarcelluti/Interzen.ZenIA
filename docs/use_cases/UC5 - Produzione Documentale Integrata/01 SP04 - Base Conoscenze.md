@@ -1,5 +1,43 @@
 # SP04 - Knowledge Base
 
+## Diagrammi Architetturali
+
+### Flowchart — Architettura e Flusso Recupero Normativa
+
+```mermaid
+flowchart TD
+    A["🔎 Richiesta Contesto<br/>doc_type + subject_matter"] --> B["⚡ Check Cache Redis<br/>L1 Retrieval"]
+    B -->|Cache Hit| C["✅ Return Cached<br/>TTL: 24h"]
+    B -->|Cache Miss| D["🔍 FAISS Search<br/>Semantic Search su 100k embeddings"]
+    D --> E["📊 Ranking Risultati<br/>Top-5 docs con similarity > 0.75"]
+    E --> F["🕸️ Neo4j Graph Traversal<br/>Relazioni normative: modifica, rimanda, abroga"]
+    F --> G["📚 Groq RAG Synthesis<br/>Mixtral-8x7B: Sintesi contestualizzata"]
+    G --> H["🔗 Citation Tracking<br/>Tracciamento tutte le fonti"]
+    H --> I["💾 Store in Cache<br/>Redis TTL: 24h"]
+    I --> J["📤 Return Legal Context<br/>Normativa + Precedenti + RAG Synthesis"]
+    C --> K["✔️ Fine"]
+    J --> K
+```
+
+### State Diagram — Ciclo Vita Recupero Normativa
+
+```mermaid
+stateDiagram-v2
+    [*] --> RequestReceived: Query Knowledge Base
+    RequestReceived --> CacheCheck: Verifica Cache
+    CacheCheck --> CacheHit: Found in Redis
+    CacheCheck --> CacheMiss: Not in Cache
+    CacheHit --> Returned: Return Cached
+    CacheMiss --> SemanticSearch: FAISS Semantic Search
+    SemanticSearch --> GraphTraversal: Neo4j Graph Navigation
+    GraphTraversal --> RAGSynthesis: Groq RAG Synthesis
+    RAGSynthesis --> CitationTracking: Track Citations
+    CitationTracking --> CacheStore: Store in Redis Cache
+    CacheStore --> Complete: Legal Context Ready
+    Returned --> Complete
+    Complete --> [*]
+```
+
 ## Recupero Normativa e Contesto Giuridico
 
 Questo diagramma mostra tutte le interazioni della **Knowledge Base (SP04)** nel processo di generazione degli atti amministrativi.

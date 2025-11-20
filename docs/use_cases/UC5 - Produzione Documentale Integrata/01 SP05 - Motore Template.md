@@ -1,5 +1,52 @@
 # SP05 - Template Engine
 
+## Diagrammi Architetturali
+
+### Flowchart — Pipeline Generazione Template
+
+```mermaid
+flowchart TD
+    A["📋 Richiesta Generazione<br/>doc_type + metadata + legal_context"] --> B["⚡ Check Template Cache<br/>Redis: base template + AI results"]
+    B -->|Cache Hit| C["✅ Return Cached<br/>TTL: 7 giorni"]
+    B -->|Cache Miss| D["🗂️ Load Jinja2 Base Template<br/>da PostgreSQL per tipo documento"]
+    D --> E["🤖 GPT-4/Claude Inference<br/>Prompt Engineering + Injection Metadata"]
+    E --> F["🔗 LangChain Orchestration<br/>Multi-step generation workflow"]
+    F --> G["📄 Jinja2 Template Compilation<br/>Substitute variabili con dati strutturati"]
+    G --> H["✍️ Firma Digitale Integration<br/>Carica template firma da MinIO"]
+    H --> I["📝 Post-Processing<br/>Validation e Formatting"]
+    I --> J["💾 Cache Result<br/>Redis TTL: 7 giorni"]
+    J --> K["📤 Return Document Draft<br/>XML/HTML + Generation Metadata"]
+    C --> L["✔️ Fine"]
+    K --> L
+```
+
+### State Diagram — Ciclo Vita Generazione Template
+
+```mermaid
+stateDiagram-v2
+    [*] --> TemplateRequested: Richiesta Generazione
+    TemplateRequested --> CacheCheck: Verifica Cache
+    CacheCheck --> CacheHit: Template in Cache
+    CacheCheck --> CacheMiss: Cache Miss
+    CacheHit --> Returned: Return Cached
+    CacheMiss --> LoadTemplate: Load Base Template
+    LoadTemplate --> PromptEngineering: Prompt Optimization
+    PromptEngineering --> LLMGeneration: LLM Inference
+    LLMGeneration --> LangChainOrch: LangChain Processing
+    LangChainOrch --> Compilation: Jinja2 Compilation
+    Compilation --> Validation: Post-Processing
+    Validation --> CacheStore: Store in Redis
+    CacheStore --> Generated: Template Generated
+    Returned --> Quality: Quality Check
+    Generated --> Quality
+    Quality --> QualityOK: Quality > Threshold
+    Quality --> NeedsRefinement: Quality < Threshold
+    NeedsRefinement --> Refinement: LLM Refinement
+    Refinement --> Validation
+    QualityOK --> Complete: Draft Completo
+    Complete --> [*]
+```
+
 ## Generazione Template con AI
 
 Questo diagramma mostra tutte le interazioni del **Template Engine (SP05)** nel processo di generazione degli atti amministrativi.

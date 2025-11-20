@@ -1,4 +1,45 @@
-# SP03 - Classificatore Procedurale: Sequence Diagram
+# SP03 - Classificatore Procedurale
+
+## Diagrammi Architetturali
+
+### Flowchart — Pipeline Classificazione Procedimento
+
+```mermaid
+flowchart TD
+    A["📄 Istanza Ricevuta<br/>Metadati + Allegati"] --> B["🔍 Parsing Istanza<br/>Estrazione Testo e Metadati"]
+    B --> C["🏷️ Named Entity Recognition<br/>Oggetto, Richiedente, Riferimenti Normativi"]
+    C --> D["📊 DistilBERT Inference<br/>Analisi Semantica Procedimento"]
+    D --> E["🗂️ Query Knowledge Base<br/>SP04: Recupero Procedimenti Simili"]
+    E --> F["🎯 Ranking Candidati<br/>Confidence Scoring e Sorting"]
+    F --> G{Confidence > 80%?}
+    G -->|Sì| H["✅ Procedimento Identificato"]
+    G -->|No| I["⚠️ Bassa Confidenza<br/>Richiesta Review Umano"]
+    H --> J["📋 Determina Tipo Provvedimento<br/>Mapping Procedimento → Provvedimento"]
+    I --> J
+    J --> K["📝 Estrazione Metadata Obbligatori<br/>Check Completezza Documentale"]
+    K --> L["💾 Cache Result<br/>TTL: 2 ore"]
+    L --> M["📤 Output Classificazione<br/>Confidence, Normativa, Provvedimento"]
+    M --> N["✔️ Fine"]
+```
+
+### State Diagram — Ciclo Vita Classificazione Procedurale
+
+```mermaid
+stateDiagram-v2
+    [*] --> Created: Istanza Ricevuta
+    Created --> Parsing: Avvio Parsing
+    Parsing --> Analyzed: Analisi Completata
+    Analyzed --> Classified: Classificazione Eseguita
+    Classified --> ConfidenceCheck: Verifica Confidence
+    ConfidenceCheck --> Confirmed: Confidence > 80%
+    ConfidenceCheck --> PendingReview: Confidence < 80%
+    Confirmed --> ProvedimentoMapped: Provvedimento Determinato
+    PendingReview --> ManualReview: Review Operatore
+    ManualReview --> ProvedimentoMapped
+    ProvedimentoMapped --> MetadataValidation: Validazione Metadata
+    MetadataValidation --> Complete: Classificazione Completata
+    Complete --> [*]
+```
 
 ## Classificazione Iniziale del Procedimento Amministrativo
 

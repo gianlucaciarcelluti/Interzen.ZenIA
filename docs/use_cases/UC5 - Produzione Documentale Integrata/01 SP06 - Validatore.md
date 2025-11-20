@@ -1,5 +1,54 @@
 # SP06 - Validatore
 
+## Diagrammi Architetturali
+
+### Flowchart — Pipeline Validazione Documento
+
+```mermaid
+flowchart TD
+    A["📋 Documento Draft<br/>da SP05 Template Engine"] --> B["🔍 BERT Semantic Analysis<br/>Coerenza interna e semantica"]
+    B --> C["✔️ Rule Engine Validation<br/>Drools: validazioni strutturali"]
+    C --> D["🏛️ Knowledge Base Check<br/>SP04: Verifica conformità normativa"]
+    D --> E["🔗 Cross-Reference Validation<br/>Riferimenti normativi e articoli"]
+    E --> F["📊 Aggregazione Errori<br/>per Severità: CRITICO, WARNING, INFO"]
+    F --> G{Errori Critici?}
+    G -->|Sì| H["❌ Validazione Fallita"]
+    G -->|No| I{Warning presenti?}
+    I -->|Sì| J["⚠️ Validazione con Avvertimenti"]
+    I -->|No| K["✅ Validazione Completata"]
+    H --> L["📝 Report Dettagliato<br/>Suggerimenti di correzione"]
+    J --> L
+    K --> L
+    L --> M["📤 Output Validation<br/>Status + Issues + Suggestions"]
+    M --> N["✔️ Fine"]
+```
+
+### State Diagram — Ciclo Vita Validazione
+
+```mermaid
+stateDiagram-v2
+    [*] --> Received: Documento Ricevuto
+    Received --> SemanticAnalysis: Avvio Analisi Semantica
+    SemanticAnalysis --> RuleEngine: Esecuzione Regole
+    RuleEngine --> KBCheck: Verifica KB
+    KBCheck --> CrossReference: Cross-Reference Validation
+    CrossReference --> AggregationErrors: Aggregazione Errori
+    AggregationErrors --> ErrorCheck: Controllo Errori Critici
+    ErrorCheck --> CriticalErrors: Errori Critici Trovati
+    ErrorCheck --> NoErrors: Nessun Errore Critico
+    CriticalErrors --> Failed: Validazione Fallita
+    NoErrors --> WarningCheck: Controllo Warning
+    WarningCheck --> HasWarnings: Warning Presenti
+    WarningCheck --> NoWarnings: Nessun Warning
+    HasWarnings --> WarningStatus: Validazione con Warning
+    NoWarnings --> Success: Validazione Completata
+    Failed --> Report: Generazione Report
+    WarningStatus --> Report
+    Success --> Report
+    Report --> Complete: Pronto per Successione
+    Complete --> [*]
+```
+
 ## Validazione Semantica e Conformità
 
 Questo diagramma mostra tutte le interazioni del **Validator (SP06)** nel processo di validazione degli atti amministrativi.

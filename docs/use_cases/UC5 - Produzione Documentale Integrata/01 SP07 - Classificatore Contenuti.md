@@ -1,5 +1,46 @@
 # SP07 - Content Classifier
 
+## Diagrammi Architetturali
+
+### Flowchart — Pipeline Classificazione Contenuto
+
+```mermaid
+flowchart TD
+    A["📄 Metadata + Context<br/>da Workflow Engine"] --> B["⚡ Check Cache Redis<br/>L1: Cached Classification"]
+    B -->|Cache Hit| C["✅ Return Cached<br/>TTL: 1 ora"]
+    B -->|Cache Miss| D["🤖 DistilBERT Inference<br/>Feature Extraction + Embeddings"]
+    D --> E["🏷️ Named Entity Recognition<br/>Estrazione entità: Persone, Enti, Date"]
+    E --> F["📊 Document Type Classification<br/>DELIBERA, DETERMINA, ORDINANZA, etc."]
+    F --> G["📂 Category Detection<br/>URBANISTICA, BILANCIO, AMBIENTE, etc."]
+    G --> H["🗂️ Knowledge Base Query<br/>SP04: Recupero documenti simili"]
+    H --> I["⚖️ Similarity Scoring<br/>Ranking candidati per rilevanza"]
+    I --> J["💾 Cache Result<br/>Redis TTL: 1 ora"]
+    J --> K["📤 Output Classification<br/>doc_type + category + confidence + metadata"]
+    C --> L["✔️ Fine"]
+    K --> L
+```
+
+### State Diagram — Ciclo Vita Classificazione Contenuto
+
+```mermaid
+stateDiagram-v2
+    [*] --> InputReceived: Metadati Ricevuti
+    InputReceived --> CacheCheck: Verifica Cache
+    CacheCheck --> CacheHit: Found in Cache
+    CacheCheck --> CacheMiss: Not in Cache
+    CacheHit --> Returned: Return Cached Result
+    CacheMiss --> Embedding: Feature Extraction
+    Embedding --> NER: Named Entity Recognition
+    NER --> DocType: Document Type Classification
+    DocType --> Category: Category Detection
+    Category --> KBQuery: Knowledge Base Query
+    KBQuery --> Scoring: Similarity Scoring
+    Scoring --> Cache: Store in Redis
+    Cache --> Complete: Classification Complete
+    Returned --> Complete
+    Complete --> [*]
+```
+
 ## Classificazione e Analisi Contesto
 
 Questo diagramma mostra tutte le interazioni del **Content Classifier (SP07)** nel processo di classificazione degli atti amministrativi.

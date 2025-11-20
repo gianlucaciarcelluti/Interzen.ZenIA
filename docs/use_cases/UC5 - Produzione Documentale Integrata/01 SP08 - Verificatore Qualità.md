@@ -1,5 +1,52 @@
 # SP08 - Quality Checker
 
+## Diagrammi Architetturali
+
+### Flowchart — Pipeline Verifica Qualità
+
+```mermaid
+flowchart TD
+    A["📋 Documento Validato<br/>da SP06 Validator"] --> B["🔤 LanguageTool Check<br/>Grammatica e Ortografia"]
+    B --> C["📝 spaCy NLP Analysis<br/>POS Tagging + Dependency Parsing"]
+    C --> D["✍️ Style Rules Checking<br/>Terminologia Amministrativa Standard"]
+    D --> E["📊 Readability Scoring<br/>Gulpease Index Italiano"]
+    E --> F["🎯 Aggregazione Issues<br/>Grammar Errors, Style Warnings, Info"]
+    F --> G{Qualità Insufficiente?}
+    G -->|Sì| H["⚠️ Richiedi Refinement<br/>SP05: LLM Refinement"]
+    G -->|No| I["✅ Qualità Approvata"]
+    H --> J["🔄 Retry Quality Check<br/>Iterazione refinement"]
+    J --> K{Qualità OK?}
+    K -->|Sì| I
+    K -->|No| H
+    I --> L["📝 Quality Report<br/>Scores + Grammar + Style + Readability"]
+    L --> M["📤 Output Quality<br/>Overall Score + Dettagli + Suggerimenti"]
+    M --> N["✔️ Fine"]
+```
+
+### State Diagram — Ciclo Vita Verifica Qualità
+
+```mermaid
+stateDiagram-v2
+    [*] --> DocumentReceived: Documento Ricevuto
+    DocumentReceived --> LanguageCheck: Grammar/Spelling Check
+    LanguageCheck --> NLPAnalysis: NLP Analysis
+    NLPAnalysis --> StyleCheck: Style Rules Check
+    StyleCheck --> ReadabilityScore: Readability Scoring
+    ReadabilityScore --> AggregateIssues: Aggregazione Issues
+    AggregateIssues --> QualityAssessment: Valutazione Qualità
+    QualityAssessment --> QualityOK: Qualità Sufficiente
+    QualityAssessment --> QualityFail: Qualità Insufficiente
+    QualityFail --> RequestRefinement: Richiedi Refinement
+    RequestRefinement --> Refinement: LLM Refinement
+    Refinement --> RetryCheck: Retry Quality Check
+    RetryCheck --> RetryAssessment: Nuova Valutazione
+    RetryAssessment --> QualityOK: Qualità OK
+    RetryAssessment --> QualityFail
+    QualityOK --> GenerateReport: Genera Report Completo
+    GenerateReport --> Complete: Verifica Completata
+    Complete --> [*]
+```
+
 ## Quality Check Linguistico
 
 Questo diagramma mostra tutte le interazioni del **Quality Checker (SP08)** nel processo di controllo qualità degli atti amministrativi.

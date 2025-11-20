@@ -1,5 +1,35 @@
 # SP09 - Workflow Engine
 
+## Diagrammi Architetturali
+
+### Flowchart — Orchestrazione Workflow Completo
+
+```mermaid
+flowchart TD
+    A["👤 Utente Submit<br/>Form + Allegati"] --> B["🔐 API Gateway<br/>Autenticazione + Autorizzazione"]
+    B --> C["✅ Security Check<br/>JWT Token Validation"]
+    C --> D["📝 Workflow Creation<br/>WF-XXXXX initialized"]
+    D --> E["📤 Upload Allegati<br/>a MinIO Storage"]
+    E --> F["🏷️ SP07: Classificazione<br/>Document Type + Category"]
+    F --> G["📚 SP04: Knowledge Base<br/>Recupero Normativa"]
+    G --> H["📋 SP05: Template Generation<br/>Draft Documento"]
+    H --> I["✔️ SP06: Validazione<br/>Semantic + Structural Check"]
+    I --> J{Errori Critici?}
+    J -->|Sì| K["❌ Workflow Interrompe<br/>Notifica Operatore"]
+    J -->|No| L["🔤 SP08: Quality Check<br/>Grammar + Readability"]
+    L --> M{Qualità OK?}
+    M -->|No| N["↩️ SP05: Refinement<br/>LLM Improvement"]
+    N --> L
+    M -->|Sì| O["🔒 SP11: Security & Audit<br/>Integrity Check + Logging"]
+    O --> P["✍️ Firma Digitale<br/>Digital Signature"]
+    P --> Q["📤 Sistema Protocollo<br/>Protocol Registration"]
+    Q --> R["📊 SP10: Dashboard Update<br/>Workflow Completed"]
+    R --> S["💾 Save Final v2.0<br/>to Storage"]
+    S --> T["✔️ Workflow Finito"]
+    K --> U["🔄 Loop Correzione<br/>back to Validazione"]
+    U --> I
+```
+
 ## Orchestrazione Workflow End-to-End
 
 Questo diagramma mostra il ruolo centrale del **Workflow Engine (SP09)** nell'orchestrazione di tutti i sottoprogetti.
