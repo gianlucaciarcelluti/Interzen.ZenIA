@@ -9,23 +9,23 @@ graph TD
     subgraph "Input Layer"
         SP15[SP15<br/>Orchestrator<br/>Entry Point]
     end
-    
+
     subgraph "Processing Layer"
         SP02[SP02<br/>Document<br/>Extractor]
         SP07[SP07<br/>Content<br/>Classifier]
         SP13[SP13<br/>Document<br/>Summarizer]
     end
-    
+
     subgraph "Storage Layer"
         SP14[SP14<br/>Metadata<br/>Indexer]
         SP12[SP12<br/>Semantic<br/>Search]
     end
-    
+
     subgraph "Output Layer"
         SP10[SP10<br/>Dashboard]
         SP11[SP11<br/>Security<br/>& Audit]
     end
-    
+
     SP15 --> SP02
     SP15 --> SP07
     SP15 --> SP13
@@ -33,25 +33,25 @@ graph TD
     SP15 --> SP12
     SP15 --> SP10
     SP15 --> SP11
-    
+
     SP02 --> SP07
     SP02 --> SP14
-    
+
     SP07 --> SP13
     SP07 --> SP14
     SP07 --> SP12
-    
+
     SP13 --> SP14
     SP13 --> SP12
-    
+
     SP14 --> SP12
-    
+
     SP02 -.-> SP11
     SP07 -.-> SP11
     SP13 -.-> SP11
     SP14 -.-> SP11
     SP12 -.-> SP11
-    
+
     style SP15 fill:#ffd700
 ```
 

@@ -55,11 +55,11 @@ Oggi, quando un ufficio pubblico deve creare un atto amministrativo (es. una del
 ### La nostra soluzione
 Un **assistente digitale intelligente** che:
 
-✅ Scrive automaticamente il documento seguendo le regole e i modelli corretti  
-✅ **Identifica automaticamente il procedimento amministrativo** dalla richiesta utente  
-✅ Inserisce i riferimenti normativi necessari in base al tipo di atto  
-✅ Controlla che tutto sia corretto prima di proporlo all'operatore  
-✅ Riduce i tempi da ore a **circa 23 secondi** (parte automatica) + 15 secondi (revisione umana)  
+✅ Scrive automaticamente il documento seguendo le regole e i modelli corretti
+✅ **Identifica automaticamente il procedimento amministrativo** dalla richiesta utente
+✅ Inserisce i riferimenti normativi necessari in base al tipo di atto
+✅ Controlla che tutto sia corretto prima di proporlo all'operatore
+✅ Riduce i tempi da ore a **circa 23 secondi** (parte automatica) + 15 secondi (revisione umana)
 ✅ Garantisce tracciabilità e conformità alle normative (GDPR incluso)
 
 ---
@@ -133,7 +133,7 @@ PASSO 1 - Classificazione Procedimento: "È un PROCEDIMENTO DI AUTORIZZAZIONE SC
           → Normativa base: D.Lgs 152/2006, L.R. 62/1998
           → Termini: 90 giorni
           → Enti coinvolti: ARPA, ASL
-          
+
 PASSO 2 - Classificatore Documento: "È una DETERMINAZIONE, categoria AMBIENTE"
 
 PASSO 3 - Recupero normativa specifica: "Serve D.Lgs 152/2006 art. 124, L.R. 62/1998"
@@ -169,10 +169,10 @@ Immaginiamo il sistema come una **catena di montaggio intelligente** dove ogni s
 
 ### **SP01 - EML Parser & Email Intelligence** 📧
 
-**Cosa fa (in parole semplici)**  
+**Cosa fa (in parole semplici)**
 È il primo componente che **intercetta le email in arrivo** alla PEC (Posta Elettronica Certificata) dell'ente e le analizza per capire se contengono richieste di servizi o istanze dei cittadini.
 
-**Come funziona**  
+**Come funziona**
 1. Monitora la casella PEC dell'ente in tempo reale
 2. Estrae mittente, oggetto, corpo email e allegati
 3. Analizza il contenuto con AI per capire se è una richiesta amministrativa
@@ -180,11 +180,11 @@ Immaginiamo il sistema come una **catena di montaggio intelligente** dove ogni s
 5. Estrae informazioni chiave dal testo dell'email
 6. Passa tutto al sistema per l'elaborazione automatica
 
-**Input**  
+**Input**
 - Email in arrivo alla PEC (formato .eml)
 - Allegati (PDF, DOC, immagini)
 
-**Output**  
+**Output**
 - Metadata email: mittente, data/ora, oggetto
 - Testo estratto e pulito
 - Allegati separati e classificati per tipo
@@ -192,13 +192,13 @@ Immaginiamo il sistema come una **catena di montaggio intelligente** dove ogni s
 - Confidenza: quanto è sicuro che sia effettivamente una richiesta da processare
 - Tempo impiegato: circa 300 millisecondi
 
-**Tecnologie utilizzate**  
+**Tecnologie utilizzate**
 - **IMAPClient / email parser**: Librerie Python per leggere email
 - **PyPDF2 / python-docx**: Estrazione testo da allegati
 - **DistilBERT**: AI per classificazione rapida del contenuto email
 - **Redis**: Cache per non riprocessare email già analizzate
 
-**Esempio pratico**  
+**Esempio pratico**
 ```
 EMAIL IN ARRIVO:
 Da: azienda.rossi@pec.it
@@ -216,17 +216,17 @@ OUTPUT SP01:
 → Passa a SP02 per estrazione allegati
 ```
 
-**Perché è importante?**  
+**Perché è importante?**
 Automatizza il primo contatto con il cittadino, evitando che un operatore debba aprire manualmente centinaia di email al giorno per capire quali richiedono azioni amministrative.
 
 ---
 
 ### **SP02 - Document Extractor & Attachment Classifier** 📎
 
-**Cosa fa (in parole semplici)**  
+**Cosa fa (in parole semplici)**
 Prende gli allegati ricevuti via email (da SP01) e li analizza per capire cosa contengono e estrarre informazioni utili.
 
-**Come funziona**  
+**Come funziona**
 1. Riceve i file allegati identificati da SP01
 2. Estrae il testo da PDF, immagini scansionate (OCR), documenti Word
 3. Classifica ogni allegato (es. "planimetria", "relazione tecnica", "documento identità")
@@ -234,25 +234,25 @@ Prende gli allegati ricevuti via email (da SP01) e li analizza per capire cosa c
 5. Valida la completezza: "mancano documenti obbligatori?"
 6. Prepara i dati per il classificatore di procedimenti (SP03)
 
-**Input**  
+**Input**
 - Allegati email (PDF, DOC, JPG, PNG)
 - Metadata da SP01
 
-**Output**  
+**Output**
 - Testo estratto da tutti gli allegati
 - Classificazione di ogni documento
 - Dati estratti: nomi, date, importi, codici CIG/CUP, P.IVA, ecc.
 - Checklist completezza documentale
 - Tempo impiegato: circa 800 millisecondi per documento
 
-**Tecnologie utilizzate**  
+**Tecnologie utilizzate**
 - **Tesseract OCR**: Estrazione testo da immagini/PDF scansionati
 - **PyPDF2 / pdfplumber**: Estrazione testo da PDF nativi
 - **LayoutLM / Donut**: AI specializzati nell'analisi layout documenti
 - **spaCy**: Riconoscimento entità (NER) per estrarre dati
 - **MinIO**: Storage per conservare allegati originali
 
-**Esempio pratico**  
+**Esempio pratico**
 ```
 INPUT: Planimetria.pdf + Relazione_tecnica.pdf
 
@@ -263,28 +263,28 @@ OUTPUT SP02:
    - Scala: 1:500
    - Comune: Torino
    - Foglio catastale: 12, Mappale: 345
-   
+
 📄 Documento 2: Relazione_tecnica.pdf
    Tipo: RELAZIONE_TECNICA_AMBIENTALE
    Dati estratti:
    - Progettista: Ing. Mario Rossi
    - Volume scarico: 500 m³/giorno
    - Tipo attività: Tessile industriale
-   
+
 ✅ COMPLETEZZA: 80%
 ⚠️  MANCANTI:
    - Documento identità legale rappresentante
    - Visura camerale aggiornata
 ```
 
-**Perché è importante?**  
+**Perché è importante?**
 Evita che l'operatore debba leggere manualmente decine di pagine di allegati per capire cosa contengono ed estrarre le informazioni chiave.
 
 ---
 
 ### **SP03 - Classificatore di Procedimenti Amministrativi** 🎯
 
-**Cosa fa (in parole semplici)**  
+**Cosa fa (in parole semplici)**
 È il componente che **legge la richiesta iniziale del cittadino o dell'azienda** (chiamata "istanza") e capisce:
 - Quale **procedimento amministrativo** si deve avviare
 - Quale **tipo di provvedimento** bisogna generare
@@ -292,23 +292,23 @@ Evita che l'operatore debba leggere manualmente decine di pagine di allegati per
 - Quali **documenti** servono
 - Quali **uffici/enti** devono essere coinvolti
 
-**Come funziona**  
+**Come funziona**
 1. Riceve l'istanza dell'utente (es. "Richiesta autorizzazione scarico acque reflue industriali")
 2. Analizza il testo con AI per capire di cosa si tratta
 3. Cerca nel database dei procedimenti amministrativi quello più simile
 4. Determina automaticamente il tipo di provvedimento da generare (Determinazione? Delibera? Ordinanza?)
 5. Recupera tutte le informazioni necessarie per quel procedimento specifico
 
-**Input**  
+**Input**
 - Testo richiesta: "Richiesta autorizzazione scarico acque reflue industriali per azienda tessile"
 - Dati richiedente: Industria Tessile Rossi S.p.A.
 - Allegati presentati: planimetria, relazione tecnica
 
-**Output**  
+**Output**
 - **Procedimento identificato**: AUTORIZZAZIONE_SCARICO_ACQUE_REFLUE
 - **Tipo provvedimento**: DETERMINAZIONE_DIRIGENZIALE
 - **Autorità competente**: Dirigente Settore Ambiente
-- **Normativa di base**: 
+- **Normativa di base**:
   - D.Lgs 152/2006 art. 124 (Disciplina degli scarichi)
   - L.R. 62/1998 art. 8 (Norme regionali tutela acque)
 - **Termini**: 90 giorni
@@ -318,16 +318,16 @@ Evita che l'operatore debba leggere manualmente decine di pagine di allegati per
 - **Confidenza**: 96% (quanto è sicuro l'AI)
 - Tempo impiegato: circa 520 millisecondi
 
-**Tecnologie utilizzate**  
+**Tecnologie utilizzate**
 - **DistilBERT**: AI per classificazione veloce del procedimento
 - **spaCy**: Software per riconoscere nomi, enti, riferimenti normativi
 - **PostgreSQL**: Database con tutti i procedimenti amministrativi
 - **Redis**: Memoria per non rifare classificazioni già fatte
 
-**Esempio pratico**  
+**Esempio pratico**
 ```
-RICHIESTA CITTADINO: 
-"Richiesta autorizzazione scarico acque reflue industriali 
+RICHIESTA CITTADINO:
+"Richiesta autorizzazione scarico acque reflue industriali
 provenienti dal ciclo produttivo tessile, 500 m³/giorno"
 
 OUTPUT SP03:
@@ -349,7 +349,7 @@ OUTPUT SP03:
    - Planimetria ✓ (presente)
 ```
 
-**Perché è importante?**  
+**Perché è importante?**
 Prima di questo componente, l'operatore doveva:
 1. Leggere la richiesta
 2. Capire manualmente quale procedimento applicare
@@ -359,7 +359,7 @@ Prima di questo componente, l'operatore doveva:
 
 Ora tutto questo è **automatico** e richiede mezzo secondo invece di 10-15 minuti!
 
-**🔍 CHECKPOINT HITL #1 - Conferma Classificazione Procedimento**  
+**🔍 CHECKPOINT HITL #1 - Conferma Classificazione Procedimento**
 ⚠️ **INTERVENTO UMANO OBBLIGATORIO**
 
 Dopo che SP03 ha classificato il procedimento, il sistema **si ferma e chiede conferma all'operatore**:
@@ -408,35 +408,35 @@ Dopo che SP03 ha classificato il procedimento, il sistema **si ferma e chiede co
 
 ### **SP04 - Archivio Normativo Intelligente** 📚
 
-**Cosa fa (in parole semplici)**  
+**Cosa fa (in parole semplici)**
 È la "biblioteca giuridica digitale" che sa quali leggi applicare e fornisce i testi corretti.
 
-**Come funziona**  
+**Come funziona**
 1. Quando serve sapere quale normativa applicare a un atto, questo componente cerca
 2. Ha un database con 100.000+ documenti tra leggi, decreti, regolamenti, sentenze
 3. Usa l'AI per capire quali sono rilevanti (ricerca semantica, non solo per parole chiave)
 4. Crea una sintesi comprensibile dei riferimenti normativi
 5. Tiene traccia di quali leggi modificano/abrogano altre leggi (grafo delle relazioni)
 
-**Input**  
+**Input**
 - Tipo di documento
 - Argomento (es. "urbanistica", "appalti")
 - Eventualmente normativa già menzionata
 
-**Output**  
+**Output**
 - Elenco normative rilevanti con grado di importanza
 - Sintesi testuale: "Per l'approvazione del Piano Urbanistico è necessario rispettare..."
 - Riferimenti a delibere simili già approvate
 - Eventuali sentenze rilevanti
 - Tempo impiegato: circa 1.2 secondi
 
-**Tecnologie utilizzate**  
+**Tecnologie utilizzate**
 - **FAISS**: Sistema di ricerca super-veloce tra milioni di documenti
 - **Neo4j**: Database a grafo per tracciare relazioni tra leggi (es. "Legge A modifica Legge B")
 - **Mistral-7B / Groq**: AI specializzata per creare sintesi leggibili
 - **Redis**: Memoria veloce per non cercare sempre le stesse cose
 
-**Esempio pratico**  
+**Esempio pratico**
 ```
 RICHIESTA: "Normativa per delibera approvazione piano urbanistico"
 
@@ -447,15 +447,15 @@ OUTPUT:
 - L.R. 12/2005 (Urbanistica regionale) - Rilevanza: 87%
 
 📖 SINTESI:
-"Per l'approvazione del Piano Urbanistico è necessario rispettare i vincoli 
-paesaggistici del D.Lgs 42/2004 e seguire la procedura con responsabile del 
+"Per l'approvazione del Piano Urbanistico è necessario rispettare i vincoli
+paesaggistici del D.Lgs 42/2004 e seguire la procedura con responsabile del
 procedimento prevista dalla L. 241/1990..."
 
 🔗 PRECEDENTI SIMILI:
 - Delibera n. 123/2024 "Piano Zona Artigianale" (Similarità: 84%, Esito: APPROVATA)
 ```
 
-**Aggiornamento dati**  
+**Aggiornamento dati**
 - Automatico ogni trimestre dalla Gazzetta Ufficiale
 - Alert per modifiche normative urgenti
 
@@ -465,30 +465,30 @@ procedimento prevista dalla L. 241/1990..."
 
 ### **SP05 - Motore di Generazione Template** 🤖
 
-**Come funziona**  
+**Come funziona**
 1. Riceve il tipo di atto da creare (es. "Delibera di Giunta")
 2. Prende i dati forniti (oggetto, importo, responsabile)
 3. Recupera il modello corretto da un archivio
 4. Inserisce i riferimenti normativi necessari
 5. Genera il testo completo in linguaggio amministrativo formale
 
-**Input**  
+**Input**
 - Tipo documento: "DELIBERA_GIUNTA"
 - Dati: oggetto, proponente, importo, normativa
 - Contesto normativo (fornito dal componente SP04)
 
-**Output**  
+**Output**
 - Documento completo in formato strutturato (XML/HTML)
 - 12 sezioni compilate (premesse, motivazioni, dispositivo, ecc.)
 - Tempo impiegato: circa 2.3 secondi
 
-**Tecnologie utilizzate**  
+**Tecnologie utilizzate**
 - **GPT-4 / Claude**: AI per generazione testo (come ChatGPT ma specializzato)
 - **LangChain**: Software che coordina l'AI in più passi
 - **Jinja2**: Sistema di modelli per documenti (come i modelli Word, ma più avanzati)
 - **Redis**: Memoria veloce per ricordare i modelli già usati
 
-**Esempio pratico**  
+**Esempio pratico**
 ```
 INPUT: "Delibera per approvazione piano urbanistico zona industriale, 150.000€"
 
@@ -507,7 +507,7 @@ DELIBERA
 1. Di approvare il Piano Urbanistico..."
 ```
 
-**🔍 CHECKPOINT HITL #3 - Revisione Documento Generato**  
+**🔍 CHECKPOINT HITL #3 - Revisione Documento Generato**
 ⚠️ **INTERVENTO UMANO OBBLIGATORIO**
 
 Dopo che SP05 ha generato il documento, l'operatore **deve revisionarlo prima della validazione**:
@@ -559,10 +559,10 @@ Dopo che SP05 ha generato il documento, l'operatore **deve revisionarlo prima de
 
 ### **SP06 - Validatore di Conformità** ✅
 
-**Cosa fa (in parole semplici)**  
+**Cosa fa (in parole semplici)**
 È il "revisore automatico" che controlla che il documento sia corretto e rispetti tutte le regole.
 
-**Come funziona**  
+**Come funziona**
 1. Legge il documento generato da SP05
 2. Controlla la coerenza interna (non ci sono contraddizioni?)
 3. Verifica che tutti i dati obbligatori siano presenti
@@ -570,23 +570,23 @@ Dopo che SP05 ha generato il documento, l'operatore **deve revisionarlo prima de
 5. Applica regole automatiche (es. "se importo > 40.000€, serve il CIG")
 6. Segnala errori critici (bloccano il processo) o semplici avvisi
 
-**Input**  
+**Input**
 - Documento generato da SP05
 - Tipo di atto
 
-**Output**  
+**Output**
 - Stato: OK / WARNING / ERRORE
 - Lista errori critici (se presenti): "Manca responsabile procedimento"
 - Lista avvisi: "Consigliato aggiungere riferimento a delibera precedente"
 - Suggerimenti automatici per correggere
 - Tempo impiegato: circa 780 millisecondi (meno di 1 secondo)
 
-**Tecnologie utilizzate**  
+**Tecnologie utilizzate**
 - **BERT**: AI specializzata nell'analisi del linguaggio
 - **Drools**: Software che applica regole automatiche (es. "SE importo > X ALLORA serve Y")
 - **PostgreSQL**: Database che conserva i risultati per audit
 
-**Esempio pratico**  
+**Esempio pratico**
 ```
 DOCUMENTO IN INPUT: Delibera con importo 150.000€ ma senza CIG
 
@@ -603,21 +603,21 @@ SUGGERIMENTO: Inserire CIG da portale ANAC
 
 ### **SP07 - Classificatore e Estrattore Dati** 🏷️
 
-**Cosa fa (in parole semplici)**  
+**Cosa fa (in parole semplici)**
 È il componente che "legge" i dati iniziali e capisce che tipo di documento serve e quali informazioni sono importanti.
 
-**Come funziona**  
+**Come funziona**
 1. Riceve i dati grezzi (testo libero + alcuni campi compilati)
 2. Identifica il tipo di atto (Delibera? Determinazione? Ordinanza?)
 3. Estrae automaticamente le informazioni chiave: date, importi, persone, normative menzionate
 4. Categorizza l'argomento (Urbanistica? Bilancio? Personale?)
 5. Cerca documenti simili già fatti in passato
 
-**Input**  
+**Input**
 - Testo descrittivo: "Richiesta approvazione piano per zona industriale con vincoli paesaggistici..."
 - Eventuali metadati già noti: proponente, importo, scadenza
 
-**Output**  
+**Output**
 - Tipo documento: "DELIBERA_GIUNTA"
 - Categoria: "URBANISTICA" > "PIANI_REGOLATORI"
 - Confidenza: 94% (quanto è sicuro l'AI)
@@ -630,13 +630,13 @@ SUGGERIMENTO: Inserire CIG da portale ANAC
 - Documenti simili già approvati in passato
 - Tempo impiegato: circa 450 millisecondi
 
-**Tecnologie utilizzate**  
+**Tecnologie utilizzate**
 - **DistilBERT**: AI per classificazione veloce dei documenti
 - **spaCy**: Software per riconoscere nomi, date, importi, leggi nel testo
 - **FAISS**: Ricerca veloce tra documenti simili
 - **Redis**: Memoria per risultati recenti
 
-**Esempio pratico**  
+**Esempio pratico**
 ```
 INPUT (testo libero):
 "Assessorato Urbanistica richiede approvazione piano zona industriale.
@@ -660,7 +660,7 @@ OUTPUT AUTOMATICO:
 - DOC-98765: Delibera Piano Zona Artigianale (Similarità: 87%)
 ```
 
-**🔍 CHECKPOINT HITL #2 - Conferma Dati Estratti**  
+**🔍 CHECKPOINT HITL #2 - Conferma Dati Estratti**
 ⚠️ **INTERVENTO UMANO OBBLIGATORIO**
 
 Dopo che SP07 ha classificato ed estratto i dati, il sistema **richiede verifica umana**:
@@ -707,10 +707,10 @@ Dopo che SP07 ha classificato ed estratto i dati, il sistema **richiede verifica
 
 ### **SP08 - Controllo Qualità Linguistica** 📝
 
-**Cosa fa (in parole semplici)**  
+**Cosa fa (in parole semplici)**
 È il "revisore automatico" che controlla che il documento sia scritto bene in italiano, senza errori grammaticali e con il linguaggio formale corretto.
 
-**Come funziona**  
+**Come funziona**
 1. Riceve il documento da controllare
 2. Verifica grammatica e ortografia
 3. Controlla punteggiatura e sintassi
@@ -718,10 +718,10 @@ Dopo che SP07 ha classificato ed estratto i dati, il sistema **richiede verifica
 5. Controlla che usi la terminologia amministrativa corretta
 6. Assegna un punteggio di qualità complessivo
 
-**Input**  
+**Input**
 - Documento generato (da SP05 o dopo correzioni)
 
-**Output**  
+**Output**
 - Punteggio qualità: 82/100 (BUONO)
 - Errori grammaticali trovati e suggerimenti
 - Indice di leggibilità (scala Gulpease per italiano)
@@ -729,24 +729,24 @@ Dopo che SP07 ha classificato ed estratto i dati, il sistema **richiede verifica
 - Terminologia: segnala se usa termini colloquiali invece di tecnici
 - Tempo impiegato: circa 320 millisecondi
 
-**Tecnologie utilizzate**  
+**Tecnologie utilizzate**
 - **LanguageTool**: Software professionale per correzione grammaticale italiana
 - **spaCy**: Analisi linguistica avanzata
 - **Gulpease**: Formula per calcolare leggibilità testi italiani
 - **Redis**: Memoria per regole grammaticali
 
-**Esempio pratico**  
+**Esempio pratico**
 ```
 DOCUMENTO IN INPUT:
-"Il Comune approva il piano urbanistico zona industriale con la 
-delibera dove sono previsti vincoli paesaggistici che bisogna rispettare 
+"Il Comune approva il piano urbanistico zona industriale con la
+delibera dove sono previsti vincoli paesaggistici che bisogna rispettare
 secondo normativa vigente..."
 
 OUTPUT CONTROLLO QUALITÀ:
 � PUNTEGGIO: 82/100 (BUONO)
 
 ✅ GRAMMATICA: OK
-⚠️  STILE: 
+⚠️  STILE:
   - Riga 2: Frase troppo lunga (45 parole), consigliato dividere
   - Preferire forma impersonale: "sono previsti" → "si prevede"
 
@@ -761,10 +761,10 @@ OUTPUT CONTROLLO QUALITÀ:
 
 ### **SP09 - Motore di Orchestrazione** ⚙️
 
-**Cosa fa (in parole semplici)**  
+**Cosa fa (in parole semplici)**
 È il "direttore d'orchestra" che coordina tutti gli altri componenti e gestisce il flusso di lavoro completo.
 
-**Come funziona**  
+**Come funziona**
 1. Riceve la richiesta iniziale di creare un atto
 2. Decide in che ordine chiamare gli altri componenti
 3. Passa i dati da uno all'altro
@@ -772,22 +772,22 @@ OUTPUT CONTROLLO QUALITÀ:
 5. Si integra con i sistemi esterni (protocollo, firma digitale, archivio)
 6. Traccia tutto il processo per audit
 
-**Input**  
+**Input**
 - Richiesta creazione atto dall'utente
 - Dati iniziali
 
-**Output**  
+**Output**
 - Documento finale completo e protocollato
 - Stato del processo ad ogni passo
 - Log completo di tutto il flusso
 
-**Tecnologie utilizzate**  
+**Tecnologie utilizzate**
 - **Apache Airflow / Temporal.io**: Software per gestire workflow complessi
 - **Apache NiFi**: Sistema di orchestrazione workflow con data lineage completo tramite Provenance
 - **Docker/Kubernetes**: Contenitori per eseguire i vari servizi
 - **PostgreSQL**: Database per stato del workflow
 
-**Flusso tipico orchestrato**  
+**Flusso tipico orchestrato**
 ```
 1. Riceve richiesta utente (istanza)
 2. Chiama SP11 → Autentica utente
@@ -818,10 +818,10 @@ OUTPUT CONTROLLO QUALITÀ:
 
 ### **SP10 - Dashboard di Trasparenza** 📊
 
-**Cosa fa (in parole semplici)**  
+**Cosa fa (in parole semplici)**
 È l'interfaccia visuale che mostra all'operatore come l'AI ha lavorato e permette di monitorare tutto il processo in tempo reale.
 
-**Come funziona**  
+**Come funziona**
 1. Riceve dati da tutti i componenti durante il processo
 2. Mostra in tempo reale a che punto è il lavoro
 3. Visualizza le decisioni prese dall'AI in modo comprensibile
@@ -829,12 +829,12 @@ OUTPUT CONTROLLO QUALITÀ:
 5. Mostra statistiche e metriche di qualità
 6. Traccia la storia di ogni documento
 
-**Input**  
+**Input**
 - Dati da tutti i componenti SP01-SP09
 - Eventi del workflow
 - Log delle operazioni
 
-**Output (visualizzazioni)**  
+**Output (visualizzazioni)**
 - **Timeline**: Mostra i passaggi del processo step-by-step
 - **Metriche**: Tempo impiegato, confidenza AI, punteggi qualità
 - **Spiegazioni**: "L'AI ha scelto questo modello perché il documento è simile a..."
@@ -843,14 +843,14 @@ OUTPUT CONTROLLO QUALITÀ:
 - **Statistiche**: Quanti documenti al giorno, tasso di successo, errori comuni
 - **Storico versioni**: Tutte le versioni del documento con track changes
 
-**Tecnologie utilizzate**  
+**Tecnologie utilizzate**
 - **Streamlit / React**: Framework per interfacce web moderne
 - **D3.js**: Libreria per grafici e visualizzazioni interattive
 - **SHAP / LIME**: Strumenti per spiegare decisioni AI
 - **PostgreSQL**: Database per dati storici e analytics
 - **WebSocket**: Comunicazione real-time con i componenti
 
-**Esempio di visualizzazione**  
+**Esempio di visualizzazione**
 ```
 ┌─────────────────────────────────────────────────────────┐
 │ WORKFLOW: Autorizzazione Scarico Acque - ID: WF-12345  │
@@ -883,7 +883,7 @@ OUTPUT CONTROLLO QUALITÀ:
 └─────────────────────────────────────────────────────────┘
 ```
 
-**Perché è importante?**  
+**Perché è importante?**
 Offre trasparenza totale sul processo automatico, permettendo agli operatori di:
 - Capire come l'AI ha preso decisioni
 - Controllare la qualità del lavoro svolto
@@ -894,10 +894,10 @@ Offre trasparenza totale sul processo automatico, permettendo agli operatori di:
 
 ### **SP11 - Sicurezza e Audit** �
 
-**Cosa fa (in parole semplici)**  
+**Cosa fa (in parole semplici)**
 Garantisce che tutto sia sicuro, tracciabile e conforme alle leggi sulla privacy (GDPR).
 
-**Come funziona**  
+**Come funziona**
 1. Autentica gli utenti (chi può fare cosa)
 2. Registra ogni azione in modo immutabile (audit trail)
 3. Rileva comportamenti anomali (es. troppi accessi, tentativi sospetti)
@@ -905,26 +905,26 @@ Garantisce che tutto sia sicuro, tracciabile e conforme alle leggi sulla privacy
 5. Genera report per gli audit di conformità
 6. Gestisce i diritti degli interessati (GDPR: diritto all'oblio, spiegazione decisioni AI)
 
-**Input**  
+**Input**
 - Eventi da tutti i componenti
 - Log di accesso e operazioni
 - Metriche di sistema
 
-**Output**  
+**Output**
 - Report di sicurezza in tempo reale
 - Alert su anomalie (es. "utente X ha tentato 5 accessi non autorizzati")
 - Audit trail completo (chi, cosa, quando, perché)
 - Certificazioni di conformità GDPR
 - Report per il DPO (Data Protection Officer)
 
-**Tecnologie utilizzate**  
+**Tecnologie utilizzate**
 - **Isolation Forest + LSTM**: AI per rilevare comportamenti anomali
 - **HashiCorp Vault**: Sistema per gestire password e chiavi segrete in sicurezza
 - **ELK Stack**: Raccolta e analisi log centralizzata
 - **JWT**: Sistema di autenticazione sicura
 - **OpenSSL/TLS**: Crittografia dei dati in transito
 
-**Funzioni di sicurezza**  
+**Funzioni di sicurezza**
 ```
 🔐 AUTENTICAZIONE:
 - Login con credenziali PA + autenticazione a due fattori
@@ -950,7 +950,7 @@ Garantisce che tutto sia sicuro, tracciabile e conforme alle leggi sulla privacy
 - Right to explanation: Ogni decisione AI è spiegabile tramite SP07
 ```
 
-**Perché è importante?**  
+**Perché è importante?**
 La gestione della sicurezza e della tracciabilità è **fondamentale per legge** (GDPR, CAD, LGPL). Garantisce che:
 - Solo utenti autorizzati accedono al sistema
 - Ogni azione è registrata e giustificabile
@@ -966,241 +966,241 @@ La gestione della sicurezza e della tracciabilità è **fondamentale per legge**
 
 ### Termini Amministrativi
 
-**Atto Amministrativo**  
+**Atto Amministrativo**
 Documento ufficiale emesso dalla Pubblica Amministrazione che produce effetti giuridici (es. autorizzazioni, divieti, approvazioni). Deve rispettare forma e procedure previste dalla legge.
 
-**Albo Pretorio**  
+**Albo Pretorio**
 Spazio pubblico (fisico o digitale) dove vengono pubblicati gli atti ufficiali dell'ente per garantire trasparenza e conoscibilità ai cittadini. La pubblicazione ha valore legale.
 
-**ANAC (Autorità Nazionale Anticorruzione)**  
+**ANAC (Autorità Nazionale Anticorruzione)**
 Ente pubblico che vigila su appalti, contratti pubblici e prevenzione della corruzione. Gestisce il portale per i CIG.
 
-**ARPA (Agenzia Regionale Protezione Ambiente)**  
+**ARPA (Agenzia Regionale Protezione Ambiente)**
 Ente pubblico che si occupa di controlli ambientali, monitoraggio inquinamento e rilascio pareri tecnici su autorizzazioni ambientali.
 
-**Audit Trail**  
+**Audit Trail**
 Registro cronologico completo di tutte le operazioni effettuate su un sistema, che documenta chi ha fatto cosa, quando e perché. Immutabile e obbligatorio per legge.
 
-**CIG (Codice Identificativo Gara)**  
+**CIG (Codice Identificativo Gara)**
 Codice univoco obbligatorio per appalti pubblici sopra determinate soglie, richiesto per tracciabilità e trasparenza (Legge 136/2010).
 
-**Conferenza di Servizi**  
+**Conferenza di Servizi**
 Riunione tra più enti pubblici per acquisire tutti i pareri necessari su un procedimento complesso in un'unica sede, accelerando i tempi.
 
-**Delibera**  
+**Delibera**
 Atto collegiale adottato da un organo decisionale (Giunta, Consiglio Comunale) che esprime una volontà politica o amministrativa.
 
-**Determinazione Dirigenziale**  
+**Determinazione Dirigenziale**
 Atto amministrativo firmato da un dirigente per l'attuazione di decisioni già prese o per atti gestionali di sua competenza (es. affidamento lavori, autorizzazioni).
 
-**DPO (Data Protection Officer)**  
+**DPO (Data Protection Officer)**
 Responsabile della protezione dei dati personali in un'organizzazione, obbligatorio per enti pubblici secondo il GDPR.
 
-**GDPR (General Data Protection Regulation)**  
+**GDPR (General Data Protection Regulation)**
 Regolamento europeo (679/2016) sulla protezione dei dati personali, obbligatorio dal 2018. Impone trasparenza, sicurezza e diritti degli interessati.
 
-**Istanza**  
+**Istanza**
 Richiesta formale presentata da un cittadino o azienda alla PA per ottenere un servizio, un'autorizzazione o un provvedimento.
 
-**Ordinanza**  
+**Ordinanza**
 Atto urgente emesso da un'autorità amministrativa (Sindaco, Dirigente) per situazioni straordinarie o emergenze che richiedono decisioni rapide.
 
-**Parere Obbligatorio**  
+**Parere Obbligatorio**
 Valutazione tecnica richiesta per legge a un ente terzo prima di adottare un provvedimento. Il procedimento non può concludersi senza questo parere.
 
-**Parere Facoltativo**  
+**Parere Facoltativo**
 Valutazione tecnica che può essere richiesta ma non è obbligatoria per legge. L'ente può decidere anche senza attendere il parere.
 
-**Procedimento Amministrativo**  
+**Procedimento Amministrativo**
 Insieme di atti e fasi che la PA deve seguire per arrivare a una decisione finale (provvedimento). Regolato dalla Legge 241/1990.
 
-**Protocollo**  
+**Protocollo**
 Numero univoco assegnato a un documento ufficiale al momento della registrazione, che certifica data e ora di acquisizione. Ha valore legale.
 
-**Responsabile del Procedimento**  
+**Responsabile del Procedimento**
 Funzionario pubblico designato per legge (L. 241/1990 art. 5) a curare l'istruttoria e garantire che il procedimento si concluda nei tempi previsti.
 
-**Silenzio-Assenso**  
+**Silenzio-Assenso**
 Meccanismo per cui, se la PA non risponde entro i termini, la richiesta si intende automaticamente accolta (solo per procedimenti specifici previsti dalla legge).
 
 ### Termini Tecnologici AI
 
-**AI (Artificial Intelligence / Intelligenza Artificiale)**  
+**AI (Artificial Intelligence / Intelligenza Artificiale)**
 Tecnologia che permette ai computer di eseguire compiti che richiedono intelligenza umana: comprendere testo, prendere decisioni, riconoscere pattern.
 
-**BERT (Bidirectional Encoder Representations from Transformers)**  
+**BERT (Bidirectional Encoder Representations from Transformers)**
 Modello AI di Google specializzato nella comprensione del linguaggio naturale. Legge il testo in entrambe le direzioni per capire meglio il contesto.
 
-**Blockchain**  
+**Blockchain**
 Tecnologia di registro distribuito e immutabile, dove ogni operazione è registrata in modo permanente e non modificabile. Usata per audit trail certificati.
 
-**Classificazione**  
+**Classificazione**
 Processo con cui l'AI assegna una categoria a un documento (es. "questa è una Delibera", "questo è un Atto di Urbanistica").
 
-**Claude**  
+**Claude**
 Modello di AI conversazionale sviluppato da Anthropic, alternativa a GPT-4, specializzato in testi lunghi e ragionamento complesso.
 
-**Confidenza (Confidence)**  
+**Confidenza (Confidence)**
 Percentuale che indica quanto l'AI è sicura della sua risposta (es. 95% = molto sicura, 60% = incerta). Importante per decidere se serve revisione umana.
 
-**DistilBERT**  
+**DistilBERT**
 Versione leggera e veloce di BERT, ottimizzata per classificazioni rapide mantenendo buona accuratezza.
 
-**Embedding**  
+**Embedding**
 Rappresentazione numerica di un testo che l'AI può "comprendere". Permette di confrontare documenti per similarità anche se usano parole diverse.
 
-**FAISS (Facebook AI Similarity Search)**  
+**FAISS (Facebook AI Similarity Search)**
 Software di Meta per ricerche ultra-veloci tra milioni di documenti basandosi sul significato, non solo sulle parole esatte.
 
-**Fine-tuning**  
+**Fine-tuning**
 Processo di addestramento di un'AI già esistente su dati specifici (es. delibere italiane) per migliorarne le prestazioni su quel dominio.
 
-**GPT-4 (Generative Pre-trained Transformer 4)**  
+**GPT-4 (Generative Pre-trained Transformer 4)**
 Modello AI di OpenAI (creatore di ChatGPT) molto potente per generazione di testo. Usato per scrivere documenti complessi.
 
-**Groq**  
+**Groq**
 Azienda che fornisce hardware specializzato per eseguire AI in modo estremamente veloce (fino a 10x più rapido di GPU normali).
 
-**HITL (Human-in-the-Loop)**  
+**HITL (Human-in-the-Loop)**
 Approccio dove l'essere umano interviene nel processo automatico per verificare, correggere o approvare decisioni dell'AI. Obbligatorio per atti amministrativi.
 
-**Inference**  
+**Inference**
 Processo con cui un'AI già addestrata elabora nuovi dati per produrre un risultato (es. classificare un documento, generare un testo).
 
-**Jinja2**  
+**Jinja2**
 Sistema di template (modelli riutilizzabili) per generare documenti dinamici, simile a Word ma molto più potente e automatizzabile.
 
-**LangChain**  
+**LangChain**
 Framework software che coordina più operazioni AI in sequenza, permettendo di creare flussi complessi (es. "cerca normativa → scrivi documento → valida").
 
-**LanguageTool**  
+**LanguageTool**
 Software open-source per correzione grammaticale e stilistica avanzata, supporta oltre 20 lingue incluso l'italiano.
 
-**LIME (Local Interpretable Model-agnostic Explanations)**  
+**LIME (Local Interpretable Model-agnostic Explanations)**
 Strumento che spiega perché l'AI ha preso una certa decisione, mostrando quali parti del testo hanno influenzato di più.
 
-**LLM (Large Language Model)**  
+**LLM (Large Language Model)**
 Modelli AI giganteschi (miliardi di parametri) addestrati su enormi quantità di testo per comprendere e generare linguaggio naturale (es. GPT-4, Claude).
 
-**LSTM (Long Short-Term Memory)**  
+**LSTM (Long Short-Term Memory)**
 Tipo di AI specializzata nell'analizzare sequenze temporali, usata per rilevare pattern anomali nel tempo (es. comportamenti sospetti).
 
-**Mistral-7B**  
+**Mistral-7B**
 Modello AI francese open-source, molto efficiente, usato per sintesi e comprensione testi. "7B" indica 7 miliardi di parametri.
 
-**Neo4j**  
+**Neo4j**
 Database a grafo che rappresenta dati come nodi connessi (es. "Legge A modifica Legge B, che abroga Legge C"). Ottimo per relazioni complesse tra normative.
 
-**NLP (Natural Language Processing)**  
+**NLP (Natural Language Processing)**
 Branca dell'AI che si occupa di elaborare il linguaggio umano: capire testi, estrarre informazioni, tradurre, generare contenuti.
 
-**One-Shot**  
+**One-Shot**
 Approccio dove si chiede all'AI di completare un compito complesso in un'unica volta, senza passaggi intermedi (sconsigliato per atti amministrativi).
 
-**Orchestrazione**  
+**Orchestrazione**
 Coordinamento automatico di più servizi/componenti software che collaborano per completare un processo complesso.
 
-**PostgreSQL**  
+**PostgreSQL**
 Database relazionale open-source molto robusto, usato per conservare dati strutturati (metadata, audit trail, normative).
 
-**Prompt**  
+**Prompt**
 Istruzione testuale data a un'AI per farle svolgere un compito (es. "Scrivi una delibera su questo argomento...").
 
-**Redis**  
+**Redis**
 Database in-memory (in RAM) ultra-veloce usato come cache per accelerare operazioni ripetute (es. template già caricati, classificazioni recenti).
 
-**Retrieval (RAG - Retrieval Augmented Generation)**  
+**Retrieval (RAG - Retrieval Augmented Generation)**
 Tecnica dove l'AI cerca informazioni in un database prima di generare una risposta, migliorando accuratezza e riducendo "allucinazioni".
 
-**Ricerca Semantica**  
+**Ricerca Semantica**
 Ricerca basata sul significato, non sulle parole esatte. Trova documenti rilevanti anche se usano termini diversi (es. cerca "casa" trova anche "abitazione").
 
-**SHAP (SHapley Additive exPlanations)**  
+**SHAP (SHapley Additive exPlanations)**
 Strumento avanzato per spiegare decisioni AI calcolando quanto ogni informazione in input ha contribuito al risultato finale.
 
-**spaCy**  
+**spaCy**
 Libreria Python per NLP: riconosce automaticamente nomi, date, luoghi, enti, importi in un testo (Named Entity Recognition).
 
-**Template**  
+**Template**
 Modello predefinito di documento con parti fisse e parti variabili da compilare (es. "DELIBERA N. ___ DEL ___").
 
-**Token**  
+**Token**
 Unità base di testo elaborata dall'AI (approssimativamente una parola o parte di essa). I modelli AI hanno limiti di token per richiesta.
 
-**Transformer**  
+**Transformer**
 Architettura di rete neurale alla base dei moderni LLM (GPT, BERT, ecc.), molto efficace nel comprendere relazioni nel linguaggio.
 
-**Validazione**  
+**Validazione**
 Processo di verifica automatica che controlla se un documento rispetta regole e requisiti predefiniti (es. presenza dati obbligatori, correttezza normativa).
 
-**Workflow**  
+**Workflow**
 Flusso di lavoro: sequenza di passi da eseguire per completare un processo (es. classificazione → generazione → validazione → approvazione).
 
 ### Termini Software e Infrastruttura
 
-**API (Application Programming Interface)**  
+**API (Application Programming Interface)**
 Interfaccia che permette a programmi diversi di comunicare tra loro (es. SP01 chiama SP03 per ottenere normativa).
 
-**Apache Airflow**  
+**Apache Airflow**
 Software open-source per orchestrare workflow complessi, schedulare operazioni, gestire dipendenze tra task.
 
-**Docker**  
+**Docker**
 Tecnologia per "containerizzare" applicazioni: ogni componente gira in un ambiente isolato standardizzato, facile da spostare e scalare.
 
-**D3.js**  
+**D3.js**
 Libreria JavaScript per creare visualizzazioni interattive avanzate (grafici, timeline, diagrammi) su web.
 
-**ELK Stack (Elasticsearch, Logstash, Kibana)**  
+**ELK Stack (Elasticsearch, Logstash, Kibana)**
 Suite di strumenti per raccogliere, analizzare e visualizzare log di sistema in tempo reale.
 
-**FastAPI**  
+**FastAPI**
 Framework Python moderno per creare API veloci e ben documentate, usato per servizi web ad alte prestazioni.
 
-**HashiCorp Vault**  
+**HashiCorp Vault**
 Software per gestire in sicurezza credenziali, password, chiavi di crittografia (segreti) con controllo accessi granulare.
 
-**JWT (JSON Web Token)**  
+**JWT (JSON Web Token)**
 Standard per creare token di autenticazione sicuri che contengono informazioni cifrate sull'utente.
 
-**Apache NiFi**  
+**Apache NiFi**
 Piattaforma open-source enterprise per orchestrazione workflow e data routing con completa tracciabilità tramite Data Provenance.
 
-**Kubernetes**  
+**Kubernetes**
 Sistema per gestire automaticamente container Docker su cluster di server, garantendo scalabilità e affidabilità.
 
-**MinIO**  
+**MinIO**
 Sistema di storage ad oggetti open-source (simile ad Amazon S3) per conservare file, documenti, backup in modo scalabile.
 
-**React**  
+**React**
 Libreria JavaScript di Meta per creare interfacce web moderne, reattive e performanti.
 
-**Streamlit**  
+**Streamlit**
 Framework Python per creare rapidamente dashboard e applicazioni web per data science e AI.
 
-**Temporal.io**  
+**Temporal.io**
 Piattaforma per orchestrare workflow complessi e di lunga durata, con gestione automatica di errori e retry.
 
 ### Acronimi e Sigle
 
-**ASL** - Azienda Sanitaria Locale  
-**CIG** - Codice Identificativo Gara  
-**GDPR** - General Data Protection Regulation  
-**HITL** - Human-in-the-Loop  
-**LLM** - Large Language Model  
-**NER** - Named Entity Recognition  
-**NLP** - Natural Language Processing  
-**PA** - Pubblica Amministrazione  
-**RAG** - Retrieval Augmented Generation  
-**SP** - Sottoprogetto (SP01, SP02, SP03, ecc.)  
+**ASL** - Azienda Sanitaria Locale
+**CIG** - Codice Identificativo Gara
+**GDPR** - General Data Protection Regulation
+**HITL** - Human-in-the-Loop
+**LLM** - Large Language Model
+**NER** - Named Entity Recognition
+**NLP** - Natural Language Processing
+**PA** - Pubblica Amministrazione
+**RAG** - Retrieval Augmented Generation
+**SP** - Sottoprogetto (SP01, SP02, SP03, ecc.)
 
 ### Normative Citate
 
-**D.Lgs 42/2004** - Codice dei Beni Culturali e del Paesaggio  
-**D.Lgs 152/2006** - Codice dell'Ambiente (Testo Unico Ambientale)  
-**L. 136/2010** - Tracciabilità flussi finanziari (obbligo CIG)  
-**L. 241/1990** - Legge sul Procedimento Amministrativo (norme generali PA)  
-**L.R. 12/2005** - Esempio di Legge Regionale su Urbanistica (varia per regione)  
-**L.R. 62/1998** - Esempio di Legge Regionale su Tutela Acque (varia per regione)  
+**D.Lgs 42/2004** - Codice dei Beni Culturali e del Paesaggio
+**D.Lgs 152/2006** - Codice dell'Ambiente (Testo Unico Ambientale)
+**L. 136/2010** - Tracciabilità flussi finanziari (obbligo CIG)
+**L. 241/1990** - Legge sul Procedimento Amministrativo (norme generali PA)
+**L.R. 12/2005** - Esempio di Legge Regionale su Urbanistica (varia per regione)
+**L.R. 62/1998** - Esempio di Legge Regionale su Tutela Acque (varia per regione)
 
 **Reg. UE 679/2016** - Regolamento GDPR sulla protezione dati personali
 
@@ -1222,7 +1222,7 @@ Il sistema **non sostituisce** l'operatore pubblico, ma diventa un **assistente 
 
 ### Perché serve un approccio Multi-Step?
 
-❌ **One-Shot = Scatola nera**: Non si sa come arriva al risultato, non è controllabile  
+❌ **One-Shot = Scatola nera**: Non si sa come arriva al risultato, non è controllabile
 ✅ **Multi-Step = Catena di montaggio trasparente**: Ogni passaggio è verificabile e migliorabile
 
 ### Analogia finale
@@ -1232,7 +1232,7 @@ Il sistema **non sostituisce** l'operatore pubblico, ma diventa un **assistente 
   - Non si possono fare verifiche intermedie
   - Se sbaglia le fondamenta, crolla tutto
   - Non si può migliorare solo una parte
-  
+
 - ✅ Multi-Step: Costruire con fasi (fondamenta → muri → tetto → impianti → finiture)
   - Ogni fase ha specialisti e controlli
   - Se c'è un errore, si corregge solo quella fase

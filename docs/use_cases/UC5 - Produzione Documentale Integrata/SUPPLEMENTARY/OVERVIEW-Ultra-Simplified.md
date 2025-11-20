@@ -12,50 +12,50 @@ sequenceDiagram
     participant U as Cittadino
     participant PEC as PEC Server
     participant OPS as Operatore PA
-    
+
     box rgba(255, 215, 0, 0.3) 📧 BLOCCO EMAIL (SP01-SP02)
     participant EMAIL as Email Processing<br/>(Parse + Extract)
     end
-    
+
     box rgba(135, 206, 250, 0.3) 🤖 BLOCCO AI (SP03-SP08)
     participant AI as AI Pipeline<br/>(Classify + Generate + Validate)
     end
-    
+
     box rgba(144, 238, 144, 0.3) 🏛️ BLOCCO SISTEMA (SP09-SP11)
     participant SYS as System Layer<br/>(Workflow + Audit + Dashboard)
     end
-    
+
     %% Fase 1: Ricezione Email
     Note over U,SYS: 📧 FASE 1: Ricezione Email PEC
     U->>PEC: Email + allegati
     PEC->>SYS: Notifica .eml
     SYS->>EMAIL: Processa email
-    
+
     EMAIL->>EMAIL: Parse .eml<br/>Extract docs (OCR)<br/>NER data
     EMAIL-->>SYS: Metadata + Docs[]
-    
+
     rect rgb(255, 235, 59, 0.3)
         SYS->>OPS: 🔄 HITL: Verifica allegati
         OPS-->>SYS: ✅ Conferma
     end
-    
+
     %% Fase 2: AI Processing
     Note over U,SYS: 🤖 FASE 2: Elaborazione AI
     SYS->>AI: Avvia generazione
-    
+
     AI->>AI: Classifica procedimento<br/>Recupera normativa<br/>Genera documento<br/>Valida conformità<br/>Quality check
     AI-->>SYS: Draft atto validato
-    
+
     rect rgb(255, 235, 59, 0.3)
         SYS->>OPS: 🔄 HITL: Review + firma
         OPS-->>SYS: 🔐 Approvato e firmato
     end
-    
+
     %% Fase 3: Finalizzazione
     Note over U,SYS: 🏛️ FASE 3: Pubblicazione
     SYS->>SYS: Protocollo<br/>Audit trail<br/>Archiviazione
     SYS->>U: 📧 Notifica PEC completamento
-    
+
     Note over U,SYS: ✅ Tempo totale: ~44s (11s auto + 33s HITL)
 ```
 
@@ -70,7 +70,7 @@ sequenceDiagram
 | 2 | SP02 - Doc Extractor | OCR, classifica docs, NER | Documents[] con CF, indirizzi, importi |
 | 3 | HITL #1 | Operatore verifica completezza | ✅ Conferma o richiede integrazioni |
 
-**Tempo**: 3.3s automatico + 8s verifica = **11.3s**  
+**Tempo**: 3.3s automatico + 8s verifica = **11.3s**
 **Valore**: Elimina trascrizione manuale (da 20min a 11s)
 
 ---
@@ -87,7 +87,7 @@ sequenceDiagram
 | 5 | SP07 - Content Classifier | Classifica tipo atto | Categoria documento |
 | 6 | SP08 - Quality Checker | Controllo linguistico | Score qualità (0-100) |
 
-**Tempo**: ~8s automatico + 17s review = **25s**  
+**Tempo**: ~8s automatico + 17s review = **25s**
 **Valore**: Automatizza generazione mantenendo qualità PA
 
 ---
@@ -101,7 +101,7 @@ sequenceDiagram
 | SP10 - Dashboard | Visualizzazione metriche, interfaccia review | React, WebSocket, D3.js |
 | SP11 - Security & Audit | Tracciabilità, firma digitale, compliance | JWT, Blockchain, HSM |
 
-**Tempo**: 8s protocollo/audit  
+**Tempo**: 8s protocollo/audit
 **Valore**: Compliance GDPR/AgID, tracciabilità certificata
 
 ---
@@ -176,7 +176,7 @@ graph TB
         SP01 --> SP02[SP02<br/>Doc Extractor]
         SP02 --> HITL1[HITL #1<br/>Verifica]
     end
-    
+
     subgraph "🤖 AI PIPELINE"
         HITL1 --> SP03[SP03<br/>Procedural]
         SP03 --> SP04[SP04<br/>Knowledge Base]
@@ -185,19 +185,19 @@ graph TB
         SP06 --> SP08[SP08<br/>Quality]
         SP08 --> HITL2[HITL #2-4<br/>Review + Firma]
     end
-    
+
     subgraph "🏛️ SYSTEM LAYER"
         HITL2 --> SP11[SP11<br/>Security & Audit]
         SP11 --> Protocol[Protocollo]
         Protocol --> Notify[Notifica PEC]
-        
+
         SP09[SP09 Workflow] -.orchestrates.-> SP01
         SP09 -.orchestrates.-> SP03
         SP09 -.orchestrates.-> SP11
-        
+
         SP10[SP10 Dashboard] -.monitors.-> SP09
     end
-    
+
     style SP01 fill:#ffd700
     style SP02 fill:#ffd700
     style SP03 fill:#87ceeb
@@ -237,24 +237,24 @@ graph TB
 ```mermaid
 flowchart TD
     Start{Problema<br/>Performance?}
-    
+
     Start -->|Lentezza upload| EmailBlock[Scala SP01-SP02]
     Start -->|Generazione lenta| AIBlock[Scala SP03-SP08]
     Start -->|Dashboard lag| SysBlock[Scala SP10]
     Start -->|Audit overflow| SysBlock2[Scala SP11]
-    
+
     EmailBlock --> CheckOCR{OCR<br/>bottleneck?}
     CheckOCR -->|Sì| ScaleSP02[+GPU + replicas SP02]
     CheckOCR -->|No| ScaleSP01[+replicas SP01]
-    
+
     AIBlock --> CheckPhase{Quale<br/>fase?}
     CheckPhase -->|Classificazione| ScaleSP03[+replicas SP03]
     CheckPhase -->|RAG| ScaleSP04[+cache + sharding SP04]
     CheckPhase -->|Generazione| ScaleSP05[+rate limit GPT-4]
-    
+
     SysBlock --> ScaleSP10[+replicas SP10 + CDN]
     SysBlock2 --> ScaleSP11[+DB sharding SP11]
-    
+
     style Start fill:#ffd700
     style EmailBlock fill:#ffb6c1
     style AIBlock fill:#87ceeb

@@ -10,12 +10,12 @@ graph LR
     SP17[SP17<br/>Suggester] -->|suggestion| SP18
     SP18 -->|anomaly| SP19[SP19<br/>Workflow Orchestrator]
     SP18 -->|alert| SP10[SP10<br/>Dashboard]
-    
+
     SP18 -.-> ML[ML<br/>Models]
     SP18 -.-> RULES[Rule<br/>Engine]
     SP18 -.-> LOGS[(Protocol<br/>Logs)]
     SP18 -.-> ALERT[Alert<br/>System]
-    
+
     style SP18 fill:#ffd700
 ```
 
@@ -260,7 +260,7 @@ graph TD
     C --> D[ML Prediction]
     D --> E[Rule Validation]
     E --> F[Alert Generation]
-    
+
     style SP18 fill:#ffd700
 ```
 
@@ -295,7 +295,7 @@ Action: Alert supervisore
 POST /api/v1/detect/anomalies
   - Input: {"protocol_data": {}, "time_window": "1h"}
   - Output: {"anomalies": [], "severity": "string"}
-  
+
 GET /api/v1/anomalies/history
   - Query: ?from=2024-01-01&to=2024-01-31
   - Output: {"anomalies": [], "stats": {}}

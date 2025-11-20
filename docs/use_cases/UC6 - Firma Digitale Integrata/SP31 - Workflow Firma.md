@@ -9,20 +9,20 @@ graph LR
     DOCUMENTS[Documenti] --> SP31[SP31<br/>Signature Workflow]
     SIGNERS[Firmatari] --> SP31
     RULES[Business Rules] --> SP31
-    
+
     SP31 --> WORKFLOWS[Active Workflows]
     SP31 --> NOTIFICATIONS[Notifications]
     SP31 --> ESCALATIONS[Escalations]
-    
+
     SP31 --> SP29[SP29<br/>Signature Engine]
     SP31 --> SP32[SP32<br/>Signature Validation]
     SP31 --> SP10[SP10<br/>Dashboard]
-    
+
     SP31 -.-> STATE_MACHINE[(State<br/>Machine)]
     SP31 -.-> SCHEDULER[(Task<br/>Scheduler)]
     SP31 -.-> NOTIFICATION[(Notification<br/>Service)]
     SP31 -.-> AUDIT[(Audit<br/>Log)]
-    
+
     style SP31 fill:#ffd700
 ```
 
@@ -270,7 +270,7 @@ graph TD
     F --> C
     G --> C
     I --> C
-    
+
     style SP31 fill:#ffd700
 ```
 

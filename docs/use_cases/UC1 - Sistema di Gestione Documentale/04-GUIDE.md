@@ -52,12 +52,12 @@ Oggi, la gestione documentale in ZenShare Up richiede:
 ### La nostra soluzione
 Un **assistente digitale intelligente** che:
 
-✅ Classifica automaticamente i documenti (determine, delibere, contratti, fatture)  
-✅ Estrae metadati chiave (oggetto, ente, scadenza, CIG/CUP)  
-✅ Abilita ricerca semantica oltre il full text  
-✅ Genera riassunti intelligenti per schede riepilogative  
-✅ Fornisce risposte Q&A contestuali sui documenti  
-✅ Riduce i tempi da ore a minuti (parte automatica) + verifica umana  
+✅ Classifica automaticamente i documenti (determine, delibere, contratti, fatture)
+✅ Estrae metadati chiave (oggetto, ente, scadenza, CIG/CUP)
+✅ Abilita ricerca semantica oltre il full text
+✅ Genera riassunti intelligenti per schede riepilogative
+✅ Fornisce risposte Q&A contestuali sui documenti
+✅ Riduce i tempi da ore a minuti (parte automatica) + verifica umana
 ✅ Garantisce trasparenza e conformità (GDPR incluso)
 
 ---

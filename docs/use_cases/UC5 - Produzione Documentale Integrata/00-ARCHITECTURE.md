@@ -9,18 +9,18 @@ graph TB
         API_GW[API Gateway]
         HITL_UI[HITL Interface<br/>Human in the Loop]
     end
-    
+
     subgraph "Application Services"
         WF[SP09 - Workflow Engine<br/>Apache NiFi]
         DASH[SP10 - Explainability<br/>Dashboard]
         HITL_MGR[HITL Manager<br/>Decision Tracking]
     end
-    
+
     subgraph "Input Processing Layer"
         EML[SP01 - EML Parser<br/>Email Intelligence]
         DOC_EXT[SP02 - Document Extractor<br/>OCR/Attachment Classifier]
     end
-    
+
     subgraph "Core AI Services"
         PROC[SP03 - Classificatore Procedurale<br/>DistilBERT/spaCy]
         KB[SP04 - Knowledge Base<br/>RAG/Mistral]
@@ -29,12 +29,12 @@ graph TB
         CLS[SP07 - Classifier<br/>DistilBERT/spaCy]
         QC[SP08 - Quality Checker<br/>LanguageTool/spaCy]
     end
-    
+
     subgraph "Cross-Cutting Services"
         SEC[SP11 - Security & Audit<br/>Isolation Forest/Vault]
         MON[Monitoring<br/>Grafana/Prometheus]
     end
-    
+
     subgraph "Data Layer"
         PG[(PostgreSQL<br/>Metadata/Audit)]
         VDB[(Vector DB<br/>FAISS/Pinecone)]
@@ -43,42 +43,42 @@ graph TB
         MINIO[(MinIO<br/>Documents/Attachments)]
         HITL_DB[(PostgreSQL<br/>HITL Tracking)]
     end
-    
+
     subgraph "External Systems"
         PROT[Sistema Protocollo]
         FIRMA[Firma Digitale]
         PEC[Gestione PEC]
         DOC[Documentale]
     end
-    
+
     UI --> API_GW
     HITL_UI --> API_GW
     API_GW --> WF
     API_GW --> DASH
     API_GW --> HITL_MGR
-    
+
     PEC --> WF
     WF --> EML
     EML --> DOC_EXT
     DOC_EXT --> PROC
-    
+
     WF --> HITL_MGR
     HITL_MGR --> HITL_UI
-    
+
     WF --> PROC
     WF --> TPL
     WF --> VAL
     WF --> CLS
     WF --> QC
     WF --> KB
-    
+
     PROC --> KB
     TPL --> KB
     TPL --> CLS
     VAL --> KB
     VAL --> CLS
     CLS --> QC
-    
+
     DASH --> EML
     DASH --> DOC_EXT
     DASH --> PROC
@@ -87,7 +87,7 @@ graph TB
     DASH --> CLS
     DASH --> QC
     DASH --> KB
-    
+
     SEC -.->|Audit| EML
     SEC -.->|Audit| DOC_EXT
     SEC -.->|Audit| PROC
@@ -96,7 +96,7 @@ graph TB
     SEC -.->|Audit| CLS
     SEC -.->|Audit| QC
     SEC -.->|Audit| KB
-    
+
     MON -.->|Metrics| WF
     MON -.->|Metrics| EML
     MON -.->|Metrics| DOC_EXT
@@ -106,7 +106,7 @@ graph TB
     MON -.->|Metrics| CLS
     MON -.->|Metrics| QC
     MON -.->|Metrics| KB
-    
+
     EML --> PG
     EML --> MINIO
     DOC_EXT --> PG
@@ -125,14 +125,14 @@ graph TB
     CLS --> MINIO
     TPL --> MINIO
     SEC --> PG
-    
+
     HITL_MGR --> HITL_DB
     HITL_MGR --> MINIO
-    
+
     WF --> PROT
     WF --> FIRMA
     WF --> DOC
-    
+
     style EML fill:#ffd700
     style DOC_EXT fill:#ffd700
     style PROC fill:#e1f5ff
@@ -172,7 +172,7 @@ graph TB
 
 1. **Comunicazione Sincrona**: REST API via HTTP
 2. **Comunicazione Asincrona**: Event-driven via Apache NiFi flow files
-3. **Service Mesh**: Istio per resilienza e osservabilità  
+3. **Service Mesh**: Istio per resilienza e osservabilità
 4. **Circuit Breaker**: Pattern integrato in NiFi processors
 5. **API Gateway**: Kong/Ambassador per routing e rate limiting
 
@@ -197,7 +197,7 @@ graph LR
         T11[hitl.decision.submitted]
         T12[hitl.modification.applied]
     end
-    
+
     EML -->|Publish| T1
     DOC_EXT -->|Publish| T2
     PROC -->|Publish| T3
@@ -207,7 +207,7 @@ graph LR
     QC -->|Publish| T7
     WF -->|Publish| T8
     SEC -->|Publish| T9
-    
+
     T0 -->|Subscribe| EML
     T1 -->|Subscribe| DOC_EXT
     T2 -->|Subscribe| PROC
@@ -217,7 +217,7 @@ graph LR
     T6 -->|Subscribe| QC
     T5 -->|Subscribe| WF
     T7 -->|Subscribe| WF
-    
+
     style T0 fill:#ffd700
     style T1 fill:#ffd700
     style T2 fill:#ffd700
@@ -242,28 +242,28 @@ graph TB
             POD4[SP04 Pod<br/>3 replicas]
             POD5[SP05 Pod<br/>2 replicas]
         end
-        
+
         subgraph "Namespace: workflow"
             POD6[SP06 Pod<br/>2 replicas]
             POD7[SP07 Pod<br/>1 replica]
         end
-        
+
         subgraph "Namespace: security"
             POD8[SP08 Pod<br/>2 replicas]
         end
-        
+
         subgraph "Namespace: data"
             STS1[PostgreSQL StatefulSet]
             STS2[Redis StatefulSet]
             STS3[ZooKeeper StatefulSet<br/>for NiFi Clustering]
         end
     end
-    
+
     subgraph "External Services"
         LB[Load Balancer]
         INGRESS[Ingress Controller]
     end
-    
+
     LB --> INGRESS
     INGRESS --> POD1
     INGRESS --> POD2
@@ -272,13 +272,13 @@ graph TB
     INGRESS --> POD5
     INGRESS --> POD6
     INGRESS --> POD7
-    
+
     POD1 --> STS1
     POD2 --> STS1
     POD3 --> STS1
     POD4 --> STS1
     POD6 --> STS3
-    
+
     POD8 -.->|Monitor| POD1
     POD8 -.->|Monitor| POD2
     POD8 -.->|Monitor| POD3
@@ -372,43 +372,43 @@ graph TB
     subgraph "Microservizi"
         SVC[Tutti i Servizi SP01-SP11]
     end
-    
+
     subgraph "Metrics Collection"
         PROM[Prometheus]
         METRICS[Service Metrics]
     end
-    
+
     subgraph "Logging"
         FLUENT[Fluentd]
         ES[Elasticsearch]
         KIB[Kibana]
     end
-    
+
     subgraph "Tracing"
         JAEGER[Jaeger]
         TRACES[Distributed Traces]
     end
-    
+
     subgraph "Visualization"
         GRAF[Grafana]
         ALERT[AlertManager]
     end
-    
+
     SVC -->|Metrics| PROM
     SVC -->|Logs| FLUENT
     SVC -->|Traces| JAEGER
-    
+
     PROM --> METRICS
     FLUENT --> ES
     ES --> KIB
     JAEGER --> TRACES
-    
+
     METRICS --> GRAF
     TRACES --> GRAF
     PROM --> ALERT
-    
+
     ALERT -->|Slack/Email| TEAM[Ops Team]
-    
+
     style SVC fill:#e1f5ff
     style GRAF fill:#d4edda
     style ALERT fill:#f8d7da
@@ -455,28 +455,28 @@ graph LR
         PROD_VDB[(Vector DB<br/>Primary)]
         PROD_GRAPH[(Neo4j<br/>Primary)]
     end
-    
+
     subgraph "Standby (Sync Replication)"
         STAND_DB[(PostgreSQL<br/>Standby)]
         STAND_VDB[(Vector DB<br/>Standby)]
         STAND_GRAPH[(Neo4j<br/>Standby)]
     end
-    
+
     subgraph "Backup Storage"
         S3[(S3/MinIO<br/>Backups)]
         SNAP[Volume<br/>Snapshots]
     end
-    
+
     PROD_DB -->|Streaming Replication| STAND_DB
     PROD_VDB -->|Replication| STAND_VDB
     PROD_GRAPH -->|Replication| STAND_GRAPH
-    
+
     PROD_DB -->|Daily Backup| S3
     PROD_VDB -->|Daily Backup| S3
     PROD_GRAPH -->|Daily Backup| S3
-    
+
     PROD_DB -->|Hourly Snapshot| SNAP
-    
+
     style PROD_DB fill:#d4edda
     style STAND_DB fill:#fff3cd
     style S3 fill:#e1f5ff
@@ -503,30 +503,30 @@ graph TB
         WAF[Web Application Firewall]
         DDOS[DDoS Protection]
     end
-    
+
     subgraph "Layer 2: Network"
         FW[Network Firewall]
         VPN[VPN Gateway]
     end
-    
+
     subgraph "Layer 3: Application"
         OAUTH[OAuth 2.0 / OIDC]
         JWT[JWT Validation]
         RBAC[Role-Based Access]
     end
-    
+
     subgraph "Layer 4: Data"
         ENCRYPT[Encryption at Rest]
         TLS[TLS in Transit]
         MASK[Data Masking]
     end
-    
+
     subgraph "Layer 5: Monitoring"
         SIEM[SIEM - SP08]
         IDS[Intrusion Detection]
         AUDIT[Audit Logging]
     end
-    
+
     WAF --> FW
     DDOS --> FW
     FW --> OAUTH
@@ -536,14 +536,14 @@ graph TB
     RBAC --> ENCRYPT
     RBAC --> TLS
     ENCRYPT --> MASK
-    
+
     SIEM -.->|Monitor| WAF
     SIEM -.->|Monitor| FW
     SIEM -.->|Monitor| OAUTH
     SIEM -.->|Monitor| ENCRYPT
     IDS -.->|Detect| FW
     AUDIT -.->|Log| RBAC
-    
+
     style WAF fill:#f8d7da
     style SIEM fill:#f8d7da
     style ENCRYPT fill:#d4edda

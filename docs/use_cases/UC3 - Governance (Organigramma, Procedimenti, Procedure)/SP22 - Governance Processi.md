@@ -10,12 +10,12 @@ graph LR
     SP21[SP21<br/>Procedures] --> SP22
     SP22 --> SP23[SP23<br/>Compliance Monitor]
     SP22 --> SP10[SP10<br/>Dashboard]
-    
+
     SP22 -.-> AIRFLOW[(Airflow<br/>Workflow)]
     SP22 -.-> DROOLS[(Drools<br/>Rules)]
     SP22 -.-> KAFKA[(Kafka<br/>Events)]
     SP22 -.-> REDIS[(Redis<br/>State)]
-    
+
     style SP22 fill:#ffd700
 ```
 

@@ -14,110 +14,110 @@ sequenceDiagram
     participant WF as SP09 Workflow Engine
     participant DB as PostgreSQL
     participant BLOCKCHAIN as Blockchain
-    
+
     Note over U,BLOCKCHAIN: Fase 1: Autenticazione e Autorizzazione
-    
+
     U->>UI: Login
-    
+
     UI->>GW: POST /auth/login<br/>{username, password}
-    
+
     GW->>SEC: Autentica e autorizza richiesta
-    
+
     SEC->>DB: Log access attempt
-    
+
     SEC->>SEC: Verifica credenziali<br/>Check user permissions
-    
+
     SEC->>SEC: Genera JWT token
-    
+
     SEC-->>GW: JWT validated + user permissions
-    
+
     GW-->>UI: {token, user_profile}
-    
+
     UI-->>U: Login successful
-    
+
     Note over U,BLOCKCHAIN: Workflow Execution (con Security Checks)
-    
+
     U->>UI: Inizia workflow
-    
+
     UI->>GW: POST /api/v1/workflows/documents<br/>Authorization: Bearer JWT
-    
+
     GW->>SEC: Valida JWT token
-    
+
     SEC->>SEC: Verify token signature<br/>Check expiration<br/>Extract user permissions
-    
+
     alt Token Invalido o Scaduto
         SEC-->>GW: 401 Unauthorized
         GW-->>UI: Token expired
         UI-->>U: Richiedi re-login
     end
-    
+
     SEC->>DB: Log authenticated action
-    
+
     SEC-->>GW: Authorized - user_id: user_123
-    
+
     GW->>WF: Inizia workflow
-    
+
     Note over U,BLOCKCHAIN: Continuous Security Monitoring
-    
+
     loop Every critical action
         WF->>SEC: Log action<br/>{workflow_id, action, user_id}
-        
+
         SEC->>DB: Append to audit log
-        
+
         SEC->>SEC: Anomaly detection<br/>Check suspicious patterns
-        
+
         alt Anomalia rilevata
             SEC->>SEC: Trigger security alert
             SEC->>DB: Log security event
         end
     end
-    
+
     Note over U,BLOCKCHAIN: Fase 9: Registro di Audit Completo
-    
+
     WF->>SEC: POST /audit-log<br/>{workflow_complete, actions_log}
-    
+
     SEC->>DB: Store immutable audit trail<br/>(blockchain hash)
-    
+
     SEC->>BLOCKCHAIN: Compute Merkle tree hash
-    
+
     BLOCKCHAIN-->>SEC: Hash: 0x1234567890abcdef...
-    
+
     SEC->>DB: Store blockchain hash
-    
+
     SEC->>SEC: Generate compliance report<br/>(GDPR Art. 22)
-    
+
     SEC->>DB: Store GDPR compliance record
-    
+
     SEC-->>WF: Audit log stored successfully
-    
+
     Note over U,BLOCKCHAIN: Accesso Registro di Audit
-    
+
     U->>UI: Richiedi audit trail<br/>workflow WF-12345
-    
+
     UI->>GW: GET /audit/workflows/WF-12345
-    
+
     GW->>SEC: Authorize access
-    
+
     SEC->>SEC: Check user permissions<br/>(AUDIT_READ role)
-    
+
     alt Non autorizzato
         SEC-->>GW: 403 Forbidden
     end
-    
+
     SEC->>DB: Query audit trail
-    
+
     DB-->>SEC: Audit records + blockchain hash
-    
+
     SEC->>BLOCKCHAIN: Verify hash integrity
-    
+
     BLOCKCHAIN-->>SEC: Hash verified ✅
-    
+
     SEC-->>GW: {audit_trail, verified: true}
-    
+
     GW-->>UI: Audit trail data
-    
+
     UI-->>U: Visualizza audit trail<br/>con verifica blockchain
-    
+
     rect rgb(200, 255, 200)
         Note over SEC: Security & Audit<br/>JWT Authentication<br/>Immutable Registro di Audit<br/>GDPR Compliance<br/>Blockchain Verification
     end

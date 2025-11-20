@@ -9,20 +9,20 @@ graph LR
     USERS[Utenti] --> SP30[SP30<br/>Certificate Manager]
     CAS[Certificate Authorities] --> SP31$
     HSM[HSM Systems] --> SP31$
-    
+
     SP31 --> CERTIFICATES[Certificati Digitali]
     SP31 --> VALIDATIONS[Validation Results]
     SP31 --> RENEWALS[Rinnovi Automatici]
-    
+
     SP31 --> SP29[SP29<br/>Signature Engine]
     SP31 --> SP31[SP31<br/>Signature Workflow]
     SP31 --> SP10[SP10<br/>Dashboard]
-    
+
     SP31 -.-> VAULT[(HashiCorp<br/>Vault)]
     SP31 -.-> POSTGRES[(PostgreSQL<br/>Certificate DB)]
     SP31 -.-> REDIS[(Redis<br/>Cache)]
     SP31 -.-> OCSP[(OCSP<br/>Responders)]
-    
+
     style SP31 fill:#ffd700
 ```
 
@@ -268,7 +268,7 @@ graph TD
     H --> I[Expiration Monitoring]
     I --> J[Auto-renewal]
     J --> K[Revocation Handling]
-    
+
     style SP31 fill:#ffd700
 ```
 

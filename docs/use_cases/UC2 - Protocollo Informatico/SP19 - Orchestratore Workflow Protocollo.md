@@ -9,16 +9,16 @@ graph LR
     SP16[SP16<br/>Classifier] --> SP19[SP19<br/>Orchestrator]
     SP17[SP17<br/>Suggester] --> SP19
     SP18[SP18<br/>Anomaly Detector] --> SP19
-    
+
     SP19 --> SP02[SP02<br/>Document Processor]
     SP19 --> SP07[SP07<br/>Metadata Extractor]
     SP19 --> SP10[SP10<br/>Dashboard]
-    
+
     SP19 -.-> WORKFLOW[(Workflow<br/>Engine)]
     SP19 -.-> STATE[State<br/>Manager]
     SP19 -.-> RULES[Business<br/>Rules]
     SP19 -.-> AUDIT[Audit<br/>Trail]
-    
+
     style SP19 fill:#ffd700
 ```
 
@@ -263,10 +263,10 @@ graph TD
     C --> D[Validation]
     D --> E[Processing]
     E --> F[Archiviazione]
-    
+
     D -.-> G[Anomaly Check]
     G -.-> H[Alert/Block]
-    
+
     style SP19 fill:#ffd700
 ```
 
@@ -298,10 +298,10 @@ states:
 POST /api/v1/workflow/start
   - Input: {"protocol_id": "string", "initial_data": {}}
   - Output: {"workflow_id": "string", "status": "string"}
-  
+
 GET /api/v1/workflow/{id}/status
   - Output: {"state": "string", "progress": 0.75, "next_steps": []}
-  
+
 POST /api/v1/workflow/{id}/transition
   - Input: {"action": "approve", "data": {}}
   - Output: {"new_state": "string", "updated": true}

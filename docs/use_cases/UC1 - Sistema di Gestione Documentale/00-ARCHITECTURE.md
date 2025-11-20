@@ -11,61 +11,61 @@ graph TB
         API[REST API]
         SDK[SDK Integration]
     end
-    
+
     subgraph "API Gateway Layer"
         GW[API Gateway<br/>Kong/Traefik]
         AUTH[Authentication<br/>JWT/OAuth]
         RATE[Rate Limiting]
     end
-    
+
     subgraph "Orchestration Layer"
         SP15[SP15 Document<br/>Workflow Orchestrator<br/>NiFi/Airflow]
         EVENT[Event Bus<br/>Kafka]
         CACHE[Cache Layer<br/>Redis]
     end
-    
+
     subgraph "Processing Layer"
         SP02[SP02 Document<br/>Extractor<br/>Tesseract/PyPDF2]
         SP07[SP07 Content<br/>Classifier<br/>DistilBERT]
         SP13[SP13 Document<br/>Summarizer<br/>GPT-4/T5]
     end
-    
+
     subgraph "Storage & Search Layer"
         SP14[SP14 Metadata<br/>Indexer<br/>Elasticsearch]
         SP12[SP12 Semantic<br/>Search & Q&A<br/>FAISS/BERT]
         DB[(PostgreSQL<br/>Metadata)]
         STORAGE[(MinIO<br/>Documents)]
     end
-    
+
     subgraph "Monitoring & Security Layer"
         SP10[SP10 Dashboard<br/>Streamlit/React]
         SP11[SP11 Security<br/>& Audit<br/>ELK/Vault]
         MONITOR[Monitoring<br/>Prometheus]
     end
-    
+
     WEB --> GW
     API --> GW
     SDK --> GW
-    
+
     GW --> SP15
     SP15 --> SP02
     SP15 --> SP07
     SP15 --> SP13
     SP15 --> SP14
     SP15 --> SP12
-    
+
     SP02 --> STORAGE
     SP07 --> DB
     SP13 --> DB
     SP14 --> DB
     SP12 --> SP14
-    
+
     SP15 --> SP10
     SP15 --> SP11
-    
+
     SP10 --> MONITOR
     SP11 --> MONITOR
-    
+
     style SP15 fill:#ffd700
 ```
 

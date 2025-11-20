@@ -14,12 +14,12 @@ graph LR
     SP15 --> SP14[SP14<br/>Indexer]
     SP15 --> SP10[SP10<br/>Dashboard]
     SP15 --> SP11[SP11<br/>Security]
-    
+
     SP15 -.-> NIFI[Apache NiFi<br/>Flow Mgmt]
     SP15 -.-> AIRFLOW[Airflow<br/>Scheduling]
     SP15 -.-> KAFKA[Kafka<br/>Events]
     SP15 -.-> REDIS[Redis<br/>State]
-    
+
     style SP15 fill:#ffd700
 ```
 
@@ -263,23 +263,23 @@ graph TD
     B -->|PDF| C[OCR Pipeline]
     B -->|DOC| D[Text Pipeline]
     B -->|Image| E[Image Pipeline]
-    
+
     C --> F[SP02 Extract]
     D --> F
     E --> F
-    
+
     F --> G[SP07 Classify]
     G --> H{Classification OK?}
     H -->|Yes| I[SP13 Summarize]
     H -->|No| J[Manual Review]
-    
+
     I --> K[SP14 Index]
     K --> L[SP12 Search Ready]
     L --> M[Complete]
-    
+
     J --> N[Human Intervention]
     N --> O[Retry Pipeline]
-    
+
     style SP15 fill:#ffd700
 ```
 
@@ -307,21 +307,21 @@ steps:
     output: extracted_text
     timeout: 30s
     retry: 3
-    
+
   - name: classify
     component: SP07
     input: extracted_text
     output: classification
     depends_on: extract
     timeout: 10s
-    
+
   - name: summarize
     component: SP13
     input: [extracted_text, classification]
     output: summary
     depends_on: classify
     timeout: 60s
-    
+
   - name: index
     component: SP14
     input: [extracted_text, classification, summary]

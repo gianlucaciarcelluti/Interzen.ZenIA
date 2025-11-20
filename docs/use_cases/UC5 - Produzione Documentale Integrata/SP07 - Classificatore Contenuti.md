@@ -55,33 +55,33 @@ sequenceDiagram
     participant STORAGE as MinIO Storage
     participant NIFI_PROV as NiFi Provenance (Data Lineage)
     participant DASH as SP10 Dashboard
-    
+
     Note over WF,DASH: Fase 2: Classificazione e Analisi Contesto
-    
+
     WF->>CLS: POST /classify<br/>{metadata, context}
-    
+
     CLS->>CACHE: Check cached classification
-    
+
     alt Cache Miss
         CLS->>CLS: DistilBERT inference<br/>+ NER extraction
-        
+
         CLS->>DB: Retrieve similar documents
-        
+
         CLS->>STORAGE: Fetch historical templates
-        
+
         CLS->>CACHE: Store classification result<br/>(TTL: 1h)
     end
-    
+
     CLS-->>WF: {doc_type: "DELIBERA_GIUNTA",<br/>category: "URBANISTICA",<br/>metadata_extracted: {...},<br/>confidence: 0.94}
-    
+
     WF->>NIFI_PROV: Log provenance event<br/>DOCUMENT_CLASSIFIED
-    
+
     WF->>DB: Update workflow<br/>status: CLASSIFIED
-    
+
     WF->>DASH: Update dashboard<br/>{workflow_id, status: "CLASSIFIED",<br/>classification_data}
-    
+
     DASH->>DASH: Store metrics<br/>Update real-time view
-    
+
     rect rgb(200, 255, 200)
         Note over CLS: Classifier<br/>Tempo medio: 450ms<br/>SLA: 95% < 1s<br/>Cache TTL: 1 ora<br/>DistilBERT + NER
     end

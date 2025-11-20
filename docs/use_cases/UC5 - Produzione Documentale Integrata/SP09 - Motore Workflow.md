@@ -53,7 +53,7 @@ sequenceDiagram
     participant FIRMA as Firma Digitale
     participant DB as PostgreSQL
     participant STORAGE as MinIO Storage
-    
+
     Note over U,STORAGE: Fase 1: Inizializzazione
     U->>UI: Compila form richiesta
     UI->>GW: POST /api/v1/workflows/documents
@@ -63,19 +63,19 @@ sequenceDiagram
     WF->>DB: Crea record workflow
     WF->>NIFI_PROV: Log provenance: workflow.started
     WF->>STORAGE: Upload allegati
-    
+
     Note over U,STORAGE: Fase 2: Classificazione
     WF->>CLS: Classifica documento
     CLS-->>WF: Tipo + categoria
     WF->>NIFI_PROV: Log provenance: document.classified
     WF->>DB: Update: CLASSIFIED
     WF->>DASH: Update dashboard
-    
+
     Note over U,STORAGE: Fase 3: Knowledge Base
     WF->>KB: Recupera contesto normativo
     KB-->>WF: Normativa + precedenti
     WF->>DB: Update: context_retrieved
-    
+
     Note over U,STORAGE: Fase 4: Generazione
     WF->>TPL: Genera documento
     TPL-->>WF: Draft generato
@@ -83,7 +83,7 @@ sequenceDiagram
     WF->>DB: Update: DRAFT_GENERATED
     WF->>STORAGE: Save draft v0.1
     WF->>DASH: Update dashboard
-    
+
     Note over U,STORAGE: Fase 5: Validazione
     WF->>VAL: Valida documento
     VAL-->>WF: Risultati validazione
@@ -97,7 +97,7 @@ sequenceDiagram
     WF->>DB: Update: VALIDATED
     WF->>STORAGE: Save v0.2
     WF->>DASH: Update dashboard
-    
+
     Note over U,STORAGE: Fase 6: Quality Check
     WF->>QC: Controlla qualità
     QC-->>WF: Quality report
@@ -110,7 +110,7 @@ sequenceDiagram
     WF->>DB: Update: QUALITY_APPROVED
     WF->>STORAGE: Save v1.0
     WF->>DASH: Update dashboard
-    
+
     Note over U,STORAGE: Fase 7: Review Umana
     WF->>UI: Invia per review
     UI-->>U: Visualizza documento
@@ -119,7 +119,7 @@ sequenceDiagram
     UI->>GW: POST /approve
     GW->>WF: Procedi pubblicazione
     WF->>DB: Update: APPROVED
-    
+
     Note over U,STORAGE: Fase 8: Integrazione Legacy
     WF->>PROT: Protocolla documento
     PROT-->>WF: Numero protocollo
@@ -127,7 +127,7 @@ sequenceDiagram
     FIRMA-->>WF: Documento firmato
     WF->>STORAGE: Save signed document
     WF->>DB: Update: PUBLISHED
-    
+
     Note over U,STORAGE: Fase 9: Audit e Notifiche
     WF->>SEC: Audit log completo
     SEC->>DB: Store audit trail
@@ -135,11 +135,11 @@ sequenceDiagram
     WF->>UI: Notifica completamento
     UI-->>U: ✅ Pubblicato
     WF->>DASH: Final update
-    
+
     Note over U,STORAGE: Fase 10: Analytics
     NIFI_PROV->>DB: Aggiorna analytics con provenance
     NIFI_PROV->>DASH: Send analytics events from provenance
-    
+
     rect rgb(200, 255, 200)
         Note over U,STORAGE: WORKFLOW COMPLETATO<br/>Tempo: ~25 secondi<br/>Status: PUBLISHED
     end
@@ -368,7 +368,7 @@ stateDiagram-v2
     QUALITY_APPROVED --> APPROVED
     APPROVED --> PUBLISHED
     PUBLISHED --> [*]
-    
+
     VALIDATED --> DRAFT_GENERATED : Errori critici
     QUALITY_APPROVED --> DRAFT_GENERATED : Qualità bassa
     APPROVED --> VALIDATED : Richiesta modifiche

@@ -51,13 +51,13 @@ Oggi, la protocollazione informatica richiede:
 ### La nostra soluzione
 Un **assistente digitale intelligente** che:
 
-✅ Riconosce automaticamente PEC vs email ordinaria  
-✅ Classifica corrispondenza (istanza, comunicazione, richiesta, etc.)  
-✅ Suggerisce categorizzazione secondo titolario di archivio  
-✅ Propone registro di protocollo corretto  
-✅ Rileva anomalie (duplicati, mancati protocolli)  
-✅ Fornisce explainability completa delle decisioni  
-✅ Riduce i tempi da minuti a secondi + verifica umana  
+✅ Riconosce automaticamente PEC vs email ordinaria
+✅ Classifica corrispondenza (istanza, comunicazione, richiesta, etc.)
+✅ Suggerisce categorizzazione secondo titolario di archivio
+✅ Propone registro di protocollo corretto
+✅ Rileva anomalie (duplicati, mancati protocolli)
+✅ Fornisce explainability completa delle decisioni
+✅ Riduce i tempi da minuti a secondi + verifica umana
 ✅ Garantisce conformità normativa (CAD, GDPR)
 
 ---

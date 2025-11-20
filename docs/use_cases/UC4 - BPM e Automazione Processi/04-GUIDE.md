@@ -11,38 +11,38 @@ graph TB
         LOGS[Event Logs]
         DOCS[Documentazione]
     end
-    
+
     subgraph "UC4 Components"
         SP24[SP24<br/>Process Mining<br/>Engine]
         SP25[SP25<br/>RPA<br/>Orchestrator]
         SP26[SP26<br/>Intelligent<br/>Workflow Designer]
         SP27[SP27<br/>Process<br/>Analytics]
     end
-    
+
     subgraph "Integration"
         SP22[SP22<br/>Process Governance]
         SP02[SP02<br/>Document Processor]
         SP07[SP07<br/>Metadata Extractor]
         SP10[SP10<br/>Dashboard]
     end
-    
+
     LEGACY --> SP24
     LOGS --> SP24
     DOCS --> SP24
-    
+
     SP24 --> SP26
     SP26 --> SP25
     SP25 --> SP27
-    
+
     SP26 --> SP22
     SP25 --> SP02
     SP27 --> SP07
-    
+
     SP24 --> SP10
     SP25 --> SP10
     SP26 --> SP10
     SP27 --> SP10
-    
+
     style SP24 fill:#ffd700
     style SP25 fill:#ffd700
     style SP26 fill:#ffd700

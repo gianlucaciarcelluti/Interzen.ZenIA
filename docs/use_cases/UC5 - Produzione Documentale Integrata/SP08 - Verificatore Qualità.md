@@ -61,43 +61,43 @@ sequenceDiagram
     participant DB as PostgreSQL
     participant STORAGE as MinIO Storage
     participant DASH as SP10 Dashboard
-    
+
     Note over WF,DASH: Fase 6: Quality Check Linguistico
-    
+
     WF->>QC: POST /check-quality<br/>{document_validated}
-    
+
     QC->>QC: LanguageTool grammar check
-    
+
     QC->>QC: spaCy NLP analysis<br/>(POS, dependencies)
-    
+
     QC->>QC: Custom rules<br/>terminologia amministrativa
-    
+
     QC->>QC: Readability score<br/>(Gulpease index)
-    
+
     QC-->>WF: {grammar_errors: 3,<br/>style_warnings: 5,<br/>readability_score: 62,<br/>corrections: [...]}
-    
+
     alt Qualità Insufficiente
         WF->>TPL: POST /refine<br/>{document, quality_issues}
-        
+
         TPL->>TPL: LLM refinement con feedback
-        
+
         TPL-->>WF: {document_refined}
-        
+
         WF->>QC: POST /check-quality<br/>{document_refined}
-        
+
         Note over WF,QC: Retry quality check
     end
-    
+
     WF->>NIFI_PROV: Log provenance event<br/>QUALITY_CHECKED
-    
+
     WF->>DB: Update workflow<br/>status: QUALITY_APPROVED
-    
+
     WF->>STORAGE: Save final version v1.0
-    
+
     WF->>DASH: Update dashboard<br/>{workflow_id, status: "QUALITY_APPROVED",<br/>quality_metrics}
-    
+
     DASH->>DASH: Show quality scores<br/>Grammar/style report
-    
+
     rect rgb(200, 255, 200)
         Note over QC: Quality Checker<br/>Tempo medio: 320ms<br/>SLA: 95% < 1s<br/>LanguageTool + spaCy
     end

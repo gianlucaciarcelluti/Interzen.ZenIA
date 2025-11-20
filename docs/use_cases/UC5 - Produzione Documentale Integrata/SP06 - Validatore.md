@@ -65,51 +65,51 @@ sequenceDiagram
     participant DB as PostgreSQL
     participant STORAGE as MinIO Storage
     participant DASH as SP10 Dashboard
-    
+
     Note over WF,DASH: Fase 5: Validazione Semantica e Conformità
-    
+
     WF->>VAL: POST /validate<br/>{document_draft, doc_type}
-    
+
     VAL->>VAL: BERT semantic analysis<br/>coerenza interna
-    
+
     VAL->>KB: GET /check-compliance<br/>{document, normativa_refs}
-    
+
     KB->>KB: Cross-reference con DB normativo
-    
+
     KB-->>VAL: {compliance_issues: [...],<br/>missing_refs: [...]}
-    
+
     VAL->>VAL: Rule engine (Drools)<br/>validazioni strutturali
-    
+
     VAL->>VAL: Aggregazione errori per severità
-    
+
     VAL-->>WF: {validation_status: "WARNING",<br/>critical_issues: [],<br/>warnings: ["Manca CIG"],<br/>suggestions: [...]}
-    
+
     alt Errori Critici Rilevati
         WF->>NIFI_PROV: Log provenance event<br/>VALIDATION_FAILED
-        
+
         WF->>UI: Notifica errori critici
-        
+
         UI-->>U: Mostra errori e suggerimenti
-        
+
         U->>UI: Corregge metadata
-        
+
         Note over U,UI: Loop di correzione
-        
+
         UI->>WF: Riavvia validazione
-        
+
         WF->>VAL: POST /validate<br/>{document_updated, doc_type}
     end
-    
+
     WF->>NIFI_PROV: Log provenance event<br/>DOCUMENT_VALIDATED
-    
+
     WF->>DB: Update workflow<br/>status: VALIDATED
-    
+
     WF->>STORAGE: Save validated version v0.2
-    
+
     WF->>DASH: Update dashboard<br/>{workflow_id, status: "VALIDATED",<br/>validation_report, issues}
-    
+
     DASH->>DASH: Display validation details<br/>Highlight warnings/errors
-    
+
     rect rgb(200, 255, 200)
         Note over VAL: Validator<br/>Tempo medio: 780ms<br/>SLA: 95% < 2s<br/>BERT + Drools Rules
     end

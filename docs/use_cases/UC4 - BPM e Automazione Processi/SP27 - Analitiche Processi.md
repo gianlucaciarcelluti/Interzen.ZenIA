@@ -11,15 +11,15 @@ graph LR
     SP27 --> DASHBOARDS[Executive Dashboards]
     SP27 --> PREDICTIONS[Predictive Insights]
     SP27 --> ALERTS[Smart Alerts]
-    
+
     SP27 --> SP10[SP10<br/>Dashboard]
     SP27 --> SP26[SP26<br/>Workflow Designer]
-    
+
     SP27 -.-> CLICKHOUSE[(ClickHouse<br/>Time Series)]
     SP27 -.-> SPARK[(Spark<br/>ML Analytics)]
     SP27 -.-> PROMETHEUS[(Prometheus<br/>Metrics)]
     SP27 -.-> GRAFANA[(Grafana<br/>Visualization)]
-    
+
     style SP27 fill:#ffd700
 ```
 
@@ -265,7 +265,7 @@ graph TD
     D --> E[ML Predictions]
     E --> F[Dashboard Updates]
     F --> G[Alert Generation]
-    
+
     style SP27 fill:#ffd700
 ```
 

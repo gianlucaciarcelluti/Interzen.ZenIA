@@ -10,16 +10,16 @@ graph LR
     SP24 --> DISCOVERY[Process Discovery]
     SP24 --> CONFORMANCE[Conformance Checking]
     SP24 --> ANALYSIS[Bottleneck Analysis]
-    
+
     SP24 --> SP26[SP26<br/>Workflow Designer]
     SP24 --> SP27[SP27<br/>Process Analytics]
     SP24 --> SP10[SP10<br/>Dashboard]
-    
+
     SP24 -.-> SPARK[(Apache Spark<br/>Processing)]
     SP24 -.-> CLICKHOUSE[(ClickHouse<br/>Analytics)]
     SP24 -.-> MINIO[(MinIO<br/>Storage)]
     SP24 -.-> ELASTIC[(Elasticsearch<br/>Search)]
-    
+
     style SP24 fill:#ffd700
 ```
 
@@ -265,7 +265,7 @@ graph TD
     D --> E[Process Discovery]
     E --> F[Model Validation]
     F --> G[Analytics Generation]
-    
+
     style SP24 fill:#ffd700
 ```
 

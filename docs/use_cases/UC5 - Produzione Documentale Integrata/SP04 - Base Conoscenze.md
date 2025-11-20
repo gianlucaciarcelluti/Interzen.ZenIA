@@ -54,61 +54,61 @@ sequenceDiagram
     participant DB as PostgreSQL
     participant VAL as SP06 Validator
     participant DASH as SP10 Dashboard
-    
+
     Note over WF,DASH: Fase 3: Recupero Normativa e Contesto Giuridico
-    
+
     WF->>KB: POST /retrieve-context<br/>{doc_type, subject_matter}
-    
+
     KB->>CACHE: Check cached normativa
-    
+
     alt Cache Hit
         CACHE-->>KB: Return cached context
     else Cache Miss
         KB->>FAISS: Semantic search query<br/>embedding(subject_matter)
         FAISS-->>KB: Top-k=5 documenti rilevanti<br/>(similarity > 0.75)
-        
+
         KB->>NEO4J: Graph traversal query<br/>GET relationships(normativa_refs)
         NEO4J-->>KB: Relazioni normative<br/>(modifica, rimanda, abroga)
-        
+
         KB->>GROQ: RAG synthesis request<br/>{context: docs, graph: relations}
         GROQ-->>KB: Sintesi normativa contestualizzata<br/>+ citation tracking
-        
+
         KB->>CACHE: Store normativa context<br/>(TTL: 24h)
     end
-    
+
     KB->>DB: Log retrieval request<br/>(analytics)
-    
+
     KB-->>WF: {normativa_refs: ["L.241/1990", ...],<br/>legal_context: "sintesi normativa",<br/>precedents: [...],<br/>confidence: 0.91}
-    
+
     WF->>DB: Update workflow<br/>context_retrieved: true
-    
+
     Note over WF,DASH: Supporto Validazione (da SP02)
-    
+
     VAL->>KB: GET /check-compliance<br/>{document, normativa_refs}
-    
+
     KB->>FAISS: Similarity check<br/>document vs normativa corpus
     FAISS-->>KB: Compliance vectors
-    
+
     KB->>NEO4J: Verify normativa chain<br/>GET dependencies(refs)
     NEO4J-->>KB: Missing dependencies<br/>+ obsolete refs
-    
+
     KB->>DB: Query normativa status<br/>(vigenza, modifiche)
     DB-->>KB: Status normativa
-    
+
     KB-->>VAL: {compliance_issues: [...],<br/>missing_refs: [...],<br/>normativa_vigente: [...]}
-    
+
     rect rgb(200, 255, 200)
         Note over KB: Knowledge Base<br/>Tempo medio: 1.2s<br/>SLA: 90% < 3s<br/>Cache Hit Rate: >70%
     end
-    
+
     rect rgb(200, 220, 255)
         Note over FAISS: Vector Search<br/>~100k embeddings<br/>Response: <200ms
     end
-    
+
     rect rgb(255, 220, 200)
         Note over NEO4J: Graph Database<br/>~50k nodi normativi<br/>Response: <300ms
     end
-    
+
     rect rgb(220, 255, 220)
         Note over GROQ: RAG Engine<br/>Mixtral-8x7B-32k<br/>Synthesis: <800ms
     end
@@ -908,7 +908,7 @@ sequenceDiagram
       "properties": {
         "tipo_normativa": {
           "type": "array",
-          "items": { 
+          "items": {
             "type": "string",
             "enum": ["LEGGE", "DECRETO", "REGOLAMENTO", "GIURISPRUDENZA"]
           }

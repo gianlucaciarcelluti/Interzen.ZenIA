@@ -11,38 +11,38 @@ graph TB
         CERTS[Certificati Digitali]
         USERS[Utenti Firmatari]
     end
-    
+
     subgraph "UC6 Components"
         SP29[SP29<br/>Digital Signature<br/>Engine]
         SP30[SP30<br/>Certificate<br/>Manager]
         SP31[SP31<br/>Signature<br/>Workflow]
         SP32[SP32<br/>Signature<br/>Validation]
     end
-    
+
     subgraph "Integration"
         SP22[SP22<br/>Process Governance]
         SP02[SP02<br/>Document Processor]
         SP07[SP07<br/>Metadata Extractor]
         SP10[SP10<br/>Dashboard]
     end
-    
+
     DOCS --> SP31$
     CERTS --> SP31$
     USERS --> SP31
-    
+
     SP31 --> SP31
     SP31 --> SP31
     SP31 --> SP32
-    
+
     SP31 --> SP22
     SP31 --> SP02
     SP32 --> SP07
-    
+
     SP31 --> SP10
     SP31 --> SP10
     SP31 --> SP10
     SP32 --> SP10
-    
+
     style SP31 fill:#ffd700
     style SP31 fill:#ffd700
     style SP31 fill:#ffd700

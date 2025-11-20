@@ -56,47 +56,47 @@ sequenceDiagram
     participant STORAGE as MinIO Storage
     participant NIFI_PROV as NiFi Provenance (Data Lineage)
     participant DASH as SP10 Dashboard
-    
+
     Note over WF,DASH: Fase 0: Classificazione Procedimento e Individuazione Provvedimento
-    
+
     WF->>PROC: POST /classify-procedure<br/>{istanza_metadata, allegati_info}
-    
+
     PROC->>CACHE: Check cached procedure classification
-    
+
     alt Cache Miss
         PROC->>PROC: DistilBERT inference<br/>Analisi semantica istanza
-        
+
         PROC->>PROC: NER extraction<br/>(oggetto, richiedente, riferimenti normativi)
-        
+
         PROC->>KB: GET /retrieve-procedures<br/>{extracted_entities, subject_matter}
-        
+
         KB->>KB: Semantic search su database<br/>procedimenti amministrativi
-        
+
         KB->>KB: Graph traversal per relazioni<br/>procedimento → provvedimento
-        
+
         KB-->>PROC: {procedimenti_rilevanti: [...],<br/>normativa_applicabile: [...],<br/>provvedimenti_correlati: [...]}
-        
+
         PROC->>PROC: Ranking e confidence scoring<br/>procedimenti candidati
-        
+
         PROC->>DB: Retrieve historical patterns<br/>per procedimento individuato
-        
+
         PROC->>STORAGE: Fetch template samples<br/>per tipo provvedimento
-        
+
         PROC->>PROC: Determina tipo provvedimento finale<br/>da procedimento selezionato
-        
+
         PROC->>CACHE: Store classification result<br/>(TTL: 2h)
     end
-    
+
     PROC-->>WF: {procedimento: "AUTORIZZAZIONE_SCARICO_ACQUE",<br/>tipo_provvedimento: "DETERMINAZIONE_DIRIGENZIALE",<br/>normativa_base: ["D.Lgs 152/2006", "L.R. 62/1998"],<br/>metadata_required: {...},<br/>termini_procedimento: "90 giorni",<br/>confidence: 0.96}
-    
+
     WF->>NIFI_PROV: Log provenance event<br/>PROCEDURE_CLASSIFIED
-    
+
     WF->>DB: Update workflow<br/>status: PROCEDURE_CLASSIFIED<br/>procedimento_id: PROC-001<br/>provvedimento_type: DETERMINAZIONE
-    
+
     WF->>DASH: Update dashboard<br/>{workflow_id, status: "PROCEDURE_CLASSIFIED",<br/>procedure_data, provvedimento_type}
-    
+
     DASH->>DASH: Store classification metrics<br/>Update real-time view<br/>Show procedimento timeline
-    
+
     rect rgb(200, 255, 200)
         Note over PROC: Procedural Classifier<br/>Tempo medio: 520ms<br/>SLA: 95% < 1s<br/>Cache TTL: 2 ore<br/>DistilBERT + NER + KB Integration
     end

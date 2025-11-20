@@ -149,7 +149,7 @@ Se vuoi, applico subito le seguenti operazioni (scegli una o più opzioni):
 3. Creo `docs/templates/json-payload-standard.md` iniziale con struttura proposta.
 4. Configuro job CI per esecuzione periodica di `scripts/verify_links.py` (aggiunta GitHub Actions skeleton).
 
-Fammi sapere quale preferisci e procedo. 
+Fammi sapere quale preferisci e procedo.
 - **Effort**: 1 giorno (completato)
 - **Impact**: +1.5% completezza, coerenza visiva 100%
 - **Broken links fixed**: 12 link aggiornati, 0 broken links

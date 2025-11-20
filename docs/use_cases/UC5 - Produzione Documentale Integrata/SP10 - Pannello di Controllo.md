@@ -63,63 +63,63 @@ sequenceDiagram
     participant NIFI_PROV as NiFi Provenance (Data Lineage)
     participant DB as PostgreSQL
     participant CACHE as Redis Cache
-    
+
     Note over U,CACHE: Aggiornamenti Real-Time durante Workflow
-    
+
     WF->>DASH: Update dashboard<br/>{workflow_id, status: "CLASSIFIED",<br/>classification_data}
-    
+
     DASH->>DASH: Store metrics<br/>Update real-time view
-    
+
     DASH->>CACHE: Cache current state<br/>(TTL: 30 min)
-    
+
     WF->>DASH: Update dashboard<br/>{workflow_id, status: "DRAFT_GENERATED",<br/>template_data, generation_metrics}
-    
+
     DASH->>DASH: Visualize AI decision path<br/>Show SHAP values
-    
+
     WF->>DASH: Update dashboard<br/>{workflow_id, status: "VALIDATED",<br/>validation_report, issues}
-    
+
     DASH->>DASH: Display validation details<br/>Highlight warnings/errors
-    
+
     WF->>DASH: Update dashboard<br/>{workflow_id, status: "QUALITY_APPROVED",<br/>quality_metrics}
-    
+
     DASH->>DASH: Show quality scores<br/>Grammar/style report
-    
+
     Note over U,CACHE: Review Umana con Dashboard Interattiva
-    
+
     DASH->>U: Mostra dashboard interattiva:<br/>- Workflow timeline<br/>- AI decisions path<br/>- Confidence scores<br/>- Issues & warnings<br/>- Audit trail preview
-    
+
     U->>DASH: Richiedi dettaglio fase
-    
+
     DASH->>DB: Query phase details
-    
+
     DB-->>DASH: Detailed metrics
-    
+
     DASH-->>U: Visualizza metriche AI<br/>Explainability report
-    
+
     Note over U,CACHE: Workflow Completion
-    
+
     WF->>DASH: Final update<br/>{workflow_id, status: "PUBLISHED",<br/>final_metrics, audit_summary}
-    
+
     DASH->>DASH: Archive workflow data<br/>Update analytics
-    
+
     DASH->>DASH: Generate completion report
-    
+
     DASH->>DB: Store historical metrics
-    
+
     Note over U,CACHE: Post-Processing Analytics
-    
+
     NIFI_PROV->>DASH: Send analytics events from provenance
-    
+
     DASH->>DASH: Update KPI dashboards<br/>- Processing time trends<br/>- Success rate by doc type<br/>- AI confidence distribution<br/>- Human intervention rate
-    
+
     U->>DASH: Visualizza analytics storiche
-    
+
     DASH->>DB: Query historical data
-    
+
     DB-->>DASH: Aggregated metrics
-    
+
     DASH-->>U: Dashboard KPI:<br/>- Grafici trend<br/>- Statistiche per tipo<br/>- Performance AI<br/>- Colli di bottiglia
-    
+
     rect rgb(200, 255, 200)
         Note over DASH: Dashboard<br/>Real-time updates<br/>AI Explainability<br/>Historical Analytics
     end

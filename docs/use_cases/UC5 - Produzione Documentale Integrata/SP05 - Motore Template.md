@@ -61,49 +61,49 @@ sequenceDiagram
     participant STORAGE as MinIO Storage
     participant NIFI_PROV as NiFi Provenance (Data Lineage)
     participant DASH as SP10 Dashboard
-    
+
     Note over WF,DASH: Fase 4: Generazione Template con AI
-    
+
     WF->>TPL: POST /generate<br/>{doc_type, metadata, legal_context}
-    
+
     TPL->>CACHE: Check template cache
-    
+
     alt Template da generare
         TPL->>DB: Load Jinja2 base template<br/>per tipo documento
-        
+
         TPL->>TPL: GPT-4/Claude prompt engineering<br/>+ injection metadata + normativa
-        
+
         TPL->>TPL: LangChain orchestration<br/>multi-step generation
-        
+
         TPL->>STORAGE: Fetch firma digitale template
-        
+
         TPL->>TPL: Compile template Jinja2<br/>con dati strutturati
     end
-    
+
     TPL-->>WF: {document_draft: "XML/HTML",<br/>sections_generated: 12,<br/>generation_time: 2.3s}
-    
+
     WF->>NIFI_PROV: Log provenance event<br/>DOCUMENT_GENERATED
-    
+
     WF->>DB: Update workflow<br/>status: DRAFT_GENERATED
-    
+
     WF->>STORAGE: Save draft version v0.1
-    
+
     WF->>DASH: Update dashboard<br/>{workflow_id, status: "DRAFT_GENERATED",<br/>template_data, generation_metrics}
-    
+
     DASH->>DASH: Visualize AI decision path<br/>Show SHAP values
-    
+
     Note over WF,DASH: Raffinamento Qualità (se necessario)
-    
+
     alt Qualità Insufficiente (da SP08)
         WF->>TPL: POST /refine<br/>{document, quality_issues}
-        
+
         TPL->>TPL: LLM refinement con feedback
-        
+
         TPL-->>WF: {document_refined}
-        
+
         WF->>STORAGE: Save refined version
     end
-    
+
     rect rgb(200, 255, 200)
         Note over TPL: Template Engine<br/>Tempo medio: 2.3s<br/>SLA: 90% < 5s<br/>Cache TTL: 7 giorni
     end

@@ -10,12 +10,12 @@ graph LR
     LEGACY[Legacy Systems] --> SP20
     SP20 --> SP22[SP22<br/>Process Governance]
     SP20 --> SP10[SP10<br/>Dashboard]
-    
+
     SP20 -.-> POSTGRES[(PostgreSQL<br/>Org Data)]
     SP20 -.-> REDIS[(Redis<br/>Cache)]
     SP20 -.-> ELASTIC[(Elasticsearch<br/>Search)]
     SP20 -.-> GRAPH[Graph DB<br/>Relations]
-    
+
     style SP20 fill:#ffd700
 ```
 

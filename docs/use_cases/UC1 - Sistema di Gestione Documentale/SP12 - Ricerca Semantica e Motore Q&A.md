@@ -10,13 +10,13 @@ graph LR
     SP14[SP14<br/>Metadata Indexer] -->|indexed_docs| SP12
     SP12 -->|search_results| SP10[SP10<br/>Dashboard]
     SP12 -->|qa_responses| SP10
-    
+
     SP12 -.-> FAISS[FAISS<br/>Vector DB]
     SP12 -.-> BERT[BERT<br/>Embeddings]
     SP12 -.-> LLM[GPT-4<br/>Q&A]
     SP12 -.-> ES[Elasticsearch<br/>Hybrid Search]
     SP12 -.-> Redis[Redis<br/>Cache]
-    
+
     style SP12 fill:#ffd700
 ```
 
@@ -380,20 +380,20 @@ graph TD
     A[User Query] --> B{Query Type?}
     B -->|Search| C[Semantic Search Pipeline]
     B -->|Q&A| D[Q&A Pipeline]
-    
+
     C --> E[Query Embedding]
     E --> F[Vector Similarity Search]
     F --> G[Hybrid Ranking]
     G --> H[Result Formatting]
-    
+
     D --> I[Document Retrieval]
     I --> J[Context Extraction]
     J --> K[LLM Answer Generation]
     K --> L[Answer Validation]
     L --> H
-    
+
     H --> M[Response to User]
-    
+
     style SP12 fill:#ffd700
 ```
 

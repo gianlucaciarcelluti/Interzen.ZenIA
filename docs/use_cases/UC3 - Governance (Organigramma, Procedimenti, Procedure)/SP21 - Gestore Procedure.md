@@ -9,15 +9,15 @@ graph LR
     AUTHORS[Procedure Authors] --> SP21[SP21<br/>Procedure Manager]
     APPROVERS[Approvers] --> SP21
     LEGACY[Legacy Procedures] --> SP21
-    
+
     SP21 --> SP22[SP22<br/>Process Governance]
     SP21 --> SP10[SP10<br/>Dashboard]
-    
+
     SP21 -.-> MONGO[(MongoDB<br/>Procedures)]
     SP21 -.-> GIT[(Git<br/>Versioning)]
     SP21 -.-> ELASTIC[(Elasticsearch<br/>Search)]
     SP21 -.-> WORKFLOW[(Approval<br/>Workflow)]
-    
+
     style SP21 fill:#ffd700
 ```
 

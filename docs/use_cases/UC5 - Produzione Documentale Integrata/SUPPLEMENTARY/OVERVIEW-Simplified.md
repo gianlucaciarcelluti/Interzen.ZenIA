@@ -21,61 +21,61 @@ sequenceDiagram
     participant VAL as SP06<br/>Validator
     participant QC as SP08<br/>Quality
     participant SEC as SP11<br/>Security
-    
+
     Note over U,SEC: 📧 Fase 1-2: Ricezione e Parsing Email
     U->>PEC: Email PEC + 3 allegati
     PEC->>WF: Notifica .eml
     WF->>EML: Parse email
     EML-->>WF: Metadata + lista allegati
-    
+
     Note over U,SEC: 📄 Fase 3: Estrazione Documenti
     WF->>DOC: Estrai allegati (parallelo)
     DOC->>DOC: OCR + Classifica + NER
     DOC-->>WF: Documents[] + validation
-    
+
     rect rgb(255, 235, 59, 0.3)
         Note over OPS,WF: 🔄 HITL #1: Verifica Documenti
         WF->>OPS: Mostra allegati estratti
         OPS->>WF: ✅ Conferma completezza
     end
-    
+
     Note over U,SEC: 🎯 Fase 4: Classificazione Procedimento
     WF->>PROC: Classifica con dati SP02
     PROC->>KB: Cerca procedimenti
     KB-->>PROC: Procedimenti + normativa
     PROC-->>WF: Procedimento identificato (96%)
-    
+
     rect rgb(255, 235, 59, 0.3)
         Note over OPS,WF: 🔄 HITL #2: Conferma Procedimento
         WF->>OPS: Proposta procedimento
         OPS->>WF: ✅ Conferma
     end
-    
+
     Note over U,SEC: ✍️ Fase 5: Generazione
     WF->>KB: Recupera normativa
     KB-->>WF: Contesto giuridico
     WF->>TPL: Genera con dati pre-estratti
     TPL-->>WF: Draft documento
-    
+
     rect rgb(255, 235, 59, 0.3)
         Note over OPS,WF: 🔄 HITL #3: Review Draft
         WF->>OPS: Mostra bozza
         OPS->>WF: ✅ Approva
     end
-    
+
     Note over U,SEC: ✔️ Fase 6-7: Validazione
     WF->>VAL: Valida documento
     VAL->>KB: Check compliance
     VAL-->>WF: ✅ Validato (97/100)
     WF->>QC: Quality check
     QC-->>WF: ✅ Quality OK (82/100)
-    
+
     rect rgb(255, 235, 59, 0.3)
         Note over OPS,WF: 🔄 HITL #4: Firma
         WF->>OPS: Richiedi firma
         OPS->>WF: 🔐 Firmato
     end
-    
+
     Note over U,SEC: 🏛️ Fase 8: Pubblicazione
     WF->>SEC: Audit trail
     SEC-->>WF: ✅ Registrato
@@ -104,36 +104,36 @@ sequenceDiagram
 flowchart TD
     Start([📧 Email PEC Ricevuta]) --> Parse[SP01: Parse Email]
     Parse --> Extract[SP02: Estrai Documenti]
-    
+
     Extract --> CheckDocs{Documenti<br/>Completi?}
     CheckDocs -->|No| RequestInt[Richiedi Integrazioni]
     RequestInt --> WaitReply[Attendi Email Cittadino]
     WaitReply --> Parse
-    
+
     CheckDocs -->|Si| HITL1[HITL #1: Verifica]
     HITL1 --> ClassProc[SP03: Classifica Procedimento]
-    
+
     ClassProc --> HITL2[HITL #2: Conferma]
     HITL2 --> GetKB[SP04: Recupera Normativa]
     GetKB --> Generate[SP05: Genera Documento]
-    
+
     Generate --> HITL3[HITL #3: Review]
     HITL3 --> Validate[SP06: Valida]
-    
+
     Validate --> ValCheck{Errori<br/>Critici?}
     ValCheck -->|Sì| UserFix[Correggi Dati]
     UserFix --> Validate
-    
+
     ValCheck -->|No| QC[SP08: Quality Check]
     QC --> QCCheck{Qualità<br/>OK?}
     QCCheck -->|No| Refine[Raffina Documento]
     Refine --> QC
-    
+
     QCCheck -->|Sì| HITL4[HITL #4: Firma]
     HITL4 --> Audit[SP11: Audit Trail]
     Audit --> Notify[Notifica PEC Cittadino]
     Notify --> End([✅ Completato])
-    
+
     style Start fill:#90EE90
     style End fill:#90EE90
     style HITL1 fill:#FFD700
@@ -193,8 +193,8 @@ gantt
 
 ### Prima (Processo Manuale)
 ```
-Operatore scarica email → Estrae allegati manualmente → 
-Trascrizione dati (CF, indirizzi) → Verifica documenti → 
+Operatore scarica email → Estrae allegati manualmente →
+Trascrizione dati (CF, indirizzi) → Verifica documenti →
 [Poi workflow classico]
 
 Tempo: ~20 minuti (rischio errori trascrizione)
@@ -202,7 +202,7 @@ Tempo: ~20 minuti (rischio errori trascrizione)
 
 ### Dopo (Con SP01-SP02)
 ```
-Email PEC → SP01 Parse automatico → SP02 Estrai e classifica → 
+Email PEC → SP01 Parse automatico → SP02 Estrai e classifica →
 Operatore verifica (8s) → [Workflow classico]
 
 Tempo: ~3.3s automatici + 8s verifica = 11.3s
@@ -240,7 +240,7 @@ graph LR
     SP05 --> SP06[SP06<br/>Validator]
     SP06 --> SP08[SP08<br/>Quality]
     SP08 --> SP11[SP11<br/>Security]
-    
+
     SP09[SP09<br/>Workflow] -.orchestrates.-> SP01
     SP09 -.orchestrates.-> SP02
     SP09 -.orchestrates.-> SP03
@@ -249,9 +249,9 @@ graph LR
     SP09 -.orchestrates.-> SP06
     SP09 -.orchestrates.-> SP08
     SP09 -.orchestrates.-> SP11
-    
+
     SP10[SP10<br/>Dashboard] -.visualizes.-> SP09
-    
+
     style SP01 fill:#ffd700
     style SP02 fill:#ffd700
     style SP09 fill:#f9f

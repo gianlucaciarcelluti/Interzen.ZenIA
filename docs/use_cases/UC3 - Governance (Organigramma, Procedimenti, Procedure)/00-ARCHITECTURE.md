@@ -11,73 +11,73 @@ graph TB
         MOBILE[Mobile App]
         API[REST API]
     end
-    
+
     subgraph "API Gateway Layer"
         GATEWAY[API Gateway<br/>Kong/Istio]
         AUTH[Auth Service<br/>JWT/OAuth2]
         RATE[Rate Limiting]
     end
-    
+
     subgraph "Microservices Layer"
         SP20[SP20<br/>Org Chart Manager]
         SP21[SP21<br/>Procedure Manager]
         SP22[SP22<br/>Process Governance]
         SP23[SP23<br/>Compliance Monitor]
-        
+
         SP02[SP02<br/>Document Processor]
         SP07[SP07<br/>Metadata Extractor]
         SP10[SP10<br/>Dashboard Service]
     end
-    
+
     subgraph "Data Layer"
         POSTGRES[(PostgreSQL<br/>Transactional)]
         MONGO[(MongoDB<br/>Documents)]
         REDIS[(Redis<br/>Cache)]
         ELASTIC[(Elasticsearch<br/>Search)]
     end
-    
+
     subgraph "Integration Layer"
         KAFKA[Kafka<br/>Event Bus]
         WORKFLOW[Airflow<br/>Workflow Engine]
         RULES[Drools<br/>Rules Engine]
     end
-    
+
     subgraph "Infrastructure"
         K8S[Kubernetes<br/>Orchestration]
         MONITORING[Prometheus<br/>Monitoring]
         LOGGING[ELK Stack<br/>Logging]
     end
-    
+
     WEB --> GATEWAY
     MOBILE --> GATEWAY
     API --> GATEWAY
-    
+
     GATEWAY --> AUTH
     AUTH --> SP20
     AUTH --> SP21
     AUTH --> SP22
     AUTH --> SP23
-    
+
     SP20 --> POSTGRES
     SP21 --> MONGO
     SP22 --> KAFKA
     SP23 --> REDIS
-    
+
     SP20 --> ELASTIC
     SP21 --> ELASTIC
     SP22 --> ELASTIC
-    
+
     SP22 --> WORKFLOW
     SP23 --> RULES
-    
+
     SP20 --> SP02
     SP21 --> SP02
     SP22 --> SP07
-    
+
     SP20 --> SP10
     SP21 --> SP10
     SP23 --> SP10
-    
+
     K8S --> MONITORING
     MONITORING --> LOGGING
 ```
@@ -176,7 +176,7 @@ graph TD
         CQ --> CH[Command Handler]
         CH --> DB[(Write DB)]
     end
-    
+
     subgraph "Query Side"
         Q1[Get Procedures] --> QQ[Query Queue]
         Q2[Search Org Chart] --> QQ
@@ -261,7 +261,7 @@ graph LR
     DEV[Development] --> TEST[Testing]
     TEST --> STAGING[Staging]
     STAGING --> PROD[Production]
-    
+
     DEV -->|Git Push| CI[CI Pipeline]
     CI -->|Build| ARTIFACTS[Docker Images]
     ARTIFACTS -->|Deploy| TEST

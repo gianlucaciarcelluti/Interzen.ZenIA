@@ -9,14 +9,14 @@ graph LR
     SP01[SP01<br/>EML Parser] -->|attachments[]| SP02[SP02<br/>Doc Extractor]
     SP02 -->|documents[] + validation| SP03[SP03<br/>Procedural]
     SP02 -->|documents[] + validation| SP09[SP09<br/>Workflow]
-    
+
     SP02 -.-> Tesseract[Tesseract OCR<br/>Engine]
     SP02 -.-> BERT[DistilBERT<br/>Classifier]
     SP02 -.-> spaCy[spaCy NER]
     SP02 -.-> MinIO[MinIO<br/>Storage]
     SP02 -.-> DB[(PostgreSQL)]
     SP02 -.-> GPU[GPU Pool<br/>CUDA]
-    
+
     style SP02 fill:#ffd700
 ```
 
@@ -149,7 +149,7 @@ Endpoint principale per estrazione e classificazione allegati.
       "document_id": "DOC-001",
       "attachment_id": "ATT-001",
       "filename": "istanza.pdf",
-      
+
       "classification": {
         "document_type": "istanza_procedimento",
         "confidence": 0.96,
@@ -157,7 +157,7 @@ Endpoint principale per estrazione e classificazione allegati.
           {"type": "autocertificazione", "confidence": 0.12}
         ]
       },
-      
+
       "text_extraction": {
         "method": "native_pdf",
         "ocr_required": false,
@@ -167,7 +167,7 @@ Endpoint principale per estrazione e classificazione allegati.
         "language": "ita",
         "confidence": 0.99
       },
-      
+
       "extracted_entities": {
         "persone": [
           {
@@ -208,7 +208,7 @@ Endpoint principale per estrazione e classificazione allegati.
         "telefoni": [],
         "codici_procedimento": []
       },
-      
+
       "metadata": {
         "pdf_metadata": {
           "author": "Mario Rossi",
@@ -223,14 +223,14 @@ Endpoint principale per estrazione e classificazione allegati.
         "contains_tables": true,
         "contains_forms": false
       },
-      
+
       "validation": {
         "is_readable": true,
         "ocr_confidence": null,
         "completeness_score": 0.95,
         "issues": []
       },
-      
+
       "processing_time_ms": 456,
       "processed_at": "2025-11-03T10:25:12Z"
     },
@@ -238,13 +238,13 @@ Endpoint principale per estrazione e classificazione allegati.
       "document_id": "DOC-002",
       "attachment_id": "ATT-002",
       "filename": "documento_identita.pdf",
-      
+
       "classification": {
         "document_type": "documento_identita",
         "confidence": 0.98,
         "alternative_types": []
       },
-      
+
       "text_extraction": {
         "method": "ocr",
         "ocr_required": true,
@@ -254,7 +254,7 @@ Endpoint principale per estrazione e classificazione allegati.
         "language": "ita",
         "confidence": 0.87
       },
-      
+
       "extracted_entities": {
         "persone": [
           {
@@ -300,7 +300,7 @@ Endpoint principale per estrazione e classificazione allegati.
           }
         ]
       },
-      
+
       "metadata": {
         "pdf_metadata": {
           "author": "",
@@ -314,7 +314,7 @@ Endpoint principale per estrazione e classificazione allegati.
         "contains_tables": false,
         "contains_forms": false
       },
-      
+
       "validation": {
         "is_readable": true,
         "ocr_confidence": 0.87,
@@ -327,7 +327,7 @@ Endpoint principale per estrazione e classificazione allegati.
           }
         ]
       },
-      
+
       "processing_time_ms": 1823,
       "processed_at": "2025-11-03T10:25:14Z"
     },
@@ -335,7 +335,7 @@ Endpoint principale per estrazione e classificazione allegati.
       "document_id": "DOC-003",
       "attachment_id": "ATT-003",
       "filename": "planimetria.pdf",
-      
+
       "classification": {
         "document_type": "planimetria_tecnica",
         "confidence": 0.94,
@@ -343,7 +343,7 @@ Endpoint principale per estrazione e classificazione allegati.
           {"type": "relazione_tecnica", "confidence": 0.18}
         ]
       },
-      
+
       "text_extraction": {
         "method": "ocr",
         "ocr_required": true,
@@ -353,7 +353,7 @@ Endpoint principale per estrazione e classificazione allegati.
         "language": "ita",
         "confidence": 0.76
       },
-      
+
       "extracted_entities": {
         "persone": [
           {
@@ -378,7 +378,7 @@ Endpoint principale per estrazione e classificazione allegati.
           }
         ]
       },
-      
+
       "metadata": {
         "pdf_metadata": {
           "author": "Giuseppe Bianchi",
@@ -393,7 +393,7 @@ Endpoint principale per estrazione e classificazione allegati.
         "contains_forms": false,
         "is_technical_drawing": true
       },
-      
+
       "validation": {
         "is_readable": true,
         "ocr_confidence": 0.76,
@@ -406,12 +406,12 @@ Endpoint principale per estrazione e classificazione allegati.
           }
         ]
       },
-      
+
       "processing_time_ms": 2145,
       "processed_at": "2025-11-03T10:25:16Z"
     }
   ],
-  
+
   "validation_summary": {
     "all_documents_readable": true,
     "average_ocr_confidence": 0.815,
@@ -424,7 +424,7 @@ Endpoint principale per estrazione e classificazione allegati.
       "info": 1
     }
   },
-  
+
   "processing_summary": {
     "total_documents": 3,
     "ocr_performed": 2,
@@ -432,7 +432,7 @@ Endpoint principale per estrazione e classificazione allegati.
     "total_processing_time_ms": 4424,
     "average_time_per_doc_ms": 1475
   },
-  
+
   "timestamp": "2025-11-03T10:25:16Z"
 }
 ```
@@ -550,11 +550,11 @@ sequenceDiagram
     participant Storage as MinIO
     participant DB as PostgreSQL
     participant GPU as GPU Pool
-    
+
     Note over WF,GPU: Input: attachments[] da SP01
-    
+
     WF->>API: POST /extract-documents<br/>{attachments[], workflow_id}
-    
+
     Note over WF,GPU: Fase 1: Download Parallelo
     par Download allegati (parallelo)
         API->>Storage: Download istanza.pdf
@@ -566,98 +566,98 @@ sequenceDiagram
         API->>Storage: Download planimetria.pdf
         Storage-->>API: pdf_content_3
     end
-    
+
     Note over WF,GPU: Fase 2: Processing Parallelo per Documento
-    
+
     rect rgb(240, 248, 255)
         Note over API,GPU: Documento 1: istanza.pdf (native text)
         API->>API: Check if PDF is searchable
         API->>API: Extract text with pdfplumber
         API-->>API: text: "Il sottoscritto Mario Rossi..."
-        
+
         API->>Classifier: classify(text_preview)
         Classifier->>Classifier: DistilBERT inference
         Classifier-->>API: {type: "istanza_procedimento", conf: 0.96}
-        
+
         API->>NER: extract_entities(full_text)
         NER->>NER: spaCy NER pipeline
         NER->>NER: Regex patterns (CF, PIVA, date)
         NER-->>API: {persone[], cf[], indirizzi[], date[]}
-        
+
         API->>API: Create document_1 metadata
     end
-    
+
     rect rgb(255, 250, 240)
         Note over API,GPU: Documento 2: documento_identita.pdf (OCR needed)
         API->>API: Check if PDF is searchable
         API->>API: PDF is scanned image → OCR required
-        
+
         API->>OCR: Preprocessing pipeline
         OCR->>OCR: Convert PDF → Image (PIL)
         OCR->>OCR: Deskew (OpenCV)
         OCR->>OCR: Denoise (OpenCV)
         OCR->>OCR: Binarize (Otsu threshold)
-        
+
         API->>GPU: Request GPU slot
         GPU-->>API: GPU allocated
-        
+
         API->>OCR: tesseract(image, lang="ita")<br/>with GPU acceleration
         OCR->>OCR: Text recognition
         OCR-->>API: {text, confidence: 0.87}
-        
+
         API->>GPU: Release GPU
-        
+
         API->>Classifier: classify(ocr_text)
         Classifier-->>API: {type: "documento_identita", conf: 0.98}
-        
+
         API->>NER: extract_entities(ocr_text)
         NER-->>API: {persone[], cf[], date[]}
-        
+
         API->>API: Validate scadenza documento
         API->>API: Create document_2 metadata
     end
-    
+
     rect rgb(240, 255, 240)
         Note over API,GPU: Documento 3: planimetria.pdf (technical drawing)
         API->>API: Detect technical drawing (CAD metadata)
-        
+
         API->>GPU: Request GPU slot
         GPU-->>API: GPU allocated
-        
+
         API->>OCR: tesseract(pages[], lang="ita")
         OCR-->>API: {text, confidence: 0.76}
-        
+
         API->>GPU: Release GPU
-        
+
         API->>Classifier: classify(text + metadata)
         Classifier->>Classifier: Detect "planimetria", "scala", "legenda"
         Classifier-->>API: {type: "planimetria_tecnica", conf: 0.94}
-        
+
         API->>NER: extract_entities(text)
         NER-->>API: {persone: ["Giuseppe Bianchi"], codici[]}
-        
+
         API->>API: Create document_3 metadata
     end
-    
+
     Note over WF,GPU: Fase 3: Validation
     API->>API: Aggregate documents[]
     API->>API: Check all readable (conf > 0.60)
     API->>API: Cross-validate CF consistency
     API->>API: Generate validation summary
-    
+
     Note over WF,GPU: Fase 4: Persistenza
     API->>DB: BEGIN TRANSACTION
-    
+
     loop For each document
         API->>DB: INSERT INTO extracted_documents (...)
     end
-    
+
     API->>DB: INSERT INTO extraction_summary (...)
     API->>DB: COMMIT
-    
+
     Note over WF,GPU: Fase 5: Response
     API-->>WF: {<br/>  documents[3],<br/>  validation_summary,<br/>  processing_summary,<br/>  total_time_ms: 4424<br/>}
-    
+
     WF->>WF: Update workflow:<br/>DOCUMENTS_EXTRACTED
 ```
 
@@ -672,43 +672,43 @@ sequenceDiagram
     participant PIL as Pillow
     participant OCR as Tesseract
     participant GPU as CUDA GPU
-    
+
     Note over API,GPU: Input: PDF scansionato (immagine)
-    
+
     API->>PDF: Open PDF file
     PDF-->>API: PDF document handle
-    
+
     API->>PDF: Get page count
     PDF-->>API: page_count: 3
-    
+
     loop For each page
         Note over API,GPU: Page N processing
-        
+
         API->>PDF: Render page to image<br/>(DPI: 300)
         PDF->>PIL: Convert to PIL Image
         PIL-->>API: image_rgb
-        
+
         Note over API,GPU: Preprocessing Pipeline
-        
+
         API->>CV: Convert RGB → Grayscale
         CV-->>API: image_gray
-        
+
         API->>CV: Deskew detection
         CV->>CV: Hough transform line detection
         CV->>CV: Calculate rotation angle
         CV->>CV: Rotate image
         CV-->>API: image_deskewed (angle: -2.3°)
-        
+
         API->>CV: Noise reduction
         CV->>CV: Gaussian blur (kernel: 3x3)
         CV-->>API: image_denoised
-        
+
         API->>CV: Binarization
         CV->>CV: Otsu's threshold
         CV-->>API: image_binary
-        
+
         Note over API,GPU: OCR Execution
-        
+
         API->>GPU: Check GPU availability
         alt GPU available
             GPU-->>API: GPU slot allocated
@@ -719,28 +719,28 @@ sequenceDiagram
             API->>OCR: tesseract(image_binary,<br/>lang="ita", oem=0 [CPU legacy])
             Note over OCR: CPU-only processing (slower)
         end
-        
+
         OCR->>OCR: LSTM neural net inference
         OCR->>OCR: Language model correction
         OCR->>OCR: Calculate confidence scores
-        
+
         OCR-->>API: {<br/>  text: "Pagina N testo...",<br/>  confidence: 0.87,<br/>  word_confidences: [...]<br/>}
-        
+
         API->>API: Append to full_text
         API->>API: Aggregate confidence
-        
+
         opt Low confidence detected
             API->>API: Log warning:<br/>"Page N confidence 0.65 < threshold 0.75"
         end
     end
-    
+
     Note over API,GPU: Post-processing
-    
+
     API->>API: Combine all pages text
     API->>API: Calculate average confidence
     API->>API: Detect language (ita/eng/fra)
     API->>API: Text cleanup (fix common OCR errors)
-    
+
     alt Confidence >= 0.60
         API->>API: Mark as readable
         API-->>WF: {text, confidence, status: "success"}
@@ -760,12 +760,12 @@ sequenceDiagram
     participant BERT as DistilBERT Model
     participant Preprocessor as Text Preprocessor
     participant GPU as GPU Pool
-    
+
     Note over API,GPU: Input: document text + metadata
-    
+
     API->>API: Generate cache key<br/>hash(text[:1000] + metadata)
     API->>Cache: GET classification:{cache_key}
-    
+
     alt Cache Hit
         Cache-->>API: {type, confidence, cached_at}
         API->>API: Check if cache fresh (<24h)
@@ -774,15 +774,15 @@ sequenceDiagram
             Note over API: Skip inference (fast path)
         end
     end
-    
+
     Note over API,GPU: Cache Miss - ML Inference Required
-    
+
     API->>Preprocessor: Prepare text for BERT
     Preprocessor->>Preprocessor: Truncate to 512 tokens
     Preprocessor->>Preprocessor: Add [CLS], [SEP] tokens
     Preprocessor->>Preprocessor: Create attention mask
     Preprocessor-->>API: {input_ids, attention_mask}
-    
+
     API->>GPU: Request GPU slot
     alt GPU Available
         GPU-->>API: GPU allocated
@@ -794,18 +794,18 @@ sequenceDiagram
         API->>BERT: classify(input_ids)<br/>on CPU
         Note over BERT: Slower inference (~450ms)
     end
-    
+
     BERT->>BERT: Softmax on logits
     BERT->>BERT: Get top-3 predictions
-    
+
     BERT-->>API: {<br/>  predictions: [<br/>    {type: "istanza_procedimento", score: 0.96},<br/>    {type: "autocertificazione", score: 0.12},<br/>    {type: "relazione_tecnica", score: 0.05}<br/>  ]<br/>}
-    
+
     API->>API: Apply metadata boosting
     Note over API: Boost score if PDF metadata matches<br/>(e.g. "AutoCAD" → +0.1 for planimetria)
-    
+
     API->>API: Select top prediction
     API->>API: threshold_check(confidence >= 0.70)
-    
+
     alt Confidence >= 0.70
         API->>Cache: SET classification:{key}<br/>{type, confidence}<br/>TTL=24h
         API-->>WF: {<br/>  document_type: "istanza_procedimento",<br/>  confidence: 0.96,<br/>  alternatives: [...]<br/>}
@@ -908,17 +908,17 @@ CREATE TABLE extracted_documents (
     document_id VARCHAR(50) PRIMARY KEY,
     attachment_id VARCHAR(50) NOT NULL,
     workflow_id VARCHAR(50) NOT NULL,
-    
+
     -- File info
     filename VARCHAR(255) NOT NULL,
     mime_type VARCHAR(100),
     size_bytes BIGINT,
-    
+
     -- Classification
     document_type VARCHAR(50) NOT NULL,
     classification_confidence FLOAT,
     alternative_types JSONB,
-    
+
     -- Text extraction
     extraction_method VARCHAR(20), -- 'native_pdf', 'ocr'
     ocr_required BOOLEAN DEFAULT false,
@@ -927,25 +927,25 @@ CREATE TABLE extracted_documents (
     page_count INTEGER,
     language VARCHAR(10),
     ocr_confidence FLOAT,
-    
+
     -- Entities (JSONB for flexibility)
     extracted_entities JSONB,
-    
+
     -- Metadata
     pdf_metadata JSONB,
     has_digital_signature BOOLEAN DEFAULT false,
     is_searchable_pdf BOOLEAN,
     is_technical_drawing BOOLEAN DEFAULT false,
-    
+
     -- Validation
     is_readable BOOLEAN DEFAULT true,
     completeness_score FLOAT,
     validation_issues JSONB,
-    
+
     -- Processing
     processing_time_ms INTEGER,
     processed_at TIMESTAMP DEFAULT NOW(),
-    
+
     -- Foreign keys
     FOREIGN KEY (attachment_id) REFERENCES email_attachments(attachment_id),
     FOREIGN KEY (workflow_id) REFERENCES workflows(workflow_id)
@@ -963,31 +963,31 @@ CREATE INDEX idx_extracted_entities_gin ON extracted_documents USING gin(extract
 CREATE TABLE extraction_summaries (
     summary_id VARCHAR(50) PRIMARY KEY,
     workflow_id VARCHAR(50) NOT NULL UNIQUE,
-    
+
     -- Statistics
     total_documents INTEGER,
     ocr_performed_count INTEGER,
     native_extraction_count INTEGER,
-    
+
     -- Validation
     all_documents_readable BOOLEAN,
     average_ocr_confidence FLOAT,
     total_entities_extracted INTEGER,
     required_docs_present BOOLEAN,
     missing_documents TEXT[],
-    
+
     -- Issues
     critical_issues_count INTEGER DEFAULT 0,
     warning_issues_count INTEGER DEFAULT 0,
     info_issues_count INTEGER DEFAULT 0,
-    
+
     -- Performance
     total_processing_time_ms INTEGER,
     average_time_per_doc_ms INTEGER,
-    
+
     -- Timestamps
     created_at TIMESTAMP DEFAULT NOW(),
-    
+
     FOREIGN KEY (workflow_id) REFERENCES workflows(workflow_id)
 );
 
@@ -1209,7 +1209,7 @@ services:
       - minio
       - cache
       - rabbitmq
-  
+
   sp02-worker:
     build: ./sp02
     command: celery -A sp02.tasks worker --loglevel=info --concurrency=4 --pool=prefork
@@ -1476,6 +1476,6 @@ services:
 
 ---
 
-**Owner**: Team AI/ML  
-**Status**: ✅ Produzione  
+**Owner**: Team AI/ML
+**Status**: ✅ Produzione
 **Ultima revisione**: 2025-11-03

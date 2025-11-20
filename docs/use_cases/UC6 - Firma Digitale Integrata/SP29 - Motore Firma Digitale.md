@@ -334,7 +334,7 @@ graph TD
     E --> F[Timestamp Addition]
     F --> G[Signature Embedding]
     G --> H[Final Validation]
-    
+
     style SP31 fill:#ffd700
 ```
 

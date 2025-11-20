@@ -9,16 +9,16 @@ graph LR
     SP22[SP22<br/>Process Governance] --> SP23[SP23<br/>Compliance Monitor]
     AUDIT[Audit Logs] --> SP23
     RULES[Compliance Rules] --> SP23
-    
+
     SP23 --> SP10[SP10<br/>Dashboard]
     SP23 --> ALERTS[Alert System]
     SP23 --> REPORTS[Compliance Reports]
-    
+
     SP23 -.-> PROMETHEUS[(Prometheus<br/>Metrics)]
     SP23 -.-> TIMESERIES[(TimescaleDB<br/>Analytics)]
     SP23 -.-> ELASTIC[(Elasticsearch<br/>Logs)]
     SP23 -.-> ALERTMANAGER[(Alertmanager)]
-    
+
     style SP23 fill:#ffd700
 ```
 

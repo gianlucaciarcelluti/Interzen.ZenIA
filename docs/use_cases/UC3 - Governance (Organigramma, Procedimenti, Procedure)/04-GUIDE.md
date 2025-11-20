@@ -11,32 +11,32 @@ graph TB
         ORG[Organigramma<br/>Esistente]
         PROC[Procedure<br/>Legacy]
     end
-    
+
     subgraph "UC3 Components"
         SP20[SP20<br/>Organization Chart<br/>Manager]
         SP21[SP21<br/>Procedure<br/>Manager]
         SP22[SP22<br/>Process<br/>Governance]
         SP23[SP23<br/>Compliance<br/>Monitor]
     end
-    
+
     subgraph "Integration"
         SP02[SP02<br/>Document Processor]
         SP07[SP07<br/>Metadata Extractor]
         SP10[SP10<br/>Dashboard]
     end
-    
+
     DOCS --> SP20
     ORG --> SP20
     PROC --> SP21
-    
+
     SP20 --> SP22
     SP21 --> SP22
     SP22 --> SP23
-    
+
     SP22 --> SP02
     SP22 --> SP07
     SP23 --> SP10
-    
+
     style SP20 fill:#ffd700
     style SP21 fill:#ffd700
     style SP22 fill:#ffd700
@@ -101,11 +101,11 @@ graph LR
     HR[HR System] --> SP20[SP20 Org Chart]
     LEGACY[Legacy Systems] --> SP21[SP21 Procedures]
     DOCS[Document Sources] --> SP02[SP02 Processor]
-    
+
     SP20 --> CENTRAL[(Central<br/>Repository)]
     SP21 --> CENTRAL
     SP02 --> CENTRAL
-    
+
     CENTRAL --> SP22[SP22 Governance]
     SP22 --> SP23[SP23 Monitor]
     SP23 --> REPORTS[Reports &<br/>Alerts]

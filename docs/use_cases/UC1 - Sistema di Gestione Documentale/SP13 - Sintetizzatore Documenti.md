@@ -9,13 +9,13 @@ graph LR
     SP07[SP07<br/>Content Classifier] -->|classified_docs| SP13[SP13<br/>Summarizer]
     SP13 -->|summaries| SP14[SP14<br/>Metadata Indexer]
     SP13 -->|summaries| SP10[SP10<br/>Dashboard]
-    
+
     SP13 -.-> GPT[GPT-4<br/>Summarization]
     SP13 -.-> BERT[BERT<br/>Extractive]
     SP13 -.-> T5[T5<br/>Abstractive]
     SP13 -.-> Redis[Redis<br/>Cache]
     SP13 -.-> DB[(PostgreSQL)]
-    
+
     style SP13 fill:#ffd700
 ```
 
@@ -259,18 +259,18 @@ graph TD
     B -->|Short < 5 pages| C[Direct Summary]
     B -->|Medium 5-50 pages| D[Section-based Summary]
     B -->|Long > 50 pages| E[Hierarchical Summary]
-    
+
     C --> F[Extractive Model]
     D --> G[Hybrid Approach]
     E --> H[Abstractive Model]
-    
+
     F --> I[Quality Check]
     G --> I
     H --> I
-    
+
     I --> J[Template Formatting]
     J --> K[Output Summary]
-    
+
     style SP13 fill:#ffd700
 ```
 

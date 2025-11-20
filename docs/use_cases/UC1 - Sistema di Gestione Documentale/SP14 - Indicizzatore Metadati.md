@@ -11,12 +11,12 @@ graph LR
     SP13[SP13<br/>Summarizer] -->|summaries| SP14
     SP14 -->|indexed_docs| SP12[SP12<br/>Semantic Search]
     SP14 -->|indexed_docs| SP10[SP10<br/>Dashboard]
-    
+
     SP14 -.-> ES[Elasticsearch<br/>Engine]
     SP14 -.-> SOLR[Solr<br/>Alternative]
     SP14 -.-> PG[PostgreSQL<br/>Metadata]
     SP14 -.-> Redis[Redis<br/>Cache]
-    
+
     style SP14 fill:#ffd700
 ```
 
@@ -226,7 +226,7 @@ graph TD
     D --> E[Index Creation]
     E --> F[Replication]
     F --> G[Search Ready]
-    
+
     style SP14 fill:#ffd700
 ```
 

@@ -10,16 +10,16 @@ graph LR
     SP26 --> BPMN[BPMN Models]
     SP26 --> OPTIMIZATION[AI Optimization]
     SP26 --> SIMULATION[Process Simulation]
-    
+
     SP26 --> SP22[SP22<br/>Process Governance]
     SP26 --> SP27[SP27<br/>Process Analytics]
     SP26 --> SP10[SP10<br/>Dashboard]
-    
+
     SP26 -.-> REACT[(React.js<br/>Frontend)]
     SP26 -.-> FASTAPI[(FastAPI<br/>Backend)]
     SP26 -.-> MINIO[(MinIO<br/>Storage)]
     SP26 -.-> REDIS[(Redis<br/>Cache)]
-    
+
     style SP26 fill:#ffd700
 ```
 
@@ -264,7 +264,7 @@ graph TD
     C --> D[Optimization Engine]
     D --> E[Simulation]
     E --> F[Deployment Ready]
-    
+
     style SP26 fill:#ffd700
 ```
 

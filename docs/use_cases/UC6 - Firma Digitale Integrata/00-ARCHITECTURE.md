@@ -12,33 +12,33 @@ graph TB
         API[REST API Integration]
         DESKTOP[Desktop Signature Client]
     end
-    
+
     subgraph "API Gateway Layer"
         GATEWAY[API Gateway<br/>Kong/Istio]
         AUTH[Auth Service<br/>JWT/OAuth2 + MFA]
         VALIDATE[Signature Validation<br/>Pre-flight]
         RATE[Rate Limiting<br/>Per User/Org]
     end
-    
+
     subgraph "Microservices Layer"
         SP30[SP30<br/>Digital Signature<br/>Engine]
         SP31[SP31<br/>Certificate<br/>Manager]
         SP32[SP32<br/>Signature<br/>Workflow]
         SP32[SP32<br/>Signature<br/>Validation]
-        
+
         SP22[SP22<br/>Process Governance]
         SP02[SP02<br/>Document Processor]
         SP07[SP07<br/>Metadata Extractor]
         SP10[SP10<br/>Dashboard Service]
     end
-    
+
     subgraph "Security Layer"
         HSM[Hardware Security Module<br/>Key Management]
         VAULT[HashiCorp Vault<br/>Secret Management]
         CA[Certificate Authority<br/>Integration]
         TSP[Time Stamp Provider<br/>Legal Timestamping]
     end
-    
+
     subgraph "Data Layer"
         POSTGRES[(PostgreSQL<br/>Transactional)]
         MONGO[(MongoDB<br/>Signature Metadata)]
@@ -46,55 +46,55 @@ graph TB
         ELASTIC[(Elasticsearch<br/>Audit Search)]
         MINIO[(MinIO<br/>Signed Documents)]
     end
-    
+
     subgraph "External Integrations"
         ARUBA[Aruba Sign<br/>Provider]
         INFOCERT[InfoCert<br/>Provider]
         NAMIRIAL[Namirial<br/>Provider]
         CUSTOM[Custom CA<br/>Integration]
     end
-    
+
     subgraph "Infrastructure"
         K8S[Kubernetes<br/>Orchestration]
         MONITORING[Prometheus<br/>Monitoring]
         LOGGING[ELK Stack<br/>Logging]
         BACKUP[Automated<br/>Backup]
     end
-    
+
     WEB --> GATEWAY
     MOBILE --> GATEWAY
     API --> GATEWAY
     DESKTOP --> GATEWAY
-    
+
     GATEWAY --> AUTH
     AUTH --> SP32$
     AUTH --> SP32$
     AUTH --> SP32
     AUTH --> SP32
-    
+
     SP32 --> HSM
     SP32 --> CA
     SP32 --> TSP
-    
+
     SP32 --> POSTGRES
     SP32 --> MONGO
     SP32 --> REDIS
     SP32 --> ELASTIC
-    
+
     SP32 --> MINIO
     SP32 --> MINIO
     SP32 --> MINIO
-    
+
     SP32 --> ARUBA
     SP32 --> INFOCERT
     SP32 --> NAMIRIAL
     SP32 --> CUSTOM
-    
+
     SP32 --> SP22
     SP32 --> SP02
     SP32 --> SP07
     SP32 --> SP10
-    
+
     K8S --> MONITORING
     MONITORING --> LOGGING
     BACKUP --> MINIO
@@ -140,7 +140,7 @@ GET /api/v1/signatures/{id}/status
 POST /api/v1/certificates/request
   - Input: {"user_id": "string", "certificate_type": "qualified|advanced"}
   - Output: {"certificate_id": "string", "status": "pending"}
-  
+
 GET /api/v1/certificates/{id}/validate
   - Output: {"valid": true, "chain_valid": true, "revocation_status": "good"}
 ```
@@ -209,7 +209,7 @@ graph TD
     E --> F[Timestamp Application]
     F --> G[Post-validation]
     G --> H[Secure Storage]
-    
+
     style A fill:#ffd700
 ```
 
@@ -223,7 +223,7 @@ graph TD
     E --> F[Expiration Monitoring]
     F --> G[Auto-renewal]
     G --> H[Revocation Handling]
-    
+
     style A fill:#ffd700
 ```
 
@@ -239,7 +239,7 @@ graph TD
     G --> H[Validation 2]
     H --> I[Final Validation]
     I --> J[Workflow Complete]
-    
+
     style A fill:#ffd700
 ```
 
@@ -295,7 +295,7 @@ graph LR
     DMZ --> FIREWALL[Internal Firewall]
     FIREWALL --> APP[Application Zone]
     APP --> SECURE[Secure Zone<br/>HSM/Keys]
-    
+
     SECURE --> BACKUP[Backup Zone]
     APP --> MONITORING[Monitoring Zone]
 ```

@@ -9,12 +9,12 @@ graph LR
     SP01[SP01<br/>EML Parser] -->|parsed_email| SP16[SP16<br/>Classifier]
     SP16 -->|classification| SP17[SP17<br/>Registry Suggester]
     SP16 -->|classification| SP10[SP10<br/>Dashboard]
-    
+
     SP16 -.-> BERT[BERT<br/>Classifier]
     SP16 -.-> RULES[Rule<br/>Engine]
     SP16 -.-> CACHE[Redis<br/>Cache]
     SP16 -.-> DB[(PostgreSQL)]
-    
+
     style SP16 fill:#ffd700
 ```
 
@@ -265,7 +265,7 @@ graph TD
     D --> E[Rule-based Validation]
     E --> F[Confidence Scoring]
     F --> G[Output Classification]
-    
+
     style SP16 fill:#ffd700
 ```
 

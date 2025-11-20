@@ -9,11 +9,11 @@ graph LR
     PEC[PEC Server] -->|.eml file| SP01[SP01<br/>EML Parser]
     SP01 -->|metadata + attachments[]| SP02[SP02<br/>Doc Extractor]
     SP01 -->|validation status| SP09[SP09<br/>Workflow]
-    
+
     SP01 -.-> MinIO[MinIO<br/>Storage]
     SP01 -.-> DB[(PostgreSQL)]
     SP01 -.-> Cache[(Redis)]
-    
+
     style SP01 fill:#ffd700
 ```
 
@@ -247,7 +247,7 @@ CREATE TABLE emails (
     email_id VARCHAR(50) PRIMARY KEY,
     workflow_id VARCHAR(50) NOT NULL,
     message_id VARCHAR(255) UNIQUE NOT NULL,
-    
+
     -- Headers
     from_email VARCHAR(255) NOT NULL,
     from_name VARCHAR(255),
@@ -255,29 +255,29 @@ CREATE TABLE emails (
     to_emails TEXT[] NOT NULL,
     subject TEXT NOT NULL,
     date_sent TIMESTAMP NOT NULL,
-    
+
     -- PEC specific
     pec_receipt_id VARCHAR(255),
     is_valid_pec BOOLEAN DEFAULT false,
     signature_valid BOOLEAN DEFAULT false,
-    
+
     -- Content
     body_text TEXT,
     body_html TEXT,
-    
+
     -- Classification
     intent VARCHAR(50),
     intent_confidence FLOAT,
     urgency VARCHAR(20) DEFAULT 'normal',
-    
+
     -- Metadata
     attachments_count INTEGER DEFAULT 0,
     total_size_bytes BIGINT,
-    
+
     -- Timestamps
     created_at TIMESTAMP DEFAULT NOW(),
     processed_at TIMESTAMP,
-    
+
     -- Foreign keys
     FOREIGN KEY (workflow_id) REFERENCES workflows(workflow_id)
 );
@@ -293,25 +293,25 @@ CREATE INDEX idx_emails_date ON emails(date_sent);
 CREATE TABLE email_attachments (
     attachment_id VARCHAR(50) PRIMARY KEY,
     email_id VARCHAR(50) NOT NULL,
-    
+
     -- File info
     filename VARCHAR(255) NOT NULL,
     original_filename VARCHAR(255),
     mime_type VARCHAR(100),
     size_bytes BIGINT,
     sha256 VARCHAR(64),
-    
+
     -- Storage
     storage_path TEXT NOT NULL,
-    
+
     -- Signature
     is_signed BOOLEAN DEFAULT false,
     unwrapped_filename VARCHAR(255),
     unwrapped_mime_type VARCHAR(100),
-    
+
     -- Timestamps
     created_at TIMESTAMP DEFAULT NOW(),
-    
+
     FOREIGN KEY (email_id) REFERENCES emails(email_id) ON DELETE CASCADE
 );
 
@@ -334,18 +334,18 @@ sequenceDiagram
     participant Storage as MinIO
     participant DB as PostgreSQL
     participant Cache as Redis
-    
+
     Note over WF,Cache: Fase 1: Ricezione e Download
     WF->>API: POST /parse-email<br/>{eml_file_path, workflow_id}
     API->>Storage: Download .eml file
     Storage-->>API: eml_content (bytes)
-    
+
     Note over WF,Cache: Fase 2: Parsing MIME
     API->>Parser: Parse MIME message
     Parser->>Parser: Extract headers<br/>(From, To, Subject, Date)
     Parser->>Parser: Parse multipart body<br/>(HTML + plain text)
     Parser->>Parser: Enumerate attachments
-    
+
     Note over WF,Cache: Fase 3: Validazione Firma PEC
     alt File is .eml.p7m (signed)
         API->>Crypto: validate_pec_signature(content)
@@ -363,28 +363,28 @@ sequenceDiagram
     else File is plain .eml
         API->>API: Set is_valid_pec = false
     end
-    
+
     Note over WF,Cache: Fase 4: Estrazione Allegati (Parallelo)
     loop For each attachment
         API->>Parser: Extract attachment MIME part
         Parser->>Parser: Decode base64/quoted-printable
         Parser->>Parser: Calculate SHA-256 hash
-        
+
         alt Attachment is .p7m (signed)
             API->>Crypto: Unwrap PKCS#7 envelope
             Crypto-->>API: unwrapped_content
         end
-        
+
         API->>Storage: Upload to MinIO<br/>path: /attachments/{workflow_id}/{filename}
         Storage-->>API: storage_path
-        
+
         API->>API: Create attachment metadata<br/>{filename, size, hash, storage_path}
     end
-    
+
     Note over WF,Cache: Fase 5: Classificazione Intent
     API->>Classifier: classify_intent(subject, body)
     Classifier->>Classifier: Rule-based check<br/>(keywords: integrazione, Re:, Fw:)
-    
+
     alt Rule matched
         Classifier-->>API: {intent, confidence: 0.98, method: rule}
     else No rule match
@@ -393,36 +393,36 @@ sequenceDiagram
         Classifier->>Classifier: Score against intent patterns
         Classifier-->>API: {intent, confidence, keywords}
     end
-    
+
     Note over WF,Cache: Fase 6: Named Entity Recognition
     API->>NER: extract_entities(body_text)
     NER->>NER: spaCy NER pipeline
     NER->>NER: Regex extraction<br/>(CF, PIVA, date, importi)
     NER-->>API: {cf[], piva[], importi[], dates[]}
-    
+
     Note over WF,Cache: Fase 7: Enrichment Metadata
     API->>DB: Lookup sender by CF/email
     DB-->>API: {anagrafica, previous_emails}
-    
+
     API->>API: Geocode sender location
     API->>API: Determine urgency/priority
-    
+
     Note over WF,Cache: Fase 8: Persistenza
     API->>DB: BEGIN TRANSACTION
     API->>DB: INSERT INTO emails (...)
     DB-->>API: email_id
-    
+
     loop For each attachment
         API->>DB: INSERT INTO email_attachments (...)
     end
-    
+
     API->>DB: COMMIT
-    
+
     API->>Cache: SET email:{email_id}<br/>TTL=1h
-    
+
     Note over WF,Cache: Fase 9: Response
     API-->>WF: {email_id, metadata, pec_validation,<br/>attachments[], intent, entities,<br/>enrichment, processing_time_ms: 823}
-    
+
     WF->>WF: Update workflow status:<br/>EMAIL_PARSED
 ```
 
@@ -436,20 +436,20 @@ sequenceDiagram
     participant ASN1 as ASN.1 Parser
     participant Cache as Redis Cache
     participant CRL as CRL/OCSP Service
-    
+
     Note over API,CRL: Input: .eml.p7m file content
-    
+
     API->>Crypto: validate_pec_signature(p7m_content)
-    
+
     Note over API,CRL: Step 1: Parse PKCS#7 Structure
     Crypto->>ASN1: Parse CMS ContentInfo
     ASN1->>ASN1: Decode ASN.1 DER encoding
     ASN1-->>Crypto: {content, certificates[], signerInfos[]}
-    
+
     Note over API,CRL: Step 2: Extract Catena di Certificati
     Crypto->>Crypto: Extract X.509 certificates
     Crypto->>Crypto: Build certificate chain<br/>(end-entity → intermediate → root CA)
-    
+
     Note over API,CRL: Step 3: Validate Certificate
     Crypto->>Cache: GET cert_validation:{cert_hash}
     alt Cache Hit (certificate già validato)
@@ -457,57 +457,57 @@ sequenceDiagram
         Crypto->>Crypto: Check if cache still valid
     else Cache Miss
         Crypto->>Crypto: Check certificate validity period<br/>(notBefore, notAfter)
-        
+
         alt Certificate expired
             Crypto-->>API: {is_valid: false, error: "CERT_EXPIRED"}
             Note over API: Early return
         end
-        
+
         Crypto->>Crypto: Verify certificate chain<br/>(signatures up to trusted root)
-        
+
         alt Chain invalid
             Crypto-->>API: {is_valid: false, error: "INVALID_CHAIN"}
             Note over API: Early return
         end
-        
+
         Crypto->>CRL: Check revocation status<br/>(CRL or OCSP)
         CRL-->>Crypto: {revoked: false}
-        
+
         alt Certificate revoked
             Crypto-->>API: {is_valid: false, error: "CERT_REVOKED"}
             Note over API: Early return
         end
-        
+
         Crypto->>Cache: SET cert_validation:{cert_hash}<br/>{is_valid: true}<br/>TTL=7d
     end
-    
+
     Note over API,CRL: Step 4: Verify Signature
     Crypto->>Crypto: Extract signed attributes
     Crypto->>Crypto: Compute message digest<br/>(SHA-256)
     Crypto->>Crypto: Decrypt signature with public key
     Crypto->>Crypto: Compare digests
-    
+
     alt Signature mismatch
         Crypto-->>API: {is_valid: false, error: "SIGNATURE_INVALID"}
         Note over API: Early return
     end
-    
+
     Note over API,CRL: Step 5: Verify Timestamp
     Crypto->>ASN1: Parse timestamp token (RFC 3161)
     ASN1-->>Crypto: {timestamp, tsa_cert}
-    
+
     Crypto->>Crypto: Validate TSA certificate
     Crypto->>Crypto: Verify timestamp signature
-    
+
     alt Timestamp invalid
         Crypto-->>API: {is_valid: false, error: "TIMESTAMP_INVALID"}
         Note over API: Early return
     end
-    
+
     Note over API,CRL: Step 6: Extract Signer Info
     Crypto->>Crypto: Extract subject DN<br/>(CN, O, OU, C)
     Crypto->>Crypto: Extract validity period
-    
+
     Note over API,CRL: Success Response
     Crypto-->>API: {<br/>  is_valid_pec: true,<br/>  signature_valid: true,<br/>  certificate_valid: true,<br/>  timestamp_valid: true,<br/>  signer: {cn, organization, ...},<br/>  timestamp: "2025-11-03T09:15:23Z"<br/>}
 ```
@@ -523,65 +523,65 @@ sequenceDiagram
     participant Storage as MinIO
     participant DB as PostgreSQL
     participant Queue as RabbitMQ
-    
+
     Note over WF,Queue: Scenario 1: Storage Temporaneamente Unavailable
-    
+
     WF->>API: POST /parse-email
     API->>Worker: Enqueue parsing task
     Worker->>Storage: Download .eml
     Storage--xWorker: Connection timeout
-    
+
     Worker->>Worker: Retry attempt 1/3<br/>Wait 2s (exponential backoff)
     Worker->>Storage: Download .eml
     Storage--xWorker: Connection timeout
-    
+
     Worker->>Worker: Retry attempt 2/3<br/>Wait 4s
     Worker->>Storage: Download .eml
     Storage-->>Worker: eml_content ✓
-    
+
     Worker->>Worker: Continue parsing...
     Worker-->>API: Success response
     API-->>WF: Parsed email data
-    
+
     Note over WF,Queue: Scenario 2: Database Error (Circuit Breaker)
-    
+
     WF->>API: POST /parse-email
     API->>Worker: Enqueue task
     Worker->>Worker: Parse email successfully
     Worker->>DB: INSERT INTO emails
     DB--xWorker: Connection refused
-    
+
     Worker->>Worker: Circuit breaker threshold check<br/>(failure count: 4/5)
     Worker->>Queue: Requeue task for later
     Queue-->>Worker: Task queued (delay: 60s)
-    
+
     Worker-->>API: {status: "queued_for_retry"}
     API-->>WF: 202 Accepted<br/>{message: "Processing, retry scheduled"}
-    
+
     Note over WF,Queue: Scenario 3: Invalid Email Format (No Retry)
-    
+
     WF->>API: POST /parse-email
     API->>Worker: Enqueue task
     Worker->>Storage: Download .eml
     Storage-->>Worker: corrupted_content
-    
+
     Worker->>Worker: Parse with email.message_from_bytes
     Worker->>Worker: Exception: Invalid MIME format
-    
+
     Worker->>Worker: Check if retryable error<br/>(INVALID_FORMAT = non-retryable)
-    
+
     Worker->>DB: INSERT INTO failed_emails<br/>(email_path, error, quarantine: true)
     Worker->>WF: Send notification<br/>"Email corrotta, intervento manuale richiesto"
-    
+
     Worker-->>API: {<br/>  status: "failed",<br/>  error: "INVALID_EML_FORMAT",<br/>  quarantine_id: "Q-12345"<br/>}
     API-->>WF: 400 Bad Request
-    
+
     Note over WF,Queue: Scenario 4: Circuit Breaker OPEN
-    
+
     WF->>API: POST /parse-email
     API->>Worker: Check circuit breaker state
     Worker->>Worker: Circuit OPEN<br/>(too many DB failures)
-    
+
     Worker-->>API: {<br/>  status: "service_unavailable",<br/>  error: "DATABASE_CIRCUIT_OPEN",<br/>  retry_after: 60<br/>}
     API-->>WF: 503 Service Unavailable<br/>Retry-After: 60
 ```
@@ -742,17 +742,17 @@ graph LR
     RMQ -->|task| W2[Worker 2]
     RMQ -->|task| W3[Worker 3]
     RMQ -->|task| W4[Worker 4]
-    
+
     W1 --> MinIO[MinIO Storage]
     W2 --> MinIO
     W3 --> MinIO
     W4 --> MinIO
-    
+
     W1 --> DB[(PostgreSQL)]
     W2 --> DB
     W3 --> DB
     W4 --> DB
-    
+
     style RMQ fill:#f9f
     style W1 fill:#ffd700
     style W2 fill:#ffd700
@@ -896,7 +896,7 @@ services:
         limits:
           cpus: '1'
           memory: 512M
-  
+
   sp01-worker:
     build: ./sp01
     command: celery -A sp01.tasks worker --loglevel=info --concurrency=4
@@ -1159,6 +1159,6 @@ Se normativa cambia (es. eIDAS 2.0 published):
 
 ---
 
-**Owner**: Team Backend  
-**Status**: ✅ Produzione  
+**Owner**: Team Backend
+**Status**: ✅ Produzione
 **Ultima revisione**: 2025-11-03

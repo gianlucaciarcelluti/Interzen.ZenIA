@@ -16,7 +16,7 @@ Sistema AI-powered per la classificazione automatica dell'istanza di parte (rich
 
 #### 1. Definizione del Problema
 - **Tipo**: Classificazione multi-classe (procedimento amministrativo) + Named Entity Recognition
-- **Metriche di successo**: 
+- **Metriche di successo**:
   - Accuracy classificazione procedimento: >95%
   - Precision/Recall identificazione tipo provvedimento: >92%
   - Tempo di classificazione: <1 secondo
@@ -104,7 +104,7 @@ Sistema AI-powered per la generazione automatica di documenti amministrativi bas
 
 #### 1. Definizione del Problema
 - **Tipo**: Generazione testo strutturato (text generation + template filling)
-- **Metriche di successo**: 
+- **Metriche di successo**:
   - Accuratezza compilazione campi: >95%
   - Coerenza semantica: valutazione qualitativa + BLEU score >0.8
   - Tempo di generazione: <3 secondi per documento
@@ -372,7 +372,7 @@ FALLBACK: Groq llama-3.1-8b-instant (se GPU down)
 | **Fine-tuning** | 🔴 Non possibile | 🟢 Possibile |
 | **Context Length** | 🟢 128k tokens | 🟡 8k-32k tokens |
 
-**Raccomandazione**: 
+**Raccomandazione**:
 - **Fasi 1-2 (primi 3 mesi)**: Groq per sviluppo rapido
 - **Fase 3+**: Migrazione on-premise per produzione
 - **Groq come fallback**: Se GPU on-premise down (HA)
@@ -512,7 +512,7 @@ graph LR
     F --> G[Neo4j Graph Update]
     G --> H[Validation & Testing]
     H --> I[Deploy Nuovo Indice]
-    
+
     style A fill:#e1f5ff
     style I fill:#d4edda
 ```
@@ -689,7 +689,7 @@ Sistema integrato per classificazione automatica degli atti amministrativi ed es
 ### Pipeline Operativa
 
 #### 1. Definizione del Problema
-- **Tipo**: 
+- **Tipo**:
   - Classificazione multi-class + multi-label (categorizzazione atti)
   - Named Entity Recognition + Information Extraction (metadati)
 - **Metriche di successo**:
@@ -1379,19 +1379,19 @@ SP01-SP06
 gantt
     title Roadmap 12 Mesi - Overview Generale
     dateFormat YYYY-MM-DD
-    
+
     section Foundation
     SP04 Classifier       :crit, sp04, 2025-11-01, 60d
     SP01 Template Engine  :crit, sp01, after sp04, 30d
-    
+
     section Knowledge
     SP03 Knowledge Base   :crit, sp03, 2026-02-01, 60d
     SP05 Quality Checker  :sp05, 2026-02-15, 45d
     SP02 Validator        :sp02, after sp03, 30d
-    
+
     section Integration
     SP06 Workflow         :sp06, 2026-05-01, 90d
-    
+
     section Governance
     SP08 Security         :sp08, 2026-08-01, 60d
     SP07 Dashboard        :sp07, 2026-08-15, 90d
@@ -1406,17 +1406,17 @@ gantt
     title Fase 1 - Foundation Layer | Nov 2025 - Gen 2026
     dateFormat YYYY-MM-DD
     axisFormat %b %Y
-    
+
     section SP04 - Classifier
     Setup infrastruttura             :sp04a, 2025-11-01, 15d
     Training modelli                 :sp04b, after sp04a, 30d
     API e Testing                    :sp04c, after sp04b, 15d
-    
+
     section SP01 - Template
     Setup GPT-4 + LangChain          :sp01a, after sp04c, 10d
     Prompt engineering 5 categorie   :sp01b, after sp01a, 15d
     Template repository e test       :sp01c, after sp01b, 5d
-    
+
     section Milestone
     M1 - Sistema Base Operativo      :milestone, m1, after sp01c, 1d
 ```
@@ -1430,25 +1430,25 @@ gantt
     title Fase 2 - Knowledge & Validation | Feb 2026 - Apr 2026
     dateFormat YYYY-MM-DD
     axisFormat %b %Y
-    
+
     section SP03 - Knowledge
     Indicizzazione corpus normativo  :sp03a, 2026-02-01, 20d
     Setup Vector DB + Neo4j          :sp03b, after sp03a, 20d
     RAG implementation               :sp03c, after sp03b, 20d
-    
+
     section SP05 - Quality
     LanguageTool + custom rules      :sp05a, 2026-02-15, 20d
     Fine-tuning spaCy                :sp05b, after sp05a, 15d
     API e testing                    :sp05c, after sp05b, 10d
-    
+
     section SP02 - Validator
     Fine-tuning BERT                 :sp02a, after sp03c, 15d
     Rule engine Drools               :sp02b, after sp02a, 10d
     Integration testing              :sp02c, after sp02b, 5d
-    
+
     section SP01 Upgrade
     Integrazione con SP03            :sp01up, after sp03c, 15d
-    
+
     section Milestone
     M2 - Sistema con Validazione     :milestone, m2, after sp02c, 1d
 ```
@@ -1462,18 +1462,18 @@ gantt
     title Fase 3 - Integration & Optimization | Mag 2026 - Lug 2026
     dateFormat YYYY-MM-DD
     axisFormat %b %Y
-    
+
     section SP06 - Workflow
     Setup Airflow/Prefect            :sp06a, 2026-05-01, 15d
     DAG implementation               :sp06b, after sp06a, 20d
     NiFi FlowFiles event streaming   :sp06c, after sp06b, 15d
     Integration sistemi legacy       :sp06d, after sp06c, 10d
-    
+
     section Optimization
     A/B testing componenti           :opt1, after sp06d, 15d
     Performance tuning               :opt2, after opt1, 10d
     Load testing                     :opt3, after opt2, 5d
-    
+
     section Milestone
     M3 - Production Ready            :milestone, m3, after opt3, 1d
 ```
@@ -1487,24 +1487,24 @@ gantt
     title Fase 4 - Governance & Observability | Ago 2026 - Ott 2026
     dateFormat YYYY-MM-DD
     axisFormat %b %Y
-    
+
     section SP08 - Security
     Anomaly detection setup          :sp08a, 2026-08-01, 15d
     Vault + ELK Stack                :sp08b, after sp08a, 20d
     Blockchain audit trail           :sp08c, after sp08b, 15d
     GDPR compliance                  :sp08d, after sp08c, 10d
-    
+
     section SP07 - Dashboard
     Dashboard Streamlit dev          :sp07a, 2026-08-15, 20d
     SHAP/LIME integration            :sp07b, after sp07a, 25d
     D3.js visualizations             :sp07c, after sp07b, 20d
     User testing WCAG                :sp07d, after sp07c, 10d
-    
+
     section Go-Live
     UAT con stakeholder              :uat1, after sp07d, 10d
     Training e documentazione        :uat2, after uat1, 3d
     Deployment production            :uat3, after uat2, 2d
-    
+
     section Milestone
     M4 - Sistema in Produzione       :milestone, m4, after uat3, 1d
 ```

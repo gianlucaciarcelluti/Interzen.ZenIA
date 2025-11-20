@@ -12,26 +12,26 @@ graph TB
         BOT[Bot Management<br/>Console]
         API[REST API<br/>Integration]
     end
-    
+
     subgraph "API Gateway Layer"
         GATEWAY[API Gateway<br/>Kong/Istio]
         AUTH[Auth Service<br/>JWT/OAuth2]
         RATE[Rate Limiting<br/>Token Bucket]
         CACHE[Response Cache<br/>Redis]
     end
-    
+
     subgraph "Microservices Layer"
         SP24[SP24<br/>Process Mining<br/>Engine]
         SP25[SP25<br/>RPA<br/>Orchestrator]
         SP26[SP26<br/>Intelligent<br/>Workflow Designer]
         SP27[SP27<br/>Process<br/>Analytics]
-        
+
         SP22[SP22<br/>Process Governance]
         SP02[SP02<br/>Document Processor]
         SP07[SP07<br/>Metadata Extractor]
         SP10[SP10<br/>Dashboard Service]
     end
-    
+
     subgraph "Data Layer"
         POSTGRES[(PostgreSQL<br/>Transactional)]
         CLICKHOUSE[(ClickHouse<br/>Analytics)]
@@ -39,64 +39,64 @@ graph TB
         MINIO[(MinIO<br/>Object Storage)]
         ELASTIC[(Elasticsearch<br/>Search)]
     end
-    
+
     subgraph "Processing Layer"
         SPARK[Spark<br/>Data Processing]
         KAFKA[Kafka<br/>Event Streaming]
         AIRFLOW[Airflow<br/>Workflow Engine]
         CELERY[Celery<br/>Task Queue]
     end
-    
+
     subgraph "RPA Layer"
         BOT_FARM[Bot Farm<br/>Docker/K8s]
         UI_AUTOMATION[UI Automation<br/>Selenium/Playwright]
         API_AUTOMATION[API Automation<br/>Requests/Custom]
         DESKTOP_AUTOMATION[Desktop Automation<br/>PyAutoGUI/RPA Framework]
     end
-    
+
     subgraph "Infrastructure"
         K8S[Kubernetes<br/>Orchestration]
         PROMETHEUS[Prometheus<br/>Monitoring]
         GRAFANA[Grafana<br/>Visualization]
         LOGGING[ELK Stack<br/>Logging]
     end
-    
+
     DESIGNER --> GATEWAY
     MONITOR --> GATEWAY
     BOT --> GATEWAY
     API --> GATEWAY
-    
+
     GATEWAY --> AUTH
     AUTH --> SP24
     AUTH --> SP25
     AUTH --> SP26
     AUTH --> SP27
-    
+
     SP24 --> CLICKHOUSE
     SP25 --> POSTGRES
     SP26 --> MINIO
     SP27 --> CLICKHOUSE
-    
+
     SP24 --> ELASTIC
     SP25 --> REDIS
     SP26 --> REDIS
     SP27 --> ELASTIC
-    
+
     SP24 --> SPARK
     SP25 --> CELERY
     SP26 --> AIRFLOW
     SP27 --> SPARK
-    
+
     SP25 --> BOT_FARM
     BOT_FARM --> UI_AUTOMATION
     BOT_FARM --> API_AUTOMATION
     BOT_FARM --> DESKTOP_AUTOMATION
-    
+
     SP24 --> SP22
     SP25 --> SP02
     SP26 --> SP07
     SP27 --> SP10
-    
+
     K8S --> PROMETHEUS
     PROMETHEUS --> GRAFANA
     PROMETHEUS --> LOGGING
@@ -118,7 +118,7 @@ graph TB
 POST /api/v1/mining/discover
   - Input: {"event_log": "file_path", "algorithm": "alpha|heuristic"}
   - Output: {"process_model": "bpmn_xml", "statistics": {}}
-  
+
 GET /api/v1/mining/conformance
   - Query: ?model_id=123&log_id=456
   - Output: {"fitness": 0.85, "precision": 0.92}
@@ -138,7 +138,7 @@ GET /api/v1/mining/conformance
 POST /api/v1/rpa/bots/{bot_id}/execute
   - Input: {"task": "task_definition", "parameters": {}}
   - Output: {"execution_id": "string", "status": "queued"}
-  
+
 GET /api/v1/rpa/executions/{execution_id}
   - Output: {"status": "running", "progress": 0.75, "logs": []}
 ```
@@ -157,7 +157,7 @@ GET /api/v1/rpa/executions/{execution_id}
 POST /api/v1/designer/processes
   - Input: {"name": "string", "bpmn_xml": "string"}
   - Output: {"process_id": "string", "version": "1.0"}
-  
+
 POST /api/v1/designer/optimize
   - Input: {"process_id": "string", "goals": ["efficiency", "cost"]}
   - Output: {"optimized_bpmn": "string", "improvements": []}
@@ -177,7 +177,7 @@ POST /api/v1/designer/optimize
 GET /api/v1/analytics/kpis
   - Query: ?process_id=123&time_range=30d
   - Output: {"throughput": 150, "cycle_time": "2.5h", "error_rate": 0.02}
-  
+
 POST /api/v1/analytics/predict
   - Input: {"process_id": "string", "forecast_days": 30}
   - Output: {"predictions": [], "confidence": 0.85}
@@ -192,7 +192,7 @@ graph TD
     B --> C[Materialized Views]
     C --> D[Process Discovery]
     D --> E[Analytics Queries]
-    
+
     style A fill:#ffd700
 ```
 
@@ -206,7 +206,7 @@ graph TD
     E -->|Success| F[Task Complete]
     E -->|Failure| G[Retry/Fallback]
     G --> H[Manual Intervention]
-    
+
     style A fill:#ffd700
 ```
 
@@ -219,7 +219,7 @@ graph TD
         CQ --> CH[Command Handler]
         CH --> DB[(Write DB)]
     end
-    
+
     subgraph "Query Side"
         Q1[Analytics Query] --> QQ[Query Queue]
         Q2[Dashboard Data] --> QQ
@@ -272,7 +272,7 @@ graph LR
     DEV[Development] --> TEST[Testing]
     TEST --> STAGING[Staging]
     STAGING --> PROD[Production]
-    
+
     DEV -->|Git Push| CI[CI Pipeline]
     CI -->|Build| ARTIFACTS[Docker Images]
     ARTIFACTS -->|Deploy| TEST

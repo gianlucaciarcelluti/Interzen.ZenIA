@@ -11,42 +11,42 @@ graph TB
         EMAIL[Email Server]
         WEB[Web Forms]
     end
-    
+
     subgraph "Processing Layer"
         SP01[SP01 EML<br/>Parser]
         SP16[SP16 Correspondence<br/>Classifier]
         SP17[SP17 Registry<br/>Suggester]
         SP18[SP18 Anomaly<br/>Detector]
     end
-    
+
     subgraph "Storage Layer"
         PROTOCOL[(Protocol<br/>Database)]
         AUDIT[(Audit<br/>Logs)]
         TITOLARIO[(Titolario<br/>Archive)]
     end
-    
+
     subgraph "Output Layer"
         REGISTERS[Protocol<br/>Registers]
         DASH[SP10<br/>Dashboard]
         ALERTS[Alert<br/>System]
     end
-    
+
     PEC --> SP01
     EMAIL --> SP01
     WEB --> SP01
-    
+
     SP01 --> SP16
     SP16 --> SP17
     SP17 --> SP18
-    
+
     SP16 --> PROTOCOL
     SP17 --> PROTOCOL
     SP18 --> AUDIT
-    
+
     PROTOCOL --> REGISTERS
     AUDIT --> ALERTS
     PROTOCOL --> DASH
-    
+
     style SP01 fill:#ffd700
 ```
 

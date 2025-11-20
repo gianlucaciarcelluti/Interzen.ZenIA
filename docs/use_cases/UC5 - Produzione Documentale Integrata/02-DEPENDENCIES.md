@@ -28,7 +28,7 @@ graph TD
 
     PEC --> SP01
     DOCS --> SP02
-    
+
     SP01 --> SP02
     SP02 --> SP03
     SP02 --> SP07
@@ -36,7 +36,7 @@ graph TD
     SP03 --> SP04
     SP03 --> SP05
     SP04 --> SP05
-    
+
     SP05 --> SP06
     SP06 --> SP08
     SP07 --> SP08
