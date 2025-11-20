@@ -35,6 +35,41 @@
 - Snapshot Elasticsearch
 - Esportazione log su storage esterno
 
+## Gestione Errori
+
+### Scenari di Errore Comuni
+
+1. **Timeout Query**
+   - Descrizione: Query supera tempo limite di esecuzione
+   - Causa: Query complessa o dati voluminosi
+   - Mitigation: Implementare timeout configurabile e fallback
+
+2. **Connessione Database**
+   - Descrizione: Perdita connessione ai servizi dipendenti
+   - Causa: Servizio non disponibile o problemi rete
+   - Mitigation: Retry logic con exponential backoff
+
+3. **Validazione Dati**
+   - Descrizione: Input non valido o formato errato
+   - Causa: Client fornisce dati non conformi
+   - Mitigation: Validazione input e error messages chiari
+
+### Error Codes
+
+| Code | Status | Descrizione | Azione |
+|------|--------|-------------|--------|
+| 400 | Bad Request | Input non valido | Correggi parametri request |
+| 408 | Timeout | Operazione timeout | Riprova con parametri ridotti |
+| 500 | Internal Error | Errore interno | Contatta supporto |
+| 503 | Service Unavailable | Servizio non disponibile | Riprova più tardi |
+
+### Recovery Procedures
+
+- **Automatic Retry**: Sistema riprova automaticamente con backoff esponenziale
+- **Graceful Degradation**: Fallback a cache o risultati parziali se disponibili
+- **Error Logging**: Tutti gli errori registrati per analisi e monitoring
+- **Alerting**: Notifiche su errori critici ai team di supporto
+
 ## Scalabilità
 - Stateless, replica orizzontale
 - Storage e coda scalabili
