@@ -1,5 +1,105 @@
 # SP42 - Policy Engine
 
+## Diagrammi Architetturali
+
+### Flowchart — Pipeline Authoring e Enforcement Politiche
+
+```mermaid
+flowchart TD
+    A["👤 Policy Authoring<br/>Visual GUI/Wizard"] --> B["📋 Policy Definition<br/>Drag & Drop / Template"]
+    B --> C["✔️ Validation Layer<br/>Syntax + Logic Checks"]
+    C --> D{Policy Valid?}
+    D -->|No| E["❌ Validation Error<br/>Feedback to Author"]
+    E --> A
+    D -->|Yes| F["📦 Policy Packaging<br/>Version + Metadata"]
+    F --> G["🔐 Deployment<br/>Zero-Downtime Release"]
+    G --> H["🚀 Policy Active<br/>in Runtime"]
+    H --> I["📊 Drools Rule Engine<br/>Forward/Backward Chaining"]
+    I --> J["🔍 Pattern Matching<br/>Condition Evaluation"]
+    J --> K["⚙️ Action Execution<br/>Policy Enforcement"]
+    K --> L["📋 Rule Repository<br/>Git-based Version Control"]
+    L --> M["💾 Audit Logging<br/>Complete Traceability"]
+    M --> N["📈 Monitoring & Compliance<br/>Policy Adherence Metrics"]
+    N --> O["🔄 Feedback Loop<br/>Policy Optimization"]
+    O --> P["✔️ Fine"]
+```
+
+### Sequence Diagram — Flusso Policy Enforcement
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant USER as Policy Author
+    participant AUTHOR as Policy Authoring UI
+    participant RULES as Drools Rule Engine
+    participant DB as Policy Repository
+    participant AUDIT as Audit Log
+    participant MONITOR as Compliance Monitor
+
+    USER->>AUTHOR: Create policy<br/>visual builder
+
+    AUTHOR->>AUTHOR: Validate syntax<br/>& logic
+
+    alt Validation Error
+        AUTHOR-->>USER: Show errors
+        USER->>AUTHOR: Fix policy
+    else Valid Policy
+        AUTHOR->>DB: Save policy<br/>with version
+        AUTHOR->>AUTHOR: Request deployment
+    end
+
+    DB-->>RULES: Load policy rules<br/>Drools format
+
+    RULES->>RULES: Compile rules<br/>Rete algorithm
+
+    RULES->>DB: Register active<br/>policy version
+
+    Note over RULES: Runtime: Policy Enforcement
+
+    RULES->>RULES: Pattern matching<br/>Evaluate conditions
+
+    RULES->>RULES: Conflict resolution<br/>Rule prioritization
+
+    RULES->>RULES: Action execution<br/>Forward chaining
+
+    RULES->>AUDIT: Log policy<br/>decision event
+
+    AUDIT->>DB: Store audit<br/>record
+
+    RULES->>MONITOR: Send compliance<br/>metric
+
+    MONITOR->>MONITOR: Update KPI<br/>policy adherence
+
+    rect rgb(200, 255, 200)
+        Note over RULES: Policy Enforcement<br/>Tempo medio: 200-500ms<br/>SLA: 95% < 1s
+    end
+```
+
+### State Diagram — Ciclo Vita Policy
+
+```mermaid
+stateDiagram-v2
+    [*] --> Draft: Policy Created
+    Draft --> Authoring: Author Editing
+    Authoring --> Review: Submit for Review
+    Review --> Approved: Approved
+    Review --> Rejected: Rejected
+    Rejected --> Authoring
+    Approved --> Packaged: Package Policy
+    Packaged --> Deployment: Deploy to Runtime
+    Deployment --> Active: Policy Active
+    Active --> Monitoring: Continuous Monitoring
+    Monitoring --> Evaluation: Rule Evaluation
+    Evaluation --> Enforcement: Policy Enforcement
+    Enforcement --> AuditLog: Log Decision
+    AuditLog --> Monitoring
+    Active --> Update: Policy Updated
+    Update --> Authoring
+    Active --> Deactivated: Deactivate Policy
+    Deactivated --> Archived: Archive Policy
+    Archived --> [*]
+```
+
 ## Descrizione Componente
 
 Il **SP42 Policy Engine** è il motore centrale per la gestione, enforcement e monitoraggio delle policy normative nell'ecosistema aziendale. Implementa un framework completo per l'authoring, deployment e enforcement di policy complesse, garantendo la conformità automatica ai requisiti regolamentari.

@@ -20,6 +20,93 @@ graph LR
     style SP12 fill:#ffd700
 ```
 
+## Diagrammi Architetturali
+
+### Sequence Diagram — Flusso Ricerca Semantica e Q&A
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as Utente/Sistema
+    participant SP12 as SP12 Semantic Search
+    participant REDIS as Redis Cache
+    participant FAISS as FAISS Vector DB
+    participant ES as Elasticsearch
+    participant LLM as GPT-4 Q&A
+    participant DB as PostgreSQL
+
+    U->>SP12: POST /search<br/>{query, top_k=5}
+
+    SP12->>REDIS: Check cached results
+
+    alt Cache Hit
+        REDIS-->>SP12: Return cached results
+        SP12-->>U: Return search results
+    else Cache Miss
+        SP12->>SP12: Embed query<br/>BERT embedding
+
+        SP12->>FAISS: Vector similarity search<br/>top_k=10
+        FAISS-->>SP12: Ranked documents
+
+        SP12->>ES: Full-text search<br/>parallel query
+        ES-->>SP12: Text-matched results
+
+        SP12->>SP12: Merge & rank<br/>by relevance
+
+        SP12->>REDIS: Cache (TTL: 1h)
+
+        SP12-->>U: Search results
+    end
+
+    alt QA Request
+        U->>SP12: POST /qa<br/>{question, doc_ids}
+
+        SP12->>DB: Fetch documents
+        DB-->>SP12: Document content
+
+        SP12->>LLM: RAG questioning
+
+        LLM-->>SP12: Answer + citations
+
+        SP12->>REDIS: Cache result
+
+        SP12-->>U: QA response
+    end
+
+    rect rgb(200, 255, 200)
+        Note over SP12: 300-800ms<br/>SLA: 95% < 2s
+    end
+```
+
+### State Diagram — Ciclo Vita Ricerca e Q&A
+
+```mermaid
+stateDiagram-v2
+    [*] --> QueryReceived: Search/QA Request
+    QueryReceived --> QueryEmbedding: Embed Query
+    QueryEmbedding --> CacheCheck: Cache Check
+    CacheCheck --> CacheHit: Found
+    CacheCheck --> CacheMiss: Not Found
+    CacheHit --> Returned: Return Cached
+    CacheMiss --> VectorSearch: FAISS Search
+    VectorSearch --> FullTextSearch: Elasticsearch
+    FullTextSearch --> MergeRank: Merge & Rank
+    MergeRank --> CacheStore: Store Cache
+    CacheStore --> Ready: Documents Ready
+    Returned --> Ready
+    Ready --> IsQA: Is Q&A?
+    IsQA --> SearchOnly: Search Only
+    IsQA --> QAProcess: Q&A Process
+    SearchOnly --> ReturnSearch: Return Results
+    QAProcess --> FetchContent: Fetch Docs
+    FetchContent --> RAGGen: RAG Generation
+    RAGGen --> Citations: Track Citations
+    Citations --> ReturnQA: Return Answer
+    ReturnSearch --> Complete: Done
+    ReturnQA --> Complete
+    Complete --> [*]
+```
+
 ## Responsabilità
 
 ### Core Functions

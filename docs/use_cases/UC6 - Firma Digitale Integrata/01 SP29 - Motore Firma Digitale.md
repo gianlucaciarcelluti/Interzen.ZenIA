@@ -26,6 +26,75 @@ graph LR
     style SP31 fill:#ffd700
 ```
 
+## Diagrammi Architetturali
+
+### Sequence Diagram — Flusso Firma Digitale
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant WF as Workflow Engine
+    participant SP29 as SP29 Digital Signature
+    participant HSM as Hardware Security Module
+    participant VAULT as HashiCorp Vault
+    participant PROVIDER as External Provider
+    participant TS as Timestamp Authority
+    participant DB as PostgreSQL
+
+    WF->>SP29: POST /sign<br/>{document, signer_info}
+
+    SP29->>VAULT: Retrieve key<br/>for signer
+
+    VAULT-->>SP29: Key unlocked
+
+    SP29->>SP29: Compute hash<br/>SHA-256
+
+    SP29->>HSM: Sign operation<br/>with private key
+
+    HSM-->>SP29: Signature + cert chain
+
+    SP29->>PROVIDER: External provider<br/>coordinate if needed
+
+    PROVIDER-->>SP29: Provider response
+
+    SP29->>TS: Request timestamp<br/>RFC 3161
+
+    TS-->>SP29: TST (Time Stamp Token)
+
+    SP29->>SP29: Build signature<br/>CAdES/XAdES format
+
+    SP29->>DB: Log signature event<br/>audit trail
+
+    SP29-->>WF: {signed_document,<br/>signature_metadata,<br/>timestamp, cert_chain}
+
+    rect rgb(200, 255, 200)
+        Note over SP29: Digital Signature<br/>Tempo medio: 500ms<br/>SLA: 95% < 2s
+    end
+```
+
+### State Diagram — Ciclo Vita Firma Digitale
+
+```mermaid
+stateDiagram-v2
+    [*] --> SignatureRequested: Sign Request
+    SignatureRequested --> ValidateInput: Validate Input
+    ValidateInput --> RetrieveKey: Retrieve Key from Vault
+    RetrieveKey --> KeyDecryption: Decrypt Key
+    KeyDecryption --> ComputeHash: Compute Hash
+    ComputeHash --> SignOperation: HSM Sign
+    SignOperation --> ProviderCoord: External Provider Coordination
+    ProviderCoord --> RequestTimestamp: Request Timestamp
+    RequestTimestamp --> BuildSignature: Build Signature (CAdES/XAdES)
+    BuildSignature --> LogAudit: Log Audit Trail
+    LogAudit --> Verification: Verify Signature
+    Verification --> Valid: Valid Signature
+    Verification --> Invalid: Invalid Signature
+    Invalid --> SignatureFailed: Signature Failed
+    SignatureFailed --> [*]
+    Valid --> Complete: Signature Complete
+    Complete --> [*]
+```
+
 ## Responsabilità
 
 ### Core Functions
