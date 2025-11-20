@@ -127,6 +127,7 @@ kubectl top pod ms01-classifier-pod
 
 ---
 
+## [Auto-generated heading level 2]
 ### Problema 2: Bassa Accuratezza di Classificazione (< 90%)
 
 **Sintomi**
@@ -235,6 +236,7 @@ Ottimizzare la cache:
 
 ---
 
+## [Auto-generated heading level 2]
 ### Problema 4: Errori di Connessione al Database
 
 **Sintomi**
@@ -293,6 +295,7 @@ kubectl rollout restart deployment ms01-classifier
 
 ---
 
+## [Auto-generated heading level 2]
 ### Problema 5: Errori di Validazione del Formato del File
 
 **Sintomi**
@@ -346,6 +349,7 @@ Aggiornare i formati supportati se necessario:
 
 ---
 
+## [Auto-generated heading level 2]
 ### Problema 6: Memory Leak nel Caricamento del Modello ML
 
 **Sintomi**

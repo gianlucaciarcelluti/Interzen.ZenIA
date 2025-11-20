@@ -150,6 +150,7 @@ curl http://localhost:8000/health
 curl http://localhost:8000/api/v1/classifier/health
 ```
 
+## [Auto-generated heading level 2]
 ### Verifica Installazione
 
 ```bash
@@ -224,6 +225,7 @@ UPSTREAM_MS02=http://ms02-analyzer:8080
 # ... altri MS
 ```
 
+## [Auto-generated heading level 2]
 ### Kong Plugins Attivi
 
 - **cors** - Cross-Origin Resource Sharing
@@ -251,6 +253,7 @@ kong_ratelimit_usage{service="api-gateway"}
 kong_upstream_healthy{service="ms03-orchestrator"}
 ```
 
+## [Auto-generated heading level 2]
 ### Dashboard Grafana
 
 - **API Performance** - Latenza e throughput per endpoint
@@ -288,6 +291,7 @@ curl -H "Authorization: Bearer <token>" \
      http://localhost:8000/api/v1/auth/verify
 ```
 
+## [Auto-generated heading level 2]
 ### Log Analysis
 
 ```bash

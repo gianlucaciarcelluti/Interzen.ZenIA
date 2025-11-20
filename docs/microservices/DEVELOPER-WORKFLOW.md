@@ -241,6 +241,7 @@ curl -X POST http://localhost:8002/api/v1/analyze \
 # Copia payload structure da examples/
 ```
 
+## [Auto-generated heading level 2]
 ### 4. Deploy (quando finisci)
 ```bash
 cd ../..

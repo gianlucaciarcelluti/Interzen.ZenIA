@@ -33,6 +33,8 @@ kafka-consumer-groups --bootstrap-server kafka-cluster:9092 \
 curl -X GET "elasticsearch:9200/_logstash/state" | jq '.pipelines.main'
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```yaml
 # logstash.yml - Configurazione corretta
@@ -61,6 +63,7 @@ kafka-consumer-groups --bootstrap-server kafka-cluster:9092 \
   --execute
 ```
 
+## [Auto-generated heading level 2]
 ### 2.2 Logstash Parsing Errors
 
 #### Sintomi
@@ -79,6 +82,8 @@ curl -X GET "elasticsearch:9200/zenia-logs-*/_search" \
   }'
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```ruby
 # Correggere pattern Grok
@@ -102,6 +107,7 @@ filter {
 }
 ```
 
+## [Auto-generated heading level 2]
 ### 2.3 Elasticsearch Indexing Failures
 
 #### Sintomi
@@ -131,6 +137,8 @@ curl -X GET "elasticsearch:9200/zenia-logs-*/_search" \
   }'
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```bash
 # Aumenta timeout di indexing
@@ -168,6 +176,8 @@ curl -X GET "elasticsearch:9200/_cat/shards/zenia-logs-*?v"
 curl -X GET "elasticsearch:9200/_nodes/hot_threads?threads=10"
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```json
 {
@@ -205,6 +215,7 @@ curl -X PUT "elasticsearch:9200/zenia-logs-*/_settings" \
   }'
 ```
 
+## [Auto-generated heading level 2]
 ### 3.2 Memory Pressure su Elasticsearch
 
 #### Sintomi
@@ -221,6 +232,8 @@ curl -X GET "elasticsearch:9200/_nodes/stats/jvm?pretty" | jq '.nodes[].jvm.mem'
 curl -X GET "elasticsearch:9200/_nodes/stats/breaker?pretty"
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```yaml
 # elasticsearch.yml - Configurazione memory
@@ -236,6 +249,7 @@ indices.breaker.request.limit: 40%
 -XX:MaxGCPauseMillis=200
 ```
 
+## [Auto-generated heading level 2]
 ### 3.3 Kafka Lag Elevato
 
 #### Sintomi
@@ -256,6 +270,8 @@ kafka-run-class kafka.tools.GetOffsetShell \
   --topic zenia-logs
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```yaml
 # Aumenta consumer threads
@@ -292,6 +308,8 @@ curl -X GET "elasticsearch:9200/_nodes/stats/fs?pretty"
 curl -X GET "elasticsearch:9200/_cluster/settings?pretty" | jq '.persistent.cluster.routing.allocation.disk'
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```bash
 # Aumenta watermark temporaneamente
@@ -309,6 +327,7 @@ curl -X PUT "elasticsearch:9200/_cluster/settings" \
 curl -X POST "elasticsearch:9200/zenia-logs-*/_rollover"
 ```
 
+## [Auto-generated heading level 2]
 ### 4.2 Snapshot Failures
 
 #### Sintomi
@@ -325,6 +344,8 @@ curl -X GET "elasticsearch:9200/_snapshot/_status?pretty"
 curl -X GET "elasticsearch:9200/_snapshot/s3_repository?pretty"
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```json
 {
@@ -371,6 +392,8 @@ curl -X GET "elasticsearch:9200/zenia-audit-*/_search" \
   }'
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```bash
 # Rotate API keys
@@ -383,6 +406,7 @@ curl -X POST "ms10-logger/v1/admin/keys/rotate" \
   }'
 ```
 
+## [Auto-generated heading level 2]
 ### 5.2 Violazioni di Sicurezza
 
 #### Sintomi
@@ -408,6 +432,8 @@ curl -X GET "elasticsearch:9200/zenia-security-*/_search" \
   }'
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```bash
 # Blocca IP sospetto
@@ -457,6 +483,8 @@ curl -X POST "https://monitoring.zenia.local/webhooks/test" \
   -d '{"test": "alert"}'
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```json
 {
@@ -523,6 +551,8 @@ curl -X GET "elasticsearch:9200/zenia-logs-*/_search" \
   }'
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```json
 {
@@ -572,6 +602,8 @@ curl -X GET "elasticsearch:9200/zenia-logs-*/_search" \
 kubectl logs -f deployment/logstash -n zenia-logging
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```ruby
 # Configurazione corretta pipeline
@@ -611,6 +643,7 @@ output {
 }
 ```
 
+## [Auto-generated heading level 2]
 ### 7.2 Tenant Isolation Issues
 
 #### Sintomi
@@ -634,6 +667,8 @@ curl -X GET "elasticsearch:9200/zenia-logs-*/_search" \
 curl -X GET "elasticsearch:9200/_security/role/zenia_log_viewer"
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Risoluzione
 ```json
 {
@@ -675,6 +710,8 @@ curl -X POST "elasticsearch:9200/_snapshot/s3_repository/snapshot_20240115/_rest
 curl -X POST "elasticsearch:9200/zenia-logs-*/_open"
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Data Loss Recovery
 ```bash
 # 1. Identifica gap nei dati
@@ -704,6 +741,7 @@ curl -X POST "elasticsearch:9200/_bulk" \
   --data-binary @recovery_logs.json
 ```
 
+## [Auto-generated heading level 2]
 ### 8.2 Performance Degradation Recovery
 
 #### Memory Issues
@@ -718,6 +756,8 @@ curl -X POST "elasticsearch:9200/_nodes/_all/jvm/gc"
 kubectl delete pod elasticsearch-data-0 -n zenia-logging
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Slow Queries
 ```bash
 # 1. Identifica query lente
@@ -775,6 +815,7 @@ groups:
           severity: warning
 ```
 
+## [Auto-generated heading level 2]
 ### 9.2 Log Patterns per Troubleshooting
 
 ```bash

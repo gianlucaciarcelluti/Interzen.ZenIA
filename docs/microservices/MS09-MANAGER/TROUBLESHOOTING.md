@@ -50,6 +50,7 @@ grep "Failed to start workflow" /var/log/ms09-manager/application.log
 grep "RabbitMQ connection" /var/log/ms09-manager/application.log
 ```
 
+## [Auto-generated heading level 2]
 ### Risoluzioni
 
 **A. Workflow Definition Non Valida**
@@ -130,6 +131,7 @@ workflow:
       max_delay: 5m
 ```
 
+## [Auto-generated heading level 2]
 ### Risoluzioni
 
 **A. Timeout Step Non Configurato**
@@ -312,6 +314,7 @@ ORDER BY mean_time DESC
 LIMIT 10;
 ```
 
+## [Auto-generated heading level 2]
 ### Risoluzioni
 
 **A. Database Indexing Mancante**
@@ -471,6 +474,7 @@ public ValidationResult fallbackValidation(Document doc, Throwable t) {
 }
 ```
 
+## [Auto-generated heading level 2]
 ### Risoluzioni
 
 **A. Service Mesh Configuration**
@@ -572,6 +576,7 @@ public class SecurityConfig {
 }
 ```
 
+## [Auto-generated heading level 2]
 ### Risoluzioni
 
 **A. Aggiorna Token Signing Keys**
@@ -638,6 +643,7 @@ curl -X POST "http://localhost:8080/api/v1/workflows/$WORKFLOW_ID/restart" \
 echo "Recovery completed for workflow $WORKFLOW_ID"
 ```
 
+## [Auto-generated heading level 2]
 ### 9.2 Database Corruption Recovery
 
 ```sql
@@ -720,6 +726,7 @@ groups:
           summary: "High workflow error rate detected"
 ```
 
+## [Auto-generated heading level 2]
 ### 10.2 Log Aggregation Queries
 
 ```sql

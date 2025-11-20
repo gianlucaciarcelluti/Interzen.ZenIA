@@ -146,6 +146,8 @@ async def deliver_to_destination(destination, payload):
     pass
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Prevenzione
 - Implementa health checks proattivi
 - Configura alert per timeout frequenti
@@ -231,6 +233,8 @@ async def batch_deliver(destinations, payloads):
     return results
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Prevenzione
 - Monitora P95 latency con alert
 - Implementa auto-scaling basato su queue depth
@@ -319,6 +323,8 @@ class TokenManager:
                 self._expires_at = datetime.now() + timedelta(seconds=token_data['expires_in'])
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Prevenzione
 - Implementa monitoring token expiry
 - Alert automatici per authentication failures
@@ -351,6 +357,8 @@ SELECT
 FROM worker_heartbeats;
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Soluzioni
 
 **1. Verifica Configurazione Redis**
@@ -422,6 +430,8 @@ class WorkerHealthMonitor:
             await self.restart_worker(self.worker_id)
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Prevenzione
 - Implementa monitoring queue depth
 - Alert per workers non responsivi
@@ -457,6 +467,8 @@ print(f"Current memory usage: {current / 1024 / 1024} MB")
 print(f"Peak memory usage: {peak / 1024 / 1024} MB")
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Soluzioni
 
 **1. Implementa Connection Pooling Corretta**
@@ -529,6 +541,8 @@ async def process_large_payload(payload):
         await process_payload(payload)
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Prevenzione
 - Implementa memory monitoring con alert
 - Regular restart pods per prevenire memory leaks
@@ -557,6 +571,7 @@ kubectl scale deployment ms07-distributor --replicas=10
 watch -n 5 'redis-cli LLEN distribution:queue:default'
 ```
 
+## [Auto-generated heading level 2]
 ### 2. Recovery da Database Connection Loss
 
 ```sql

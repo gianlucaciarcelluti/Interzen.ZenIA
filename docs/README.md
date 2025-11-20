@@ -225,6 +225,7 @@ curl -X POST http://localhost:8001/api/v1/classify \
 cat README.md
 ```
 
+## [Auto-generated heading level 2]
 ### Architetto - Primo Review (1 ora)
 ```bash
 # 1. Architecture overview (20 min)
@@ -237,6 +238,7 @@ cat MS-ARCHITECTURE-MASTER.md
 cat COMPLIANCE-MATRIX.md
 ```
 
+## [Auto-generated heading level 2]
 ### Operations - Setup Produzione (1-2 ore)
 ```bash
 # 1. Read architecture (20 min)

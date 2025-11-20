@@ -309,6 +309,7 @@ GET /api/v1/reports/compliance/risks
 POST /api/v1/reports/compliance/generate
 ```
 
+## [Auto-generated heading level 2]
 ### Tecnologie Utilizzate
 
 | Componente | Tecnologia | Versione | Scopo |

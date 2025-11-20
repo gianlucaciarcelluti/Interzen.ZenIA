@@ -244,6 +244,7 @@ MAX_WORKERS=10
 CACHE_TTL=3600
 ```
 
+## [Auto-generated heading level 2]
 ### Policy Configuration
 ```yaml
 retention_policies:

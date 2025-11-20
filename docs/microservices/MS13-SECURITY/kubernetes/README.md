@@ -58,6 +58,7 @@ kubectl get pods -n zenia
 kubectl get svc -n zenia
 ```
 
+## [Auto-generated heading level 2]
 ### Verifica Installazione
 
 ```bash
@@ -135,6 +136,7 @@ env:
     value: /tls/keycloak.key
 ```
 
+## [Auto-generated heading level 2]
 ### ConfigMap Keycloak
 
 ```yaml

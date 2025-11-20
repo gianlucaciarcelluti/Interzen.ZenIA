@@ -425,6 +425,7 @@ ZADD metrics:ms01-classifier:2025-11-18 1637242860 234
 EXPIRE metrics:ms01-classifier:2025-11-18 86400
 ```
 
+## [Auto-generated heading level 2]
 ### Redis Cluster Configuration
 
 ```yaml
@@ -474,6 +475,7 @@ KEYS session:* | xargs -I {} MIGRATE new-redis-host 6379 {} 0 5000
 KEYS ratelimit:* | xargs -I {} MIGRATE new-redis-host 6379 {} 0 5000
 ```
 
+## [Auto-generated heading level 2]
 ### Backup e Recovery
 
 ```bash

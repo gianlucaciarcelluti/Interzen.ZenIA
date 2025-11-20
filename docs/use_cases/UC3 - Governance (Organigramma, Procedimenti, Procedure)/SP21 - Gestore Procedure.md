@@ -306,6 +306,7 @@ GET /api/v1/procedures/search?q={query}&filters={filters}
 GET /api/v1/procedures/suggest?q={partial}
 ```
 
+## [Auto-generated heading level 2]
 ### Tecnologie Utilizzate
 
 | Componente | Tecnologia | Versione | Scopo |

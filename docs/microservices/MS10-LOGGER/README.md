@@ -633,6 +633,7 @@ GET /ms10-logger/v1/logs/_search
 }
 ```
 
+## [Auto-generated heading level 2]
 ### 7.2 Dashboard Analytics
 
 ```json

@@ -114,6 +114,8 @@ def route_distribution(data: DistributionRequest) -> List[Destination]:
     return prioritized
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### 2.1.2 Reliable Delivery
 - **Retry Strategy**: Exponential backoff (1s, 2s, 4s, 8s, 16s max)
 - **Circuit Breaker**: 5 failure threshold, 30s timeout, 60s recovery
@@ -137,6 +139,7 @@ def transform_for_consumer(data: dict, consumer_config: dict) -> dict:
     return transformed
 ```
 
+## [Auto-generated heading level 2]
 ### 2.2 Protocolli di Integrazione
 
 #### 2.2.1 REST API Integration
@@ -445,6 +448,7 @@ GRAFANA_URL=https://grafana.zenia.local
 RULES_ENGINE_URL=http://rules-engine.zenia.svc.cluster.local:8080
 ```
 
+## [Auto-generated heading level 2]
 ### 6.2 Kubernetes Deployment
 ```yaml
 apiVersion: apps/v1
@@ -534,6 +538,7 @@ ACTIVE_WORKERS = Gauge(
 )
 ```
 
+## [Auto-generated heading level 2]
 ### 7.2 Logging
 ```json
 {

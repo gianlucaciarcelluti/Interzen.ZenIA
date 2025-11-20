@@ -429,6 +429,8 @@ flowchart TD
 
 ---
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Migrazione Groq → On-Premise (Fase 3)
 
 **Compatibilità Codice**:
@@ -554,6 +556,8 @@ graph LR
 
 ---
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Vantaggi Approccio On-Premise
 
 ✅ **Costi**:

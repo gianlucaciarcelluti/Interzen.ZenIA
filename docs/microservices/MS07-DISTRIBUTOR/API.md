@@ -510,6 +510,7 @@ zenia_distribution_latency_seconds_bucket{le="0.5"} 950
 zenia_distribution_latency_seconds_bucket{le="1.0"} 1200
 ```
 
+## [Auto-generated heading level 2]
 ### 6. Sicurezza e Autenticazione
 
 #### 6.1 JWT Authentication
@@ -575,6 +576,8 @@ response = client.submit_distribution({
 status = client.get_distribution_status(response["distribution_id"])
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### 8.2 JavaScript Client
 ```javascript
 import { DistributorClient } from '@zenia/distributor-client';

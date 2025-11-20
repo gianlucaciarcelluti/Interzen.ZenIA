@@ -44,6 +44,7 @@ curl -H "Authorization: Bearer <oauth2-token>" \
      https://api.zenia.local/api/v1/workflow/status
 ```
 
+## [Auto-generated heading level 2]
 ### Routing dei Microservizi
 
 #### MS01-CLASSIFIER
@@ -88,6 +89,8 @@ Authorization: Bearer <token>
 }
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### MS02-ANALYZER
 
 ```http
@@ -137,6 +140,8 @@ Authorization: Bearer <token>
 }
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### MS03-ORCHESTRATOR
 
 ```http
@@ -197,6 +202,8 @@ Authorization: Bearer <token>
 }
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### MS04-VALIDATOR
 
 ```http
@@ -243,6 +250,7 @@ Authorization: Bearer <token>
 }
 ```
 
+## [Auto-generated heading level 2]
 ### Monitoraggio e Health
 
 ```http
@@ -332,6 +340,7 @@ type Subscription {
 }
 ```
 
+## [Auto-generated heading level 2]
 ### Esempi Query
 
 ```graphql
@@ -625,6 +634,7 @@ POST /admin/routes
 }
 ```
 
+## [Auto-generated heading level 2]
 ### Gestione Plugins
 
 ```bash
@@ -648,6 +658,7 @@ GET /admin/plugins
 DELETE /admin/plugins/{plugin-id}
 ```
 
+## [Auto-generated heading level 2]
 ### Gestione Consumer
 
 ```bash
@@ -683,6 +694,7 @@ X-RateLimit-Remaining-Hour: 9876
 X-RateLimit-Reset-Hour: 1637246400
 ```
 
+## [Auto-generated heading level 2]
 ### Gestione Rate Limit Exceeded
 
 ```javascript

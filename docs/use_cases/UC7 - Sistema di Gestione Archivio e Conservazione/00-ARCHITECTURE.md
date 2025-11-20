@@ -213,6 +213,7 @@ services:
     image: elasticsearch:8.11
 ```
 
+## [Auto-generated heading level 2]
 ### Production Environment
 ```yaml
 # Helm values

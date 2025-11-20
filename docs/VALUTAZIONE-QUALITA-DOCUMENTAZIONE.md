@@ -154,6 +154,7 @@ Fammi sapere quale preferisci e procedo.
 - **Impact**: +1.5% completezza, coerenza visiva 100%
 - **Broken links fixed**: 12 link aggiornati, 0 broken links
 
+### [Auto-generated heading level 3]
 #### [DONE] C6. Creare GLOSSARIO-TERMINOLOGICO.md
 - ✅ **COMPLETATO**: 346 linee, 14 sezioni, 50+ termini EN/IT mappati
 - **Deliverables**: `docs/GLOSSARIO-TERMINOLOGICO.md` + decision framework

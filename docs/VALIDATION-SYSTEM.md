@@ -74,6 +74,7 @@ The ZenIA documentation validation system is a **3-TIER quality assurance framew
 # Look for: ✅ TIER 1 PASS
 ```
 
+## [Auto-generated heading level 2]
 ### TIER 2: CONTENT QUALITY (Warnings) ⚠️
 
 **Status**: Non-blocking, but important to address
@@ -174,6 +175,7 @@ cat scripts/reports/orphaned_images_validation.json
 # - Report hints for failures
 ```
 
+## [Auto-generated heading level 2]
 ### Run Specific Validator
 
 ```bash
@@ -187,6 +189,7 @@ python3 scripts/verify_links.py
 python3 scripts/verify_section_completeness.py
 ```
 
+## [Auto-generated heading level 2]
 ### View Detailed Reports
 
 ```bash
@@ -199,6 +202,7 @@ cat scripts/reports/sp_completeness_validation.json
 cat scripts/reports/sp_ms_references.json | jq
 ```
 
+## [Auto-generated heading level 2]
 ### Quick Mode vs Verbose
 
 ```bash
@@ -312,6 +316,7 @@ if grep -q "TIER 2 FAIL" validation_output.txt; then
 fi
 ```
 
+## [Auto-generated heading level 2]
 ### Adjust Thresholds
 
 Edit individual validator scripts:
@@ -323,6 +328,7 @@ if summary['errors'] == 0 and len(summary['extra_sp']) == 0:
     return 0
 ```
 
+## [Auto-generated heading level 2]
 ### Add New Validators
 
 1. Create `scripts/verify_my_check.py`

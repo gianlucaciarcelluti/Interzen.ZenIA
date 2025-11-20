@@ -128,6 +128,7 @@ kubectl top pod ms02-analyzer-pod
 
 ---
 
+## [Auto-generated heading level 2]
 ### Problema 2: Bassa Accuratezza di Analisi (< 85%)
 
 **Sintomi**

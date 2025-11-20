@@ -57,6 +57,7 @@ cp docs/use_cases/UC4\ -\ BPM\ e\ Automazione\ Processi/01\ SP27\ -\ Process\ An
    docs/use_cases/UC4\ -\ BPM\ e\ Automazione\ Processi/01\ SP28\ -\ [NOME_SOTTOPROGETTO].md
 ```
 
+## [Auto-generated heading level 2]
 ### 2. Aggiornare Documentazione Master
 
 Aggiorna i seguenti file con riferimento a SP28:

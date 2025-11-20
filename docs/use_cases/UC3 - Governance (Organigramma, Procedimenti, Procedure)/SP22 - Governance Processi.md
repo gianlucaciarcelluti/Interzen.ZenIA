@@ -270,6 +270,7 @@ DELETE /api/v1/rules/{id}
 POST /api/v1/rules/evaluate
 ```
 
+## [Auto-generated heading level 2]
 ### Tecnologie Utilizzate
 
 | Componente | Tecnologia | Versione | Scopo |

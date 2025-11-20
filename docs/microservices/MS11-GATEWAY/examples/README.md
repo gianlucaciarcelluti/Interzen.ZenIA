@@ -246,6 +246,7 @@ upstreams:
         weight: 100
 ```
 
+## [Auto-generated heading level 2]
 ### Nginx Load Balancing
 
 ```nginx
@@ -711,6 +712,7 @@ query GetConfiguration($service: String!, $version: String) {
 }
 ```
 
+## [Auto-generated heading level 2]
 ### Variables e Risposta
 
 ```json

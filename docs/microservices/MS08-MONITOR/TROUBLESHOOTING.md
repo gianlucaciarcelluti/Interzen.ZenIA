@@ -56,6 +56,8 @@ curl -s "http://localhost:9090/api/v1/query?query=up{service=\"ms01-classifier\"
 
 **Risoluzioni:**
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Target Non Raggiungibile
 ```yaml
 # kubernetes/monitoring-config.yaml
@@ -80,6 +82,8 @@ data:
             target_label: service
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Endpoint Metriche Non Esposto
 ```python
 # Aggiungere endpoint /metrics al servizio
@@ -91,6 +95,8 @@ def metrics():
     return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Firewall/Network Policy
 ```yaml
 # kubernetes/network-policy.yaml
@@ -114,6 +120,7 @@ spec:
       port: 8080
 ```
 
+## [Auto-generated heading level 2]
 ### 1.2 Metriche Inaccurate
 
 **Sintomi:**
@@ -135,6 +142,8 @@ curl -s "http://localhost:9090/api/v1/query_range?query=rate(http_requests_total
 
 **Risoluzioni:**
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Metriche Duplicate (Multiple Instance)
 ```yaml
 # Configurazione Prometheus corretta
@@ -153,6 +162,8 @@ scrape_configs:
         action: drop
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Clock Skew tra Servizi
 ```python
 # Sincronizzazione timestamp
@@ -197,6 +208,8 @@ curl -s -X POST "http://localhost:9200/zenia-logs-*/_search" \
 
 **Risoluzioni:**
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Pipeline Log Non Configurata
 
 **elasticsearch/pipeline/zenia-logs.json**
@@ -262,6 +275,7 @@ queue:
     flush.timeout: 5s
 ```
 
+## [Auto-generated heading level 2]
 ### 2.2 Log Corrotti o Malformati
 
 **Sintomi:**
@@ -287,6 +301,8 @@ curl -s "http://localhost:9200/zenia-logs-*/_search" \
 
 **Risoluzioni:**
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Structured Logging Implementazione
 ```python
 # logging strutturato
@@ -334,6 +350,8 @@ curl -s http://localhost:9090/api/v1/query?query=jaeger_tracer_reporter_spans_to
 
 **Risoluzioni:**
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Context Propagation Mancante
 ```java
 // Java - OpenTelemetry context propagation
@@ -410,6 +428,7 @@ data:
             endpoint: 0.0.0.0:4318
 ```
 
+## [Auto-generated heading level 2]
 ### 3.2 Alta Latenza Tracing
 
 **Sintomi:**
@@ -429,6 +448,8 @@ curl -s http://localhost:9090/api/v1/query?query=jaeger_tracer_sampler_sampled
 
 **Risoluzioni:**
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Ottimizzazione Sampling
 ```yaml
 # Configurazione sampling adattivo
@@ -476,6 +497,8 @@ curl -s http://localhost:9093/api/v2/status
 
 **Risoluzioni:**
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Regola Alert Mal Configurata
 ```yaml
 # alert-rules.yml corretto
@@ -494,6 +517,8 @@ groups:
           runbook_url: "https://zenia.runbooks/high-error-rate"
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Integrazione Alertmanager Mancante
 ```yaml
 # prometheus-config.yml con alertmanager
@@ -511,6 +536,7 @@ rule_files:
   - "alert-rules.yml"
 ```
 
+## [Auto-generated heading level 2]
 ### 4.2 False Positive Alert
 
 **Sintomi:**
@@ -529,6 +555,8 @@ curl -s http://localhost:9090/api/v1/rules | jq '.data.groups[].rules[] | select
 
 **Risoluzioni:**
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Tuning Soglie Alert
 ```yaml
 # Alert con condizioni più robuste
@@ -572,6 +600,8 @@ tail -f /var/log/grafana/grafana.log | grep -i "slow query"
 
 **Risoluzioni:**
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Ottimizzazione Query Grafana
 ```sql
 -- Query ottimizzata per dashboard
@@ -603,6 +633,7 @@ interval_seconds = 10
 timeout_seconds = 30
 ```
 
+## [Auto-generated heading level 2]
 ### 5.2 Alta Utilizzo Risorse
 
 **Sintomi:**
@@ -624,6 +655,8 @@ curl -s http://localhost:9200/_cat/indices?v | grep zenia-logs
 
 **Risoluzioni:**
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Resource Limits Appropriati
 ```yaml
 # kubernetes/prometheus-deployment.yaml
@@ -673,6 +706,8 @@ kubectl get networkpolicies -n monitoring
 
 **Risoluzioni:**
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Network Policy Permissiva
 ```yaml
 # kubernetes/network-policy-monitoring.yaml
@@ -707,6 +742,7 @@ spec:
       port: 443   # HTTPS external
 ```
 
+## [Auto-generated heading level 2]
 ### 6.2 Persistence Storage
 
 **Sintomi:**
@@ -728,6 +764,8 @@ kubectl exec -it elasticsearch-0 -n monitoring -- dd if=/dev/zero of=/usr/share/
 
 **Risoluzioni:**
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Storage Class Ottimizzato
 ```yaml
 # kubernetes/storage-class-monitoring.yaml
@@ -770,6 +808,7 @@ fi
 echo "All health checks passed"
 ```
 
+## [Auto-generated heading level 2]
 ### 7.2 Metriche di Monitoraggio del Monitoraggio
 
 ```yaml
@@ -809,6 +848,8 @@ curl -X PUT "elasticsearch:9200/_snapshot/zenia-backup-$(date +%Y%m%d)" \
   -d '{"indices": "zenia-*", "ignore_unavailable": true}'
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Restore Procedure
 ```bash
 #!/bin/bash
@@ -826,6 +867,7 @@ curl -X POST "elasticsearch:9200/_snapshot/zenia-backup-$(date +%Y%m%d)/_restore
 curl -s http://prometheus:9090/api/v1/query?query=up | jq '.status'
 ```
 
+## [Auto-generated heading level 2]
 ### 8.2 Escalation Matrix
 
 | Severity | Response Time | Escalation | Actions |
@@ -871,6 +913,7 @@ curl -s -X POST "elasticsearch:9200/zenia-logs-*/_search" \
   -d '{"query":{"match":{"level":"ERROR"}},"size":10}'
 ```
 
+## [Auto-generated heading level 2]
 ### 9.3 Prevenzione Problemi
 - **Monitoring del Monitoring**: Metriche su componenti monitoring stessi
 - **Alert su Alert**: Notifiche quando sistema alert non funziona

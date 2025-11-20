@@ -200,6 +200,7 @@ output {
 }
 ```
 
+## [Auto-generated heading level 2]
 ### 2.3 Elasticsearch Cluster Architecture
 
 **Versione**: Elasticsearch 8.x
@@ -1016,6 +1017,7 @@ for topic in "${TOPICS[@]}"; do
 done
 ```
 
+## [Auto-generated heading level 2]
 ### 7.2 Recovery Procedures
 
 **Elasticsearch Recovery**:

@@ -63,6 +63,7 @@ kubectl get services -n zenia
 kubectl get ingress -n zenia
 ```
 
+## [Auto-generated heading level 2]
 ### Verifica Installazione
 
 ```bash
@@ -130,6 +131,7 @@ env:
     value: "bundled,custom-auth"
 ```
 
+## [Auto-generated heading level 2]
 ### ConfigMap Kong
 
 ```yaml
@@ -160,6 +162,7 @@ data:
           - name: prometheus
 ```
 
+## [Auto-generated heading level 2]
 ### Secrets
 
 ```yaml
@@ -280,6 +283,8 @@ spec:
         averageValue: 1000
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Pod Disruption Budget
 
 ```yaml
@@ -352,6 +357,7 @@ spec:
       port: 53
 ```
 
+## [Auto-generated heading level 2]
 ### RBAC
 
 ```yaml
@@ -414,6 +420,7 @@ spec:
     scrapeTimeout: 10s
 ```
 
+## [Auto-generated heading level 2]
 ### Prometheus Rules
 
 ```yaml
@@ -455,6 +462,7 @@ spec:
         description: "Kong Gateway 95th percentile latency is {{ $value }}ms."
 ```
 
+## [Auto-generated heading level 2]
 ### Dashboard Grafana
 
 - **Kong Gateway Overview** - Status pods, throughput, latenza
@@ -477,6 +485,7 @@ kubectl rollout status deployment/kong-gateway
 kubectl rollout undo deployment/kong-gateway
 ```
 
+## [Auto-generated heading level 2]
 ### Blue-Green Deployment
 
 ```bash
@@ -505,6 +514,7 @@ kubectl describe pod -l app=kong-gateway -n zenia
 kubectl top pods -n zenia
 ```
 
+## [Auto-generated heading level 2]
 ### Connettività Database
 
 ```bash
@@ -515,6 +525,7 @@ kubectl exec -it deployment/kong-gateway -- psql -h postgresql -U kong -d kong -
 kubectl exec -it deployment/kong-gateway -- redis-cli -h redis -a $REDIS_PASSWORD ping
 ```
 
+## [Auto-generated heading level 2]
 ### Configurazione Plugin
 
 ```bash

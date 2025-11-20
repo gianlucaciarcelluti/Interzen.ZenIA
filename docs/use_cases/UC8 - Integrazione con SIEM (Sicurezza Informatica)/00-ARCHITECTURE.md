@@ -247,6 +247,7 @@ services:
     image: redis:7-alpine
 ```
 
+## [Auto-generated heading level 2]
 ### Production Environment
 ```yaml
 # Kubernetes manifests

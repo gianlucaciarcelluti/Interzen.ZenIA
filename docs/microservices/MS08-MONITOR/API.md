@@ -706,6 +706,8 @@ logs = client.search_logs({
 alerts = client.get_alerts(status="firing")
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### 10.2 JavaScript Client
 ```javascript
 import { MonitorClient } from '@zenia/monitor-client';

@@ -63,6 +63,7 @@ docker-compose exec kong kong config db_import /dev/null
 docker-compose restart kong
 ```
 
+## [Auto-generated heading level 2]
 ### 2. Autenticazione Fallita (401 Unauthorized)
 
 **Sintomi:**
@@ -111,6 +112,7 @@ curl -X POST http://localhost:8001/routes/{route-id}/plugins \
   -d "config.claims_to_verify=exp,nbf"
 ```
 
+## [Auto-generated heading level 2]
 ### 3. Rate Limiting Superato (429 Too Many Requests)
 
 **Sintomi:**
@@ -154,6 +156,7 @@ curl -X POST http://localhost:8001/consumers/{consumer-id}/plugins \
   -d "config.minute=5000"
 ```
 
+## [Auto-generated heading level 2]
 ### 4. Routing Non Funzionante (404 Not Found)
 
 **Sintomi:**
@@ -202,6 +205,7 @@ curl -X PATCH http://localhost:8001/services/{service-id} \
   -d "url=http://correct-upstream:8080"
 ```
 
+## [Auto-generated heading level 2]
 ### 5. Performance Degradation (Timeout/Latency Alta)
 
 **Sintomi:**
@@ -251,6 +255,7 @@ curl http://localhost:8001/plugins | jq '.data[] | select(.name=="proxy-cache")'
 docker-compose exec redis redis-cli FLUSHDB
 ```
 
+## [Auto-generated heading level 2]
 ### 6. SSL/TLS Problemi
 
 **Sintomi:**
@@ -288,6 +293,7 @@ curl -X POST http://localhost:8001/snis \
   -d "certificate.id={cert-id}"
 ```
 
+## [Auto-generated heading level 2]
 ### 7. Plugin Non Funzionanti
 
 **Sintomi:**
@@ -339,6 +345,7 @@ curl -X POST http://localhost:8001/debug \
   -d "request.headers.Authorization=Bearer <token>"
 ```
 
+## [Auto-generated heading level 2]
 ### Request Tracing
 
 ```bash
@@ -350,6 +357,7 @@ curl -H "X-Correlation-ID: trace-123" \
 docker-compose logs | grep "trace-123"
 ```
 
+## [Auto-generated heading level 2]
 ### Performance Profiling
 
 ```bash
@@ -380,6 +388,7 @@ increase(kong_ratelimit_usage{limit_exceeded="true"}[5m])
 kong_upstream_healthy == 0
 ```
 
+## [Auto-generated heading level 2]
 ### Log Analysis
 
 ```bash
@@ -407,6 +416,7 @@ curl -X POST http://localhost:8001/config \
   -d @kong_config_backup.json
 ```
 
+## [Auto-generated heading level 2]
 ### Failover Upstream
 
 ```bash
@@ -420,6 +430,7 @@ curl -X POST http://localhost:8001/upstreams/{upstream-id}/targets \
   -d "weight=100"
 ```
 
+## [Auto-generated heading level 2]
 ### Emergency Shutdown
 
 ```bash

@@ -1058,6 +1058,7 @@ analytics = logger.get_error_analytics(
 )
 ```
 
+## [Auto-generated heading level 2]
 ### 7.2 Java SDK
 
 ```java

@@ -53,6 +53,7 @@ kubectl get pods -n zenia
 kubectl get svc -n zenia
 ```
 
+## [Auto-generated heading level 2]
 ### Verifica Installazione
 
 ```bash
@@ -107,6 +108,7 @@ env:
     value: "true"
 ```
 
+## [Auto-generated heading level 2]
 ### ConfigMap Redis
 
 ```yaml

@@ -110,6 +110,7 @@ environment:
   - MAX_PDF_SIZE=10485760
 ```
 
+## [Auto-generated heading level 2]
 ### 2. Timeout Trasformazioni
 
 **Sintomi**:
@@ -131,6 +132,7 @@ environment:
 - Suddividere documenti molto grandi
 - Utilizzare trasformazione asincrona per documenti >5MB
 
+## [Auto-generated heading level 2]
 ### 3. Memoria Insufficiente
 
 **Sintomi**:
@@ -156,6 +158,7 @@ environment:
   - MAX_CONCURRENT_JOBS=25
 ```
 
+## [Auto-generated heading level 2]
 ### 4. Code Redis Piena
 
 **Sintomi**:
@@ -178,6 +181,7 @@ redis-transformer:
         memory: 512M
 ```
 
+## [Auto-generated heading level 2]
 ### 5. Errori Conversione Formato
 
 **Sintomi**:
@@ -207,6 +211,7 @@ memory_usage{job="ms05-transformer"} > 0.85
 cpu_usage{job="ms05-transformer"} > 0.80
 ```
 
+## [Auto-generated heading level 2]
 ### Log Pattern da Cercare
 
 ```bash
@@ -238,6 +243,7 @@ curl http://ms05-transformer:8005/api/v1/metrics
 docker exec ms05-transformer pg_isready -h postgres-transformer -U transformer_user
 ```
 
+## [Auto-generated heading level 2]
 ### Analisi Performance
 
 ```bash
@@ -251,6 +257,7 @@ docker exec redis-transformer redis-cli LLEN transformer:queue
 docker exec postgres-transformer psql -U transformer_user -d transformer_db -c "SELECT count(*) FROM pg_stat_activity;"
 ```
 
+## [Auto-generated heading level 2]
 ### Log Analysis
 
 ```bash
@@ -282,6 +289,7 @@ curl http://ms05-transformer:8005/api/v1/status/{job_id}
 curl -X POST http://ms05-transformer:8005/api/v1/admin/retry/{job_id}
 ```
 
+## [Auto-generated heading level 2]
 ### Recovery da Perdita Database
 
 ```bash
@@ -298,6 +306,7 @@ docker exec postgres-transformer psql -U transformer_user -d transformer_db -c "
 docker start ms05-transformer
 ```
 
+## [Auto-generated heading level 2]
 ### Emergency Procedures
 
 #### Arresto di Emergenza
@@ -309,6 +318,8 @@ docker-compose down --timeout 10
 docker kill $(docker ps -q --filter name=ms05)
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Modalità Maintenance
 ```yaml
 # Configurazione maintenance

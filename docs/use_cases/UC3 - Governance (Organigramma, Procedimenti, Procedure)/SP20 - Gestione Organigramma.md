@@ -298,6 +298,7 @@ POST /api/v1/orgchart/sync/hr
 GET /api/v1/orgchart/sync/status
 ```
 
+## [Auto-generated heading level 2]
 ### Tecnologie Utilizzate
 
 | Componente | Tecnologia | Versione | Scopo |

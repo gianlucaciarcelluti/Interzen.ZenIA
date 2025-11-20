@@ -184,6 +184,7 @@ cd wazuh && docker-compose up -d
 # Configurazione rules e dashboards
 ```
 
+## [Auto-generated heading level 2]
 ### Ambiente di Produzione
 - **Kubernetes**: Deployment su cluster managed
 - **Istio**: Service mesh per east-west traffic security

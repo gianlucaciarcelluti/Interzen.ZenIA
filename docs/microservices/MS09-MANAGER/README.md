@@ -230,6 +230,7 @@ PROMETHEUS_URL=http://prometheus:9090
 GRAFANA_URL=http://grafana:3000
 ```
 
+## [Auto-generated heading level 2]
 ### Configurazione Workflow
 ```json
 {
@@ -353,6 +354,7 @@ curl -X POST http://ms09-manager.zenia.local/api/v1/workflows/${workflow_id}/ste
   -H "Authorization: Bearer ${JWT_TOKEN}"
 ```
 
+## [Auto-generated heading level 2]
 ### Performance Issues
 ```bash
 # Verifica metriche performance

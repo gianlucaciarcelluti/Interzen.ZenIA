@@ -104,6 +104,7 @@ docker-compose up -d minio postgres elasticsearch
 python -m pip install -r requirements-dev.txt
 ```
 
+## [Auto-generated heading level 2]
 ### Ambiente di Produzione
 - **Kubernetes**: Deployment su cluster managed
 - **Helm Charts**: Automazione deployment

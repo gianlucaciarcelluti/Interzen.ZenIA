@@ -135,6 +135,8 @@ scrape_configs:
     scrape_interval: 30s
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### 2.1.2 Log Aggregation
 ```json
 {
@@ -215,6 +217,8 @@ ACTIVE_WORKERS = Gauge(
 )
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### 2.2.2 OpenTelemetry Integration
 ```python
 from opentelemetry import trace
@@ -242,6 +246,8 @@ with tracer.start_as_span("process_document") as span:
     span.set_status(Status(StatusCode.OK))
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### 2.2.3 Structured Logging
 ```python
 import structlog
@@ -580,6 +586,7 @@ METRICS_PORT=9090
 EXTERNAL_URL=https://monitor.zenia.local
 ```
 
+## [Auto-generated heading level 2]
 ### 6.2 Kubernetes Deployment
 ```yaml
 apiVersion: apps/v1
@@ -646,6 +653,7 @@ jaeger_tracer_reporter_spans_total
 jaeger_tracer_sampler_sampled
 ```
 
+## [Auto-generated heading level 2]
 ### 7.2 Alert Rules
 ```yaml
 groups:

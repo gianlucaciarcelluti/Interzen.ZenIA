@@ -87,6 +87,7 @@ open MS-ARCHITECTURE-MASTER.md
 open DEVELOPER-WORKFLOW.md
 ```
 
+## [Auto-generated heading level 2]
 ### Opzione 2: Sono un Architect
 ```bash
 # 1. Capire il sistema
@@ -99,6 +100,7 @@ open MS-ARCHITECTURE-MASTER.md
 open ../COMPLIANCE-MATRIX.md
 ```
 
+## [Auto-generated heading level 2]
 ### Opzione 3: Sono un DevOps
 ```bash
 # 1. Deployment setup

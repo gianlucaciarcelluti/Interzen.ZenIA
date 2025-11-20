@@ -22,6 +22,7 @@ if value is None:
     r.set('mykey', value, ex=3600)
 ```
 
+## [Auto-generated heading level 2]
 ### 2. Session store
 ```json
 {

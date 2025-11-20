@@ -357,6 +357,7 @@ EXPIRE key 86400  # 24 hours TTL
 
 ---
 
+## [Auto-generated heading level 2]
 ### Tabella: CLASSIFICATION_AUDIT_LOG - Registrazione Operazioni
 
 Ogni operazione di classificazione viene loggata per audit:

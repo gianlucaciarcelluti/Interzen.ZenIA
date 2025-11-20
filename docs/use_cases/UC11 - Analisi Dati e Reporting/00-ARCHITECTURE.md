@@ -114,6 +114,8 @@ services:
       SCHEMA_REGISTRY_KAFKA_BROKERS: kafka:29092
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Kafka Connect per Database Ingestion
 ```json
 {
@@ -574,6 +576,7 @@ compliance:
     retention: indefinite
 ```
 
+## [Auto-generated heading level 2]
 ### Data Quality Framework
 ```mermaid
 flowchart TD
@@ -744,6 +747,7 @@ aws s3 sync s3://uc11-ml-models/ s3://uc11-backup/models/$(date +%Y%m%d)/ \
     --storage-class STANDARD_IA
 ```
 
+## [Auto-generated heading level 2]
 ### Disaster Recovery Plan
 ```yaml
 # dr_plan.yml

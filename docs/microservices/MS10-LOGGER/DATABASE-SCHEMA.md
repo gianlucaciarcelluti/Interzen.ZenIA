@@ -961,6 +961,8 @@ pg_dump -h localhost -U zenia_logger -d $DB_NAME \
 find $BACKUP_DIR -name "${DB_NAME}_*.backup" -mtime +30 -delete
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Point-in-Time Recovery
 ```sql
 -- Create recovery configuration

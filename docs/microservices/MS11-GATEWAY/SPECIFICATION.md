@@ -228,6 +228,7 @@ services:
       - name: prometheus
 ```
 
+## [Auto-generated heading level 2]
 ### 2. Nginx Reverse Proxy
 
 **Configurazione Load Balancing**:
@@ -280,6 +281,7 @@ server {
 }
 ```
 
+## [Auto-generated heading level 2]
 ### 3. Sicurezza Implementata
 
 #### Autenticazione Multi-Protocollo
@@ -322,6 +324,8 @@ plugins:
       hide_credentials: true
 ```
 
+## [Auto-generated heading level 2]
+### [Auto-generated heading level 3]
 #### Autorizzazione RBAC
 
 ```yaml
@@ -348,6 +352,7 @@ consumers:
       - group: service
 ```
 
+## [Auto-generated heading level 2]
 ### 4. Rate Limiting e Throttling
 
 #### Configurazione Avanzata
@@ -396,6 +401,7 @@ kong_upstream_healthy{service="ms01-classifier"}
 kong_upstream_response_time{service="ms02-analyzer"}
 ```
 
+## [Auto-generated heading level 2]
 ### Tracing Distribuito
 
 ```yaml
@@ -410,6 +416,7 @@ plugins:
       span_name_header_name: X-Span-Name
 ```
 
+## [Auto-generated heading level 2]
 ### Log Aggregation
 
 ```yaml
@@ -470,6 +477,7 @@ spec:
         averageUtilization: 80
 ```
 
+## [Auto-generated heading level 2]
 ### Caching Strategy
 
 ```yaml
@@ -514,6 +522,7 @@ plugins:
           - X-API-Version: ${uri_captures.version}
 ```
 
+## [Auto-generated heading level 2]
 ### Content Negotiation
 
 ```yaml
@@ -561,6 +570,7 @@ plugins:
       max_age: 86400
 ```
 
+## [Auto-generated heading level 2]
 ### Data Protection
 
 ```yaml
@@ -600,6 +610,7 @@ plugins:
       refresh_interval: 30
 ```
 
+## [Auto-generated heading level 2]
 ### Security Integration (MS13)
 
 ```yaml
@@ -613,6 +624,7 @@ plugins:
       keepalive: 10000
 ```
 
+## [Auto-generated heading level 2]
 ### Monitoring Integration (MS08)
 
 ```yaml
@@ -661,6 +673,7 @@ kubectl get configmap kong-config -o yaml > kong_config_backup.yaml
 redis-cli --rdb /backup/kong_cache.rdb
 ```
 
+## [Auto-generated heading level 2]
 ### Failover Configuration
 
 ```yaml

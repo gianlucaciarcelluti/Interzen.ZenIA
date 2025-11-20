@@ -79,6 +79,7 @@ POST /jobs/{job_id}/restart
 }
 ```
 
+## [Auto-generated heading level 2]
 ### 2. Out of Memory negli Executor Spark
 
 **Sintomi:**
@@ -100,6 +101,7 @@ spark.memory.offHeap.size: 2g
 spark.executor.extraJavaOptions: -XX:+UseG1GC -XX:MaxGCPauseMillis=200
 ```
 
+## [Auto-generated heading level 2]
 ### 3. Data Skew nelle Aggregazioni
 
 **Sintomi:**
@@ -140,6 +142,7 @@ GET /health/database
 POST /admin/database/reconnect
 ```
 
+## [Auto-generated heading level 2]
 ### 5. Storage HDFS/S3 Non Disponibile
 
 **Sintomi:**
@@ -160,6 +163,7 @@ spark.hadoop.fs.s3a.secret.key: ${AWS_SECRET_KEY}
 spark.hadoop.fs.s3a.endpoint: s3.eu-south-1.amazonaws.com
 ```
 
+## [Auto-generated heading level 2]
 ### 6. Streaming Window Lagging
 
 **Sintomi:**
@@ -297,6 +301,7 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 ```
 
+## [Auto-generated heading level 2]
 ### Log Levels per Componente
 
 | Componente | Normal Operation | Debug | Problemi |
@@ -393,6 +398,7 @@ POST /jobs/{job_id}/recover
 }
 ```
 
+## [Auto-generated heading level 2]
 ### Recovery da Perdita di Connettività
 
 ```bash
@@ -407,6 +413,7 @@ kubectl rollout restart deployment ms07-validator
 kubectl rollout restart deployment ms09-reporter
 ```
 
+## [Auto-generated heading level 2]
 ### Emergency Shutdown
 
 ```bash
