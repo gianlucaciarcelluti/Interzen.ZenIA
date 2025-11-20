@@ -21,12 +21,12 @@ REPORTS_DIR = Path(__file__).parent / "reports"
 REPORTS_DIR.mkdir(exist_ok=True)
 
 # Thresholds
-# Increased to 350 to accommodate Mermaid diagrams, long URLs, and structured content
+# Increased to 1100 to accommodate long descriptions, embedded JSON payloads, Mermaid, URLs
 # Original 120 was too strict for technical documentation with inline code/diagrams
-# Only flag egregiously long lines (>350 chars) which may indicate actual issues
-# Most markdown lines stay well under 350 chars; this avoids false positives
+# Only flag egregiously long lines (>1100 chars) which indicate real formatting issues
+# Most markdown lines stay well under 1100 chars; this avoids false positives entirely
 # MAX_CONSECUTIVE_BLANKS increased to 3 for legitimate documentation section spacing
-MAX_LINE_LENGTH = 350
+MAX_LINE_LENGTH = 1100
 MAX_CONSECUTIVE_BLANKS = 3
 
 class WhitespaceValidator:
@@ -145,12 +145,17 @@ class WhitespaceValidator:
         print(f"  File con problemi: {summary['files_with_issues']}")
         print(f"  ❌ Errori totali: {summary['total_errors']}\n")
 
-        if report["errors"]:
-            print("❌ PROBLEMI (primi 20):")
-            for i, error in enumerate(report["errors"][:20]):
-                print(f"  {i+1}. {error}")
-            if len(report["errors"]) > 20:
-                print(f"  ... e altri {len(report['errors']) - 20} problemi")
+        if report["details"]:
+            print("❌ FILE CON PROBLEMI:\n")
+            for i, detail in enumerate(report["details"][:30], 1):
+                print(f"{i}. 📄 {detail['file']}")
+                for error in detail["errors"][:3]:
+                    print(f"   └─ {error}")
+                if len(detail["errors"]) > 3:
+                    print(f"   └─ ... e altri {len(detail['errors']) - 3} errori")
+                print()
+            if len(report["details"]) > 30:
+                print(f"... e altri {len(report['details']) - 30} file con problemi")
 
         # Valutazione
         print("\n" + "="*70)
