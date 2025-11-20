@@ -185,6 +185,31 @@ La soluzione implementa un'architettura a **5 livelli** (layers):
 
 **Valore Aggiunto**: Riduzione 70% tempo ricerca documenti, zero perdita informazioni
 
+**Sequence Diagram**:
+```mermaid
+sequenceDiagram
+    participant User as Utente
+    participant Gateway as API Gateway<br/>MS11
+    participant Classifier as Classifier<br/>MS01
+    participant Analyzer as Analyzer<br/>MS02
+    participant Storage as Storage<br/>MS05
+    participant Search as Search Index<br/>Elasticsearch
+    participant Audit as Audit Trail<br/>MS14
+
+    User->>Gateway: Carica documento
+    Gateway->>Classifier: Classifica tipo
+    Classifier-->>Gateway: Categoria + Confidenza
+    Gateway->>Analyzer: Estrai metadati
+    Analyzer-->>Gateway: Entità, Tags, Riassunto
+    Gateway->>Storage: Salva documento
+    Storage-->>Gateway: Documento archiviato
+    Gateway->>Search: Indicizza contenuto
+    Search-->>Gateway: Indicizzazione completata
+    Gateway->>Audit: Registra operazione
+    Audit-->>Gateway: Audit trail registrato
+    Gateway-->>User: ✅ Documento disponibile
+```
+
 ---
 
 ### UC2: Protocollo Informatico
@@ -198,6 +223,29 @@ La soluzione implementa un'architettura a **5 livelli** (layers):
 - Tracciamento stato in tempo reale
 
 **Valore Aggiunto**: Processo 100% digitale, tracciabilità completa, compliance normativa garantita
+
+**Sequence Diagram**:
+```mermaid
+sequenceDiagram
+    participant PEC as Email PEC
+    participant Gateway as API Gateway<br/>MS11
+    participant Classifier as Classifier<br/>MS01
+    participant Analyzer as Analyzer<br/>MS02
+    participant Orchestrator as Orchestrator<br/>MS03
+    participant Audit as Audit Trail<br/>MS14
+
+    PEC->>Gateway: Email ricevuta
+    Gateway->>Classifier: Classifica tipo corrispondenza
+    Classifier-->>Gateway: Tipo riconosciuto
+    Gateway->>Analyzer: Rileva anomalie
+    Analyzer-->>Gateway: Analisi anomalie
+    Gateway->>Orchestrator: Assegna numero protocollo
+    Orchestrator->>Orchestrator: Genera numero unico
+    Orchestrator-->>Gateway: Protocollo assegnato
+    Gateway->>Audit: Registra protocollazione
+    Audit-->>Gateway: Audit trail
+    Gateway-->>PEC: ✅ Protocollo completato
+```
 
 ---
 
@@ -213,6 +261,29 @@ La soluzione implementa un'architettura a **5 livelli** (layers):
 
 **Valore Aggiunto**: Trasparenza organizzativa, procedure standardizzate, facilità audit
 
+**Sequence Diagram**:
+```mermaid
+sequenceDiagram
+    participant User as Amministratore
+    participant Gateway as API Gateway<br/>MS11
+    participant KnowledgeBase as Knowledge Base<br/>MS06
+    participant Orchestrator as Orchestrator<br/>MS03
+    participant Monitor as Monitor<br/>MS08
+    participant Audit as Audit Trail<br/>MS14
+
+    User->>Gateway: Carica organigramma
+    Gateway->>KnowledgeBase: Memorizza struttura
+    KnowledgeBase->>KnowledgeBase: Versiona documento
+    KnowledgeBase-->>Gateway: Organigramma salvato
+    Gateway->>Orchestrator: Mappa responsabilità
+    Orchestrator-->>Gateway: Relazioni definite
+    Gateway->>Monitor: Monitora accessibilità
+    Monitor-->>Gateway: Struttura consultabile
+    Gateway->>Audit: Registra modifiche
+    Audit-->>Gateway: Audit trail registrato
+    Gateway-->>User: ✅ Organigramma online
+```
+
 ---
 
 ### UC4: BPM e Automazione Processi
@@ -226,6 +297,31 @@ La soluzione implementa un'architettura a **5 livelli** (layers):
 - Forecasting tempi completamento
 
 **Valore Aggiunto**: Riduzione 40% tempi processo, identificazione bottleneck, ottimizzazione risorse
+
+**Sequence Diagram**:
+```mermaid
+sequenceDiagram
+    participant User as Process Manager
+    participant Gateway as API Gateway<br/>MS11
+    participant Analyzer as Analyzer<br/>MS02
+    participant Orchestrator as Orchestrator<br/>MS03
+    participant Monitor as Monitor<br/>MS08
+    participant Audit as Audit Trail<br/>MS14
+
+    User->>Gateway: Definisci processo BPMN
+    Gateway->>Orchestrator: Carica workflow
+    Orchestrator->>Orchestrator: Compila automazione
+    Orchestrator-->>Gateway: Workflow attivo
+    Gateway->>Analyzer: Analizza dati storici
+    Analyzer-->>Gateway: Pattern identificati
+    Gateway->>Monitor: Monitora esecuzione
+    Monitor-->>Gateway: Real-time metrics
+    Gateway->>Analyzer: Predici tempi completamento
+    Analyzer-->>Gateway: Forecast generato
+    Gateway->>Audit: Registra configurazione
+    Audit-->>Gateway: Audit trail registrato
+    Gateway-->>User: ✅ Processo ottimizzato
+```
 
 ---
 
@@ -248,6 +344,36 @@ Revisione Umana → Firma Digitale → Timestamp → Archiviazione
 
 **Valore Aggiunto**: Documenti legalmente validi, tempi ridotti 80%, zero errori formali
 
+**Sequence Diagram**:
+```mermaid
+sequenceDiagram
+    participant Redattore as Redattore
+    participant Gateway as API Gateway<br/>MS11
+    participant Validator as Validator<br/>MS04
+    participant Transformer as Transformer<br/>MS05
+    participant Security as Security<br/>MS13
+    participant Orchestrator as Orchestrator<br/>MS03
+    participant Distributor as Distributor<br/>MS07
+    participant Audit as Audit Trail<br/>MS14
+
+    Redattore->>Gateway: Invia dati + template
+    Gateway->>Validator: Valida dati strutturati
+    Validator-->>Gateway: ✓ Validazione ok
+    Gateway->>Transformer: Genera documento
+    Transformer-->>Gateway: PDF documento
+    Gateway->>Redattore: Chiedi revisione
+    Redattore->>Gateway: ✓ Approvato
+    Gateway->>Security: Applica firma digitale
+    Security->>Security: QES + Timestamp
+    Security-->>Gateway: Documento firmato
+    Gateway->>Orchestrator: Archivia
+    Orchestrator->>Distributor: Distribuisci
+    Distributor-->>Gateway: Consegnato
+    Gateway->>Audit: Registra tutto
+    Audit-->>Gateway: Audit trail completo
+    Gateway-->>Redattore: ✅ Documento finalizzato
+```
+
 ---
 
 ### UC6: Firma Digitale Integrata
@@ -261,6 +387,34 @@ Revisione Umana → Firma Digitale → Timestamp → Archiviazione
 - Validazione a lungo termine
 
 **Valore Aggiunto**: Non-ripudio garantito, riconoscimento legale UE, audit trail completo
+
+**Sequence Diagram**:
+```mermaid
+sequenceDiagram
+    participant Sottoscrittore as Sottoscrittore
+    participant Gateway as API Gateway<br/>MS11
+    participant Security as Security<br/>MS13
+    participant Validator as Validator<br/>MS04
+    participant Monitor as Monitor<br/>MS08
+    participant Audit as Audit Trail<br/>MS14
+
+    Sottoscrittore->>Gateway: Richiedi firma documento
+    Gateway->>Security: Carica certificato digitale
+    Security->>Security: Valida certificato X.509
+    Security-->>Gateway: Certificato valido
+    Gateway->>Validator: Verifica documento
+    Validator-->>Gateway: ✓ Documento integro
+    Gateway->>Security: Applica firma QES
+    Security->>Security: Algoritmo crittografico
+    Security-->>Gateway: Firma applicata
+    Gateway->>Security: Richiedi timestamp RFC 3161
+    Security-->>Gateway: Timestamp ricevuto
+    Gateway->>Monitor: Monitora validità
+    Monitor-->>Gateway: Monitoraggio attivo
+    Gateway->>Audit: Registra firma
+    Audit-->>Gateway: Audit trail immutabile
+    Gateway-->>Sottoscrittore: ✅ Documento firmato (eIDAS compliant)
+```
 
 ---
 
@@ -276,6 +430,35 @@ Revisione Umana → Firma Digitale → Timestamp → Archiviazione
 
 **Valore Aggiunto**: Adempimento obblighi normativi, integrità verificabile, accesso garantito
 
+**Sequence Diagram**:
+```mermaid
+sequenceDiagram
+    participant Archivista as Archivista
+    participant Gateway as API Gateway<br/>MS11
+    participant Distributor as Distributor<br/>MS07
+    participant Storage as Storage<br/>MS05
+    participant Transformer as Transformer<br/>MS05
+    participant Validator as Validator<br/>MS04
+    participant Audit as Audit Trail<br/>MS14
+
+    Archivista->>Gateway: Invia documento per conservazione
+    Gateway->>Validator: Valida integrità documento
+    Validator-->>Gateway: ✓ Documento integro
+    Gateway->>Transformer: Genera hash SHA-256
+    Transformer-->>Gateway: Hash calcolato
+    Gateway->>Storage: Archivio primario
+    Storage-->>Gateway: Documento archiviato
+    Gateway->>Storage: Replica secondaria
+    Storage-->>Gateway: Replica completata
+    Gateway->>Validator: Genera certificato TSR
+    Validator-->>Gateway: Certificato di conservazione
+    Gateway->>Distributor: Notifica conservazione
+    Distributor-->>Gateway: Notifica inviata
+    Gateway->>Audit: Registra conservazione
+    Audit-->>Gateway: Audit trail registrato
+    Gateway-->>Archivista: ✅ Documento conservato (5-7 anni)
+```
+
 ---
 
 ### UC8: Integrazione con SIEM (Sicurezza Informatica)
@@ -289,6 +472,33 @@ Revisione Umana → Firma Digitale → Timestamp → Archiviazione
 - Incident response automation
 
 **Valore Aggiunto**: Rilevamento incidenti < 1 minuto, riduzione risk, conformità compliance
+
+**Sequence Diagram**:
+```mermaid
+sequenceDiagram
+    participant Monitor as Monitor<br/>MS08
+    participant Logger as Logger<br/>MS10
+    participant Analyzer as Analyzer<br/>MS02
+    participant SOC as SOC Team
+    participant Security as Security<br/>MS13
+    participant Audit as Audit Trail<br/>MS14
+
+    Monitor->>Logger: Raccogli log applicazioni
+    Logger->>Logger: Centralizza eventi
+    Logger-->>Monitor: Log aggregati
+    Monitor->>Analyzer: Analizza pattern
+    Analyzer-->>Monitor: Anomalie identificate
+    Monitor->>Monitor: Correla eventi
+    Monitor->>SOC: Allarme incidente
+    SOC->>Security: Blocca accesso sospetto
+    Security->>Security: Rate limiting + MFA
+    Security-->>SOC: Accesso negato
+    SOC->>Logger: Raccogli evidenze
+    Logger-->>SOC: Forensics data
+    Monitor->>Audit: Registra incidente
+    Audit-->>Monitor: Audit trail completo
+    SOC-->>Monitor: ✅ Incidente mitigato
+```
 
 ---
 
@@ -304,6 +514,33 @@ Revisione Umana → Firma Digitale → Timestamp → Archiviazione
 
 **Valore Aggiunto**: Proattività compliance, riduzione fini e sanzioni, governance trasparente
 
+**Sequence Diagram**:
+```mermaid
+sequenceDiagram
+    participant ComplianceOfficer as Compliance Officer
+    participant Gateway as API Gateway<br/>MS11
+    participant KnowledgeBase as Knowledge Base<br/>MS06
+    participant Validator as Validator<br/>MS04
+    participant Analyzer as Analyzer<br/>MS02
+    participant Monitor as Monitor<br/>MS08
+    participant Audit as Audit Trail<br/>MS14
+
+    ComplianceOfficer->>Gateway: Carica documento
+    Gateway->>KnowledgeBase: Accedi normative
+    KnowledgeBase-->>Gateway: Normative caricate
+    Gateway->>Validator: Mappa a requisiti normativi
+    Validator-->>Gateway: Mapping completato
+    Gateway->>Analyzer: Analizza compliance gap
+    Analyzer-->>Gateway: Gap identificati
+    Gateway->>Analyzer: Genera suggerimenti rimedi
+    Analyzer-->>Gateway: Rimedi proposti
+    Gateway->>Monitor: Monitora conformità tempo reale
+    Monitor-->>Gateway: Dashboard compliance
+    Gateway->>Audit: Registra valutazione
+    Audit-->>Gateway: Audit trail registrato
+    Gateway-->>ComplianceOfficer: ✅ Report compliance generato
+```
+
 ---
 
 ### UC10: Supporto all'Utente
@@ -318,6 +555,35 @@ Revisione Umana → Firma Digitale → Timestamp → Archiviazione
 
 **Valore Aggiunto**: Autonomia utenti, riduzione support ticket 60%, customer satisfaction
 
+**Sequence Diagram**:
+```mermaid
+sequenceDiagram
+    participant User as Utente
+    participant Portal as Self-Service Portal<br/>MS12
+    participant KnowledgeBase as Knowledge Base<br/>MS06
+    participant Analyzer as Analyzer<br/>MS02
+    participant Orchestrator as Orchestrator<br/>MS03
+    participant Support as Support Team
+    participant Audit as Audit Trail<br/>MS14
+
+    User->>Portal: Accedi self-service
+    Portal->>KnowledgeBase: Cerca soluzione
+    KnowledgeBase-->>Portal: FAQ e guide trovate
+    Portal-->>User: Soluzione visualizzata
+    User->>Portal: Apri ticket se necessario
+    Portal->>Orchestrator: Assegna priorità
+    Orchestrator-->>Portal: Ticket creato
+    Portal->>Analyzer: Analizza contenuto ticket
+    Analyzer-->>Portal: Categorizzazione automatica
+    Portal->>Support: Notifica team
+    Support->>Support: Prende in carico
+    Support-->>Portal: Response utente
+    Portal->>User: Notifica risposta
+    Portal->>Audit: Registra interazione
+    Audit-->>Portal: Audit trail registrato
+    Portal-->>User: ✅ Supporto fornito
+```
+
 ---
 
 ### UC11: Analisi Dati e Reporting
@@ -331,6 +597,34 @@ Revisione Umana → Firma Digitale → Timestamp → Archiviazione
 - Predictive analytics
 
 **Valore Aggiunto**: Decisioni data-driven, identificazione trend, forecasting accurato
+
+**Sequence Diagram**:
+```mermaid
+sequenceDiagram
+    participant Executive as Executive/Manager
+    participant Gateway as API Gateway<br/>MS11
+    participant ETL as ETL Pipeline<br/>MS07
+    participant Storage as Data Lake<br/>MS05
+    participant Analyzer as Analyzer<br/>MS02
+    participant Monitor as Monitor<br/>MS08
+    participant Dashboard as Dashboard<br/>MS12
+
+    Executive->>Gateway: Richiedi report
+    Gateway->>ETL: Avvia pipeline ETL
+    ETL->>ETL: Estrai-Trasforma-Carica
+    ETL-->>Storage: Dati caricati
+    Gateway->>Storage: Accedi data lake
+    Storage-->>Gateway: Query risultati
+    Gateway->>Analyzer: Analizza trend
+    Analyzer->>Analyzer: Modelli ML
+    Analyzer-->>Gateway: Insights generati
+    Gateway->>Analyzer: Forecast futuri periodi
+    Analyzer-->>Gateway: Previsioni generate
+    Gateway->>Monitor: Genera dashboard
+    Monitor->>Dashboard: Prepara visualizzazioni
+    Dashboard-->>Gateway: Dashboard pronto
+    Gateway-->>Executive: ✅ Report completo con forecast
+```
 
 ---
 
