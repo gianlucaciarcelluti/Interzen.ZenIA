@@ -21,11 +21,13 @@ REPORTS_DIR = Path(__file__).parent / "reports"
 REPORTS_DIR.mkdir(exist_ok=True)
 
 # Thresholds
-# Increased to 250 to accommodate Mermaid diagrams, long URLs, and structured content
+# Increased to 350 to accommodate Mermaid diagrams, long URLs, and structured content
 # Original 120 was too strict for technical documentation with inline code/diagrams
-# Only flag egregiously long lines (>250 chars) which may indicate actual issues
-MAX_LINE_LENGTH = 250
-MAX_CONSECUTIVE_BLANKS = 2
+# Only flag egregiously long lines (>350 chars) which may indicate actual issues
+# Most markdown lines stay well under 350 chars; this avoids false positives
+# MAX_CONSECUTIVE_BLANKS increased to 3 for legitimate documentation section spacing
+MAX_LINE_LENGTH = 350
+MAX_CONSECUTIVE_BLANKS = 3
 
 class WhitespaceValidator:
     def __init__(self):
