@@ -7,4 +7,5 @@ senza includere alcun codice python o di altri linguaggi.
 Verifica che tutto quanto sia realizzato nel rispetto delle normative e guide linea che trovi nelle fonti.
 Verifica che ogni SP (sottoprogetto) sia correttamente riferito e non ci siano collegamenti orfani.
 Crea un piano di refactoring per aggiornare e sistemare la documentazione in maniera incrementale.
-Se il piano è già implementato verifica e riparti da dove si è interrotto.
+Se il piano è già implementato verifica il doc VALUTAZIONE-QUALITA-DOCUMENTAZIONE
+ e riparti da dove ci siamo interrotti.
