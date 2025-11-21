@@ -78,6 +78,80 @@ Questo UC copre tutti gli aspetti della **Firma Digitale Integrata**, incluse:
 
 **Dettagli per SP**: Vedere sezione "🏛️ Conformità Normativa" in ogni SPECIFICATION.md di SP.
 
+### Dettagli Conformità PNRR
+
+#### Missione 1: Digitalizzazione, Innovazione, Competitività
+
+| Componente | Requisito | Implementazione MS | Implementazione SP | Note |
+|-----------|-----------|-------------------|--------------------|-------|
+| M1C1.4 | Sicurezza informatica della PA | MS13-SECURITY, MS08-MONITOR | SP11-Security & Audit | Crittografia end-to-end, audit trail immutabile |
+
+#### Obiettivi PNRR per UC6
+
+- **Cybersecurity PA**: 100% conformità con crittografia + audit trail
+- **Firma digitale qualificata**: XAdES/PAdES/CAdES con certificati qualificati
+- **Audit trail immutabile**: Registrazione completa di tutte le operazioni di firma
+
+### Dettagli Conformità Piano Triennale AgID 2024-2026
+
+#### Capitolo 4: Piattaforme
+
+| Piattaforma | Requisito | Implementazione MS | Implementazione SP | Note |
+|-------------|-----------|-------------------|--------------------|-------|
+| SPID | Identità digitale | MS13-SECURITY, MS11-GATEWAY | SP11-Security & Audit | Integrazione SAML 2.0 per autenticazione utenti |
+| CIE | Carta identità elettronica | MS13-SECURITY | SP11-Security & Audit | Autenticazione CIE per firma digitale |
+
+#### Capitolo 7: Sicurezza Informatica
+
+| Requisito | Implementazione MS | Implementazione SP | Note |
+|-----------|-------------------|--------------------|-------|
+| Crittografia dati | MS13-SECURITY | SP11-Security & Audit | AES-256 at rest, TLS 1.3 in transit |
+| Protezione certificati digitali | MS13-SECURITY | SP32-Timestamp Authority | HSM (Hardware Security Module) per key management |
+
+### Dettagli Conformità CAD - D.Lgs 82/2005
+
+#### Titolo II: Documenti e Firme Digitali
+
+| Articolo | Requisito | Implementazione MS | Implementazione SP | Note |
+|----------|-----------|-------------------|--------------------|-------|
+| Art. 22 | Firma digitale qualificata | MS13-SECURITY, MS04-VALIDATOR | SP32-Timestamp Authority | Certificati qualificati, controllo integrità |
+| Art. 23 | Marcatura temporale | MS13-SECURITY | SP32-Timestamp Authority | RFC 3161 TSA per non-repudio temporale |
+| Art. 24 | Non-ripudio | MS14-AUDIT | SP11-Security & Audit | Registrazione immutabile di firma e timestamp |
+
+### Dettagli Conformità eIDAS - Regolamento 2014/910
+
+| Articolo | Requisito | Implementazione MS | Implementazione SP | Note |
+|----------|-----------|-------------------|--------------------|-------|
+| Art. 3 | Firma elettronica avanzata | MS13-SECURITY, MS04-VALIDATOR | SP32-Timestamp Authority | XAdES, PAdES, CAdES compliance |
+| Art. 13 | Firma qualificata | MS13-SECURITY | SP32-Timestamp Authority | Certificati qualificati + timestamp |
+| Art. 24 | Servizi marca temporale | MS13-SECURITY | SP32-Timestamp Authority | TSA RFC 3161 con RFC 5652 |
+| Art. 32 | Validazione long-term | MS04-VALIDATOR | SP32-Timestamp Authority | LTV (Long-Term Validation) per archivio |
+
+### Cross-References Compliance
+
+- **Master Matrix**: [COMPLIANCE-MATRIX.md v2.1](../../COMPLIANCE-MATRIX.md) - Mapping completo AI Act, CAD, PNRR, Piano Triennale
+- **PNRR Strategy**: [COMPLIANCE-UPDATE-STRATEGY.md](../../COMPLIANCE-UPDATE-STRATEGY.md) - Roadmap implementazione UC/MS
+
+### ✅ Compliance Checklist UC6
+
+**Prima di Deployment**:
+- [ ] Firma digitale XAdES/PAdES/CAdES implementate con certificati qualificati
+- [ ] Marcatura temporale RFC 3161 integrata da TSA certificata
+- [ ] Crittografia end-to-end (TLS 1.3, AES-256) abilitata
+- [ ] Audit trail immutabile per tutte le operazioni di firma
+- [ ] SPID + CIE authentication integrata per utenti PA
+- [ ] HSM (Hardware Security Module) per protezione chiavi private
+- [ ] LTV (Long-Term Validation) supportato per archivio digitale
+- [ ] Validazione di certificati e marca temporale implementata
+
+**Annual Compliance Review**:
+- [ ] Validità certificati qualificati verificata
+- [ ] Algoritmi crittografici allineati con NIST guidelines
+- [ ] Audit trail completezza verificata
+- [ ] Disaster recovery testato (RTO/RPO met)
+- [ ] Security audit eseguito
+- [ ] Certificazione eIDAS aggiornata
+
 Mappa completa: [COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md)
 
 ---
@@ -129,5 +203,5 @@ UC6 - Firma Digitale Integrata/
 
 ---
 
-**Versione**: 1.0 (19 novembre 2025)
-**Prossima Review**: 19 dicembre 2025
+**Versione**: 1.1 (21 novembre 2025 - PNRR & Piano Triennale compliance added)
+**Prossima Review**: 21 dicembre 2025
