@@ -8,7 +8,7 @@ Behavior:
 - Skips content inside fenced code blocks.
 - For each link target `(docs/...)`, if the target file exists under `docs/`,
   replace the link with the computed relative path from the source file.
-- Creates a `.bak` backup for any file that is modified.
+    - Writes changes in-place (no `.bak` backups are created).
 
 Run from repo root: `python3 scripts/normalize_docs_links.py`
 """
@@ -55,10 +55,9 @@ def normalize_file(path: Path, docs_root: Path) -> bool:
         out_lines.append(new_line)
 
     if changed:
-        bak = path.with_suffix(path.suffix + ".bak")
-        path.rename(bak)
+        # Write changes in-place (no .bak backups)
         path.write_text(''.join(out_lines), encoding="utf-8")
-        print(f"Normalized links: {path} -> backup {bak}")
+        print(f"Normalized links: {path}")
     return changed
 
 

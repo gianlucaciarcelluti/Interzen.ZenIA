@@ -273,9 +273,9 @@ Integrare sistematicamente i requisiti PNRR (Missione 1 & 5) e Piano Triennale A
 - [ ] Cloud Security (SPC deployment)
 
 ### 🔗 Cross-References
-- Master Matrix: [COMPLIANCE-MATRIX.md](../COMPLIANCE-MATRIX.md)
-- PNRR Mapping: [COMPLIANCE-MAPPING-PNRR.md](../COMPLIANCE-MAPPING-PNRR.md)
-- Piano Triennale Mapping: [COMPLIANCE-MAPPING-PIANO-TRIENNALE.md](../COMPLIANCE-MAPPING-PIANO-TRIENNALE.md)
+- Master Matrix: [COMPLIANCE-MATRIX.md](COMPLIANCE-MATRIX.md)
+- PNRR Mapping: [COMPLIANCE-MAPPING-PNRR.md](COMPLIANCE-MAPPING-PNRR.md)
+- Piano Triennale Mapping: [COMPLIANCE-MAPPING-PIANO-TRIENNALE.md](COMPLIANCE-MAPPING-PIANO-TRIENNALE.md)
 
 ### ✅ Compliance Checklist
 - [ ] Tutti i requisiti normativi identificati

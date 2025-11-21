@@ -8,14 +8,14 @@ Il sistema di validazione della documentazione ZenIA è un framework di assicura
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  LOCALE: ./scripts/run_all_checks.sh                    │
+│  LOCALE: ./../../scriptsrun_all_checks.sh                    │
 │  (Esegue i 15 validator, mostra feedback in tempo reale)│
 └─────────────────────────────────────────────────────────┘
          ↓
          ↓ (git push)
          ↓
 ┌─────────────────────────────────────────────────────────┐
-│  CI/CD: .github/workflows/docs-validation.yml           │
+│  CI/CD: ../../.github/workflowsdocs-validation.yml           │
 │  (Esegue la suite di validazione completa per ogni commit/PR)
 └─────────────────────────────────────────────────────────┘
          ↓

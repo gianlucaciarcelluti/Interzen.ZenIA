@@ -3,14 +3,14 @@
 Conservative auto-fixer: wrap response JSON examples that lack standard keys
 into a top-level `data` object. Works in two modes:
  - dry-run (default): show proposed file changes
- - --apply: write changes and create a `.bak` backup
+ - --apply: write changes in-place (overwrites original files)
 
 Only touches fenced blocks explicitly labelled ```json``` and only when
 (a) the nearby context suggests a `response` example and
 (b) the block parses as a JSON object and does NOT contain one of the
     standard response keys: status, data, error, result, message
 
-Safe-by-default: creates backups and prints a summary.
+Safe-by-default: conservative changes; writes files in-place and prints a summary.
 """
 
 import argparse
@@ -95,17 +95,16 @@ def process_file(p: Path, apply: bool=False, max_changes: int=0):
     new_content = ''.join(new_content_parts)
 
     if apply:
-        bak = p.with_suffix(p.suffix + '.bak')
-        p.rename(bak)
+        # Write changes in-place (no .bak backups)
         p.write_text(new_content, encoding='utf-8')
-        return {'file': str(p.relative_to(DOCS_DIR)), 'changes': changes, 'bak': str(bak.relative_to(DOCS_DIR))}
+        return {'file': str(p.relative_to(DOCS_DIR)), 'changes': changes}
     else:
         return {'file': str(p.relative_to(DOCS_DIR)), 'changes': changes}
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--apply', action='store_true', help='Apply changes (create .bak backups)')
+    parser.add_argument('--apply', action='store_true', help='Apply changes (writes files in-place)')
     parser.add_argument('--dry-run', action='store_true', default=True, help='Show proposed changes (default)')
     parser.add_argument('--limit', type=int, default=0, help='Limit number of files to change (0 = unlimited)')
     args = parser.parse_args()
@@ -135,6 +134,6 @@ if __name__ == '__main__':
                 applied.append(res)
         print('\nApplied changes to', len(applied), 'file(s)')
         for a in applied:
-            print(' -', a['file'], 'backup:', a['bak'], f"(changes: {len(a['changes'])})")
+            print(' -', a['file'], f"(changes: {len(a['changes'])})")
     else:
-        print('\nRun with --apply to write changes (backups created with .bak suffix)')
+        print('\nRun with --apply to write changes (files will be overwritten in-place)')

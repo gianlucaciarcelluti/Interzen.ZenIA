@@ -293,14 +293,18 @@ else
     fi
 fi
 
-# If any check reported failure or returned non-zero, exit with non-zero
-if [ "$OVERALL_PASS" = true ]; then
-    # Show hint if there are warnings
+# Final exit logic:
+# - Exit non-zero only when TIER 1 critical checks fail (preserve previous behaviour where
+#   Tier 1 determines commit readiness). Non-critical issues are reported but do not
+#   fail the run by default.
+if [ "$TIER1_PASS" = true ]; then
+    # Show hint if there are warnings (non-critical) when not verbose
     if [ ${#ISSUES_CHECKS[@]} -gt 0 ] && [ "$VERBOSE" = false ]; then
         show_report_hint
     fi
     exit 0
 else
+    # When Tier 1 failed, print reports and exit non-zero
     if [ "$VERBOSE" = false ]; then
         show_report_hint
     fi

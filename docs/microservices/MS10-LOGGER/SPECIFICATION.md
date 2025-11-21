@@ -721,68 +721,53 @@ X-Tenant-ID: tenant-pa-roma
   "query": {
     "bool": {
       "must": [
-        {"term": {"tenant_id": "tenant-pa-roma"}},
-        {"term": {"level": "ERROR"}},
-        {"range": {"timestamp": {"gte": "now-1h"}}}
+        {
+          "term": {
+            "tenant_id": "tenant-pa-roma"
+          }
+        },
+        {
+          "term": {
+            "level": "ERROR"
+          }
+        },
+        {
+          "range": {
+            "timestamp": {
+              "gte": "now-1h"
+            }
+          }
+        }
       ],
       "should": [
-        {"match": {"service": "ms01-classifier"}},
-        {"match": {"correlation_id": "corr-123-abc-456-def"}}
+        {
+          "match": {
+            "service": "ms01-classifier"
+          }
+        },
+        {
+          "match": {
+            "correlation_id": "corr-123-abc-456-def"
+          }
+        }
       ]
     }
   },
   "sort": [
-    {"timestamp": {"order": "desc"}}
+    {
+      "timestamp": {
+        "order": "desc"
+      }
+    }
   ],
   "size": 100,
-  "_source": ["timestamp", "level", "service", "message", "correlation_id"]
-}
-query GetApplicationLogs(
-  $tenantId: String!
-  $timeRange: TimeRange!
-  $filters: LogFilters
-  $pagination: Pagination
-) {
-  logs(tenantId: $tenantId, timeRange: $timeRange, filters: $filters, pagination: $pagination) {
-    edges {
-      node {
-        id
-        timestamp
-        level
-        service
-        message
-        correlationId
-        context
-        metrics
-      }
-    }
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-    totalCount
-  }
-}
-
-query GetErrorAnalytics($tenantId: String!, $period: String!) {
-  errorAnalytics(tenantId: $tenantId, period: $period) {
-    byService {
-      service
-      errorCount
-      errorRate
-      topErrors {
-        message
-        count
-        firstSeen
-        lastSeen
-      }
-    }
-    trends {
-      timestamp
-      errorCount
-      uniqueErrors
-    }
-  }
+  "_source": [
+    "timestamp",
+    "level",
+    "service",
+    "message",
+    "correlation_id"
+  ]
 }
 ```
 

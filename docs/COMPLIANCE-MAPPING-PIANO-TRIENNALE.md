@@ -66,7 +66,7 @@ ZenIA rientra principalmente nei pilastri 1, 2, 4, 5.
 | **Service Mesh** | Istio or similar | 🟡 PARTIAL | Azure Service Fabric alternative |
 | **Infrastructure as Code** | IaC with Terraform/Ansible | ✅ GOOD | [DEVELOPMENT-GUIDE.md](DEVELOPMENT-GUIDE.md) |
 | **Logging & Monitoring** | Centralized logging (ELK/Splunk) | ✅ GOOD | [MS08-MONITOR](microservices/MS08-MONITOR/), [MS11-GATEWAY](microservices/MS11-GATEWAY/) |
-| **API Gateway** | Centralized API gateway | ✅ GOOD | [MS15-REGISTRY](microservices/MS15-REGISTRY/) + MS11-GATEWAY |
+| **API Gateway** | Centralized API gateway | ✅ GOOD | [MS15-REGISTRY](microservices/MS16-REGISTRY) + MS11-GATEWAY |
 | **Authentication/Authorization** | OAuth 2.0 / OpenID Connect | ✅ GOOD | [MS13-SECURITY](microservices/MS13-SECURITY/) |
 | **Secrets Management** | Azure Key Vault integration | ✅ GOOD | MS13-SECURITY |
 | **Backup & Disaster Recovery** | Automated backups + failover | ✅ GOOD | Cloud provider native |
@@ -209,7 +209,7 @@ ZenIA Architecture vs PaaSPA Requirements:
   - Multi-region failover
   - Automated backups
 
-Recommendation: Update [ARCHITECTURE-OVERVIEW.md](docs/ARCHITECTURE-OVERVIEW.md) to explicitly document PaaSPA compliance.
+Recommendation: Update [ARCHITECTURE-OVERVIEW.md](ARCHITECTURE-OVERVIEW.md) to explicitly document PaaSPA compliance.
 ```
 
 ---

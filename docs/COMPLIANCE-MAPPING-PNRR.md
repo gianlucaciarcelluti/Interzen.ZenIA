@@ -74,7 +74,7 @@ Il PNRR stanzia €48,6 miliardi per la digitalizzazione della PA, infrastruttur
 
 | Component | Requirement | Status | Reference |
 |-----------|-------------|--------|-----------|
-| **OpenAPI 3.0 Spec** | All APIs documented in OpenAPI 3.0 | 🟡 PARTIAL | [docs/microservices/MSxx/API.md](microservices/) |
+| **OpenAPI 3.0 Spec** | All APIs documented in OpenAPI 3.0 | 🟡 PARTIAL | [microservices/README.mdMSxx/API.md](microservices/) |
 | **Versioning Strategy** | Semantic versioning + backward compatibility | 🟡 PARTIAL | [DEVELOPMENT-GUIDE.md](DEVELOPMENT-GUIDE.md) - needs explicit policy |
 | **Error Handling** | Standardized HTTP status codes + error responses | 🟡 PARTIAL | Varies by service |
 | **Authentication** | OAuth 2.0 / OpenID Connect | ✅ GOOD | [MS13-SECURITY](microservices/MS13-SECURITY/) |
@@ -240,7 +240,7 @@ Compliance:
 
 ```
 Current State:
-✅ REST APIs → [docs/microservices/MSxx/API.md](docs/microservices/)
+✅ REST APIs → [microservices/README.mdMSxx/API.md](microservices/README.md)
 ✅ JSON responses → Standardized format
 ✅ OpenAPI 3.0 → Documented (needs validation)
 🟡 Versioning → Implicit, needs formal policy

@@ -74,8 +74,7 @@ def process_file(path: Path):
             return m.group(0)
     new_text = CODE_FENCE_RE.sub(repl, text)
     if changed:
-        backup = path.with_suffix(path.suffix + '.bak')
-        path.rename(backup)
+        # Write changes in-place (no .bak backups per project policy)
         path.write_text(new_text, encoding='utf-8')
     return changed
 

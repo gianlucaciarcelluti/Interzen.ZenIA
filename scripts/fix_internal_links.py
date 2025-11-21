@@ -6,7 +6,7 @@ Behavior:
 - Scans all `.md` files under `docs/` (recursively).
 - Skips content inside fenced code blocks (``` or ```lang).
 - Replaces link targets of the form `(docs/...)` with `(path/without/docs/)`, preserving anchors.
-- Creates a `.bak` backup for any file that is modified.
+    - Writes changes in-place (no `.bak` backups are created).
 
 Run from repo root: `python3 scripts/fix_internal_links.py`
 """
@@ -44,10 +44,9 @@ def fix_file(path: Path) -> bool:
         out_lines.append(new_line)
 
     if changed:
-        bak = path.with_suffix(path.suffix + ".bak")
-        path.rename(bak)
+        # Write changes in-place (no .bak backups)
         path.write_text(''.join(out_lines), encoding="utf-8")
-        print(f"Fixed: {path} -> backup saved as {bak}")
+        print(f"Fixed: {path}")
     return changed
 
 

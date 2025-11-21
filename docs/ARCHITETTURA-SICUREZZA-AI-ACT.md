@@ -745,7 +745,7 @@ DPIA Template (RICHIESTO PER MS01, MS02, MS04)
 | Articolo | Requisito | Implementazione ZenIA | Stato | Sforzo |
 |----------|-----------|----------------------|--------|--------|
 | 27 | Risk Management System | ARCHITETTURA-SICUREZZA-AI-ACT.md (questo doc) | ✅ | - |
-| 28 | Data Governance | CONFORMITÀ-MAPPATURA-AI-ACT.md | 🟡 | DPIA: 6h |
+| 28 | Data Governance | CONFORMITA-MAPPATURA-AI-ACT.md | 🟡 | DPIA: 6h |
 | 29 | Documentazione | System Card completate | ✅ | - |
 | 30 | Automated Record-Keeping | MS14-AUDIT + hash chain | 🟡 | Automazione: 4h |
 | 31 | Human Oversight | MS06-AGGREGATOR + MS07 | ✅ | - |
@@ -816,9 +816,9 @@ DPIA Template (RICHIESTO PER MS01, MS02, MS04)
 - CAD italiano (Codice dell'Amministrazione Digitale) - D. Lgs. 82/2005
 
 ### Documentazione Interna
-- [ARCHITETTURA-PANORAMICA.md](ARCHITETTURA-PANORAMICA.md) - Architettura sistema
-- [CONFORMITÀ-MAPPATURA-AI-ACT.md](CONFORMITÀ-MAPPATURA-AI-ACT.md) - Mappatura AI Act
-- [CONFORMITÀ-MAPPATURA-CAD.md](CONFORMITÀ-MAPPATURA-CAD.md) - Mappatura CAD
+- [ARCHITECTURE-OVERVIEW.md](ARCHITECTURE-OVERVIEW.md) - Architettura sistema
+- [CONFORMITA-MAPPATURA-AI-ACT.md](CONFORMITA-MAPPATURA-AI-ACT.md) - Mappatura AI Act
+- [CONFORMITA-MAPPATURA-CAD.md](CONFORMITA-MAPPATURA-CAD.md) - Mappatura CAD
 - [SYSTEM-CARDS-REGISTRY.md](SYSTEM-CARDS-REGISTRY.md) - Documentazione modelli
 - [MS13-SECURITY SPECIFICATION](microservices/MS13-SECURITY/SPECIFICATION.md) - Microservizio sicurezza
 

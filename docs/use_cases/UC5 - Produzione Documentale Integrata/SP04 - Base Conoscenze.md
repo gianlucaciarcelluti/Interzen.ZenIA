@@ -519,17 +519,6 @@ sequenceDiagram
     }
   }
 }
-{
-  "doc_type": "DELIBERA_GIUNTA",
-  "subject_matter": {
-    "category": "BILANCIO",
-    "subcategory": "VARIAZIONI_BUDGET",
-    "keywords": ["variazione bilancio", "fondi covid", "emergenza sanitaria"],
-    "importo": 250000.00,
-    "normativa_menzionata": ["D.Lgs 267/2000", "TUEL"]
-  },
-  "context_level": "STANDARD"
-}
 ```
 
 **Expected Response (200 OK):**
@@ -1051,7 +1040,9 @@ sequenceDiagram
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "required": ["normativa_id"],
+  "required": [
+    "normativa_id"
+  ],
   "properties": {
     "normativa_id": {
       "type": "string",
@@ -1061,7 +1052,13 @@ sequenceDiagram
       "type": "array",
       "items": {
         "type": "string",
-        "enum": ["MODIFICA", "ABROGA", "RIMANDA", "INTEGRA", "SOSTITUISCE"]
+        "enum": [
+          "MODIFICA",
+          "ABROGA",
+          "RIMANDA",
+          "INTEGRA",
+          "SOSTITUISCE"
+        ]
       },
       "description": "Tipi di relazioni da recuperare (default: tutte)"
     },
@@ -1073,11 +1070,6 @@ sequenceDiagram
       "description": "Profondità max traversal grafo"
     }
   }
-}
-{
-  "normativa_id": "L.241/1990",
-  "relation_types": ["MODIFICA", "INTEGRA"],
-  "max_depth": 2
 }
 ```
 

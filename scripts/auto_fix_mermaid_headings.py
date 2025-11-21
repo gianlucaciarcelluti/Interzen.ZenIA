@@ -8,7 +8,7 @@ Actions performed:
 - Deduplicate repeated auto-generated headings like '[auto-generated heading level 2]'
 
 Backups:
-- For every modified file, a `.bak` copy is created next to it.
+- Writes changes in-place (no `.bak` copies are created).
 
 Run from repo root: `python3 scripts/auto_fix_mermaid_headings.py`
 """
@@ -121,10 +121,9 @@ def process_file(path: Path) -> bool:
         i += 1
 
     if changed:
-        bak = path.with_suffix(path.suffix + '.bak')
-        shutil.copy2(path, bak)
+        # Write changes in-place (no .bak backups)
         path.write_text(''.join(out), encoding='utf-8')
-        print(f"Modified {path} -> backup {bak}")
+        print(f"Modified {path}")
 
     return changed
 

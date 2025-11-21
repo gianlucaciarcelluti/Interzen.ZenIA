@@ -568,141 +568,6 @@ window.addEventListener('beforeunload', () => {
     ]
   }
 }
-# Query per documenti
-query GetDocuments($filter: DocumentFilter!, $pagination: PaginationInput) {
-  documents(filter: $filter, pagination: $pagination) {
-    edges {
-      node {
-        id
-        title
-        category
-        confidence
-        status
-        createdAt
-        updatedAt
-        metadata {
-          source
-          priority
-          processingTimeMs
-          tags
-        }
-        classification {
-          primaryCategory
-          subcategories
-          confidence
-          entities {
-            text
-            type
-            confidence
-            position {
-              start
-              end
-            }
-          }
-          keywords {
-            word
-            score
-          }
-        }
-        workflow {
-          id
-          status
-          currentStage
-          progress
-          startedAt
-          estimatedCompletion
-        }
-      }
-      cursor
-    }
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
-      startCursor
-      endCursor
-      totalCount
-    }
-  }
-}
-
-# Query per metriche
-query GetMetrics($timeframe: TimeframeInput!, $services: [String!]) {
-  metrics(timeframe: $timeframe, services: $services) {
-    service
-    timeframe
-    requests {
-      total
-      successful
-      failed
-      rateLimited
-    }
-    performance {
-      avgResponseTime
-      p50ResponseTime
-      p95ResponseTime
-      p99ResponseTime
-    }
-    errors {
-      byStatusCode {
-        code
-        count
-        percentage
-      }
-      byType {
-        type
-        count
-        percentage
-      }
-    }
-    cache {
-      hits
-      misses
-      hitRate
-    }
-    rateLimiting {
-      triggered
-      byConsumer {
-        consumer
-        count
-      }
-    }
-  }
-}
-
-# Query per configurazione
-query GetConfiguration($service: String!, $version: String) {
-  configuration(service: $service, version: $version) {
-    service
-    version
-    routes {
-      name
-      path
-      methods
-      plugins {
-        name
-        config
-        enabled
-      }
-    }
-    upstreams {
-      name
-      algorithm
-      targets {
-        target
-        weight
-        healthy
-      }
-    }
-    consumers {
-      username
-      acls
-      plugins {
-        name
-        config
-      }
-    }
-  }
-}
 ```
 
 ## [Auto-generated heading level 2]
@@ -718,70 +583,17 @@ query GetConfiguration($service: String!, $version: String) {
     "confidence": {
       "min": 0.8
     },
-    "source": ["email", "upload"],
-    "tags": ["high_priority"]
+    "source": [
+      "email",
+      "upload"
+    ],
+    "tags": [
+      "high_priority"
+    ]
   },
   "pagination": {
     "first": 20,
     "after": "cursor_abc123"
-  }
-}
-{
-  "data": {
-    "documents": {
-      "edges": [
-        {
-          "node": {
-            "id": "doc_001",
-            "title": "Autorizzazione Scarico Acque Industriali",
-            "category": "autorizzazione_scarico_acque",
-            "confidence": 0.92,
-            "status": "processed",
-            "createdAt": "2025-11-18T09:30:00Z",
-            "updatedAt": "2025-11-18T09:30:15Z",
-            "metadata": {
-              "source": "email",
-              "priority": "high",
-              "processingTimeMs": 245,
-              "tags": ["industriale", "ambiente"]
-            },
-            "classification": {
-              "primaryCategory": "autorizzazione_scarico_acque",
-              "subcategories": ["industriale", "temporanea"],
-              "confidence": 0.92,
-              "entities": [
-                {
-                  "text": "Comune di Milano",
-                  "type": "ORG",
-                  "confidence": 0.98,
-                  "position": {"start": 15, "end": 31}
-                }
-              ],
-              "keywords": [
-                {"word": "autorizzazione", "score": 0.95},
-                {"word": "scarico", "score": 0.89}
-              ]
-            },
-            "workflow": {
-              "id": "wf_123",
-              "status": "completed",
-              "currentStage": "classification",
-              "progress": 100,
-              "startedAt": "2025-11-18T09:30:00Z",
-              "estimatedCompletion": "2025-11-18T09:32:00Z"
-            }
-          },
-          "cursor": "cursor_def456"
-        }
-      ],
-      "pageInfo": {
-        "hasNextPage": true,
-        "hasPreviousPage": false,
-        "startCursor": "cursor_abc123",
-        "endCursor": "cursor_def456",
-        "totalCount": 150
-      }
-    }
   }
 }
 ```
