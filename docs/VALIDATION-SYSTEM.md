@@ -403,10 +403,10 @@ Il sistema utilizza **un unico workflow** (`docs-validation.yml`) che gestisce s
 
 ## Riferimenti
 
-- [Script di Validazione](scripts/)
+- Script di Validazione: `scripts/` (root directory)
 - [Spec Archetipo UC](./DOCUMENTATION-STRUCTURE-GUIDE.md)
 - [Mappatura SP](./ARCHITECTURE-OVERVIEW.md)
-- [Workflows GitHub Actions](.github/workflows/)
+- Workflows GitHub Actions: `.github/workflows/` (root directory)
 
 ---
 

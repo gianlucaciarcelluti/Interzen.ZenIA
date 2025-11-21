@@ -34,7 +34,7 @@ cp infrastructure/nifi-workflows/.env.example infrastructure/nifi-workflows/.env
 ## 📚 Documentazione
 
 ### Casi d'Uso
-- [📋 Riepilogo Casi d'Uso](docs/use_cases/)
+- [📋 Riepilogo Casi d'Uso](docs/use_cases)
 - [UC1 - Sistema di Gestione Documentale](docs/use_cases/UC1%20-%20Sistema%20di%20Gestione%20Documentale/)
 - [UC2 - Protocollo Informatico](docs/use_cases/UC2%20-%20Protocollo%20Informatico/)
 - [UC3 - Governance](docs/use_cases/UC3%20-%20Governance%20(Organigramma,%20Procedimenti,%20Procedure)/)

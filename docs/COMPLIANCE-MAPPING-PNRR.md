@@ -183,7 +183,7 @@ Il PNRR stanzia €48,6 miliardi per la digitalizzazione della PA, infrastruttur
 |-----------|-------------|--------|--------|
 | **PA Staff Training** | Training materials for PA administrators | ❌ MISSING | 10 hours |
 | **Developer Documentation** | Technical documentation for developers | ✅ GOOD | [DEVELOPMENT-GUIDE.md](DEVELOPMENT-GUIDE.md) |
-| **API Documentation** | Clear API usage guides | 🟡 PARTIAL | [API.md](microservices/MSxx/API.md) exists |
+| **API Documentation** | Clear API usage guides | 🟡 PARTIAL | Microservices con documentazione API |
 | **Video Tutorials** | Recorded training videos | ❌ MISSING | 20+ hours |
 | **Certification Program** | Training certification | ❌ MISSING | Future scope |
 | **Community Support** | Community forums / help desk | ❌ MISSING | Future scope |

@@ -727,7 +727,7 @@ ALTRO                 11         13      30         18      80      25          
 - Regolamento UE AI Act 2024/1689: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
 - Modello BERT Italiano (dbmdz): https://huggingface.co/dbmdz/bert-base-italian-cased
 - Documentazione SHAP: https://shap.readthedocs.io/
-- Requisiti CAD: [CONFORMITA-MAPPATURA-CAD.md](CONFORMITA-MAPPATURA-CAD.md)
+- Requisiti CAD: [COMPLIANCE-MAPPING-CAD.md](../../COMPLIANCE-MAPPING-CAD.md)
 
 ### E. Cronologia Cambiamenti
 

@@ -129,8 +129,9 @@ class MermaidValidator:
         """Valida state diagram."""
         issues = []
 
-        # Controlla stati
-        state_pattern = r'state\s+\w+|[A-Z_]+\s*[:\-]'
+        # Controlla stati (explicit e implicit)
+        # Matches: "state StateName", "StateName -->", "state_name:", "StateName-->"
+        state_pattern = r'state\s+\w+|[A-Z][a-zA-Z0-9_]*\s*(?:-->|:|-)'
         states = re.findall(state_pattern, code)
 
         if not states:

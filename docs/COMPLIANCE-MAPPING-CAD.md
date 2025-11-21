@@ -178,7 +178,7 @@
 
 | Component | Implementation | Status | Reference |
 |-----------|-----------------|--------|-----------|
-| **API Standards** | OpenAPI 3.0 compliance | 🟡 PARTIAL | [API.md](microservices/MSxx/API.md) exists, needs formal validation |
+| **API Standards** | OpenAPI 3.0 compliance | 🟡 PARTIAL | Microservices con API REST standardizzate |
 | **Data Format Standards** | XML, JSON standardization | ✅ GOOD | [ZENSHAREUP-ZENIA-INTEGRATION.md](ZENSHAREUP-ZENIA-INTEGRATION.md) |
 | **ANPR Integration** | ANPR directory integration | ❌ MISSING | Requires implementation |
 | **Service Discovery** | Service registry capability | 🟡 PARTIAL | MS15-REGISTRY present |
@@ -339,7 +339,7 @@
 #### Subtasks
 
 1. **I-7.1: OpenAPI 3.0 Validation** (8 ore)
-   - Validate all [MSxx/API.md](microservices/MSxx/API.md) against OpenAPI spec
+   - Validate all microservices API against OpenAPI spec
    - Generate OpenAPI schemas from code
    - Output: openapi.yaml for all services
 

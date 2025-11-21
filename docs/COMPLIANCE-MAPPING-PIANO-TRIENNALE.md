@@ -130,7 +130,7 @@ ZenIA rientra principalmente nei pilastri 1, 2, 4, 5.
 | **API Standards** | OpenAPI 3.0 compliance | 🟡 PARTIAL | [COMPLIANCE-MAPPING-PNRR.md](COMPLIANCE-MAPPING-PNRR.md#pilastro-2-interoperabilità--openapi) |
 | **Data Format Standards** | JSON, XML with schema validation | ✅ GOOD | [ZENSHAREUP-ZENIA-INTEGRATION.md](ZENSHAREUP-ZENIA-INTEGRATION.md) |
 | **Linked Data** | JSON-LD support for semantic web | ❌ MISSING | Future enhancement |
-| **Service Discovery** | Service registry (UDDI/similar) | 🟡 PARTIAL | [MS15-REGISTRY](microservices/MS15-REGISTRY/) |
+| **Service Discovery** | Service registry (UDDI/similar) | 🟡 PARTIAL | MS15-REGISTRY presente nell'architettura |
 
 **Status**: 🟡 PARTIAL - Basic interoperability present, open data publishing missing
 

@@ -80,7 +80,7 @@ MS14-AUDIT, MS15-CONFIG, MS16-REGISTRY
 
 **Impatto**: Navigazione manuale inefficiente, difficoltà seguire dipendenze.
 
-**Soluzione**: Convertire riferimenti testuali in markdown link `[SP02](path/to/SP02.md)`.
+**Soluzione**: Convertire riferimenti testuali in markdown link con percorsi relativi corretti.
 
 ---
 
