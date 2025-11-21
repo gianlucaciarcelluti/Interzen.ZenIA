@@ -80,6 +80,90 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Archivio e Conserv
 
 **Dettagli per SP**: Vedere sezione "🏛️ Conformità Normativa" in ogni SPECIFICATION.md di SP.
 
+### Dettagli Conformità PNRR
+
+#### Missione 1: Digitalizzazione, Innovazione, Competitività
+
+| Componente | Requisito | Implementazione MS | Implementazione SP | Note |
+|-----------|-----------|-------------------|--------------------|-------|
+| M1C1.3 | Consolidamento centro gestione | MS09-MANAGER, MS16-REGISTRY | SP01-Intake Manager | Cloud consolidation con architettura cloud-native |
+| M1C1.4 | Sicurezza informatica della PA | MS13-SECURITY, MS08-MONITOR | SP11-Security & Audit | Crittografia, backup geo-redundante, disaster recovery |
+
+#### Obiettivi PNRR per UC7
+
+- **Disaster recovery**: RTO 4 ore, RPO 1 ora con backup geo-redundante
+- **Cloud consolidation**: 100% cloud deployment con SPC (Stato per Cittadini)
+- **Long-term preservation**: 30+ anni con formato PDF/A e OAIS model
+
+### Dettagli Conformità Piano Triennale AgID 2024-2026
+
+#### Capitolo 3: Servizi - Gestione Documenti Informatici
+
+| Servizio | Requisito | Implementazione MS | Implementazione SP | Note |
+|---------|-----------|-------------------|--------------------|-------|
+| Gestione documenti | Digitalizzazione | MS01-CLASSIFIER, MS05-TRANSFORMER | SP06-Validator | Classificazione e conversione formato PDF/A |
+| Conservazione | Long-term preservation | MS05-TRANSFORMER, MS06-AGGREGATOR | SP34-Preservation Engine | OAIS model, metadati ISO/IEC 23081 |
+
+#### Capitolo 6: Infrastrutture
+
+| Infrastruttura | Requisito | Implementazione MS | Implementazione SP | Note |
+|---|-----------|-------------------|--------------------|-------|
+| Cloud pubblico | Cloud adoption | MS09-MANAGER, MS13-SECURITY | SP11-Security & Audit | Deployment SPC con encryption at rest |
+| Disaster recovery | Business continuity | MS08-MONITOR, MS13-SECURITY | SP11-Security & Audit | RTO 4h, RPO 1h, geo-redundanza |
+| Backup automatico | Data preservation | MS06-AGGREGATOR | SP34-Preservation Engine | Backup quota giornaliero con verifica integrità |
+
+### Dettagli Conformità CAD - D.Lgs 82/2005
+
+#### Titolo IV: Conservazione
+
+| Articolo | Requisito | Implementazione MS | Implementazione SP | Note |
+|----------|-----------|-------------------|--------------------|-------|
+| Art. 41 | Conservazione dati digitali | MS05-TRANSFORMER, MS06-AGGREGATOR | SP34-Preservation Engine | 30+ anni, OAIS model, PDF/A |
+| Art. 42 | Autenticità documento | MS04-VALIDATOR | SP32-Timestamp Authority | Catena custodia digitale con marca temporale |
+| Art. 43 | Integrità documento | MS13-SECURITY | SP11-Security & Audit | Hash validation, CRC check, blockchain optional |
+
+### Dettagli Conformità D.Lgs 42/2004 - Codice Beni Culturali
+
+| Articolo | Requisito | Implementazione MS | Implementazione SP | Note |
+|----------|-----------|-------------------|--------------------|-------|
+| Art. 1 | Tutela patrimonio documentale | MS06-AGGREGATOR, MS14-AUDIT | SP34-Preservation Engine | Metadati conservazione, versioning |
+| Art. 2 | Standard conservazione | MS05-TRANSFORMER | SP35-Format Migration | ISO/IEC 14721 OAIS, ISO 19005 PDF/A |
+
+### Standard Internazionali - Conservazione Digitale
+
+| Standard | Requisito | Implementazione MS | Implementazione SP | Note |
+|----------|-----------|-------------------|--------------------|-------|
+| ISO 14721 | OAIS (Open Archival Info System) | MS06-AGGREGATOR, MS05-TRANSFORMER | SP34-Preservation Engine | Reference model per preservation |
+| ISO 19005 | PDF/A (Long-term file format) | MS04-VALIDATOR, MS05-TRANSFORMER | SP35-Format Migration | PDF/A-1b per archivio 30+ anni |
+| ISO 23081 | Metadata for preservation | MS02-ANALYZER | SP03-Procedural Classifier | Metadati standard per gestione archivi |
+| ISO 15489 | Records Management | MS14-AUDIT, MS06-AGGREGATOR | SP04-Knowledge Base | Governance archivi documentali |
+
+### Cross-References Compliance
+
+- **Master Matrix**: [COMPLIANCE-MATRIX.md v2.1](../../COMPLIANCE-MATRIX.md) - Mapping completo AI Act, CAD, PNRR, Piano Triennale
+- **PNRR Strategy**: [COMPLIANCE-UPDATE-STRATEGY.md](../../COMPLIANCE-UPDATE-STRATEGY.md) - Roadmap implementazione UC/MS
+
+### ✅ Compliance Checklist UC7
+
+**Prima di Deployment**:
+- [ ] Formato PDF/A-1b implementato per archivio 30+ anni
+- [ ] OAIS model integrato per gestione ciclo vita documentale
+- [ ] Cloud storage con encryption at rest (AES-256) abilitato
+- [ ] Backup geo-redundante con disaster recovery (RTO 4h, RPO 1h) testato
+- [ ] Metadati ISO/IEC 23081 documentati per ogni record
+- [ ] Hash validation e CRC check implementati per integrità
+- [ ] Marca temporale RFC 3161 integrata da TSA certificata
+- [ ] Versioning e audit trail immutabile per tutti i documenti
+
+**Annual Compliance Review**:
+- [ ] Integrità archivio verificata (hash check)
+- [ ] Disaster recovery testato con recovery time misurato
+- [ ] Backup completezza verificato
+- [ ] Archivi obsoleti rivisti per scarto programmato
+- [ ] Standard formati aggiornati (PDF/A, JPEG2000, TIFF)
+- [ ] Certificazione ISO 27001 aggiornata
+- [ ] Security audit eseguito su access control
+
 Mappa completa: [COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md)
 
 ---
@@ -133,5 +217,5 @@ UC7 - Sistema di Gestione Archivio e Conservazione/
 
 ---
 
-**Versione**: 1.0 (19 novembre 2025)
-**Prossima Review**: 19 dicembre 2025
+**Versione**: 1.1 (21 novembre 2025 - PNRR & Piano Triennale compliance added)
+**Prossima Review**: 21 dicembre 2025
