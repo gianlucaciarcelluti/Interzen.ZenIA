@@ -1,6 +1,11 @@
 # MS11-GATEWAY - API Gateway ZenIA
 
-> **Microservizio di routing e gestione API centralizzato per ZenIA**
+**Status**: Active
+**Version**: 1.1
+**Last Updated**: 2025-11-21
+**Owner**: Architecture Team
+
+> **Microservizio di routing e gestione API centralizzato per ZenIA con conformità Piano Triennale & API Design**
 
 [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=flat&logo=docker&logoColor=white)](https://docker.com)
 [![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=flat&logo=kubernetes&logoColor=white)](https://kubernetes.io)
@@ -24,6 +29,109 @@
 - ✅ **UC7** - Archiviazione Integrata (routing storage)
 - ✅ **UC9** - Monitoraggio Operativo (metriche API)
 - ✅ **UC11** - Reporting e Analytics (proxy reporting)
+
+---
+
+## 🏛️ Conformità Normativa
+
+### Framework Normativi Applicabili
+
+- ☑ Piano Triennale AgID 2024-2026 (Cap. 4 & 7)
+- ☑ CAD (Codice dell'Amministrazione Digitale)
+- ☑ GDPR (Regolamento 2016/679)
+- ☑ eIDAS (Regolamento 2014/910) - SPID/CIE integration
+- ☐ PNRR - API Platform strategy
+
+Mappa completa: [COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md)
+
+### 📚 Conformità Piano Triennale AgID 2024-2026
+
+#### Capitolo 4: Piattaforme Digitali (API Portal & Standards)
+
+| Requisito | Implementazione MS11 | Status |
+|---|---|---|
+| **API Portal** | Kong Gateway + Admin Dashboard | ✅ |
+| **API Design** | OpenAPI 3.0 standard specification | ✅ |
+| **Versioning** | Semantic versioning (v1, v2, v3) | ✅ |
+| **Documentation** | Auto-generated Swagger/OpenAPI docs | ✅ |
+| **Rate limiting** | Configurabile per consumer/endpoint | ✅ |
+| **Authentication** | OAuth2 + JWT + API Key support | ✅ |
+| **CORS** | Cross-origin sharing policy | ✅ |
+
+#### Capitolo 7: Sicurezza Informatica
+
+| Requisito | Implementazione MS11 | Details |
+|---|---|---|
+| **TLS 1.3** | SSL termination per tutti i client | ✅ |
+| **Request validation** | Schema validation su input | ✅ |
+| **Rate limiting** | Anti-DDoS protection | ✅ |
+| **WAF rules** | Request filtering policies | ✅ |
+| **Audit logging** | Centralizzato tramite MS10-LOGGER | ✅ |
+
+### 🔐 Conformità eIDAS & SPID/CIE
+
+| Requisito | Implementazione MS11 | Dettagli |
+|---|---|---|
+| **SPID/CIE Integration** | Proxy auth verso MS13-SECURITY | OAuth2 + SAML 2.0 |
+| **OAuth2 Bearer tokens** | JWT tokens from MS13 | Signed by MS13 HSM |
+| **Certificate validation** | eIDAS certificates check | X.509 chain validation |
+| **Secure redirect** | HTTPS-only communication | TLS 1.3 enforced |
+
+---
+
+## ✅ Checklist Conformità Pre-Deployment
+
+### Piano Triennale Cap 4 - API Portal & Standards
+
+- [ ] Kong API Gateway deployed e operativo
+- [ ] OpenAPI 3.0 specification documentata per tutte le API
+- [ ] API versioning scheme (v1, v2, ...) implementato
+- [ ] Swagger/OpenAPI documentation auto-generated
+- [ ] Rate limiting policy configurata per API consumer
+- [ ] OAuth2 authentication endpoint esposto
+- [ ] JWT token validation attivato
+- [ ] CORS policy configurato per allowed origins
+- [ ] API key management system operativo
+
+### Piano Triennale Cap 7 - Security & TLS
+
+- [ ] TLS 1.3 SSL certificates configured
+- [ ] Request schema validation abilitato
+- [ ] Rate limiting anti-DDoS protection attivato
+- [ ] WAF rules for malicious request filtering
+- [ ] All requests logged to MS10-LOGGER
+- [ ] HTTPS enforced (no plain HTTP)
+- [ ] Certificate pinning for SPID/CIE endpoints
+- [ ] Security headers (HSTS, CSP, X-Frame-Options) setup
+
+### eIDAS & SPID/CIE Integration
+
+- [ ] SPID/CIE proxy routing configured (via MS13)
+- [ ] OAuth2 token validation endpoint operational
+- [ ] JWT signature verification enabled
+- [ ] eIDAS certificate chain validation active
+- [ ] Secure redirect URIs whitelisted
+- [ ] Token refresh mechanism implemented
+- [ ] Session management for authenticated users
+
+---
+
+## 📅 Checklist Conformità Annuale
+
+**Frequenza**: Annuale (Novembre di ogni anno)
+
+- [ ] OpenAPI specification audit (compatibility check)
+- [ ] Rate limiting effectiveness reviewed
+- [ ] API performance metrics analyzed (latency, throughput)
+- [ ] Security certificate renewal verified
+- [ ] TLS version compatibility audit
+- [ ] SPID/CIE authentication flow testing
+- [ ] Penetration test on API endpoints
+- [ ] Rate limit configuration optimization
+- [ ] Documentation accuracy review
+- [ ] Compliance report generated
+
+---
 
 ## 🏗️ Architettura
 
