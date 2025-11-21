@@ -30,6 +30,20 @@ Questo UC copre tutti gli aspetti della **BPM e Automazione Processi**, incluse:
 
 ---
 
+## ⚡ Quick Start
+
+1. **Progettazione Processo**: Disegna workflow BPM con SP26
+2. **Task Automation**: Configura automazione task con motore BPM
+3. **Integrazione Servizi**: Collega microservizi al workflow
+4. **Monitoraggio**: SP27 fornisce analytics e KPI tracking
+5. **Previsioni**: SP25 predice timeline procedimenti
+
+**Documentazione correlata**:
+- [SP24 - Process Mining](./SP24%20-%20Motore%20Process%20Mining.md)
+- [SP26 - Intelligent Workflow Designer](./SP26%20-%20Progettista%20Workflow%20Intelligente.md)
+
+---
+
 ## 🗺️ Navigation Matrix
 
 | Componente | File | Tipo | Status | Riferimento |

@@ -30,6 +30,20 @@ Questo UC copre tutti gli aspetti della **Analisi Dati e Reporting**, incluse:
 
 ---
 
+## ⚡ Quick Start
+
+1. **Data Lake**: SP58 aggrega dati da tutti gli UC
+2. **ETL**: SP59 processa e trasforma dati
+3. **Analytics**: SP60 esegue analisi avanzate con ML
+4. **BI Dashboard**: SP61 crea dashboard self-service
+5. **Predictions**: SP64 genera previsioni con modelli predittivi
+
+**Documentazione correlata**:
+- [SP58 - Data Lake Management](./SP58%20-%20Data%20Lake%20e%20Gestione%20Archiviazione.md)
+- [SP61 - Self-Service Analytics](./SP61%20-%20Portale%20Analitiche%20Self-Service.md)
+
+---
+
 ## 🗺️ Navigation Matrix
 
 | Componente | File | Tipo | Status | Riferimento |

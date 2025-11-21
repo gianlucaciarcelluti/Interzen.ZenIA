@@ -30,6 +30,21 @@ Questo UC copre tutti gli aspetti della **Produzione Documentale Integrata**, in
 
 ---
 
+## ⚡ Quick Start
+
+1. **Estrazione**: SP01 e SP02 estraggono dati da email e documenti
+2. **Classificazione**: SP03/SP07 classificano procedimento e contenuti
+3. **Knowledge Base**: SP04 fornisce normativa e template
+4. **Template**: SP05 genera documenti con variabili dinamiche
+5. **Validazione**: SP06 valida conformità, firma digitale via SP29
+6. **Conservazione**: Archiviazione a norma in UC7
+
+**Documentazione correlata**:
+- [SP01 - Email Parser](./SP01%20-%20Parser%20EML%20e%20Intelligenza%20Email.md)
+- [SP05 - Template Engine](./SP05%20-%20Motore%20Template.md)
+
+---
+
 ## 🗺️ Navigation Matrix
 
 | Componente | File | Tipo | Status | Riferimento |

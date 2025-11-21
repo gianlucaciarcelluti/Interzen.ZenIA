@@ -30,6 +30,20 @@ Questo UC copre tutti gli aspetti della **Governance (Organigramma, Procedimenti
 
 ---
 
+## ⚡ Quick Start
+
+1. **Organigramma**: Definisci struttura gerarchica via SP20
+2. **Competenze**: Mappa competenze e responsabilità per ruolo
+3. **Procedure**: Configura procedure standardizzate con SP21
+4. **Routing**: SP22 abilita governance processi e routing automatico
+5. **Compliance**: SP23 monitora conformità alle procedure
+
+**Documentazione correlata**:
+- [SP20 - Organization Management](./SP20%20-%20Gestione%20Organigramma.md)
+- [SP21 - Procedure Manager](./SP21%20-%20Gestore%20Procedure.md)
+
+---
+
 ## 🗺️ Navigation Matrix
 
 | Componente | File | Tipo | Status | Riferimento |

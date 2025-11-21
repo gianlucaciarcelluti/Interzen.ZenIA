@@ -30,6 +30,21 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Documentale**, inc
 
 ---
 
+## ⚡ Quick Start
+
+1. **Accesso Sistema**: Autenticazione via SPID/CIE tramite MS13-SECURITY
+2. **Upload Documento**: Carica documenti tramite SP02 (Parser EML per email, estrazione allegati)
+3. **Classificazione Automatica**: SP07 classifica contenuti, SP03 determina procedimento
+4. **Ricerca Semantica**: Cerca documenti via SP12 con full-text + NLP
+5. **Archiviazione**: SP14 indicizza metadati, documenti archiviati con conformità normativa
+
+**Documentazione correlata**:
+- [SP02 - Document Extractor](../UC5%20-%20Produzione%20Documentale%20Integrata/SP02%20-%20Estrattore%20Documenti%20e%20Classificatore%20Allegati.md)
+- [SP12 - Semantic Search](./SP12%20-%20Ricerca%20Semantica%20e%20Motore%20Q%26A.md)
+- [03-SEQUENCES.md](./03-SEQUENCES.md) - Flusso completo
+
+---
+
 ## 🗺️ Navigation Matrix
 
 | Componente | File | Tipo | Status | Riferimento |

@@ -30,6 +30,20 @@ Questo UC copre tutti gli aspetti della **Integrazione con SIEM (Sicurezza Infor
 
 ---
 
+## ⚡ Quick Start
+
+1. **Raccolta Log**: Aggregazione log da tutti i MS e componenti
+2. **Analisi**: Pattern detection e anomaly detection real-time
+3. **Alerting**: Notifiche su eventi critici e violazioni sicurezza
+4. **Compliance**: Report automatici per audit GDPR/CAD
+5. **Investigazione**: Tracciamento forensico di incidenti
+
+**Documentazione correlata**:
+- [MS14 - AUDIT](../../microservices/MS14-AUDIT/README.md)
+- [MS13 - SECURITY](../../microservices/MS13-SECURITY/README.md)
+
+---
+
 ## 🗺️ Navigation Matrix
 
 | Componente | File | Tipo | Status | Riferimento |

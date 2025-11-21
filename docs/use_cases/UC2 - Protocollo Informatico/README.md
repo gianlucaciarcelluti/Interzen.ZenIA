@@ -30,6 +30,20 @@ Questo UC copre tutti gli aspetti della **Protocollo Informatico**, incluse:
 
 ---
 
+## ⚡ Quick Start
+
+1. **Protocollazione**: Ricevi documento, assegna numero protocollo via SP19
+2. **Classificazione**: SP16 classifica corrispondenza (in/out), SP18 rileva anomalie
+3. **Routing**: SP17 suggerisce registro, sistema smista automaticamente
+4. **Workflow**: Approvazioni e gestione via SP19 workflow orchestrator
+5. **Audit**: Tracciabilità completa di tutte le operazioni
+
+**Documentazione correlata**:
+- [SP16 - Correspondence Classifier](./SP16%20-%20Classificatore%20Corrispondenza.md)
+- [SP19 - Protocol Workflow](./SP19%20-%20Orchestratore%20Workflow%20Protocollo.md)
+
+---
+
 ## 🗺️ Navigation Matrix
 
 | Componente | File | Tipo | Status | Riferimento |

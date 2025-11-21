@@ -30,6 +30,19 @@ Questo UC copre tutti gli aspetti della **Sistema di Gestione Archivio e Conserv
 
 ---
 
+## ⚡ Quick Start
+
+1. **Ricezione**: Documenti da UC5 o UC6 (firmati/conservati)
+2. **Archiviazione**: Metadati ISO/IEC 23081, formati PDF/A
+3. **Retention**: Scarto programmato secondo tabelle di conservazione
+4. **Migrazione**: Conversione formati per preservazione long-term
+5. **Recovery**: Recupero documenti con integrità verificata
+
+**Documentazione correlata**:
+- [UC6 - Digital Signatures](../UC6%20-%20Firma%20Digitale%20Integrata/README.md)
+
+---
+
 ## 🗺️ Navigation Matrix
 
 | Componente | File | Tipo | Status | Riferimento |

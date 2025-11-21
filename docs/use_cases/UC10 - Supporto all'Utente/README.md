@@ -30,6 +30,19 @@ Questo UC copre tutti gli aspetti della **Supporto all'Utente**, incluse:
 
 ---
 
+## ⚡ Quick Start
+
+1. **Help Desk**: Gestione ticket con routing automatico
+2. **Knowledge Base**: Ricerca articles e risoluzioni comuni
+3. **Chatbot**: Assistente AI per domande frequenti
+4. **Self-Service**: Utenti risolvono problemi autonomamente
+5. **Analytics**: Dashboard con metriche di supporto e SLA
+
+**Documentazione correlata**:
+- Help Desk Manager e Knowledge Base components
+
+---
+
 ## 🗺️ Navigation Matrix
 
 | Componente | File | Tipo | Status | Riferimento |

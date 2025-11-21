@@ -30,6 +30,20 @@ Questo UC copre tutti gli aspetti della **Compliance & Risk Management**, inclus
 
 ---
 
+## ⚡ Quick Start
+
+1. **Mappatura Normativa**: Identifica framework applicabili (GDPR, CAD, eIDAS, AI Act)
+2. **Risk Assessment**: SP42 valuta rischi e vulnerabilità
+3. **Policy Management**: Definisci e gestisci policy di conformità
+4. **Audit Trail**: Tracciabilità completa di ogni operazione
+5. **Reporting**: Report automatici per audit e compliance
+
+**Documentazione correlata**:
+- [SP42 - Policy Engine](./SP42%20-%20Motore%20Politiche.md)
+- [COMPLIANCE-MATRIX.md](../../COMPLIANCE-MATRIX.md)
+
+---
+
 ## 🗺️ Navigation Matrix
 
 | Componente | File | Tipo | Status | Riferimento |

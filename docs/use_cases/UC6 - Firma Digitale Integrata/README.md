@@ -30,6 +30,20 @@ Questo UC copre tutti gli aspetti della **Firma Digitale Integrata**, incluse:
 
 ---
 
+## ⚡ Quick Start
+
+1. **Firma Digitale**: SP29 firma documenti (XAdES/PAdES/CAdES)
+2. **Certificati**: SP30 gestisce certificati digitali
+3. **Workflow Firma**: SP31 coordina workflow firme
+4. **Timestamp**: SP32 applica marca temporale RFC 3161
+5. **Archiviazione**: SP33 archivia documenti firmati
+
+**Documentazione correlata**:
+- [SP29 - Digital Signature Engine](./SP29%20-%20Motore%20Firma%20Digitale.md)
+- [SP30 - Certificate Manager](./SP30%20-%20Gestore%20Certificati.md)
+
+---
+
 ## 🗺️ Navigation Matrix
 
 | Componente | File | Tipo | Status | Riferimento |
