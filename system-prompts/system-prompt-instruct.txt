@@ -14,7 +14,7 @@ Se il piano è già implementato verifica il doc VALUTAZIONE-QUALITA-DOCUMENTAZI
  analizza la cartella docs/dto: contiene tutti i DTO contenuti nella libreria comune linkata dai microservizi di ZenShareUp.
 I microservizi sono i seguenti:
 1) ZenAdmin -> Gestisce tutte le informazioni amministrative della Suite (utenti, Gruppi, Ruoli, Corrispondenti etc.)
-2) ZenDocuments -> Gestisce tutte le informazioni relative ai documenti, metadati, fascicoli e permessi
+2) ZenDocuments -> Gestisce tutte le informazioni relative ai documenti, metadati, fascicoli e permessi; storicizza tutto su Storage Azure o filesystem (a breve anche su S3).
 3) ZenMailroom -> Gestisce tutte le comunicazioni con le caselle email per spedire e riceve email trasformandole in documenti da inviare a ZenDocuments e eventualmente Protocollando automaticamente verso ZenProtocollo
 4) ZenMaster -> Gestisce tutte le informazioni relative ai tenants, licenze etc...
 5) ZenProcess -> Gestisce tutte le informazioni relative ai workflow con relativi webform tramite il motore Flowable
