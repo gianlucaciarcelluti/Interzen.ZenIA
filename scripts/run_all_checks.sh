@@ -41,6 +41,7 @@ get_report_file() {
         "SP/MS References") echo "sp_ms_references.json" ;;
         "UC Archetype") echo "uc_archetype_validation.json" ;;
         "SP Completeness") echo "sp_completeness_validation.json" ;;
+        "System Cards") echo "system_cards_validation.json" ;;
         "Markdown Headings") echo "markdown_headings_validation.json" ;;
         "Mermaid Diagrams") echo "mermaid_diagrams_validation.json" ;;
         "Section Completeness") echo "section_completeness_validation.json" ;;
@@ -143,6 +144,9 @@ UC_ARCHETYPE_RESULT=$?
 
 run_check "3️⃣" "SP Completeness" "verify_sp_completeness.py"
 SP_COMPLETE_RESULT=$?
+
+run_check "3️⃣ᵇ" "System Cards" "verify_system_cards.py"
+SYSTEM_CARDS_RESULT=$?
 
 run_check "4️⃣" "Markdown Headings" "verify_markdown_headings.py"
 HEADING_RESULT=$?
