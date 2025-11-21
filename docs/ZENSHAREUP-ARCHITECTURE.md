@@ -68,10 +68,8 @@ graph TB
 
     Multifunz -->|SFTP Push| SFTPGo
     SFTP -->|SFTP Protocol| SFTPGo
-    SFTPGo -->|Store| Azure
-    SFTPGo -->|Backup| S3
-    SFTPGo -->|Dev| Filesystem
-    SFTPGo -->|Index Metadata| DB
+    SFTPGo -->|Pass Acquired<br/>Documents| Documents
+    SFTPGo -->|Log Acquisition| DB
 
     Client --> Gateway
     Gateway --> Admin
@@ -309,41 +307,39 @@ graph TB
     style EmailPub fill:#f1f8e9,stroke:#33691e,stroke-width:2px
 ```
 
-### 5. Document Acquisition - SFTPGo & Cloud Storage
+### 5. Document Acquisition - SFTPGo Gateway
 
-**Scopo**: Acquisizione documenti da molteplici fonti + Archiviazione persistente su storage cloud/locale
+**Scopo**: Acquisizione documenti da multifunzioni e sistemi SFTP esterni
 
-**Architettura a due livelli:**
-
-1. **SFTPGo Gateway** - Punto di ingresso acquisizione
-2. **Storage Backend** - Archiviazione duratura
+**SFTPGo è un gateway di ingresso puro** - riceve documenti da sorgenti esterne, valida, e passa a ZenDocuments per l'archiviazione persistente.
 
 ```mermaid
 graph TB
-    subgraph "Document Acquisition (SFTPGo)"
+    subgraph "Document Acquisition Sources"
+        Multifunz["🖨️ Multifunzioni<br/>(Network Scanner)"]
+        SFTPClient["🔗 SFTP Clients<br/>(External Systems)"]
+    end
+
+    subgraph "SFTPGo Gateway (Ingress Only)"
         SFTPGo["📥 SFTPGo<br/>(Document Gateway)"]
 
-        subgraph "Input Sources"
-            Multifunz["🖨️ Multifunzioni<br/>(Scanner Network)"]
-            SFTPClient["🔗 SFTP Clients<br/>(External Systems)"]
-            WebDAV["☁️ WebDAV<br/>(Cloud Integration)"]
-        end
-
-        subgraph "Processing"
+        subgraph "Input Processing"
             VirusCheck["🛡️ Virus Scanning"]
             Validate["✅ Format Validation"]
-            Encrypt["🔐 Encryption at Rest"]
         end
     end
 
-    subgraph "Storage Backend (Persistent Archive)"
-        AzureBlob["☁️ Azure Blob<br/>(Primary)"]
-        S3["☁️ AWS S3<br/>(Alternative)"]
-        Filesystem["💾 Local Filesystem<br/>(Development)"]
+    subgraph "Document Management (ZenDocuments)"
+        ZenDoc["📄 ZenDocuments<br/>(Document Storage Handler)"]
+    end
 
-        subgraph "Multi-Tenant Isolation"
-            TenantA["Tenant A<br/>storage/tenant-a/"]
-            TenantB["Tenant B<br/>storage/tenant-b/"]
+    subgraph "Persistent Storage Backend"
+        subgraph "Multi-Cloud Storage"
+            AzureBlob["☁️ Azure Blob<br/>(Primary)"]
+            S3["☁️ AWS S3<br/>(Failover)"]
+        end
+        subgraph "Local Storage"
+            Filesystem["💾 Filesystem<br/>(Development)"]
         end
     end
 
@@ -352,35 +348,26 @@ graph TB
         FullText["🔍 Full-Text Index<br/>(Search)"]
     end
 
-    Multifunz -->|SFTP/FTP Push| SFTPGo
+    Multifunz -->|SFTP Push| SFTPGo
     SFTPClient -->|SFTP Protocol| SFTPGo
-    WebDAV -->|WebDAV Push| SFTPGo
 
     SFTPGo -->|Virus Scan| VirusCheck
     VirusCheck -->|Format Check| Validate
-    Validate -->|Encrypt| Encrypt
+    Validate -->|Pass Acquired<br/>Document| ZenDoc
 
-    Encrypt -->|Store| AzureBlob
-    Encrypt -->|Store| S3
-    Encrypt -->|Store| Filesystem
+    ZenDoc -->|Store| AzureBlob
+    ZenDoc -->|Backup| S3
+    ZenDoc -->|Dev| Filesystem
 
-    AzureBlob --> TenantA
-    AzureBlob --> TenantB
-    S3 --> TenantA
-    S3 --> TenantB
-    Filesystem --> TenantA
-    Filesystem --> TenantB
-
-    SFTPGo -->|Log Metadata| PostgreSQL
+    ZenDoc -->|Metadata| PostgreSQL
     PostgreSQL -->|Index| FullText
 
-    style SFTPGo fill:#fff3e0,stroke:#e65100,stroke-width:3px
     style Multifunz fill:#ffe0b2,stroke:#e65100,stroke-width:2px
     style SFTPClient fill:#ffe0b2,stroke:#e65100,stroke-width:2px
-    style WebDAV fill:#ffe0b2,stroke:#e65100,stroke-width:2px
+    style SFTPGo fill:#fff3e0,stroke:#e65100,stroke-width:3px
     style VirusCheck fill:#ffccbc,stroke:#d84315,stroke-width:2px
     style Validate fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
-    style Encrypt fill:#f8bbd0,stroke:#c2185b,stroke-width:2px
+    style ZenDoc fill:#e8f5e9,stroke:#1b5e20,stroke-width:3px
     style AzureBlob fill:#e1f5fe,stroke:#01579b,stroke-width:2px
     style S3 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
     style Filesystem fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
@@ -388,7 +375,19 @@ graph TB
     style FullText fill:#eceff1,stroke:#263238,stroke-width:2px
 ```
 
-**Configurazione Storage:**
+**Ruoli Chiariti:**
+
+| Componente | Responsabilità |
+|-----------|-----------------|
+| **SFTPGo** | 📥 Acquisizione da multifunzioni e SFTP esterni |
+| | 🛡️ Virus scanning e format validation |
+| | 📤 Pass documento a ZenDocuments |
+| **ZenDocuments** | 💾 Gestione completa archiviazione (metadata, fascicoli, permessi) |
+| | 🔐 Encryption e integrity checking |
+| | ☁️ Storage su Azure/S3/Filesystem |
+| | 🔍 Full-text indexing |
+
+**Configurazione Storage (gestita da ZenDocuments):**
 
 | Ambiente | Backend Primario | Backup | Note |
 |----------|-----------------|--------|------|
@@ -398,14 +397,15 @@ graph TB
 | **Prossimamente** | AWS S3 | Azure (failover) | Supporto multi-cloud |
 
 **Flusso Acquisizione:**
-1. Documenti arrivano via SFTP da scanner di rete o sistemi esterni
-2. SFTPGo riceve e processa i file
-3. Virus scanning e format validation
-4. Encryption a riposo
-5. Storage su backend configurato (Azure/S3/Filesystem)
-6. Metadati persistiti in PostgreSQL
-7. Disponibile per elaborazione ZenIA
-8. Indexed per ricerca full-text
+1. 🖨️ Documento arriva da multifunzione via SFTP o sistema esterno via SFTP
+2. 📥 SFTPGo riceve il documento
+3. 🛡️ Virus scanning del file
+4. ✅ Format validation e integrità
+5. 📤 Pass a ZenDocuments per archiviazione
+6. 💾 ZenDocuments salva su backend configurato (Azure primary, S3 failover, Filesystem dev)
+7. 🗄️ Metadati registrati in PostgreSQL
+8. 🔍 Indexed per ricerca full-text
+9. 🧠 Disponibile per elaborazione ZenIA tramite ZenDocuments API
 
 ---
 
