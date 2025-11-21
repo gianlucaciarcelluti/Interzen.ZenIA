@@ -503,54 +503,60 @@ GET /api/v1/search/suggestions
 #### Response - Semantic Search
 ```json
 {
-  "query": "contratti di appalto superiori a 100.000 euro del 2025",
-  "total_results": 15,
-  "results": [
-    {
-      "document_id": "DOC-2025-004567",
-      "title": "Contratto Appalto Lavori Stradali",
-      "category": "contratto",
-      "score": 0.94,
-      "snippet": "...il contratto di appalto ha un valore di €150.000,00 (centocinquantamila/00) euro...",
-      "metadata": {
-        "date": "2025-03-15",
-        "department": "Lavori Pubblici",
-        "amount": 150000.00,
-        "cig": "Z2345678901"
+  "data": {
+    "query": "contratti di appalto superiori a 100.000 euro del 2025",
+    "total_results": 15,
+    "results": [
+      {
+        "document_id": "DOC-2025-004567",
+        "title": "Contratto Appalto Lavori Stradali",
+        "category": "contratto",
+        "score": 0.94,
+        "snippet": "...il contratto di appalto ha un valore di €150.000,00 (centocinquantamila/00) euro...",
+        "metadata": {
+          "date": "2025-03-15",
+          "department": "Lavori Pubblici",
+          "amount": 150000.0,
+          "cig": "Z2345678901"
+        },
+        "highlights": [
+          {
+            "field": "content",
+            "matched_terms": [
+              "contratto",
+              "appalto",
+              "150.000"
+            ]
+          }
+        ]
       },
-      "highlights": [
-        {
-          "field": "content",
-          "matched_terms": ["contratto", "appalto", "150.000"]
+      {
+        "document_id": "DOC-2025-007890",
+        "title": "Determina di Incarico Professionale",
+        "category": "determina",
+        "score": 0.87,
+        "snippet": "...affidamento incarico per €120.000,00...",
+        "metadata": {
+          "date": "2025-06-20",
+          "department": "Acquisti",
+          "amount": 120000.0
         }
-      ]
-    },
-    {
-      "document_id": "DOC-2025-007890",
-      "title": "Determina di Incarico Professionale",
-      "category": "determina",
-      "score": 0.87,
-      "snippet": "...affidamento incarico per €120.000,00...",
-      "metadata": {
-        "date": "2025-06-20",
-        "department": "Acquisti",
-        "amount": 120000.00
       }
-    }
-  ],
-  "facets": {
-    "categories": {
-      "contratto": 8,
-      "determina": 5,
-      "delibera": 2
+    ],
+    "facets": {
+      "categories": {
+        "contratto": 8,
+        "determina": 5,
+        "delibera": 2
+      },
+      "departments": {
+        "Lavori Pubblici": 10,
+        "Acquisti": 3,
+        "Urbanistica": 2
+      }
     },
-    "departments": {
-      "Lavori Pubblici": 10,
-      "Acquisti": 3,
-      "Urbanistica": 2
-    }
-  },
-  "processing_time_ms": 180
+    "processing_time_ms": 180
+  }
 }
 ```
 
@@ -568,54 +574,58 @@ GET /api/v1/search/suggestions
 #### Response - Question Answering
 ```json
 {
-  "question": "Qual è l'importo totale dei contratti di manutenzione stradale nel 2025?",
-  "answer": "L'importo totale dei contratti di manutenzione stradale nel 2025 è di €270.000,00, distribuiti su 3 contratti principali.",
-  "confidence": 0.91,
-  "sources": [
-    {
-      "document_id": "DOC-2025-004567",
-      "title": "Contratto Appalto Lavori Stradali",
-      "excerpt": "Il contratto di appalto per la manutenzione stradale ha un valore di €150.000,00",
-      "page": 2,
-      "relevance_score": 0.95
-    },
-    {
-      "document_id": "DOC-2025-007890",
-      "title": "Contratto Manutenzione Urbana",
-      "excerpt": "Affidamento contratto manutenzione strade per €120.000,00",
-      "page": 1,
-      "relevance_score": 0.88
-    }
-  ],
-  "follow_up_questions": [
-    "Quali sono le scadenze di questi contratti?",
-    "Chi sono i fornitori selezionati?"
-  ],
-  "processing_time_ms": 2100
+  "data": {
+    "question": "Qual è l'importo totale dei contratti di manutenzione stradale nel 2025?",
+    "answer": "L'importo totale dei contratti di manutenzione stradale nel 2025 è di €270.000,00, distribuiti su 3 contratti principali.",
+    "confidence": 0.91,
+    "sources": [
+      {
+        "document_id": "DOC-2025-004567",
+        "title": "Contratto Appalto Lavori Stradali",
+        "excerpt": "Il contratto di appalto per la manutenzione stradale ha un valore di €150.000,00",
+        "page": 2,
+        "relevance_score": 0.95
+      },
+      {
+        "document_id": "DOC-2025-007890",
+        "title": "Contratto Manutenzione Urbana",
+        "excerpt": "Affidamento contratto manutenzione strade per €120.000,00",
+        "page": 1,
+        "relevance_score": 0.88
+      }
+    ],
+    "follow_up_questions": [
+      "Quali sono le scadenze di questi contratti?",
+      "Chi sono i fornitori selezionati?"
+    ],
+    "processing_time_ms": 2100
+  }
 }
 ```
 
 #### Response - Search Suggestions
 ```json
 {
-  "query_prefix": "contratt",
-  "suggestions": [
-    {
-      "text": "contratti di appalto",
-      "frequency": 45,
-      "category": "contratto"
-    },
-    {
-      "text": "contratti di servizio",
-      "frequency": 23,
-      "category": "contratto"
-    },
-    {
-      "text": "contratti pubblici",
-      "frequency": 18,
-      "category": "contratto"
-    }
-  ]
+  "data": {
+    "query_prefix": "contratt",
+    "suggestions": [
+      {
+        "text": "contratti di appalto",
+        "frequency": 45,
+        "category": "contratto"
+      },
+      {
+        "text": "contratti di servizio",
+        "frequency": 23,
+        "category": "contratto"
+      },
+      {
+        "text": "contratti pubblici",
+        "frequency": 18,
+        "category": "contratto"
+      }
+    ]
+  }
 }
 ```
 

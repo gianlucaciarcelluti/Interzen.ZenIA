@@ -138,45 +138,47 @@ sequenceDiagram
 
 ```json
 {
-  "legal_context": {
-    "normativa_principale": [
-      {
-        "riferimento": "L. 241/1990",
-        "articolo": "Art. 5",
-        "testo": "Il responsabile del procedimento...",
-        "rilevanza": 0.95
-      },
-      {
-        "riferimento": "D.Lgs 42/2004",
-        "articolo": "Art. 146",
-        "testo": "Autorizzazione paesaggistica...",
-        "rilevanza": 0.89
-      }
+  "data": {
+    "legal_context": {
+      "normativa_principale": [
+        {
+          "riferimento": "L. 241/1990",
+          "articolo": "Art. 5",
+          "testo": "Il responsabile del procedimento...",
+          "rilevanza": 0.95
+        },
+        {
+          "riferimento": "D.Lgs 42/2004",
+          "articolo": "Art. 146",
+          "testo": "Autorizzazione paesaggistica...",
+          "rilevanza": 0.89
+        }
+      ],
+      "giurisprudenza": [
+        {
+          "fonte": "Consiglio di Stato",
+          "sentenza": "n. 1234/2024",
+          "massima": "In materia di piani urbanistici...",
+          "rilevanza": 0.78
+        }
+      ],
+      "precedenti_simili": [
+        {
+          "doc_id": "DELIB-2024-0123",
+          "oggetto": "Piano Urbanistico Zona Artigianale",
+          "similarity": 0.84,
+          "esito": "APPROVATA"
+        }
+      ]
+    },
+    "knowledge_graph_path": [
+      "L.R. 12/2005 -> modifica -> L.R. 3/1999",
+      "D.Lgs 42/2004 -> rimanda -> Codice Beni Culturali"
     ],
-    "giurisprudenza": [
-      {
-        "fonte": "Consiglio di Stato",
-        "sentenza": "n. 1234/2024",
-        "massima": "In materia di piani urbanistici...",
-        "rilevanza": 0.78
-      }
-    ],
-    "precedenti_simili": [
-      {
-        "doc_id": "DELIB-2024-0123",
-        "oggetto": "Piano Urbanistico Zona Artigianale",
-        "similarity": 0.84,
-        "esito": "APPROVATA"
-      }
-    ]
-  },
-  "knowledge_graph_path": [
-    "L.R. 12/2005 -> modifica -> L.R. 3/1999",
-    "D.Lgs 42/2004 -> rimanda -> Codice Beni Culturali"
-  ],
-  "rag_synthesis": "Per l'approvazione del Piano Urbanistico è necessario rispettare i vincoli paesaggistici del D.Lgs 42/2004 e seguire la procedura di L. 241/1990 con nomina del responsabile del procedimento. La L.R. 12/2005 prevede inoltre consultazione preventiva con enti sovracomunali...",
-  "confidence_score": 0.91,
-  "processing_time_ms": 1200
+    "rag_synthesis": "Per l'approvazione del Piano Urbanistico è necessario rispettare i vincoli paesaggistici del D.Lgs 42/2004 e seguire la procedura di L. 241/1990 con nomina del responsabile del procedimento. La L.R. 12/2005 prevede inoltre consultazione preventiva con enti sovracomunali...",
+    "confidence_score": 0.91,
+    "processing_time_ms": 1200
+  }
 }
 ```
 
@@ -203,35 +205,37 @@ sequenceDiagram
 
 ```json
 {
-  "compliance_issues": [
-    {
-      "severity": "MEDIUM",
-      "normativa": "L.R. 12/2005",
-      "articolo": "Art. 8",
-      "issue": "Manca riferimento a parere sovracomunale obbligatorio",
-      "suggestion": "Richiedere parere alla Provincia"
-    }
-  ],
-  "missing_refs": [
-    {
-      "normativa": "D.P.R. 380/2001",
-      "motivo": "Applicabile per opere edilizie in zona industriale",
-      "rilevanza": "CONSIGLIATO"
-    }
-  ],
-  "normativa_vigente": [
-    {
-      "riferimento": "L. 241/1990",
-      "status": "IN_VIGORE",
-      "ultima_modifica": "D.L. 76/2020"
-    },
-    {
-      "riferimento": "L.R. 12/2005",
-      "status": "IN_VIGORE",
-      "ultima_modifica": "L.R. 18/2023"
-    }
-  ],
-  "processing_time_ms": 850
+  "data": {
+    "compliance_issues": [
+      {
+        "severity": "MEDIUM",
+        "normativa": "L.R. 12/2005",
+        "articolo": "Art. 8",
+        "issue": "Manca riferimento a parere sovracomunale obbligatorio",
+        "suggestion": "Richiedere parere alla Provincia"
+      }
+    ],
+    "missing_refs": [
+      {
+        "normativa": "D.P.R. 380/2001",
+        "motivo": "Applicabile per opere edilizie in zona industriale",
+        "rilevanza": "CONSIGLIATO"
+      }
+    ],
+    "normativa_vigente": [
+      {
+        "riferimento": "L. 241/1990",
+        "status": "IN_VIGORE",
+        "ultima_modifica": "D.L. 76/2020"
+      },
+      {
+        "riferimento": "L.R. 12/2005",
+        "status": "IN_VIGORE",
+        "ultima_modifica": "L.R. 18/2023"
+      }
+    ],
+    "processing_time_ms": 850
+  }
 }
 ```
 
@@ -515,20 +519,6 @@ sequenceDiagram
     }
   }
 }
-```
-
-**Acceptance Criteria:**
-- ✅ Response time < 3000ms (SLA: 90% requests)
-- ✅ `confidence_score` >= 0.75
-- ✅ `normativa_principale` contiene almeno 3 riferimenti con `rilevanza` > 0.70
-- ✅ `rag_synthesis.citations` traccia tutte le fonti menzionate
-- ✅ `knowledge_graph.graph_path` mostra relazioni normative
-- ✅ Cache Redis popolata con TTL 24h
-
-#### Test Case 2: Bilancio - Variazione Budget
-
-**Request:**
-```json
 {
   "doc_type": "DELIBERA_GIUNTA",
   "subject_matter": {
@@ -545,76 +535,78 @@ sequenceDiagram
 **Expected Response (200 OK):**
 ```json
 {
-  "request_id": "kb-20251027-123457-def",
-  "legal_context": {
-    "normativa_principale": [
-      {
-        "riferimento": "D.Lgs 267/2000",
-        "articolo": "Art. 175",
-        "comma": "2",
-        "testo": "Le variazioni di bilancio sono approvate con deliberazione della Giunta...",
-        "rilevanza": 0.96,
-        "fonte": "FAISS",
-        "embedding_similarity": 0.94
-      },
-      {
-        "riferimento": "D.L. 34/2020",
-        "articolo": "Art. 109",
-        "testo": "Misure finanziarie urgenti connesse all'emergenza COVID-19...",
-        "rilevanza": 0.88,
-        "fonte": "FAISS",
-        "embedding_similarity": 0.87
-      },
-      {
-        "riferimento": "L. 241/1990",
-        "articolo": "Art. 7",
-        "testo": "Motivazione del provvedimento amministrativo...",
-        "rilevanza": 0.82,
-        "fonte": "GRAPH_TRAVERSAL"
+  "data": {
+    "request_id": "kb-20251027-123457-def",
+    "legal_context": {
+      "normativa_principale": [
+        {
+          "riferimento": "D.Lgs 267/2000",
+          "articolo": "Art. 175",
+          "comma": "2",
+          "testo": "Le variazioni di bilancio sono approvate con deliberazione della Giunta...",
+          "rilevanza": 0.96,
+          "fonte": "FAISS",
+          "embedding_similarity": 0.94
+        },
+        {
+          "riferimento": "D.L. 34/2020",
+          "articolo": "Art. 109",
+          "testo": "Misure finanziarie urgenti connesse all'emergenza COVID-19...",
+          "rilevanza": 0.88,
+          "fonte": "FAISS",
+          "embedding_similarity": 0.87
+        },
+        {
+          "riferimento": "L. 241/1990",
+          "articolo": "Art. 7",
+          "testo": "Motivazione del provvedimento amministrativo...",
+          "rilevanza": 0.82,
+          "fonte": "GRAPH_TRAVERSAL"
+        }
+      ],
+      "precedenti_simili": [
+        {
+          "doc_id": "DELIB-2023-0789",
+          "oggetto": "Variazione Bilancio Fondi Emergenza Sanitaria",
+          "similarity": 0.91,
+          "categoria": "BILANCIO",
+          "esito": "APPROVATA",
+          "data": "2023-04-20",
+          "note": "Stanziamento €200.000 per COVID-19"
+        }
+      ]
+    },
+    "knowledge_graph": {
+      "graph_path": [
+        {
+          "from": "D.Lgs 267/2000",
+          "relation": "MODIFICATO_DA",
+          "to": "D.L. 174/2012",
+          "effective_date": "2012-12-10"
+        }
+      ]
+    },
+    "rag_synthesis": {
+      "testo": "La variazione di bilancio per €250.000 destinata a fondi emergenza COVID-19 richiede:\n\n1. **Delibera Giunta** (D.Lgs 267/2000, Art. 175): Competenza della Giunta per variazioni urgenti.\n\n2. **Motivazione** (L. 241/1990, Art. 7): Esplicitare urgenza e necessità connessa a emergenza sanitaria.\n\n3. **Normativa COVID** (D.L. 34/2020, Art. 109): Utilizzo fondi emergenza sanitaria con rendicontazione.\n\n4. **Precedente DELIB-2023-0789** suggerisce iter approvativo standard con ratifica consiliare entro 60 giorni.",
+      "generated_by": "groq-mixtral-8x7b-32k",
+      "temperature": 0.3,
+      "tokens_used": 892,
+      "citations": [
+        "D.Lgs 267/2000, Art. 175",
+        "D.L. 34/2020, Art. 109",
+        "L. 241/1990, Art. 7"
+      ]
+    },
+    "metadata": {
+      "confidence_score": 0.89,
+      "processing_time_ms": 987,
+      "cache_hit": false,
+      "sources": {
+        "faiss_docs": 5,
+        "neo4j_relations": 3,
+        "groq_synthesis": true,
+        "precedenti": 1
       }
-    ],
-    "precedenti_simili": [
-      {
-        "doc_id": "DELIB-2023-0789",
-        "oggetto": "Variazione Bilancio Fondi Emergenza Sanitaria",
-        "similarity": 0.91,
-        "categoria": "BILANCIO",
-        "esito": "APPROVATA",
-        "data": "2023-04-20",
-        "note": "Stanziamento €200.000 per COVID-19"
-      }
-    ]
-  },
-  "knowledge_graph": {
-    "graph_path": [
-      {
-        "from": "D.Lgs 267/2000",
-        "relation": "MODIFICATO_DA",
-        "to": "D.L. 174/2012",
-        "effective_date": "2012-12-10"
-      }
-    ]
-  },
-  "rag_synthesis": {
-    "testo": "La variazione di bilancio per €250.000 destinata a fondi emergenza COVID-19 richiede:\n\n1. **Delibera Giunta** (D.Lgs 267/2000, Art. 175): Competenza della Giunta per variazioni urgenti.\n\n2. **Motivazione** (L. 241/1990, Art. 7): Esplicitare urgenza e necessità connessa a emergenza sanitaria.\n\n3. **Normativa COVID** (D.L. 34/2020, Art. 109): Utilizzo fondi emergenza sanitaria con rendicontazione.\n\n4. **Precedente DELIB-2023-0789** suggerisce iter approvativo standard con ratifica consiliare entro 60 giorni.",
-    "generated_by": "groq-mixtral-8x7b-32k",
-    "temperature": 0.3,
-    "tokens_used": 892,
-    "citations": [
-      "D.Lgs 267/2000, Art. 175",
-      "D.L. 34/2020, Art. 109",
-      "L. 241/1990, Art. 7"
-    ]
-  },
-  "metadata": {
-    "confidence_score": 0.89,
-    "processing_time_ms": 987,
-    "cache_hit": false,
-    "sources": {
-      "faiss_docs": 5,
-      "neo4j_relations": 3,
-      "groq_synthesis": true,
-      "precedenti": 1
     }
   }
 }
@@ -701,104 +693,106 @@ sequenceDiagram
 **Expected Response (200 OK):**
 ```json
 {
-  "request_id": "kb-comp-20251027-123458-ghi",
-  "compliance_status": "NON_COMPLIANT",
-  "compliance_score": 0.68,
-  "compliance_issues": [
-    {
-      "severity": "HIGH",
-      "category": "MISSING_REFERENCE",
-      "normativa": "L.R. 12/2005",
-      "articolo": "Art. 8",
-      "issue": "Manca riferimento esplicito al parere sovracomunale obbligatorio",
-      "location": {
-        "section": "VISTO",
-        "line_number": null
+  "data": {
+    "request_id": "kb-comp-20251027-123458-ghi",
+    "compliance_status": "NON_COMPLIANT",
+    "compliance_score": 0.68,
+    "compliance_issues": [
+      {
+        "severity": "HIGH",
+        "category": "MISSING_REFERENCE",
+        "normativa": "L.R. 12/2005",
+        "articolo": "Art. 8",
+        "issue": "Manca riferimento esplicito al parere sovracomunale obbligatorio",
+        "location": {
+          "section": "VISTO",
+          "line_number": null
+        },
+        "suggestion": "Aggiungere: 'VISTO il parere favorevole della Provincia prot. n. XXXX del XX/XX/XXXX, ai sensi della L.R. 12/2005, Art. 8'",
+        "impact": "Illegittimità delibera per mancanza presupposto procedimentale",
+        "detected_by": "NEO4J_GRAPH"
       },
-      "suggestion": "Aggiungere: 'VISTO il parere favorevole della Provincia prot. n. XXXX del XX/XX/XXXX, ai sensi della L.R. 12/2005, Art. 8'",
-      "impact": "Illegittimità delibera per mancanza presupposto procedimentale",
-      "detected_by": "NEO4J_GRAPH"
-    },
-    {
-      "severity": "MEDIUM",
-      "category": "INCOMPLETE_REFERENCE",
-      "normativa": "D.Lgs 42/2004",
-      "articolo": "Art. 146",
-      "issue": "Citato D.Lgs 42/2004 generico, ma non menzionata l'autorizzazione paesaggistica specifica",
-      "location": {
-        "section": "VISTO",
-        "line_number": null
+      {
+        "severity": "MEDIUM",
+        "category": "INCOMPLETE_REFERENCE",
+        "normativa": "D.Lgs 42/2004",
+        "articolo": "Art. 146",
+        "issue": "Citato D.Lgs 42/2004 generico, ma non menzionata l'autorizzazione paesaggistica specifica",
+        "location": {
+          "section": "VISTO",
+          "line_number": null
+        },
+        "suggestion": "Specificare: 'ACQUISITA l'autorizzazione paesaggistica della Soprintendenza prot. n. XXXX del XX/XX/XXXX, ai sensi del D.Lgs 42/2004, Art. 146'",
+        "impact": "Procedura incompleta, possibile annullamento",
+        "detected_by": "FAISS_SIMILARITY"
       },
-      "suggestion": "Specificare: 'ACQUISITA l'autorizzazione paesaggistica della Soprintendenza prot. n. XXXX del XX/XX/XXXX, ai sensi del D.Lgs 42/2004, Art. 146'",
-      "impact": "Procedura incompleta, possibile annullamento",
-      "detected_by": "FAISS_SIMILARITY"
-    },
-    {
-      "severity": "LOW",
-      "category": "BEST_PRACTICE",
-      "normativa": "L. 241/1990",
-      "articolo": "Art. 10-bis",
-      "issue": "Non indicato termine finale del procedimento",
-      "location": {
-        "section": "PREMESSO",
-        "line_number": null
+      {
+        "severity": "LOW",
+        "category": "BEST_PRACTICE",
+        "normativa": "L. 241/1990",
+        "articolo": "Art. 10-bis",
+        "issue": "Non indicato termine finale del procedimento",
+        "location": {
+          "section": "PREMESSO",
+          "line_number": null
+        },
+        "suggestion": "Aggiungere: 'Il procedimento deve concludersi entro 90 giorni dalla presentazione, ai sensi della L. 241/1990, Art. 2'",
+        "impact": "Miglioramento trasparenza amministrativa",
+        "detected_by": "GROQ_ANALYSIS"
+      }
+    ],
+    "missing_refs": [
+      {
+        "normativa": "D.P.R. 380/2001",
+        "articolo": "Art. 12",
+        "motivo": "Applicabile per permessi di costruire in zona industriale",
+        "rilevanza": "CONSIGLIATO",
+        "similarity_score": 0.76
+      }
+    ],
+    "normativa_vigente": [
+      {
+        "riferimento": "L. 241/1990",
+        "status": "IN_VIGORE",
+        "ultima_modifica": "D.L. 76/2020",
+        "data_modifica": "2020-07-16",
+        "versione_applicabile": "Testo consolidato al 2020-07-16"
       },
-      "suggestion": "Aggiungere: 'Il procedimento deve concludersi entro 90 giorni dalla presentazione, ai sensi della L. 241/1990, Art. 2'",
-      "impact": "Miglioramento trasparenza amministrativa",
-      "detected_by": "GROQ_ANALYSIS"
-    }
-  ],
-  "missing_refs": [
-    {
-      "normativa": "D.P.R. 380/2001",
-      "articolo": "Art. 12",
-      "motivo": "Applicabile per permessi di costruire in zona industriale",
-      "rilevanza": "CONSIGLIATO",
-      "similarity_score": 0.76
-    }
-  ],
-  "normativa_vigente": [
-    {
-      "riferimento": "L. 241/1990",
-      "status": "IN_VIGORE",
-      "ultima_modifica": "D.L. 76/2020",
-      "data_modifica": "2020-07-16",
-      "versione_applicabile": "Testo consolidato al 2020-07-16"
-    },
-    {
-      "riferimento": "D.Lgs 42/2004",
-      "status": "IN_VIGORE",
-      "ultima_modifica": "D.Lgs 62/2008",
-      "data_modifica": "2008-04-26",
-      "versione_applicabile": "Codice Beni Culturali vigente"
-    },
-    {
-      "riferimento": "L.R. 12/2005",
-      "status": "IN_VIGORE",
-      "ultima_modifica": "L.R. 18/2023",
-      "data_modifica": "2023-06-30",
-      "versione_applicabile": "Testo consolidato regionale"
-    }
-  ],
-  "suggestions": [
-    {
-      "type": "STRUCTURE",
-      "priority": "MEDIUM",
-      "text": "Aggiungere sezione 'ACQUISITI' per elencare pareri e autorizzazioni degli enti terzi"
-    },
-    {
-      "type": "COMPLETENESS",
-      "priority": "HIGH",
-      "text": "Verificare allegati: Piano Urbanistico, relazione paesaggistica, documentazione fotografica"
-    }
-  ],
-  "metadata": {
-    "processing_time_ms": 1456,
-    "checks_performed": {
-      "faiss_similarity": true,
-      "neo4j_dependencies": true,
-      "groq_analysis": true,
-      "normativa_status": true
+      {
+        "riferimento": "D.Lgs 42/2004",
+        "status": "IN_VIGORE",
+        "ultima_modifica": "D.Lgs 62/2008",
+        "data_modifica": "2008-04-26",
+        "versione_applicabile": "Codice Beni Culturali vigente"
+      },
+      {
+        "riferimento": "L.R. 12/2005",
+        "status": "IN_VIGORE",
+        "ultima_modifica": "L.R. 18/2023",
+        "data_modifica": "2023-06-30",
+        "versione_applicabile": "Testo consolidato regionale"
+      }
+    ],
+    "suggestions": [
+      {
+        "type": "STRUCTURE",
+        "priority": "MEDIUM",
+        "text": "Aggiungere sezione 'ACQUISITI' per elencare pareri e autorizzazioni degli enti terzi"
+      },
+      {
+        "type": "COMPLETENESS",
+        "priority": "HIGH",
+        "text": "Verificare allegati: Piano Urbanistico, relazione paesaggistica, documentazione fotografica"
+      }
+    ],
+    "metadata": {
+      "processing_time_ms": 1456,
+      "checks_performed": {
+        "faiss_similarity": true,
+        "neo4j_dependencies": true,
+        "groq_analysis": true,
+        "normativa_status": true
+      }
     }
   }
 }
@@ -837,48 +831,50 @@ sequenceDiagram
 **Expected Response (200 OK):**
 ```json
 {
-  "request_id": "kb-comp-20251027-123459-jkl",
-  "compliance_status": "COMPLIANT",
-  "compliance_score": 0.94,
-  "compliance_issues": [],
-  "missing_refs": [],
-  "normativa_vigente": [
-    {
-      "riferimento": "D.Lgs 267/2000",
-      "status": "IN_VIGORE",
-      "ultima_modifica": "D.L. 174/2012",
-      "data_modifica": "2012-12-10",
-      "versione_applicabile": "TUEL vigente"
-    },
-    {
-      "riferimento": "D.L. 34/2020",
-      "status": "IN_VIGORE",
-      "ultima_modifica": "Convertito in L. 77/2020",
-      "data_modifica": "2020-07-17",
-      "versione_applicabile": "Decreto Rilancio vigente"
-    },
-    {
-      "riferimento": "L. 241/1990",
-      "status": "IN_VIGORE",
-      "ultima_modifica": "D.L. 76/2020",
-      "data_modifica": "2020-07-16",
-      "versione_applicabile": "Testo consolidato al 2020-07-16"
-    }
-  ],
-  "suggestions": [
-    {
-      "type": "OPTIMIZATION",
-      "priority": "LOW",
-      "text": "Documento ben strutturato. Verificare solo la corretta protocollazione del parere del Revisore dei Conti"
-    }
-  ],
-  "metadata": {
-    "processing_time_ms": 678,
-    "checks_performed": {
-      "faiss_similarity": true,
-      "neo4j_dependencies": false,
-      "groq_analysis": false,
-      "normativa_status": true
+  "data": {
+    "request_id": "kb-comp-20251027-123459-jkl",
+    "compliance_status": "COMPLIANT",
+    "compliance_score": 0.94,
+    "compliance_issues": [],
+    "missing_refs": [],
+    "normativa_vigente": [
+      {
+        "riferimento": "D.Lgs 267/2000",
+        "status": "IN_VIGORE",
+        "ultima_modifica": "D.L. 174/2012",
+        "data_modifica": "2012-12-10",
+        "versione_applicabile": "TUEL vigente"
+      },
+      {
+        "riferimento": "D.L. 34/2020",
+        "status": "IN_VIGORE",
+        "ultima_modifica": "Convertito in L. 77/2020",
+        "data_modifica": "2020-07-17",
+        "versione_applicabile": "Decreto Rilancio vigente"
+      },
+      {
+        "riferimento": "L. 241/1990",
+        "status": "IN_VIGORE",
+        "ultima_modifica": "D.L. 76/2020",
+        "data_modifica": "2020-07-16",
+        "versione_applicabile": "Testo consolidato al 2020-07-16"
+      }
+    ],
+    "suggestions": [
+      {
+        "type": "OPTIMIZATION",
+        "priority": "LOW",
+        "text": "Documento ben strutturato. Verificare solo la corretta protocollazione del parere del Revisore dei Conti"
+      }
+    ],
+    "metadata": {
+      "processing_time_ms": 678,
+      "checks_performed": {
+        "faiss_similarity": true,
+        "neo4j_dependencies": false,
+        "groq_analysis": false,
+        "normativa_status": true
+      }
     }
   }
 }
@@ -962,76 +958,78 @@ sequenceDiagram
 **Expected Response (200 OK):**
 ```json
 {
-  "request_id": "kb-search-20251027-123460-mno",
-  "query_embedding_time_ms": 45,
-  "search_time_ms": 178,
-  "results": [
-    {
-      "rank": 1,
-      "similarity": 0.92,
-      "documento": {
-        "riferimento": "L. 241/1990",
-        "titolo": "Nuove norme in materia di procedimento amministrativo",
-        "articolo": "Art. 6",
-        "comma": "1",
-        "testo": "Il responsabile del procedimento ha la responsabilità dell'istruttoria e di ogni altro adempimento inerente il singolo procedimento, nonché dell'adozione del provvedimento finale...",
-        "tipo": "LEGGE",
-        "ambito": "NAZIONALE",
-        "data_pubblicazione": "1990-08-18",
-        "gazzetta_ufficiale": "G.U. n. 192 del 18/08/1990"
+  "data": {
+    "request_id": "kb-search-20251027-123460-mno",
+    "query_embedding_time_ms": 45,
+    "search_time_ms": 178,
+    "results": [
+      {
+        "rank": 1,
+        "similarity": 0.92,
+        "documento": {
+          "riferimento": "L. 241/1990",
+          "titolo": "Nuove norme in materia di procedimento amministrativo",
+          "articolo": "Art. 6",
+          "comma": "1",
+          "testo": "Il responsabile del procedimento ha la responsabilità dell'istruttoria e di ogni altro adempimento inerente il singolo procedimento, nonché dell'adozione del provvedimento finale...",
+          "tipo": "LEGGE",
+          "ambito": "NAZIONALE",
+          "data_pubblicazione": "1990-08-18",
+          "gazzetta_ufficiale": "G.U. n. 192 del 18/08/1990"
+        },
+        "highlights": [
+          "responsabile del procedimento",
+          "responsabilità dell'istruttoria",
+          "adozione del provvedimento finale"
+        ]
       },
-      "highlights": [
-        "responsabile del procedimento",
-        "responsabilità dell'istruttoria",
-        "adozione del provvedimento finale"
-      ]
-    },
-    {
-      "rank": 2,
-      "similarity": 0.88,
-      "documento": {
-        "riferimento": "D.Lgs 33/2013",
-        "titolo": "Riordino della disciplina riguardante il diritto di accesso civico",
-        "articolo": "Art. 5",
-        "comma": "2",
-        "testo": "Nelle pagine iniziali del sito istituzionale è indicato il nominativo del responsabile del procedimento cui è attribuito il potere sostitutivo...",
-        "tipo": "DECRETO",
-        "ambito": "NAZIONALE",
-        "data_pubblicazione": "2013-04-05",
-        "gazzetta_ufficiale": "G.U. n. 80 del 05/04/2013"
+      {
+        "rank": 2,
+        "similarity": 0.88,
+        "documento": {
+          "riferimento": "D.Lgs 33/2013",
+          "titolo": "Riordino della disciplina riguardante il diritto di accesso civico",
+          "articolo": "Art. 5",
+          "comma": "2",
+          "testo": "Nelle pagine iniziali del sito istituzionale è indicato il nominativo del responsabile del procedimento cui è attribuito il potere sostitutivo...",
+          "tipo": "DECRETO",
+          "ambito": "NAZIONALE",
+          "data_pubblicazione": "2013-04-05",
+          "gazzetta_ufficiale": "G.U. n. 80 del 05/04/2013"
+        },
+        "highlights": [
+          "nominativo del responsabile",
+          "trasparenza",
+          "sito istituzionale"
+        ]
       },
-      "highlights": [
-        "nominativo del responsabile",
-        "trasparenza",
-        "sito istituzionale"
-      ]
-    },
-    {
-      "rank": 3,
-      "similarity": 0.84,
-      "documento": {
-        "riferimento": "L. 241/1990",
-        "titolo": "Nuove norme in materia di procedimento amministrativo",
-        "articolo": "Art. 8",
-        "comma": "1",
-        "testo": "Il responsabile del procedimento può chiedere il rilascio di dichiarazioni e la rettifica di dichiarazioni o istanze erronee o incomplete...",
-        "tipo": "LEGGE",
-        "ambito": "NAZIONALE",
-        "data_pubblicazione": "1990-08-18",
-        "gazzetta_ufficiale": "G.U. n. 192 del 18/08/1990"
-      },
-      "highlights": [
-        "responsabile del procedimento può chiedere",
-        "dichiarazioni",
-        "istanze"
-      ]
+      {
+        "rank": 3,
+        "similarity": 0.84,
+        "documento": {
+          "riferimento": "L. 241/1990",
+          "titolo": "Nuove norme in materia di procedimento amministrativo",
+          "articolo": "Art. 8",
+          "comma": "1",
+          "testo": "Il responsabile del procedimento può chiedere il rilascio di dichiarazioni e la rettifica di dichiarazioni o istanze erronee o incomplete...",
+          "tipo": "LEGGE",
+          "ambito": "NAZIONALE",
+          "data_pubblicazione": "1990-08-18",
+          "gazzetta_ufficiale": "G.U. n. 192 del 18/08/1990"
+        },
+        "highlights": [
+          "responsabile del procedimento può chiedere",
+          "dichiarazioni",
+          "istanze"
+        ]
+      }
+    ],
+    "total_results": 3,
+    "metadata": {
+      "faiss_index_size": 98547,
+      "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "processing_time_ms": 223
     }
-  ],
-  "total_results": 3,
-  "metadata": {
-    "faiss_index_size": 98547,
-    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
-    "processing_time_ms": 223
   }
 }
 ```
@@ -1076,12 +1074,6 @@ sequenceDiagram
     }
   }
 }
-```
-
-#### Test Case 6: Graph Relations - L.241/1990
-
-**Request:**
-```json
 {
   "normativa_id": "L.241/1990",
   "relation_types": ["MODIFICA", "INTEGRA"],
@@ -1092,68 +1084,76 @@ sequenceDiagram
 **Expected Response (200 OK):**
 ```json
 {
-  "request_id": "kb-graph-20251027-123461-pqr",
-  "normativa": {
-    "id": "L.241/1990",
-    "titolo": "Nuove norme in materia di procedimento amministrativo",
-    "data_pubblicazione": "1990-08-18",
-    "status": "IN_VIGORE"
-  },
-  "relations": {
-    "outgoing": [
-      {
-        "relation_type": "INTEGRA",
-        "target": {
-          "id": "L.15/2005",
-          "titolo": "Modifiche ed integrazioni alla legge 7 agosto 1990, n. 241",
-          "data": "2005-03-11"
+  "data": {
+    "request_id": "kb-graph-20251027-123461-pqr",
+    "normativa": {
+      "id": "L.241/1990",
+      "titolo": "Nuove norme in materia di procedimento amministrativo",
+      "data_pubblicazione": "1990-08-18",
+      "status": "IN_VIGORE"
+    },
+    "relations": {
+      "outgoing": [
+        {
+          "relation_type": "INTEGRA",
+          "target": {
+            "id": "L.15/2005",
+            "titolo": "Modifiche ed integrazioni alla legge 7 agosto 1990, n. 241",
+            "data": "2005-03-11"
+          },
+          "depth": 1,
+          "note": "Introduce Art. 11 (Accordi tra P.A.)"
         },
-        "depth": 1,
-        "note": "Introduce Art. 11 (Accordi tra P.A.)"
-      },
-      {
-        "relation_type": "MODIFICA",
-        "target": {
-          "id": "D.L.76/2020",
-          "titolo": "Misure urgenti per semplificazione e innovazione digitale",
-          "data": "2020-07-16"
-        },
-        "depth": 1,
-        "note": "Semplificazioni procedurali Art. 2-3"
-      }
-    ],
-    "incoming": [
-      {
-        "relation_type": "RIMANDA",
-        "source": {
-          "id": "D.Lgs 267/2000",
-          "titolo": "Testo Unico Enti Locali",
-          "data": "2000-08-18"
-        },
-        "depth": 1,
-        "note": "TUEL fa riferimento a L.241/1990 per procedimenti comunali"
-      }
-    ],
-    "transitive": [
-      {
-        "path": ["L.241/1990", "INTEGRA", "L.15/2005", "MODIFICA", "L.80/2005"],
-        "depth": 2,
-        "final_target": {
-          "id": "L.80/2005",
-          "titolo": "Conversione DL 35/2005 su competitività"
+        {
+          "relation_type": "MODIFICA",
+          "target": {
+            "id": "D.L.76/2020",
+            "titolo": "Misure urgenti per semplificazione e innovazione digitale",
+            "data": "2020-07-16"
+          },
+          "depth": 1,
+          "note": "Semplificazioni procedurali Art. 2-3"
         }
-      }
-    ]
-  },
-  "graph_stats": {
-    "total_relations": 15,
-    "outgoing_count": 8,
-    "incoming_count": 7,
-    "max_depth_reached": 2
-  },
-  "metadata": {
-    "processing_time_ms": 245,
-    "neo4j_query_time_ms": 198
+      ],
+      "incoming": [
+        {
+          "relation_type": "RIMANDA",
+          "source": {
+            "id": "D.Lgs 267/2000",
+            "titolo": "Testo Unico Enti Locali",
+            "data": "2000-08-18"
+          },
+          "depth": 1,
+          "note": "TUEL fa riferimento a L.241/1990 per procedimenti comunali"
+        }
+      ],
+      "transitive": [
+        {
+          "path": [
+            "L.241/1990",
+            "INTEGRA",
+            "L.15/2005",
+            "MODIFICA",
+            "L.80/2005"
+          ],
+          "depth": 2,
+          "final_target": {
+            "id": "L.80/2005",
+            "titolo": "Conversione DL 35/2005 su competitività"
+          }
+        }
+      ]
+    },
+    "graph_stats": {
+      "total_relations": 15,
+      "outgoing_count": 8,
+      "incoming_count": 7,
+      "max_depth_reached": 2
+    },
+    "metadata": {
+      "processing_time_ms": 245,
+      "neo4j_query_time_ms": 198
+    }
   }
 }
 ```

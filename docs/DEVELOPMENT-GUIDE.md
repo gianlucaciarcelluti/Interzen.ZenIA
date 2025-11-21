@@ -51,7 +51,9 @@ docker-compose logs -f classifier
 curl http://localhost:8001/health
 
 # Risposta dovrebbe mostrare:
-# {"status": "healthy", "service": "MS01-CLASSIFIER", ...}
+```
+{"status": "healthy", "service": "MS01-CLASSIFIER", ...}
+```
 ```
 
 ## [Auto-generated heading level 2]

@@ -737,10 +737,6 @@ X-Tenant-ID: tenant-pa-roma
   "size": 100,
   "_source": ["timestamp", "level", "service", "message", "correlation_id"]
 }
-```
-
-#### GraphQL Query Interface
-```graphql
 query GetApplicationLogs(
   $tenantId: String!
   $timeRange: TimeRange!

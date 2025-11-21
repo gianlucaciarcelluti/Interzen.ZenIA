@@ -144,33 +144,51 @@ sequenceDiagram
 
 ```json
 {
-  "document_draft": {
-    "format": "XML",
-    "content": "<delibera>...</delibera>",
-    "sections": [
-      {"id": "premesse", "tokens": 245, "status": "generated"},
-      {"id": "motivazioni", "tokens": 487, "status": "generated"},
-      {"id": "dispositivo", "tokens": 156, "status": "generated"},
-      {"id": "allegati", "tokens": 89, "status": "referenced"}
+  "data": {
+    "document_draft": {
+      "format": "XML",
+      "content": "<delibera>...</delibera>",
+      "sections": [
+        {
+          "id": "premesse",
+          "tokens": 245,
+          "status": "generated"
+        },
+        {
+          "id": "motivazioni",
+          "tokens": 487,
+          "status": "generated"
+        },
+        {
+          "id": "dispositivo",
+          "tokens": 156,
+          "status": "generated"
+        },
+        {
+          "id": "allegati",
+          "tokens": 89,
+          "status": "referenced"
+        }
+      ]
+    },
+    "generation_metadata": {
+      "model_used": "gpt-4-turbo",
+      "temperature": 0.3,
+      "tokens_consumed": 1234,
+      "api_cost_euros": 0.0148,
+      "generation_time_sec": 2.3
+    },
+    "template_info": {
+      "template_id": "TPL-DELIB-URB-001",
+      "version": "2.1.4",
+      "last_updated": "2025-09-15",
+      "variables_filled": 23,
+      "variables_total": 25
+    },
+    "warnings": [
+      "Campo 'data_approvazione_preventiva' non valorizzato - da verificare"
     ]
-  },
-  "generation_metadata": {
-    "model_used": "gpt-4-turbo",
-    "temperature": 0.3,
-    "tokens_consumed": 1234,
-    "api_cost_euros": 0.0148,
-    "generation_time_sec": 2.3
-  },
-  "template_info": {
-    "template_id": "TPL-DELIB-URB-001",
-    "version": "2.1.4",
-    "last_updated": "2025-09-15",
-    "variables_filled": 23,
-    "variables_total": 25
-  },
-  "warnings": [
-    "Campo 'data_approvazione_preventiva' non valorizzato - da verificare"
-  ]
+  }
 }
 ```
 ## Gestione Errori

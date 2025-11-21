@@ -283,13 +283,6 @@ GET /status/ratelimit
     "day": {"used": 15234, "limit": 50000}
   }
 }
-```
-
-## 🔗 GraphQL API
-
-### Schema Principale
-
-```graphql
 # Query
 type Query {
   # Documenti

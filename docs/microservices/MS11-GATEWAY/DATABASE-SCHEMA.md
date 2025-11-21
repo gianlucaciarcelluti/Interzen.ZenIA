@@ -340,7 +340,9 @@ Redis viene utilizzato per caching ad alte prestazioni, sessioni e rate limiting
 
 ```redis
 # Response Cache
-# Key: cache:{service}:{route}:{method}:{query_hash}
+```
+Key: cache:{service}:{route}:{method}:{query_hash}
+```
 # TTL: 300 secondi (5 minuti)
 SET cache:ms01-classifier:classify-route:POST:abc123def456
 {
@@ -353,7 +355,9 @@ SET cache:ms01-classifier:classify-route:POST:abc123def456
 EXPIRE cache:ms01-classifier:classify-route:POST:abc123def456 300
 
 # Session Store
-# Key: session:{session_id}
+```
+Key: session:{session_id}
+```
 # TTL: 3600 secondi (1 ora)
 SET session: sess_123456789
 {
@@ -368,7 +372,9 @@ SET session: sess_123456789
 EXPIRE session:sess_123456789 3600
 
 # Rate Limiting Counters
-# Key: ratelimit:{identifier}:{window}:{limit_type}
+```
+Key: ratelimit:{identifier}:{window}:{limit_type}
+```
 # Esempio: ratelimit:user_123:minute:1000
 SET ratelimit:user_123:1637242800:minute 45
 EXPIRE ratelimit:user_123:1637242800:minute 60
@@ -377,38 +383,50 @@ SET ratelimit:user_123:1637242800:hour 2340
 EXPIRE ratelimit:user_123:1637242800:hour 3600
 
 # Distributed Locks
-# Key: lock:{resource_name}
+```
+Key: lock:{resource_name}
+```
 # TTL: 30 secondi
 SET lock:config_update user_123 NX EX 30
 
 # Circuit Breaker State
-# Key: circuit:{service_name}
+```
+Key: circuit:{service_name}
+```
 # Value: OPEN|CLOSED|HALF_OPEN
 SET circuit:ms01-classifier CLOSED
 SET circuit:ms02-analyzer OPEN
 EXPIRE circuit:ms01-classifier 300
 
 # Circuit Breaker Stats
-# Key: circuit_stats:{service_name}:{window}
+```
+Key: circuit_stats:{service_name}:{window}
+```
 HSET circuit_stats:ms01-classifier:1637242800 failures 5
 HSET circuit_stats:ms01-classifier:1637242800 successes 95
 HSET circuit_stats:ms01-classifier:1637242800 requests 100
 EXPIRE circuit_stats:ms01-classifier:1637242800 3600
 
 # API Key Cache
-# Key: apikey:{api_key}
+```
+Key: apikey:{api_key}
+```
 # Value: consumer_id
 SET apikey:sk-123456789 consumer_456
 EXPIRE apikey:sk-123456789 3600
 
 # JWT Token Blacklist
-# Key: jwt_blacklist:{token_hash}
+```
+Key: jwt_blacklist:{token_hash}
+```
 # Value: expiry_timestamp
 SET jwt_blacklist:abc123def456 1637246400
 EXPIRE jwt_blacklist:abc123def456 3600
 
 # Configuration Cache
-# Key: config:{service}:{version}
+```
+Key: config:{service}:{version}
+```
 # Value: JSON configuration
 SET config:ms01-classifier:v1.0
 {
@@ -419,7 +437,9 @@ SET config:ms01-classifier:v1.0
 EXPIRE config:ms01-classifier:v1.0 1800
 
 # Metrics Cache (temporaneo)
-# Key: metrics:{service}:{timestamp}
+```
+Key: metrics:{service}:{timestamp}
+```
 ZADD metrics:ms01-classifier:2025-11-18 1637242800 245
 ZADD metrics:ms01-classifier:2025-11-18 1637242860 234
 EXPIRE metrics:ms01-classifier:2025-11-18 86400

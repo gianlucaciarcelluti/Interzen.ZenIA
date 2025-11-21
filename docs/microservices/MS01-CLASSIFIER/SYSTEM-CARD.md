@@ -404,7 +404,9 @@
 
 ### Identified Disparities & Root Cause Analysis
 
-#### Disparity 1: Performance Gap for "OTHER" Category
+```
+Disparity 1: Performance Gap for "OTHER" Category
+```
 - **Disparity**: 72.1% accuracy vs 92.3% average (20.2pp gap)
 - **Root Cause**: Class imbalance (3.6% of training data) + diverse content
 - **Mitigation Applied**: Focal loss during training, balanced sampling in cross-validation

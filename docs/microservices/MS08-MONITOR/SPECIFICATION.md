@@ -399,25 +399,27 @@ Authorization: Bearer {jwt_token}
 **Response**:
 ```json
 {
-  "alerts": [
-    {
-      "id": "alert-123",
-      "name": "High Error Rate",
-      "severity": "critical",
-      "status": "firing",
-      "description": "Error rate > 5% for 5 minutes",
-      "labels": {
-        "service": "ms01-classifier",
-        "tenant": "tenant-pa-roma"
-      },
-      "annotations": {
-        "summary": "High error rate detected",
-        "runbook_url": "https://zenia.runbooks/high-error-rate"
-      },
-      "startsAt": "2024-01-15T10:00:00Z",
-      "endsAt": null
-    }
-  ]
+  "data": {
+    "alerts": [
+      {
+        "id": "alert-123",
+        "name": "High Error Rate",
+        "severity": "critical",
+        "status": "firing",
+        "description": "Error rate > 5% for 5 minutes",
+        "labels": {
+          "service": "ms01-classifier",
+          "tenant": "tenant-pa-roma"
+        },
+        "annotations": {
+          "summary": "High error rate detected",
+          "runbook_url": "https://zenia.runbooks/high-error-rate"
+        },
+        "startsAt": "2024-01-15T10:00:00Z",
+        "endsAt": null
+      }
+    ]
+  }
 }
 ```
 

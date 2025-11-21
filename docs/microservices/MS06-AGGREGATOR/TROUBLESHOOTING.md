@@ -426,4 +426,3 @@ POST /admin/jobs/graceful-shutdown
 
 # Arresto immediato (ultima spiaggia)
 POST /admin/jobs/force-shutdown
-```

@@ -49,36 +49,6 @@ Il **SP39 SIEM Processor** è il motore di elaborazione degli eventi sicurezza n
 
 ## Architettura Interna
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    INGESTION LAYER                          │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │  Kafka Consumer       Queue Manager       Batch Processor │ │
-│  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
-│  │  │  - Topic Sub    │    │  - Priority Q  │   │  - Micro │ │
-│  │  │  - Offset Mgmt  │    │  - Load Bal    │   │  - Batch │ │
-│  │  │  - Consumer Grp │    │  - Dead Letter │   │  - Stream│ │
-│  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
-└─────────────────────────────────────────────────────────────┘
-│                    PROCESSING LAYER                         │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │  Correlation Engine    Anomaly Detector    Threat Hunter │ │
-│  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
-│  │  │  - Rule Based   │    │  - Statistical │   │  - ML    │ │
-│  │  │  - Temporal     │    │  - Behavioral  │   │  - IOC   │ │
-│  │  │  - Graph Based  │    │  - Clustering  │   │  - Hunt │ │
-│  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
-└─────────────────────────────────────────────────────────────┘
-│                    ANALYSIS LAYER                           │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │  Alert Engine         Incident Manager     Response Orchestrator │ │
-│  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
-│  │  │  - Alert Gen    │    │  - Incident   │   │  - Auto  │ │
-│  │  │  - Prioritiz    │    │  - Enrichment │   │  - Manual│ │
-│  │  │  - Suppression  │    │  - Workflow   │   │  - Coord │ │
-│  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
-└─────────────────────────────────────────────────────────────┘
-```
 
 ## Event Processing Pipeline
 

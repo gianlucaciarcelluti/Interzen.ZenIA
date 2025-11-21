@@ -140,108 +140,131 @@ sequenceDiagram
 
 ```json
 {
-  "classification": {
-    "procedimento": {
-      "codice": "PROC_AMB_001",
-      "denominazione": "AUTORIZZAZIONE_SCARICO_ACQUE_REFLUE",
-      "categoria": "AMBIENTE",
-      "sottocategoria": "TUTELA_ACQUE",
-      "confidence": 0.96
-    },
-    "tipo_provvedimento": {
-      "codice": "PROV_DET_DIR",
-      "denominazione": "DETERMINAZIONE_DIRIGENZIALE",
-      "autorita_competente": "DIRIGENTE_SETTORE_AMBIENTE",
-      "confidence": 0.94
-    },
-    "procedimento_details": {
-      "normativa_base": [
-        {"tipo": "DECRETO_LEGISLATIVO", "numero": "152/2006", "articolo": "124", "descrizione": "Disciplina degli scarichi"},
-        {"tipo": "LEGGE_REGIONALE", "numero": "62/1998", "articolo": "8", "descrizione": "Norme regionali tutela acque"}
-      ],
-      "termini_procedimento": {
-        "giorni_max": 90,
-        "silenzio_assenso": false,
-        "possibilita_proroga": true,
-        "termini_urgenti": null
+  "data": {
+    "classification": {
+      "procedimento": {
+        "codice": "PROC_AMB_001",
+        "denominazione": "AUTORIZZAZIONE_SCARICO_ACQUE_REFLUE",
+        "categoria": "AMBIENTE",
+        "sottocategoria": "TUTELA_ACQUE",
+        "confidence": 0.96
       },
-      "responsabile_procedimento": {
-        "ruolo_richiesto": "FUNZIONARIO_SETTORE_AMBIENTE",
-        "competenze_necessarie": ["TUTELA_ACQUE", "DIRITTO_AMBIENTALE"]
+      "tipo_provvedimento": {
+        "codice": "PROV_DET_DIR",
+        "denominazione": "DETERMINAZIONE_DIRIGENZIALE",
+        "autorita_competente": "DIRIGENTE_SETTORE_AMBIENTE",
+        "confidence": 0.94
       },
-      "fasi_procedurali": [
-        "VERIFICA_COMPLETEZZA_ISTANZA",
-        "ISTRUTTORIA_TECNICA",
-        "PARERI_ENTI_ESTERNI",
-        "CONFERENZA_SERVIZI",
-        "DETERMINAZIONE_FINALE"
+      "procedimento_details": {
+        "normativa_base": [
+          {
+            "tipo": "DECRETO_LEGISLATIVO",
+            "numero": "152/2006",
+            "articolo": "124",
+            "descrizione": "Disciplina degli scarichi"
+          },
+          {
+            "tipo": "LEGGE_REGIONALE",
+            "numero": "62/1998",
+            "articolo": "8",
+            "descrizione": "Norme regionali tutela acque"
+          }
+        ],
+        "termini_procedimento": {
+          "giorni_max": 90,
+          "silenzio_assenso": false,
+          "possibilita_proroga": true,
+          "termini_urgenti": null
+        },
+        "responsabile_procedimento": {
+          "ruolo_richiesto": "FUNZIONARIO_SETTORE_AMBIENTE",
+          "competenze_necessarie": [
+            "TUTELA_ACQUE",
+            "DIRITTO_AMBIENTALE"
+          ]
+        },
+        "fasi_procedurali": [
+          "VERIFICA_COMPLETEZZA_ISTANZA",
+          "ISTRUTTORIA_TECNICA",
+          "PARERI_ENTI_ESTERNI",
+          "CONFERENZA_SERVIZI",
+          "DETERMINAZIONE_FINALE"
+        ]
+      },
+      "metadata_required": {
+        "obbligatori": [
+          "dati_identificativi_richiedente",
+          "localizzazione_scarico",
+          "caratteristiche_scarico",
+          "relazione_tecnica",
+          "planimetria",
+          "certificato_iscrizione_cciaa"
+        ],
+        "opzionali": [
+          "studio_impatto_ambientale",
+          "documentazione_fotografica"
+        ],
+        "missing": []
+      },
+      "enti_coinvolti": [
+        {
+          "ente": "ARPA",
+          "tipo_coinvolgimento": "PARERE_OBBLIGATORIO",
+          "termini_risposta": 30
+        },
+        {
+          "ente": "ASL",
+          "tipo_coinvolgimento": "PARERE_FACOLTATIVO",
+          "termini_risposta": 15
+        }
       ]
     },
-    "metadata_required": {
-      "obbligatori": [
-        "dati_identificativi_richiedente",
-        "localizzazione_scarico",
-        "caratteristiche_scarico",
-        "relazione_tecnica",
-        "planimetria",
-        "certificato_iscrizione_cciaa"
+    "metadata_extracted": {
+      "entita_richiedente": {
+        "tipo": "PERSONA_GIURIDICA",
+        "nome": "Industria Tessile Rossi S.p.A.",
+        "codice_fiscale": "IT12345678901"
+      },
+      "oggetto_istanza": "autorizzazione scarico acque reflue industriali",
+      "riferimenti_normativi_rilevati": [
+        {
+          "tipo": "DECRETO_LEGISLATIVO",
+          "numero": "152/2006"
+        }
       ],
-      "opzionali": [
-        "studio_impatto_ambientale",
-        "documentazione_fotografica"
+      "keywords_chiave": [
+        "scarico",
+        "acque reflue",
+        "industriali",
+        "autorizzazione"
       ],
-      "missing": []
+      "settore_economico": "INDUSTRIA_TESSILE"
     },
-    "enti_coinvolti": [
+    "similarity_scores": [
       {
-        "ente": "ARPA",
-        "tipo_coinvolgimento": "PARERE_OBBLIGATORIO",
-        "termini_risposta": 30
+        "procedimento_id": "PROC-2024-00567",
+        "similarity": 0.91,
+        "tipo": "AUTORIZZAZIONE_SCARICO_ACQUE",
+        "esito": "ACCOGLIMENTO",
+        "data": "2024-08-15"
       },
       {
-        "ente": "ASL",
-        "tipo_coinvolgimento": "PARERE_FACOLTATIVO",
-        "termini_risposta": 15
+        "procedimento_id": "PROC-2024-00234",
+        "similarity": 0.87,
+        "tipo": "AUTORIZZAZIONE_SCARICO_ACQUE",
+        "esito": "DINIEGO",
+        "data": "2024-03-22"
       }
-    ]
-  },
-  "metadata_extracted": {
-    "entita_richiedente": {
-      "tipo": "PERSONA_GIURIDICA",
-      "nome": "Industria Tessile Rossi S.p.A.",
-      "codice_fiscale": "IT12345678901"
-    },
-    "oggetto_istanza": "autorizzazione scarico acque reflue industriali",
-    "riferimenti_normativi_rilevati": [
-      {"tipo": "DECRETO_LEGISLATIVO", "numero": "152/2006"}
     ],
-    "keywords_chiave": ["scarico", "acque reflue", "industriali", "autorizzazione"],
-    "settore_economico": "INDUSTRIA_TESSILE"
-  },
-  "similarity_scores": [
-    {
-      "procedimento_id": "PROC-2024-00567",
-      "similarity": 0.91,
-      "tipo": "AUTORIZZAZIONE_SCARICO_ACQUE",
-      "esito": "ACCOGLIMENTO",
-      "data": "2024-08-15"
+    "template_suggerito": {
+      "template_id": "TPL_DET_AMB_001",
+      "nome": "Determinazione Dirigenziale - Autorizzazione Scarico Acque",
+      "versione": "2.1",
+      "ultima_modifica": "2025-06-15"
     },
-    {
-      "procedimento_id": "PROC-2024-00234",
-      "similarity": 0.87,
-      "tipo": "AUTORIZZAZIONE_SCARICO_ACQUE",
-      "esito": "DINIEGO",
-      "data": "2024-03-22"
-    }
-  ],
-  "template_suggerito": {
-    "template_id": "TPL_DET_AMB_001",
-    "nome": "Determinazione Dirigenziale - Autorizzazione Scarico Acque",
-    "versione": "2.1",
-    "ultima_modifica": "2025-06-15"
-  },
-  "processing_time_ms": 520,
-  "cached": false
+    "processing_time_ms": 520,
+    "cached": false
+  }
 }
 ```
 
@@ -573,4 +596,3 @@ CREATE TABLE classificazioni_procedimenti (
 
 CREATE INDEX idx_classificazioni_workflow ON classificazioni_procedimenti(workflow_id);
 CREATE INDEX idx_classificazioni_procedimento ON classificazioni_procedimenti(procedimento_id);
-```

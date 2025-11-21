@@ -49,36 +49,6 @@ Il **SP48 Compliance Intelligence Platform** è la piattaforma centrale per l'in
 
 ## Architettura Interna
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    AI ANALYSIS ENGINE LAYER                 │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │  ML Compliance Models   NLP Processing    Cognitive AI   │ │
-│  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
-│  │  │  - Risk Prediction│    │  - Text Analysis │   │  - Decision │ │
-│  │  │  - Anomaly Detect │    │  - Sentiment     │   │  - Reasoning│ │
-│  │  │  - Classification │    │  - Entity Recog  │   │  - Learning │ │
-│  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
-└─────────────────────────────────────────────────────────────┘
-│                    PATTERN RECOGNITION LAYER                │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │  Sequence Analysis     Graph Analytics   Temporal Mining│ │
-│  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
-│  │  │  - Event Sequences│    │  - Network Analysis│  │  - Time Series│ │
-│  │  │  - Process Mining │    │  - Relationship   │   │  - Trend Mining│ │
-│  │  │  - Workflow Pattern│    │  - Dependency    │   │  - Seasonal    │ │
-│  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
-└─────────────────────────────────────────────────────────────┘
-│                    INTELLIGENT RECOMMENDATION LAYER         │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │  Recommendation Engine Context Awareness Personalization│ │
-│  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
-│  │  │  - Action Suggest │    │  - User Context  │   │  - Adaptive │ │
-│  │  │  - Risk Mitigation│    │  - Environment   │   │  - Learning  │ │
-│  │  │  - Best Practices │    │  - Situation     │   │  - Preferences│ │
-│  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
-└─────────────────────────────────────────────────────────────┘
-```
 
 ## AI Analysis Engine
 

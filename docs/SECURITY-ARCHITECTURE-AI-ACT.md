@@ -347,33 +347,6 @@ CREATE TABLE audit_log (
     INDEX idx_event_type (event_type),
     INDEX idx_resource_id (resource_id)
 );
-```
-
-**Immutable Audit Trail** (Blockchain-inspired):
-- Each audit log entry is cryptographically signed with SHA-256
-- Hash chain prevents tampering: current_hash = SHA256(previous_hash || entry_data)
-- Signatures stored in tamper-evident format
-- Integrity verification: Periodic hash chain validation
-
-**Compliance Mapping**:
-- ✅ AI Act Art. 30: Automated record-keeping system (in English: automated documentation)
-- ✅ GDPR Art. 30: Records of processing activities
-- ✅ GDPR Art. 32: Audit capability
-
-**Status**: 🟡 PARTIALLY IMPLEMENTED
-- **Evidence**: MS14-AUDIT/SPECIFICATION.md (audit structure defined)
-- **Implementation Gap**: Hash chain signature verification not yet automated
-- **Action Required**: Implement daily audit log integrity verification script (4 hours)
-
-#### 2.4.3 Log Retention & Archival
-
-**Retention Policy**:
-- **Active Logs** (searchable): 90 days in operational database
-- **Archive Logs** (immutable): 2 years in cold storage (S3 Glacier)
-- **Audit Logs** (special): 7 years (legal requirement for PA documents)
-
-**Archival Process**:
-```
 Daily (00:01 UTC)
 ├─ Export logs > 90 days old to S3 Glacier
 ├─ Compress using gzip (standard)

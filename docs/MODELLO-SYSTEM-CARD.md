@@ -505,9 +505,9 @@ Prima di finalizzare una System Card:
 
 ## Documenti Correlati
 
-- [CONFORMITÀ-MAPPATURA-AI-ACT.md](docs/CONFORMITÀ-MAPPATURA-AI-ACT.md) - Requisiti conformità AI Act
-- [CONFORMITÀ-MAPPATURA-CAD.md](docs/CONFORMITÀ-MAPPATURA-CAD.md) - Requisiti audit CAD
-- [GUIDA-SVILUPPO.md](docs/GUIDA-SVILUPPO.md) - Standard di sviluppo
+- [CONFORMITÀ-MAPPATURA-AI-ACT.md](CONFORMITÀ-MAPPATURA-AI-ACT.md) - Requisiti conformità AI Act
+- [CONFORMITÀ-MAPPATURA-CAD.md](CONFORMITÀ-MAPPATURA-CAD.md) - Requisiti audit CAD
+- [GUIDA-SVILUPPO.md](GUIDA-SVILUPPO.md) - Standard di sviluppo
 - EU AI Office: https://ec.europa.eu/info/research-and-innovation_en
 
 ---

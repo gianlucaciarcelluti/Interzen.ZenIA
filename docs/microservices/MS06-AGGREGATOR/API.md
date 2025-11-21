@@ -10,7 +10,9 @@ L'API REST di MS06-AGGREGATOR fornisce endpoint per l'aggregazione distribuita d
 
 ## Endpoint Aggregazione
 
-### POST /aggregate
+```
+POST /aggregate
+```
 
 Aggregazione sincrona di dati.
 

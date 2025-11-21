@@ -10,7 +10,9 @@ L'API REST di MS05-TRANSFORMER fornisce endpoint per la trasformazione sincrona 
 
 ## Endpoint Trasformazione
 
-### POST /transform
+```
+POST /transform
+```
 
 Trasformazione sincrona di documenti.
 

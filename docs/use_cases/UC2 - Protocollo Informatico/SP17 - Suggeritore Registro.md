@@ -193,34 +193,36 @@ Request:
 Response:
 ```json
 {
-  "email_id": "msg_456",
-  "suggestions": [
-    {
-      "rank": 1,
-      "registry_category": "Appalti e Gare",
-      "registry_code": "RG.03.01",
-      "confidence": 0.94,
-      "recommendation": "auto_assign"
-    },
-    {
-      "rank": 2,
-      "registry_category": "Accesso Civico",
-      "registry_code": "RG.07.02",
-      "confidence": 0.78,
-      "recommendation": "secondary"
-    },
-    {
-      "rank": 3,
-      "registry_category": "Trasparenza",
-      "registry_code": "RG.07.01",
-      "confidence": 0.65,
-      "recommendation": "fallback"
-    }
-  ],
-  "auto_assign": true,
-  "assigned_category": "RG.03.01",
-  "assigned_number": "PT-2025-001234",
-  "suggestion_timestamp": "2025-11-17T10:30:25Z"
+  "data": {
+    "email_id": "msg_456",
+    "suggestions": [
+      {
+        "rank": 1,
+        "registry_category": "Appalti e Gare",
+        "registry_code": "RG.03.01",
+        "confidence": 0.94,
+        "recommendation": "auto_assign"
+      },
+      {
+        "rank": 2,
+        "registry_category": "Accesso Civico",
+        "registry_code": "RG.07.02",
+        "confidence": 0.78,
+        "recommendation": "secondary"
+      },
+      {
+        "rank": 3,
+        "registry_category": "Trasparenza",
+        "registry_code": "RG.07.01",
+        "confidence": 0.65,
+        "recommendation": "fallback"
+      }
+    ],
+    "auto_assign": true,
+    "assigned_category": "RG.03.01",
+    "assigned_number": "PT-2025-001234",
+    "suggestion_timestamp": "2025-11-17T10:30:25Z"
+  }
 }
 ```
 

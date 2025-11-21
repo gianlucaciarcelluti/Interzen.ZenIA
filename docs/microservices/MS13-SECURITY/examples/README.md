@@ -46,4 +46,3 @@ Content-Type: application/json
   "enabled": true,
   "credentials": [{"type": "password", "value": "secret"}]
 }
-```

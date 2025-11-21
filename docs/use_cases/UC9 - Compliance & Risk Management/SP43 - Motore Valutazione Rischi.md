@@ -49,36 +49,6 @@ Il **SP43 Risk Assessment Engine** è il motore intelligente per la valutazione,
 
 ## Architettura Interna
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    RISK IDENTIFICATION LAYER                │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │  Pattern Recognition  Anomaly Detection   Event Analysis │ │
-│  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
-│  │  │  - ML Models     │    │  - Statistical │   │  - Log   │ │
-│  │  │  - NLP Analysis  │    │  - Time Series │   │  - Event │ │
-│  │  │  - Graph Analysis│    │  - Thresholds  │   │  - Correlation│ │
-│  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
-└─────────────────────────────────────────────────────────────┘
-│                    RISK QUANTIFICATION LAYER                │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │  Probability Models  Impact Assessment   Monte Carlo    │ │
-│  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
-│  │  │  - Bayesian Net  │    │  - Financial   │   │  - Simul │ │
-│  │  │  - Markov Chains │    │  - Operational │   │  - Stress │ │
-│  │  │  - Expert Systems│    │  - Reputational│   │  - Scenario│ │
-│  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
-└─────────────────────────────────────────────────────────────┘
-│                    RISK PREDICTION LAYER                    │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │  Time Series Models  Deep Learning      Ensemble Methods │ │
-│  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
-│  │  │  - ARIMA/Prophet │    │  - LSTM/GRU    │   │  - Random │ │
-│  │  │  - Neural Nets   │    │  - Autoencoders│   │  - Gradient │ │
-│  │  │  - Seasonal Decomp│    │  - GANs       │   │  - Boosting │ │
-│  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
-└─────────────────────────────────────────────────────────────┘
-```
 
 ## Risk Identification System
 

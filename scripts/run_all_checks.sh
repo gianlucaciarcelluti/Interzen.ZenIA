@@ -33,6 +33,7 @@ declare -a FAILED_CHECKS=()
 declare -a FAILED_REPORTS=()
 declare -a ISSUES_CHECKS=()
 declare -a ISSUES_REPORTS=()
+OVERALL_PASS=true
 
 # Helper to map check name to report file
 get_report_file() {
@@ -66,24 +67,74 @@ run_check() {
 
     if [ "$VERBOSE" = true ]; then
         echo -e "${BLUE}${check_num}${NC} ${check_name}..."
-        python3 "$SCRIPT_DIR/$script" 2>&1
-        return $?
+        output=$(python3 "$SCRIPT_DIR/$script" 2>&1)
+        result=$?
+        # print captured output so verbose mode shows details
+        echo "$output"
+
+        # If the check returned non-zero, mark overall as failed and record
+        if [ $result -ne 0 ]; then
+            OVERALL_PASS=false
+            FAILED_CHECKS+=("$check_name")
+            FAILED_REPORTS+=("$(get_report_file "$check_name")")
+            return $result
+        fi
+
+        # also analyze the output for explicit error counts or error keywords
+        if echo "$output" | grep -q "ERRORI TROVATI\|NEEDS WORK\|FAIL"; then
+            OVERALL_PASS=false
+            FAILED_CHECKS+=("$check_name")
+            FAILED_REPORTS+=("$(get_report_file "$check_name")")
+        else
+            count_errors=$(echo "$output" | grep -i 'errori' | grep -oE '[0-9]+' | awk '{sum+=$1} END{print sum+0}')
+            if [ -n "$count_errors" ] && [ "$count_errors" -gt 0 ]; then
+                OVERALL_PASS=false
+                FAILED_CHECKS+=("$check_name")
+                FAILED_REPORTS+=("$(get_report_file "$check_name")")
+            fi
+        fi
+
+        return $result
     else
         echo -ne "${BLUE}${check_num}${NC} ${check_name}... "
         output=$(python3 "$SCRIPT_DIR/$script" 2>&1)
         result=$?
 
         # Extract status from output
+        # If the output contains explicit error keywords treat as failure
         if echo "$output" | grep -q "ERRORI TROVATI\|NEEDS WORK\|FAIL"; then
             echo -e "${RED}⚠️${NC}"
             FAILED_CHECKS+=("$check_name")
             FAILED_REPORTS+=("$(get_report_file "$check_name")")
-        elif echo "$output" | grep -q "PERFECT\|EXCELLENT\|VALID\|PASS\|OK\|NESSUN\|ALL VALID"; then
-            echo -e "${GREEN}✅${NC}"
+            OVERALL_PASS=false
         else
-            echo -e "${YELLOW}~${NC}"
-            ISSUES_CHECKS+=("$check_name")
-            ISSUES_REPORTS+=("$(get_report_file "$check_name")")
+            # detect explicit numeric error counts (e.g. "Errori: 13" or "ERRORI totali: 13")
+            count_errors=$(echo "$output" | grep -i 'errori' | grep -oE '[0-9]+' | awk '{sum+=$1} END{print sum+0}')
+            if [ -n "$count_errors" ] && [ "$count_errors" -gt 0 ]; then
+                echo -e "${RED}⚠️${NC}"
+                FAILED_CHECKS+=("$check_name")
+                FAILED_REPORTS+=("$(get_report_file "$check_name")")
+                OVERALL_PASS=false
+            elif echo "$output" | grep -q "PERFECT\|EXCELLENT\|VALID\|PASS\|OK\|NESSUN\|ALL VALID"; then
+                echo -e "${GREEN}✅${NC}"
+            elif echo "$output" | grep -q "ISSUES FOUND\|NEEDS ATTENTION\|⚠️\|WARNING\|WARN"; then
+                echo -e "${YELLOW}~${NC}"
+                ISSUES_CHECKS+=("$check_name")
+                ISSUES_REPORTS+=("$(get_report_file "$check_name")")
+            else
+                echo -e "${YELLOW}~${NC}"
+                ISSUES_CHECKS+=("$check_name")
+                ISSUES_REPORTS+=("$(get_report_file "$check_name")")
+            fi
+        fi
+        # If the script returned non-zero, treat as failure even if output didn't include keywords
+        if [ $result -ne 0 ]; then
+            OVERALL_PASS=false
+            # avoid double-adding the same failed check
+            if ! printf "%s\n" "${FAILED_CHECKS[@]}" | grep -Fxq "$check_name"; then
+                FAILED_CHECKS+=("$check_name")
+                FAILED_REPORTS+=("$(get_report_file "$check_name")")
+            fi
         fi
         return $result
     fi
@@ -223,6 +274,7 @@ if [ "$VERBOSE" = false ]; then
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 fi
 
+# Decide final exit code based on overall pass state and TIER1
 if [ "$TIER1_PASS" = true ]; then
     if [ "$VERBOSE" = false ]; then
         echo -e "${GREEN}✅ TIER 1 PASS${NC} - Documentation ready for commit"
@@ -231,13 +283,6 @@ if [ "$TIER1_PASS" = true ]; then
         echo "✅ TIER 1 CRITICAL: PASS"
         echo "✅ Documentation is ready for commit"
     fi
-
-    # Show hint if there are warnings
-    if [ ${#ISSUES_CHECKS[@]} -gt 0 ] && [ "$VERBOSE" = false ]; then
-        show_report_hint
-    fi
-
-    exit 0
 else
     if [ "$VERBOSE" = false ]; then
         echo -e "${RED}❌ TIER 1 FAIL${NC} - Fix critical issues before committing"
@@ -246,11 +291,18 @@ else
         echo "❌ TIER 1 CRITICAL: FAIL"
         echo "❌ Fix critical issues before committing"
     fi
+fi
 
-    # Show detailed hints for failed checks
+# If any check reported failure or returned non-zero, exit with non-zero
+if [ "$OVERALL_PASS" = true ]; then
+    # Show hint if there are warnings
+    if [ ${#ISSUES_CHECKS[@]} -gt 0 ] && [ "$VERBOSE" = false ]; then
+        show_report_hint
+    fi
+    exit 0
+else
     if [ "$VERBOSE" = false ]; then
         show_report_hint
     fi
-
     exit 1
 fi

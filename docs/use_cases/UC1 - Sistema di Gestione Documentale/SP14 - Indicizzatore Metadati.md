@@ -345,27 +345,3 @@ sp14:
   batch:
     size: 100
     timeout_seconds: 30
-```
-
-### Performance Metrics
-
-- **Indexing Throughput**: 500 documenti/minuto
-- **Query Latency**: <50ms media
-- **Index Size**: Scalabile a milioni documenti
-- **Uptime**: 99.9%
-- **Data Freshness**: <5s delay
-
-### Sicurezza
-
-- **Field-level Security**: Controllo accesso campi
-- **Crittografia**: Dati sensibili criptati
-- **Audit**: Log tutte operazioni indicizzazione
-- **Compliance**: GDPR per dati personali
-
-### Evoluzione
-
-1. **Graph Indexing**: Relazioni tra documenti
-2. **Vector Indexing**: Integrazione embeddings
-3. **Real-time Updates**: Streaming indicizzazione
-4. **Multi-tenant**: Isolamento tenant</content>
-<parameter name="filePath">/Users/giangio/Documents/GitHub/Interzen/Interzen.POC/ZenIA/docs/use_cases/UC1 - Sistema di Gestione Documentale/01 SP14 - Metadata Indexer.md

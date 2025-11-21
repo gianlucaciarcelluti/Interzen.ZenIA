@@ -38,7 +38,9 @@ MS03 espone un'API RESTful per la gestione dei workflow. Tutti gli endpoint util
 
 ## Endpoint Workflow
 
-### POST /workflow/start
+```
+POST /workflow/start
+```
 
 Avvia un nuovo workflow di orchestrazione.
 

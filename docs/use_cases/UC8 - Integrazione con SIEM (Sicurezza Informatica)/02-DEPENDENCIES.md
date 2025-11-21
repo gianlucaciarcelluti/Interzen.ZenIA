@@ -79,5 +79,3 @@ Log di Sistema → SP40 (Rileva anomalie) → SP41 (Predice incidenti) → SP40 
 3. SP41 (Predizione)
 4. SP40 (Alerting)
 
-```
-

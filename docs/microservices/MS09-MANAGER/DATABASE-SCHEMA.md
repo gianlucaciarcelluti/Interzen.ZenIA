@@ -938,4 +938,3 @@ FROM step_executions
 WHERE started_at >= CURRENT_TIMESTAMP - INTERVAL '24 hours'
 GROUP BY step_type
 ORDER BY failure_rate_percent DESC;
-```

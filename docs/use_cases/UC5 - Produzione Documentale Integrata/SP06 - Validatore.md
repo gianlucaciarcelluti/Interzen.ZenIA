@@ -146,48 +146,50 @@ sequenceDiagram
 
 ```json
 {
-  "validation_result": {
-    "status": "WARNING",
-    "overall_score": 0.87,
-    "timestamp": "2025-10-08T10:25:33Z"
-  },
-  "critical_issues": [],
-  "warnings": [
-    {
-      "severity": "MEDIUM",
-      "category": "METADATA_MISSING",
-      "field": "cig",
-      "message": "CIG obbligatorio per importi > €40.000",
-      "suggestion": "Inserire CIG da ANAC",
-      "auto_fixable": false
-    }
-  ],
-  "conformity_checks": [
-    {
-      "rule": "PRESENZA_RESPONSABILE_PROCEDIMENTO",
-      "status": "PASS",
-      "normativa_ref": "L. 241/1990 Art. 5"
+  "data": {
+    "validation_result": {
+      "status": "WARNING",
+      "overall_score": 0.87,
+      "timestamp": "2025-10-08T10:25:33Z"
     },
-    {
-      "rule": "FORMATO_DATA_VALIDO",
-      "status": "PASS"
+    "critical_issues": [],
+    "warnings": [
+      {
+        "severity": "MEDIUM",
+        "category": "METADATA_MISSING",
+        "field": "cig",
+        "message": "CIG obbligatorio per importi > €40.000",
+        "suggestion": "Inserire CIG da ANAC",
+        "auto_fixable": false
+      }
+    ],
+    "conformity_checks": [
+      {
+        "rule": "PRESENZA_RESPONSABILE_PROCEDIMENTO",
+        "status": "PASS",
+        "normativa_ref": "L. 241/1990 Art. 5"
+      },
+      {
+        "rule": "FORMATO_DATA_VALIDO",
+        "status": "PASS"
+      },
+      {
+        "rule": "RIFERIMENTI_NORMATIVI_VIGENTI",
+        "status": "PASS",
+        "details": "Tutte le norme citate sono in vigore"
+      }
+    ],
+    "semantic_analysis": {
+      "coherence_score": 0.92,
+      "completeness_score": 0.89,
+      "legal_consistency_score": 0.95
     },
-    {
-      "rule": "RIFERIMENTI_NORMATIVI_VIGENTI",
-      "status": "PASS",
-      "details": "Tutte le norme citate sono in vigore"
-    }
-  ],
-  "semantic_analysis": {
-    "coherence_score": 0.92,
-    "completeness_score": 0.89,
-    "legal_consistency_score": 0.95
-  },
-  "suggestions": [
-    "Aggiungere riferimento a delibera precedente n. 45/2024 per contesto",
-    "Specificare tempistiche attuazione nel dispositivo"
-  ],
-  "processing_time_ms": 780
+    "suggestions": [
+      "Aggiungere riferimento a delibera precedente n. 45/2024 per contesto",
+      "Specificare tempistiche attuazione nel dispositivo"
+    ],
+    "processing_time_ms": 780
+  }
 }
 ```
 ## Gestione Errori

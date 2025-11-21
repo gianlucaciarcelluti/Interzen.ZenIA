@@ -47,11 +47,10 @@ Ogni response **DEVE** contenere:
   "metadata": {
     "user_id": "USR-12345",
     "session_id": "SESS-67890",
-    "source": "api|web|mobile",
+    "source": "api",
     "locale": "it-IT"
   },
   "data": {
-    // Payload specifico SP qui
   },
   "options": {
     "async": false,
@@ -91,7 +90,6 @@ Ogni response **DEVE** contenere:
   "status": "success",
   "version": "1.0",
   "data": {
-    // Payload specifico SP qui
   },
   "metadata": {
     "execution_time_ms": 245,

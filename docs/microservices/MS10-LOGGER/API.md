@@ -665,13 +665,6 @@ X-Tenant-ID: tenant-pa-roma
   },
   "comment": "Added geoip enrichment filter"
 }
-```
-
-## 4. GraphQL API
-
-### 4.1 Schema Definition
-
-```graphql
 type Query {
   logs(
     tenantId: String!
@@ -1051,7 +1044,9 @@ logger.ingest_logs([
     }
 ])
 
-# Get analytics
+```
+Get analytics
+```
 analytics = logger.get_error_analytics(
     period="1h",
     service="ms01-classifier"

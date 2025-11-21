@@ -134,26 +134,6 @@ Dopo il completamento della **Phase 1 (6 items completati)** e della **Phase 2 A
 
 **Phase 2 A2 Work Breakdown**:
 
-```
-WEEK 1 (Days 1-2):
-├─ SP03: Flowchart + State Diagram (classifier pipeline, lifecycle)
-├─ SP04: Flowchart + State Diagram (KB retrieval, document states)
-└─ SP05: Flowchart + State Diagram (template processing, states)
-
-WEEK 1 (Days 3-4):
-├─ SP06: Flowchart + State Diagram (validation rules, check states)
-├─ SP07: Flowchart + State Diagram (classification algorithm, states)
-└─ SP08: Flowchart + State Diagram (quality assessment, check states)
-
-WEEK 2 (Days 1-2):
-├─ SP09: Flowchart (workflow orchestration)
-├─ SP10: Flowchart + State Diagram (dashboard data flow, state mgmt)
-└─ SP12: Sequence + State Diagram (query processing, request states)
-
-WEEK 2 (Days 3-4):
-├─ SP29: Sequence + State Diagram (signature flow, signature lifecycle)
-└─ SP42: Flowchart + Sequence + State Diagram (policy enforcement complete)
-```
 
 **Total Effort**: 13 SP × 2.5 hours avg = **32.5 hours ≈ 4 days**
 

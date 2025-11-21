@@ -36,4 +36,3 @@ Questa directory contiene esempi di payload, configurazioni e comandi per l'util
   "channel": "events",
   "message": {"type": "update", "entity": "document", "id": "123"}
 }
-```

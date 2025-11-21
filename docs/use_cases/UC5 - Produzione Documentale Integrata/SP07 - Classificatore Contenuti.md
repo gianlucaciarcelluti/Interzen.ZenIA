@@ -116,30 +116,57 @@ sequenceDiagram
 
 ```json
 {
-  "classification": {
-    "document_type": "DELIBERA_GIUNTA",
-    "category": "URBANISTICA",
-    "subcategory": "PIANI_REGOLATORI",
-    "confidence": 0.94
-  },
-  "metadata_extracted": {
-    "date_mentions": ["2025-12-31"],
-    "importi": [150000.00],
-    "riferimenti_normativi": [
-      {"tipo": "LEGGE_REGIONALE", "numero": "12/2005"},
-      {"tipo": "DECRETO_LEGISLATIVO", "numero": "42/2004"}
+  "data": {
+    "classification": {
+      "document_type": "DELIBERA_GIUNTA",
+      "category": "URBANISTICA",
+      "subcategory": "PIANI_REGOLATORI",
+      "confidence": 0.94
+    },
+    "metadata_extracted": {
+      "date_mentions": [
+        "2025-12-31"
+      ],
+      "importi": [
+        150000.0
+      ],
+      "riferimenti_normativi": [
+        {
+          "tipo": "LEGGE_REGIONALE",
+          "numero": "12/2005"
+        },
+        {
+          "tipo": "DECRETO_LEGISLATIVO",
+          "numero": "42/2004"
+        }
+      ],
+      "entita": [
+        {
+          "tipo": "PERSONA",
+          "nome": "Mario Rossi",
+          "ruolo": "Responsabile Procedimento"
+        },
+        {
+          "tipo": "ENTE",
+          "nome": "Assessorato Urbanistica"
+        }
+      ],
+      "cig": "Z1234567890"
+    },
+    "similarity_scores": [
+      {
+        "doc_id": "DOC-98765",
+        "similarity": 0.87,
+        "tipo": "DELIBERA_GIUNTA"
+      },
+      {
+        "doc_id": "DOC-54321",
+        "similarity": 0.82,
+        "tipo": "DELIBERA_GIUNTA"
+      }
     ],
-    "entita": [
-      {"tipo": "PERSONA", "nome": "Mario Rossi", "ruolo": "Responsabile Procedimento"},
-      {"tipo": "ENTE", "nome": "Assessorato Urbanistica"}
-    ],
-    "cig": "Z1234567890"
-  },
-  "similarity_scores": [
-    {"doc_id": "DOC-98765", "similarity": 0.87, "tipo": "DELIBERA_GIUNTA"},
-    {"doc_id": "DOC-54321", "similarity": 0.82, "tipo": "DELIBERA_GIUNTA"}
-  ],
-  "processing_time_ms": 450
+    "processing_time_ms": 450
+  }
 }
 ```
 ## Gestione Errori

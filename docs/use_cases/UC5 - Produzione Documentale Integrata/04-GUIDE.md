@@ -121,7 +121,9 @@ Se l'output è sbagliato:
 
 <div style="page-break-after: always;"></div>
 
-### ✅ La nostra soluzione: Approccio "Multi-Step"
+```
+✅ La nostra soluzione: Approccio "Multi-Step"
+```
 
 Dividiamo il lavoro in **10 fasi specializzate**, ognuna con un compito preciso:
 

@@ -83,7 +83,9 @@ docs/
 
 ## 📖 Gerarchia Lettura per Developer
 
-### Scenario 1: "Voglio capire il flusso UC5"
+```
+Scenario 1: "Voglio capire il flusso UC5"
+```
 
 ```
 1. Leggi 2-3 min:
@@ -104,7 +106,9 @@ docs/
 
 ---
 
-### Scenario 2: "Devo implementare UC5-SP02"
+```
+Scenario 2: "Devo implementare UC5-SP02"
+```
 
 ```
 1. Context UC (5 min):
@@ -139,7 +143,9 @@ docs/
 
 ---
 
-### Scenario 3: "Come faccio a testare UC5-SP02?"
+```
+Scenario 3: "Come faccio a testare UC5-SP02?"
+```
 
 ```
 1. Payload Examples (2 min):

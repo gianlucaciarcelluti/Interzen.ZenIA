@@ -64,10 +64,10 @@ ZenIA rientra principalmente nei pilastri 1, 2, 4, 5.
 |-----------|-------------|--------|-----------------|
 | **Container Orchestration** | Kubernetes-based deployment | ✅ GOOD | Cloud-native via Azure |
 | **Service Mesh** | Istio or similar | 🟡 PARTIAL | Azure Service Fabric alternative |
-| **Infrastructure as Code** | IaC with Terraform/Ansible | ✅ GOOD | [DEVELOPMENT-GUIDE.md](docs/DEVELOPMENT-GUIDE.md) |
-| **Logging & Monitoring** | Centralized logging (ELK/Splunk) | ✅ GOOD | [MS08-MONITOR](docs/microservices/MS08-MONITOR/), [MS11-GATEWAY](docs/microservices/MS11-GATEWAY/) |
-| **API Gateway** | Centralized API gateway | ✅ GOOD | [MS15-REGISTRY](docs/microservices/MS15-REGISTRY/) + MS11-GATEWAY |
-| **Authentication/Authorization** | OAuth 2.0 / OpenID Connect | ✅ GOOD | [MS13-SECURITY](docs/microservices/MS13-SECURITY/) |
+| **Infrastructure as Code** | IaC with Terraform/Ansible | ✅ GOOD | [DEVELOPMENT-GUIDE.md](DEVELOPMENT-GUIDE.md) |
+| **Logging & Monitoring** | Centralized logging (ELK/Splunk) | ✅ GOOD | [MS08-MONITOR](microservices/MS08-MONITOR/), [MS11-GATEWAY](microservices/MS11-GATEWAY/) |
+| **API Gateway** | Centralized API gateway | ✅ GOOD | [MS15-REGISTRY](microservices/MS15-REGISTRY/) + MS11-GATEWAY |
+| **Authentication/Authorization** | OAuth 2.0 / OpenID Connect | ✅ GOOD | [MS13-SECURITY](microservices/MS13-SECURITY/) |
 | **Secrets Management** | Azure Key Vault integration | ✅ GOOD | MS13-SECURITY |
 | **Backup & Disaster Recovery** | Automated backups + failover | ✅ GOOD | Cloud provider native |
 
@@ -125,12 +125,12 @@ ZenIA rientra principalmente nei pilastri 1, 2, 4, 5.
 
 | Component | Requirement | Status | Reference |
 |-----------|-------------|--------|-----------|
-| **Open Data Catalog** | Register in national CKAN catalog | ❌ MISSING | [COMPLIANCE-MAPPING-PNRR.md](docs/COMPLIANCE-MAPPING-PNRR.md#pilastro-3-open-data--trasparenza) |
+| **Open Data Catalog** | Register in national CKAN catalog | ❌ MISSING | [COMPLIANCE-MAPPING-PNRR.md](COMPLIANCE-MAPPING-PNRR.md#pilastro-3-open-data--trasparenza) |
 | **DCAT-AP Metadata** | Metadata in DCAT-AP 2.0.1 format | ❌ MISSING | Identical to PNRR requirement |
-| **API Standards** | OpenAPI 3.0 compliance | 🟡 PARTIAL | [COMPLIANCE-MAPPING-PNRR.md](docs/COMPLIANCE-MAPPING-PNRR.md#pilastro-2-interoperabilità--openapi) |
-| **Data Format Standards** | JSON, XML with schema validation | ✅ GOOD | [ZENSHAREUP-ZENIA-INTEGRATION.md](docs/ZENSHAREUP-ZENIA-INTEGRATION.md) |
+| **API Standards** | OpenAPI 3.0 compliance | 🟡 PARTIAL | [COMPLIANCE-MAPPING-PNRR.md](COMPLIANCE-MAPPING-PNRR.md#pilastro-2-interoperabilità--openapi) |
+| **Data Format Standards** | JSON, XML with schema validation | ✅ GOOD | [ZENSHAREUP-ZENIA-INTEGRATION.md](ZENSHAREUP-ZENIA-INTEGRATION.md) |
 | **Linked Data** | JSON-LD support for semantic web | ❌ MISSING | Future enhancement |
-| **Service Discovery** | Service registry (UDDI/similar) | 🟡 PARTIAL | [MS15-REGISTRY](docs/microservices/MS15-REGISTRY/) |
+| **Service Discovery** | Service registry (UDDI/similar) | 🟡 PARTIAL | [MS15-REGISTRY](microservices/MS15-REGISTRY/) |
 
 **Status**: 🟡 PARTIAL - Basic interoperability present, open data publishing missing
 
@@ -144,8 +144,8 @@ ZenIA rientra principalmente nei pilastri 1, 2, 4, 5.
 
 | Component | Requirement | Status | Reference |
 |-----------|-------------|--------|-----------|
-| **Zero Trust Architecture** | Assume breach mentality | ✅ GOOD | [ARCHITECTURE-OVERVIEW.md](docs/ARCHITECTURE-OVERVIEW.md#security-architecture) |
-| **Encryption** | End-to-end encryption | ✅ GOOD | [MS13-SECURITY](docs/microservices/MS13-SECURITY/) |
+| **Zero Trust Architecture** | Assume breach mentality | ✅ GOOD | [ARCHITECTURE-OVERVIEW.md](ARCHITECTURE-OVERVIEW.md#security-architecture) |
+| **Encryption** | End-to-end encryption | ✅ GOOD | [MS13-SECURITY](microservices/MS13-SECURITY/) |
 | **Vulnerability Management** | Regular scanning + patching | 🟡 PARTIAL | CI/CD integration needed |
 | **Incident Response** | 24/7 incident response | ✅ GOOD | On-call rotation |
 | **DDoS Protection** | DDoS mitigation | ✅ GOOD | Cloud provider (Azure DDoS Protection) |

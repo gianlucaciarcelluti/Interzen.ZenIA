@@ -91,7 +91,9 @@ Se l'output è sbagliato, non si sa quale passaggio correggere.
 
 ---
 
-### ✅ La nostra soluzione: Approccio "Multi-Step"
+```
+✅ La nostra soluzione: Approccio "Multi-Step"
+```
 
 Dividiamo il lavoro in fasi specializzate:
 

@@ -95,7 +95,9 @@ graph LR
 
 ## API Endpoints
 
-### POST /parse-email
+```
+POST /parse-email
+```
 
 Endpoint principale per il parsing di email PEC.
 
@@ -116,92 +118,104 @@ Endpoint principale per il parsing di email PEC.
 **Response** (200 OK):
 ```json
 {
-  "email_id": "EMAIL-67890",
-  "workflow_id": "WF-12345",
-  "parsing_status": "success",
-  "metadata": {
-    "message_id": "<abc123@pec.example.com>",
-    "from": {
-      "email": "mario.rossi@pec.it",
-      "name": "Mario Rossi",
-      "cf": "RSSMRA80A01H501U"
+  "data": {
+    "email_id": "EMAIL-67890",
+    "workflow_id": "WF-12345",
+    "parsing_status": "success",
+    "metadata": {
+      "message_id": "<abc123@pec.example.com>",
+      "from": {
+        "email": "mario.rossi@pec.it",
+        "name": "Mario Rossi",
+        "cf": "RSSMRA80A01H501U"
+      },
+      "to": [
+        "comune.esempio@pec.gov.it"
+      ],
+      "subject": "Richiesta autorizzazione scarico acque",
+      "date": "2025-11-03T09:15:00Z",
+      "pec_receipt_id": "opec1234.20251103.091500.12345.001@pec.infocert.it",
+      "thread_id": null
     },
-    "to": ["comune.esempio@pec.gov.it"],
-    "subject": "Richiesta autorizzazione scarico acque",
-    "date": "2025-11-03T09:15:00Z",
-    "pec_receipt_id": "opec1234.20251103.091500.12345.001@pec.infocert.it",
-    "thread_id": null
-  },
-  "pec_validation": {
-    "is_valid_pec": true,
-    "signature_valid": true,
-    "certificate_valid": true,
-    "timestamp_valid": true,
-    "signer": {
-      "cn": "InfoCert Firma Qualificata 2",
-      "organization": "InfoCert S.p.A.",
-      "not_before": "2023-01-01T00:00:00Z",
-      "not_after": "2026-01-01T00:00:00Z"
+    "pec_validation": {
+      "is_valid_pec": true,
+      "signature_valid": true,
+      "certificate_valid": true,
+      "timestamp_valid": true,
+      "signer": {
+        "cn": "InfoCert Firma Qualificata 2",
+        "organization": "InfoCert S.p.A.",
+        "not_before": "2023-01-01T00:00:00Z",
+        "not_after": "2026-01-01T00:00:00Z"
+      },
+      "timestamp": "2025-11-03T09:15:23Z"
     },
-    "timestamp": "2025-11-03T09:15:23Z"
-  },
-  "body": {
-    "text_plain": "Gentile Comune, si richiede autorizzazione...",
-    "text_html": "<html>...</html>",
-    "text_preview": "Gentile Comune, si richiede autorizzazione... (primi 200 caratteri)"
-  },
-  "attachments": [
-    {
-      "attachment_id": "ATT-001",
-      "filename": "istanza.pdf",
-      "mime_type": "application/pdf",
-      "size_bytes": 245760,
-      "sha256": "a1b2c3d4e5f6...",
-      "storage_path": "s3://bucket/attachments/WF-12345/istanza.pdf",
-      "is_signed": false
+    "body": {
+      "text_plain": "Gentile Comune, si richiede autorizzazione...",
+      "text_html": "<html>...</html>",
+      "text_preview": "Gentile Comune, si richiede autorizzazione... (primi 200 caratteri)"
     },
-    {
-      "attachment_id": "ATT-002",
-      "filename": "documento_identita.pdf.p7m",
-      "mime_type": "application/pkcs7-mime",
-      "size_bytes": 512000,
-      "sha256": "f6e5d4c3b2a1...",
-      "storage_path": "s3://bucket/attachments/WF-12345/documento_identita.pdf",
-      "is_signed": true,
-      "unwrapped_filename": "documento_identita.pdf",
-      "unwrapped_mime_type": "application/pdf"
+    "attachments": [
+      {
+        "attachment_id": "ATT-001",
+        "filename": "istanza.pdf",
+        "mime_type": "application/pdf",
+        "size_bytes": 245760,
+        "sha256": "a1b2c3d4e5f6...",
+        "storage_path": "s3://bucket/attachments/WF-12345/istanza.pdf",
+        "is_signed": false
+      },
+      {
+        "attachment_id": "ATT-002",
+        "filename": "documento_identita.pdf.p7m",
+        "mime_type": "application/pkcs7-mime",
+        "size_bytes": 512000,
+        "sha256": "f6e5d4c3b2a1...",
+        "storage_path": "s3://bucket/attachments/WF-12345/documento_identita.pdf",
+        "is_signed": true,
+        "unwrapped_filename": "documento_identita.pdf",
+        "unwrapped_mime_type": "application/pdf"
+      },
+      {
+        "attachment_id": "ATT-003",
+        "filename": "planimetria.pdf",
+        "mime_type": "application/pdf",
+        "size_bytes": 1048576,
+        "sha256": "1234567890ab...",
+        "storage_path": "s3://bucket/attachments/WF-12345/planimetria.pdf",
+        "is_signed": false
+      }
+    ],
+    "intent_classification": {
+      "intent": "nuova_istanza",
+      "confidence": 0.94,
+      "keywords": [
+        "richiesta",
+        "autorizzazione",
+        "scarico acque"
+      ],
+      "urgency": "normal",
+      "is_integration_request": false
     },
-    {
-      "attachment_id": "ATT-003",
-      "filename": "planimetria.pdf",
-      "mime_type": "application/pdf",
-      "size_bytes": 1048576,
-      "sha256": "1234567890ab...",
-      "storage_path": "s3://bucket/attachments/WF-12345/planimetria.pdf",
-      "is_signed": false
-    }
-  ],
-  "intent_classification": {
-    "intent": "nuova_istanza",
-    "confidence": 0.94,
-    "keywords": ["richiesta", "autorizzazione", "scarico acque"],
-    "urgency": "normal",
-    "is_integration_request": false
-  },
-  "extracted_entities": {
-    "cf": ["RSSMRA80A01H501U"],
-    "piva": [],
-    "importi": [],
-    "date_mentions": ["2025-12-31"]
-  },
-  "enrichment": {
-    "sender_type": "cittadino",
-    "sender_location": "Roma (RM)",
-    "anagrafica_found": true,
-    "previous_emails_count": 0
-  },
-  "processing_time_ms": 823,
-  "timestamp": "2025-11-03T09:15:25Z"
+    "extracted_entities": {
+      "cf": [
+        "RSSMRA80A01H501U"
+      ],
+      "piva": [],
+      "importi": [],
+      "date_mentions": [
+        "2025-12-31"
+      ]
+    },
+    "enrichment": {
+      "sender_type": "cittadino",
+      "sender_location": "Roma (RM)",
+      "anagrafica_found": true,
+      "previous_emails_count": 0
+    },
+    "processing_time_ms": 823,
+    "timestamp": "2025-11-03T09:15:25Z"
+  }
 }
 ```
 
@@ -259,11 +273,13 @@ Recupera metadata email già parsata.
 **Response**:
 ```json
 {
-  "email_id": "EMAIL-67890",
-  "workflow_id": "WF-12345",
-  "metadata": {},
-  "attachments_count": 3,
-  "created_at": "2025-11-03T09:15:25Z"
+  "data": {
+    "email_id": "EMAIL-67890",
+    "workflow_id": "WF-12345",
+    "metadata": {},
+    "attachments_count": 3,
+    "created_at": "2025-11-03T09:15:25Z"
+  }
 }
 ```
 

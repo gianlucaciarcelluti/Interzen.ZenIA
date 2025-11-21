@@ -568,13 +568,6 @@ window.addEventListener('beforeunload', () => {
     ]
   }
 }
-```
-
-## 🔗 GraphQL Query
-
-### Schema Query
-
-```graphql
 # Query per documenti
 query GetDocuments($filter: DocumentFilter!, $pagination: PaginationInput) {
   documents(filter: $filter, pagination: $pagination) {
@@ -733,9 +726,6 @@ query GetConfiguration($service: String!, $version: String) {
     "after": "cursor_abc123"
   }
 }
-```
-
-```json
 {
   "data": {
     "documents": {

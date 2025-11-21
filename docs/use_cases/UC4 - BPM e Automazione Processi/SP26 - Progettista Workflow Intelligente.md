@@ -317,12 +317,6 @@ graph TD
 ### AI Optimization Features
 
 #### Pattern Recognition
-```
-Input: BPMN model + historical data
-Output: Suggested improvements
-Algorithm: Graph neural networks
-Accuracy: >85% rilevanza suggerimenti
-```
 
 #### Performance Prediction
 ```

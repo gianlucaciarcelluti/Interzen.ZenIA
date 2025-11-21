@@ -350,7 +350,9 @@ Quando una classificazione viene cacheata in Redis, la struttura è:
 **Operazione Redis**:
 ```redis
 GET doc:hash:sha256:a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6
-# Result: {classification_result with cache hit info}
+```
+Result: {classification_result with cache hit info}
+```
 
 EXPIRE key 86400  # 24 hours TTL
 ```

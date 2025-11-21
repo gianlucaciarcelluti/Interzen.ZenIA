@@ -702,7 +702,9 @@ logs = client.search_logs({
     "size": 100
 })
 
-# Get alerts
+```
+Get alerts
+```
 alerts = client.get_alerts(status="firing")
 ```
 

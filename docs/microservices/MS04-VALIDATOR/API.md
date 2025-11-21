@@ -37,7 +37,9 @@ MS04 espone un'API RESTful per la validazione completa dei documenti. Tutti gli 
 
 ## Endpoint Validazione
 
-### POST /validate
+```
+POST /validate
+```
 
 Esegue validazione completa di un documento.
 

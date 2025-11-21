@@ -128,7 +128,9 @@ graph LR
 
 ## API Endpoints
 
-### POST /extract-documents
+```
+POST /extract-documents
+```
 
 Endpoint principale per estrazione e classificazione allegati.
 
@@ -175,298 +177,295 @@ Endpoint principale per estrazione e classificazione allegati.
 **Response** (200 OK):
 ```json
 {
-  "workflow_id": "WF-12345",
-  "processing_status": "success",
-  "documents": [
-    {
-      "document_id": "DOC-001",
-      "attachment_id": "ATT-001",
-      "filename": "istanza.pdf",
-
-      "classification": {
-        "document_type": "istanza_procedimento",
-        "confidence": 0.96,
-        "alternative_types": [
-          {"type": "autocertificazione", "confidence": 0.12}
-        ]
-      },
-
-      "text_extraction": {
-        "method": "native_pdf",
-        "ocr_required": false,
-        "full_text": "Il sottoscritto Mario Rossi, nato a Roma il 15/03/1980, CF RSSMRA80C15H501U, residente in Via Roma 123, 00100 Roma (RM), chiede autorizzazione allo scarico delle acque reflue...",
-        "page_count": 2,
-        "text_length": 2456,
-        "language": "ita",
-        "confidence": 0.99
-      },
-
-      "extracted_entities": {
-        "persone": [
-          {
-            "nome": "Mario",
-            "cognome": "Rossi",
-            "nome_completo": "Mario Rossi",
-            "ruolo": "richiedente",
-            "mention_count": 3
-          }
-        ],
-        "codici_fiscali": [
-          {
-            "cf": "RSSMRA80C15H501U",
-            "tipo": "persona_fisica",
-            "persona": "Mario Rossi",
-            "validation": "valid"
-          }
-        ],
-        "partite_iva": [],
-        "indirizzi": [
-          {
-            "via": "Via Roma 123",
-            "cap": "00100",
-            "comune": "Roma",
-            "provincia": "RM",
-            "tipo": "residenza"
-          }
-        ],
-        "importi": [],
-        "date": [
-          {
-            "data": "1980-03-15",
-            "tipo": "nascita",
-            "persona": "Mario Rossi"
-          }
-        ],
-        "email": [],
-        "telefoni": [],
-        "codici_procedimento": []
-      },
-
-      "metadata": {
-        "pdf_metadata": {
-          "author": "Mario Rossi",
-          "creator": "Microsoft Word",
-          "creation_date": "2025-10-15T14:30:00Z",
-          "modification_date": "2025-10-20T09:15:00Z"
+  "data": {
+    "workflow_id": "WF-12345",
+    "processing_status": "success",
+    "documents": [
+      {
+        "document_id": "DOC-001",
+        "attachment_id": "ATT-001",
+        "filename": "istanza.pdf",
+        "classification": {
+          "document_type": "istanza_procedimento",
+          "confidence": 0.96,
+          "alternative_types": [
+            {
+              "type": "autocertificazione",
+              "confidence": 0.12
+            }
+          ]
         },
-        "has_digital_signature": false,
-        "is_searchable_pdf": true,
-        "page_sizes": ["A4", "A4"],
-        "contains_images": false,
-        "contains_tables": true,
-        "contains_forms": false
-      },
-
-      "validation": {
-        "is_readable": true,
-        "ocr_confidence": null,
-        "completeness_score": 0.95,
-        "issues": []
-      },
-
-      "processing_time_ms": 456,
-      "processed_at": "2025-11-03T10:25:12Z"
-    },
-    {
-      "document_id": "DOC-002",
-      "attachment_id": "ATT-002",
-      "filename": "documento_identita.pdf",
-
-      "classification": {
-        "document_type": "documento_identita",
-        "confidence": 0.98,
-        "alternative_types": []
-      },
-
-      "text_extraction": {
-        "method": "ocr",
-        "ocr_required": true,
-        "full_text": "REPUBBLICA ITALIANA CARTA D'IDENTITA N. AB1234567 ROSSI MARIO NATO IL 15/03/1980 A ROMA (RM) VALIDA FINO AL 15/03/2030 COMUNE DI ROMA...",
-        "page_count": 1,
-        "text_length": 345,
-        "language": "ita",
-        "confidence": 0.87
-      },
-
-      "extracted_entities": {
-        "persone": [
-          {
-            "nome": "Mario",
-            "cognome": "Rossi",
-            "nome_completo": "Mario Rossi",
-            "ruolo": "titolare_documento"
-          }
-        ],
-        "codici_fiscali": [
-          {
-            "cf": "RSSMRA80C15H501U",
-            "tipo": "persona_fisica",
-            "persona": "Mario Rossi",
-            "validation": "valid"
-          }
-        ],
-        "partite_iva": [],
-        "indirizzi": [
-          {
-            "comune": "Roma",
-            "provincia": "RM",
-            "tipo": "nascita"
-          }
-        ],
-        "importi": [],
-        "date": [
-          {
-            "data": "1980-03-15",
-            "tipo": "nascita"
+        "text_extraction": {
+          "method": "native_pdf",
+          "ocr_required": false,
+          "full_text": "Il sottoscritto Mario Rossi, nato a Roma il 15/03/1980, CF RSSMRA80C15H501U, residente in Via Roma 123, 00100 Roma (RM), chiede autorizzazione allo scarico delle acque reflue...",
+          "page_count": 2,
+          "text_length": 2456,
+          "language": "ita",
+          "confidence": 0.99
+        },
+        "extracted_entities": {
+          "persone": [
+            {
+              "nome": "Mario",
+              "cognome": "Rossi",
+              "nome_completo": "Mario Rossi",
+              "ruolo": "richiedente",
+              "mention_count": 3
+            }
+          ],
+          "codici_fiscali": [
+            {
+              "cf": "RSSMRA80C15H501U",
+              "tipo": "persona_fisica",
+              "persona": "Mario Rossi",
+              "validation": "valid"
+            }
+          ],
+          "partite_iva": [],
+          "indirizzi": [
+            {
+              "via": "Via Roma 123",
+              "cap": "00100",
+              "comune": "Roma",
+              "provincia": "RM",
+              "tipo": "residenza"
+            }
+          ],
+          "importi": [],
+          "date": [
+            {
+              "data": "1980-03-15",
+              "tipo": "nascita",
+              "persona": "Mario Rossi"
+            }
+          ],
+          "email": [],
+          "telefoni": [],
+          "codici_procedimento": []
+        },
+        "metadata": {
+          "pdf_metadata": {
+            "author": "Mario Rossi",
+            "creator": "Microsoft Word",
+            "creation_date": "2025-10-15T14:30:00Z",
+            "modification_date": "2025-10-20T09:15:00Z"
           },
-          {
-            "data": "2030-03-15",
-            "tipo": "scadenza_documento"
-          }
-        ],
-        "email": [],
-        "telefoni": [],
-        "codici_procedimento": [
-          {
-            "codice": "AB1234567",
-            "tipo": "numero_carta_identita"
-          }
-        ]
-      },
-
-      "metadata": {
-        "pdf_metadata": {
-          "author": "",
-          "creator": "Scanner HP",
-          "creation_date": "2025-10-25T16:45:00Z"
+          "has_digital_signature": false,
+          "is_searchable_pdf": true,
+          "page_sizes": [
+            "A4",
+            "A4"
+          ],
+          "contains_images": false,
+          "contains_tables": true,
+          "contains_forms": false
         },
-        "has_digital_signature": false,
-        "is_searchable_pdf": false,
-        "page_sizes": ["Custom"],
-        "contains_images": true,
-        "contains_tables": false,
-        "contains_forms": false
+        "validation": {
+          "is_readable": true,
+          "ocr_confidence": null,
+          "completeness_score": 0.95,
+          "issues": []
+        },
+        "processing_time_ms": 456,
+        "processed_at": "2025-11-03T10:25:12Z"
       },
-
-      "validation": {
-        "is_readable": true,
-        "ocr_confidence": 0.87,
-        "completeness_score": 0.92,
-        "issues": [
-          {
-            "severity": "warning",
-            "field": "scadenza",
-            "message": "Verificare scadenza documento (2030-03-15)"
-          }
-        ]
+      {
+        "document_id": "DOC-002",
+        "attachment_id": "ATT-002",
+        "filename": "documento_identita.pdf",
+        "classification": {
+          "document_type": "documento_identita",
+          "confidence": 0.98,
+          "alternative_types": []
+        },
+        "text_extraction": {
+          "method": "ocr",
+          "ocr_required": true,
+          "full_text": "REPUBBLICA ITALIANA CARTA D'IDENTITA N. AB1234567 ROSSI MARIO NATO IL 15/03/1980 A ROMA (RM) VALIDA FINO AL 15/03/2030 COMUNE DI ROMA...",
+          "page_count": 1,
+          "text_length": 345,
+          "language": "ita",
+          "confidence": 0.87
+        },
+        "extracted_entities": {
+          "persone": [
+            {
+              "nome": "Mario",
+              "cognome": "Rossi",
+              "nome_completo": "Mario Rossi",
+              "ruolo": "titolare_documento"
+            }
+          ],
+          "codici_fiscali": [
+            {
+              "cf": "RSSMRA80C15H501U",
+              "tipo": "persona_fisica",
+              "persona": "Mario Rossi",
+              "validation": "valid"
+            }
+          ],
+          "partite_iva": [],
+          "indirizzi": [
+            {
+              "comune": "Roma",
+              "provincia": "RM",
+              "tipo": "nascita"
+            }
+          ],
+          "importi": [],
+          "date": [
+            {
+              "data": "1980-03-15",
+              "tipo": "nascita"
+            },
+            {
+              "data": "2030-03-15",
+              "tipo": "scadenza_documento"
+            }
+          ],
+          "email": [],
+          "telefoni": [],
+          "codici_procedimento": [
+            {
+              "codice": "AB1234567",
+              "tipo": "numero_carta_identita"
+            }
+          ]
+        },
+        "metadata": {
+          "pdf_metadata": {
+            "author": "",
+            "creator": "Scanner HP",
+            "creation_date": "2025-10-25T16:45:00Z"
+          },
+          "has_digital_signature": false,
+          "is_searchable_pdf": false,
+          "page_sizes": [
+            "Custom"
+          ],
+          "contains_images": true,
+          "contains_tables": false,
+          "contains_forms": false
+        },
+        "validation": {
+          "is_readable": true,
+          "ocr_confidence": 0.87,
+          "completeness_score": 0.92,
+          "issues": [
+            {
+              "severity": "warning",
+              "field": "scadenza",
+              "message": "Verificare scadenza documento (2030-03-15)"
+            }
+          ]
+        },
+        "processing_time_ms": 1823,
+        "processed_at": "2025-11-03T10:25:14Z"
       },
-
-      "processing_time_ms": 1823,
-      "processed_at": "2025-11-03T10:25:14Z"
+      {
+        "document_id": "DOC-003",
+        "attachment_id": "ATT-003",
+        "filename": "planimetria.pdf",
+        "classification": {
+          "document_type": "planimetria_tecnica",
+          "confidence": 0.94,
+          "alternative_types": [
+            {
+              "type": "relazione_tecnica",
+              "confidence": 0.18
+            }
+          ]
+        },
+        "text_extraction": {
+          "method": "ocr",
+          "ocr_required": true,
+          "full_text": "PLANIMETRIA GENERALE Scala 1:100 Dott. Ing. Giuseppe Bianchi N. Iscrizione Albo 12345 LEGENDA...",
+          "page_count": 4,
+          "text_length": 892,
+          "language": "ita",
+          "confidence": 0.76
+        },
+        "extracted_entities": {
+          "persone": [
+            {
+              "nome": "Giuseppe",
+              "cognome": "Bianchi",
+              "nome_completo": "Giuseppe Bianchi",
+              "ruolo": "progettista",
+              "titolo": "Dott. Ing."
+            }
+          ],
+          "codici_fiscali": [],
+          "partite_iva": [],
+          "indirizzi": [],
+          "importi": [],
+          "date": [],
+          "email": [],
+          "telefoni": [],
+          "codici_procedimento": [
+            {
+              "codice": "12345",
+              "tipo": "numero_albo_professionale"
+            }
+          ]
+        },
+        "metadata": {
+          "pdf_metadata": {
+            "author": "Giuseppe Bianchi",
+            "creator": "AutoCAD 2024",
+            "creation_date": "2025-09-20T11:00:00Z"
+          },
+          "has_digital_signature": false,
+          "is_searchable_pdf": false,
+          "page_sizes": [
+            "A3",
+            "A3",
+            "A2",
+            "A4"
+          ],
+          "contains_images": true,
+          "contains_tables": false,
+          "contains_forms": false,
+          "is_technical_drawing": true
+        },
+        "validation": {
+          "is_readable": true,
+          "ocr_confidence": 0.76,
+          "completeness_score": 0.85,
+          "issues": [
+            {
+              "severity": "info",
+              "field": "ocr_confidence",
+              "message": "OCR confidence bassa (0.76) - disegno tecnico con poco testo"
+            }
+          ]
+        },
+        "processing_time_ms": 2145,
+        "processed_at": "2025-11-03T10:25:16Z"
+      }
+    ],
+    "validation_summary": {
+      "all_documents_readable": true,
+      "average_ocr_confidence": 0.815,
+      "total_entities_extracted": 23,
+      "required_docs_present": true,
+      "missing_documents": [],
+      "issues_count": {
+        "critical": 0,
+        "warning": 1,
+        "info": 1
+      }
     },
-    {
-      "document_id": "DOC-003",
-      "attachment_id": "ATT-003",
-      "filename": "planimetria.pdf",
-
-      "classification": {
-        "document_type": "planimetria_tecnica",
-        "confidence": 0.94,
-        "alternative_types": [
-          {"type": "relazione_tecnica", "confidence": 0.18}
-        ]
-      },
-
-      "text_extraction": {
-        "method": "ocr",
-        "ocr_required": true,
-        "full_text": "PLANIMETRIA GENERALE Scala 1:100 Dott. Ing. Giuseppe Bianchi N. Iscrizione Albo 12345 LEGENDA...",
-        "page_count": 4,
-        "text_length": 892,
-        "language": "ita",
-        "confidence": 0.76
-      },
-
-      "extracted_entities": {
-        "persone": [
-          {
-            "nome": "Giuseppe",
-            "cognome": "Bianchi",
-            "nome_completo": "Giuseppe Bianchi",
-            "ruolo": "progettista",
-            "titolo": "Dott. Ing."
-          }
-        ],
-        "codici_fiscali": [],
-        "partite_iva": [],
-        "indirizzi": [],
-        "importi": [],
-        "date": [],
-        "email": [],
-        "telefoni": [],
-        "codici_procedimento": [
-          {
-            "codice": "12345",
-            "tipo": "numero_albo_professionale"
-          }
-        ]
-      },
-
-      "metadata": {
-        "pdf_metadata": {
-          "author": "Giuseppe Bianchi",
-          "creator": "AutoCAD 2024",
-          "creation_date": "2025-09-20T11:00:00Z"
-        },
-        "has_digital_signature": false,
-        "is_searchable_pdf": false,
-        "page_sizes": ["A3", "A3", "A2", "A4"],
-        "contains_images": true,
-        "contains_tables": false,
-        "contains_forms": false,
-        "is_technical_drawing": true
-      },
-
-      "validation": {
-        "is_readable": true,
-        "ocr_confidence": 0.76,
-        "completeness_score": 0.85,
-        "issues": [
-          {
-            "severity": "info",
-            "field": "ocr_confidence",
-            "message": "OCR confidence bassa (0.76) - disegno tecnico con poco testo"
-          }
-        ]
-      },
-
-      "processing_time_ms": 2145,
-      "processed_at": "2025-11-03T10:25:16Z"
-    }
-  ],
-
-  "validation_summary": {
-    "all_documents_readable": true,
-    "average_ocr_confidence": 0.815,
-    "total_entities_extracted": 23,
-    "required_docs_present": true,
-    "missing_documents": [],
-    "issues_count": {
-      "critical": 0,
-      "warning": 1,
-      "info": 1
-    }
-  },
-
-  "processing_summary": {
-    "total_documents": 3,
-    "ocr_performed": 2,
-    "native_text_extraction": 1,
-    "total_processing_time_ms": 4424,
-    "average_time_per_doc_ms": 1475
-  },
-
-  "timestamp": "2025-11-03T10:25:16Z"
+    "processing_summary": {
+      "total_documents": 3,
+      "ocr_performed": 2,
+      "native_text_extraction": 1,
+      "total_processing_time_ms": 4424,
+      "average_time_per_doc_ms": 1475
+    },
+    "timestamp": "2025-11-03T10:25:16Z"
+  }
 }
 ```
 
@@ -545,11 +544,13 @@ OCR su singolo documento.
 **Response**:
 ```json
 {
-  "text": "Testo estratto dal documento...",
-  "page_count": 3,
-  "confidence": 0.89,
-  "language_detected": "ita",
-  "processing_time_ms": 1823
+  "data": {
+    "text": "Testo estratto dal documento...",
+    "page_count": 3,
+    "confidence": 0.89,
+    "language_detected": "ita",
+    "processing_time_ms": 1823
+  }
 }
 ```
 
@@ -560,11 +561,13 @@ Recupera documento già processato.
 **Response**:
 ```json
 {
-  "document_id": "DOC-001",
-  "classification": {},
-  "text_extraction": {},
-  "extracted_entities": {},
-  "created_at": "2025-11-03T10:25:12Z"
+  "data": {
+    "document_id": "DOC-001",
+    "classification": {},
+    "text_extraction": {},
+    "extracted_entities": {},
+    "created_at": "2025-11-03T10:25:12Z"
+  }
 }
 ```
 

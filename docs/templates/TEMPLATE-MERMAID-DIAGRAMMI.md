@@ -473,38 +473,6 @@ flowchart TD
     style C fill:#c8e6c9,stroke:#2e7d32,color:#000
     style D fill:#ffcdd2,stroke:#c62828,color:#000
     style E fill:#f3e5f5,stroke:#6a1b9a,color:#000
-```
-
-**Legenda**:
-- **Blu** (`#e1f5ff`): Input/Start
-- **Giallo** (`#fff9c4`): Processing
-- **Verde** (`#c8e6c9`): Success
-- **Rosso** (`#ffcdd2`): Error/Failure
-- **Viola** (`#f3e5f5`): Decision/Branching
-
-**Sequence & State**: Usa colori di default Mermaid (più leggibile)
-
-### 3. Dimensione e Complessità
-
-**Regola 1**: Un diagramma = un concetto
-- Se hai più di 15 nodi (flowchart) → split in 2 diagrammi
-- Se hai più di 10 interazioni (sequence) → split in 2 diagrammi
-- Se hai più di 10 stati → split per fase
-
-**Regola 2**: Mantieni il happy path visibile
-- Posiziona il main flow al centro/alto
-- Errori/edge cases a destra/basso
-- Usa colori distintivi per branch secondary
-
-### 4. Sincronizzazione Documentazione
-
-Quando aggiorni un SP:
-1. **Prima**: Aggiorna il diagramma in Mermaid
-2. **Poi**: Aggiorna il testo della documentazione
-3. **Infine**: Aggiorna la sezione Conformità (se impatta compliance)
-
-Usa commenti nel codice Mermaid per documentare:
-```mermaid
 flowchart TD
     %% Main processing flow - Updated 2025-11-19
     A[Input] --> B[Processing]

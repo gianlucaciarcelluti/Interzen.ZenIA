@@ -49,11 +49,11 @@
 
 | Microservizio | Funzione | Risk Level | Fonte | Status |
 |--------------|----------|-----------|--------|--------|
-| **MS01-CLASSIFIER** | Classificazione documenti via ML | 🔴 HIGH-RISK | [SPECIFICATION.md](docs/microservices/MS01-CLASSIFIER/SPECIFICATION.md#risk-assessment) | ✅ MAPPED |
-| **MS02-ANALYZER** | Estrazione entità e analisi | 🟠 MEDIUM-RISK | [SPECIFICATION.md](docs/microservices/MS02-ANALYZER/SPECIFICATION.md) | ✅ MAPPED |
-| **MS04-VALIDATOR** | Validazione con regole ML | 🟠 MEDIUM-RISK | [SPECIFICATION.md](docs/microservices/MS04-VALIDATOR/SPECIFICATION.md) | ✅ MAPPED |
-| **MS05-TRANSFORMER** | Trasformazione formati (no ML) | 🟢 LOW-RISK | [SPECIFICATION.md](docs/microservices/MS05-TRANSFORMER/SPECIFICATION.md) | ✅ MAPPED |
-| **MS13-SECURITY** | Encryption e security | 🟢 LOW-RISK | [SPECIFICATION.md](docs/microservices/MS13-SECURITY/SPECIFICATION.md) | ✅ MAPPED |
+| **MS01-CLASSIFIER** | Classificazione documenti via ML | 🔴 HIGH-RISK | [SPECIFICATION.md](microservices/MS01-CLASSIFIER/SPECIFICATION.md#risk-assessment) | ✅ MAPPED |
+| **MS02-ANALYZER** | Estrazione entità e analisi | 🟠 MEDIUM-RISK | [SPECIFICATION.md](microservices/MS02-ANALYZER/SPECIFICATION.md) | ✅ MAPPED |
+| **MS04-VALIDATOR** | Validazione con regole ML | 🟠 MEDIUM-RISK | [SPECIFICATION.md](microservices/MS04-VALIDATOR/SPECIFICATION.md) | ✅ MAPPED |
+| **MS05-TRANSFORMER** | Trasformazione formati (no ML) | 🟢 LOW-RISK | [SPECIFICATION.md](microservices/MS05-TRANSFORMER/SPECIFICATION.md) | ✅ MAPPED |
+| **MS13-SECURITY** | Encryption e security | 🟢 LOW-RISK | [SPECIFICATION.md](microservices/MS13-SECURITY/SPECIFICATION.md) | ✅ MAPPED |
 
 ---
 
@@ -67,9 +67,9 @@
 
 | Sub-Requirement | Documentazione | Codice | Test | Status |
 |-----------------|-----------------|--------|------|--------|
-| Identificazione rischi | [ARCHITECTURE-OVERVIEW.md](docs/ARCHITECTURE-OVERVIEW.md#security-architecture) | MS13-SECURITY | ❌ Missing | 🟡 PARTIAL |
-| Scenario di fallimento | [SPECIFICATION.md](docs/microservices/MS01-CLASSIFIER/SPECIFICATION.md#failure-scenarios) | MS01 README | ❌ Missing | 🟡 PARTIAL |
-| Mitigation strategies | [DEVELOPMENT-GUIDE.md](docs/DEVELOPMENT-GUIDE.md) | In code | ⚠️ Manual | 🟠 PARTIAL |
+| Identificazione rischi | [ARCHITECTURE-OVERVIEW.md](ARCHITECTURE-OVERVIEW.md#security-architecture) | MS13-SECURITY | ❌ Missing | 🟡 PARTIAL |
+| Scenario di fallimento | [SPECIFICATION.md](microservices/MS01-CLASSIFIER/SPECIFICATION.md#failure-scenarios) | MS01 README | ❌ Missing | 🟡 PARTIAL |
+| Mitigation strategies | [DEVELOPMENT-GUIDE.md](DEVELOPMENT-GUIDE.md) | In code | ⚠️ Manual | 🟠 PARTIAL |
 | Residual risk assessment | ❌ Missing | ❌ Missing | ❌ Missing | 🔴 RED |
 
 **Gap**: Documentazione di risk assessment formale mancante. Richiede template DPIA (Data Protection Impact Assessment).
@@ -84,11 +84,11 @@
 
 | Sub-Requirement | Documentazione | Evidenza | Status |
 |-----------------|-----------------|----------|--------|
-| Qualità dati training | [MS01-CLASSIFIER/SPECIFICATION.md](docs/microservices/MS01-CLASSIFIER/SPECIFICATION.md#training-data) | Dataset metadata | 🟡 PARTIAL |
+| Qualità dati training | [MS01-CLASSIFIER/SPECIFICATION.md](microservices/MS01-CLASSIFIER/SPECIFICATION.md#training-data) | Dataset metadata | 🟡 PARTIAL |
 | Bias detection | ❌ Not documented | ❌ Not implemented | 🔴 RED |
 | Data provenance | ❌ Not documented | ❌ Not tracked | 🔴 RED |
-| Data retention policy | [COMPLIANCE-MATRIX.md](docs/COMPLIANCE-MATRIX.md) | ⚠️ Partial | 🟡 PARTIAL |
-| GDPR Data Rights | [ZENSHAREUP-ZENIA-INTEGRATION.md](docs/ZENSHAREUP-ZENIA-INTEGRATION.md) | MS07 compliance | 🟡 PARTIAL |
+| Data retention policy | [COMPLIANCE-MATRIX.md](COMPLIANCE-MATRIX.md) | ⚠️ Partial | 🟡 PARTIAL |
+| GDPR Data Rights | [ZENSHAREUP-ZENIA-INTEGRATION.md](ZENSHAREUP-ZENIA-INTEGRATION.md) | MS07 compliance | 🟡 PARTIAL |
 
 **Gap**: Mancano tracker di data lineage e bias detection framework.
 
@@ -211,22 +211,22 @@
 
 ### MS01-CLASSIFIER
 
-**File di Riferimento**: [docs/microservices/MS01-CLASSIFIER/](docs/microservices/MS01-CLASSIFIER/)
+**File di Riferimento**: [docs/microservices/MS01-CLASSIFIER/](microservices/MS01-CLASSIFIER/)
 
 **Risk Level**: 🔴 HIGH-RISK
 
 **AI Act Compliance Checklist**:
 
-- [x] Risk assessment documentato → [SPECIFICATION.md](docs/microservices/MS01-CLASSIFIER/SPECIFICATION.md#risk-assessment)
-- [x] Technical documentation → [SPECIFICATION.md](docs/microservices/MS01-CLASSIFIER/SPECIFICATION.md), [API.md](docs/microservices/MS01-CLASSIFIER/API.md), [DATABASE-SCHEMA.md](docs/microservices/MS01-CLASSIFIER/DATABASE-SCHEMA.md)
+- [x] Risk assessment documentato → [SPECIFICATION.md](microservices/MS01-CLASSIFIER/SPECIFICATION.md#risk-assessment)
+- [x] Technical documentation → [SPECIFICATION.md](microservices/MS01-CLASSIFIER/SPECIFICATION.md), [API.md](microservices/MS01-CLASSIFIER/API.md), [DATABASE-SCHEMA.md](microservices/MS01-CLASSIFIER/DATABASE-SCHEMA.md)
 - [ ] System Card (AI Act 13) → **REQUIRED**
-- [ ] Training data characteristics → [SPECIFICATION.md](docs/microservices/MS01-CLASSIFIER/SPECIFICATION.md#training-data) **PARTIAL**
+- [ ] Training data characteristics → [SPECIFICATION.md](microservices/MS01-CLASSIFIER/SPECIFICATION.md#training-data) **PARTIAL**
 - [ ] Fairness assessment → **MISSING**
 - [ ] Bias testing procedures → **MISSING**
 - [ ] Environmental impact → **MISSING**
 - [ ] Confidence scores documentation → **MISSING**
-- [ ] Human oversight capability → ✅ [MS06-AGGREGATOR review](docs/microservices/MS06-AGGREGATOR/)
-- [ ] Audit trail → ✅ [MS14-AUDIT](docs/microservices/MS14-AUDIT/)
+- [ ] Human oversight capability → ✅ [MS06-AGGREGATOR review](microservices/MS06-AGGREGATOR/)
+- [ ] Audit trail → ✅ [MS14-AUDIT](microservices/MS14-AUDIT/)
 
 **Priority Gaps**:
 1. ❌ System Card creation
@@ -237,19 +237,19 @@
 
 ### MS02-ANALYZER
 
-**File di Riferimento**: [docs/microservices/MS02-ANALYZER/](docs/microservices/MS02-ANALYZER/)
+**File di Riferimento**: [docs/microservices/MS02-ANALYZER/](microservices/MS02-ANALYZER/)
 
 **Risk Level**: 🟠 MEDIUM-RISK
 
 **AI Act Compliance Checklist**:
 
-- [x] Technical documentation → [SPECIFICATION.md](docs/microservices/MS02-ANALYZER/SPECIFICATION.md), [API.md](docs/microservices/MS02-ANALYZER/API.md)
+- [x] Technical documentation → [SPECIFICATION.md](microservices/MS02-ANALYZER/SPECIFICATION.md), [API.md](microservices/MS02-ANALYZER/API.md)
 - [ ] System Card (AI Act 13) → **REQUIRED for high-confidence outputs**
-- [ ] Entity extraction accuracy metrics → [SPECIFICATION.md](docs/microservices/MS02-ANALYZER/SPECIFICATION.md#performance) **PARTIAL**
+- [ ] Entity extraction accuracy metrics → [SPECIFICATION.md](microservices/MS02-ANALYZER/SPECIFICATION.md#performance) **PARTIAL**
 - [ ] Fairness across document types → **MISSING**
 - [ ] Bias in entity recognition → **MISSING**
-- [ ] Explainability of extractions → ✅ [SPECIFICATION.md](docs/microservices/MS02-ANALYZER/SPECIFICATION.md#explainability)
-- [ ] Human review capability → ✅ [MS06-AGGREGATOR](docs/microservices/MS06-AGGREGATOR/)
+- [ ] Explainability of extractions → ✅ [SPECIFICATION.md](microservices/MS02-ANALYZER/SPECIFICATION.md#explainability)
+- [ ] Human review capability → ✅ [MS06-AGGREGATOR](microservices/MS06-AGGREGATOR/)
 
 **Priority Gaps**:
 1. ❌ System Card for entity extraction model
@@ -260,19 +260,19 @@
 
 ### MS04-VALIDATOR
 
-**File di Riferimento**: [docs/microservices/MS04-VALIDATOR/](docs/microservices/MS04-VALIDATOR/)
+**File di Riferimento**: [docs/microservices/MS04-VALIDATOR/](microservices/MS04-VALIDATOR/)
 
 **Risk Level**: 🟠 MEDIUM-RISK
 
 **AI Act Compliance Checklist**:
 
 - [x] Technical documentation → Complete
-- [x] Validation rules documented → [SPECIFICATION.md](docs/microservices/MS04-VALIDATOR/SPECIFICATION.md#validation-rules)
+- [x] Validation rules documented → [SPECIFICATION.md](microservices/MS04-VALIDATOR/SPECIFICATION.md#validation-rules)
 - [ ] System Card → **REQUIRED**
 - [ ] Confidence scoring → **PARTIAL**
 - [ ] Fairness in validation → **MISSING**
-- [ ] Error analysis → [SPECIFICATION.md](docs/microservices/MS04-VALIDATOR/SPECIFICATION.md#error-handling) **PARTIAL**
-- [ ] Audit trail → ✅ [MS14-AUDIT](docs/microservices/MS14-AUDIT/)
+- [ ] Error analysis → [SPECIFICATION.md](microservices/MS04-VALIDATOR/SPECIFICATION.md#error-handling) **PARTIAL**
+- [ ] Audit trail → ✅ [MS14-AUDIT](microservices/MS14-AUDIT/)
 
 **Priority Gaps**:
 1. ❌ System Card
@@ -283,7 +283,7 @@
 
 ### MS05-TRANSFORMER
 
-**File di Riferimento**: [docs/microservices/MS05-TRANSFORMER/](docs/microservices/MS05-TRANSFORMER/)
+**File di Riferimento**: [docs/microservices/MS05-TRANSFORMER/](microservices/MS05-TRANSFORMER/)
 
 **Risk Level**: 🟢 LOW-RISK (No ML)
 

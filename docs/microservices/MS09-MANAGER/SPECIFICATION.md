@@ -120,20 +120,6 @@ CREATE TABLE workflow_states (
 -- Indice per query ottimizzate
 CREATE INDEX idx_workflow_states_version ON workflow_states (workflow_id, version DESC);
 CREATE INDEX idx_workflow_states_state ON workflow_states USING GIN (state_json);
-```
-
-#### Snapshot Strategy
-- **Snapshot Frequency**: Ogni 100 eventi o 1 ora
-- **Compression**: LZ4 per ridurre footprint storage
-- **Retention**: Snapshot mantenuti per 90 giorni
-
-### 2.4 Transaction Manager
-
-**Pattern**: Saga Pattern con Choreography
-**Coordinamento**: Event-driven con compensazione automatica
-
-#### Saga Implementation
-```java
 public class SagaManager {
     private final EventPublisher eventPublisher;
     private final CompensationHandler compensationHandler;

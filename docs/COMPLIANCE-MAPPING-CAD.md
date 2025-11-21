@@ -47,14 +47,14 @@
 
 | WCAG Pillar | Requirement | ZenIA Status | Documentation |
 |-------------|-------------|--------------|-----------------|
-| **Perceivable** | Testi alternativi per immagini | 🟡 PARTIAL | [ARCHITECTURE-OVERVIEW.md](docs/ARCHITECTURE-OVERVIEW.md) |
+| **Perceivable** | Testi alternativi per immagini | 🟡 PARTIAL | [ARCHITECTURE-OVERVIEW.md](ARCHITECTURE-OVERVIEW.md) |
 | | Contrasto colori (4.5:1 for text) | ❌ NOT ASSESSED | Requires audit |
 | | Audio/video captions | ❌ NOT APPLICABLE | No multimedia |
 | **Operable** | Navigazione solo tastiera | 🟡 PARTIAL | Test required |
 | | Focus order management | ❌ NOT ASSESSED | Requires audit |
 | | No seizure risks | ✅ COMPLIANT | By design |
-| **Understandable** | Linguaggio semplice | ✅ GOOD | [DOCUMENTATION-STRUCTURE-GUIDE.md](docs/DOCUMENTATION-STRUCTURE-GUIDE.md) |
-| | Consistent navigation | ✅ GOOD | [ARCHITECTURE-OVERVIEW.md](docs/ARCHITECTURE-OVERVIEW.md) |
+| **Understandable** | Linguaggio semplice | ✅ GOOD | [DOCUMENTATION-STRUCTURE-GUIDE.md](DOCUMENTATION-STRUCTURE-GUIDE.md) |
+| | Consistent navigation | ✅ GOOD | [ARCHITECTURE-OVERVIEW.md](ARCHITECTURE-OVERVIEW.md) |
 | | Error prevention | 🟡 PARTIAL | MS04-VALIDATOR, MS06-AGGREGATOR |
 | **Robust** | Valid markup | 🟡 PARTIAL | Requires WCAG validator |
 | | Browser compatibility | ✅ GOOD | Multi-browser support |
@@ -73,13 +73,13 @@
 
 | Component | Implementation | ZenIA Status | Reference |
 |-----------|-----------------|--------------|-----------|
-| **Storage Medium** | Cloud storage (Azure/S3/Filesystem) | ✅ PRESENT | [ZENSHAREUP-ARCHITECTURE.md](docs/ZENSHAREUP-ARCHITECTURE.md) |
+| **Storage Medium** | Cloud storage (Azure/S3/Filesystem) | ✅ PRESENT | [ZENSHAREUP-ARCHITECTURE.md](ZENSHAREUP-ARCHITECTURE.md) |
 | **Format Standardization** | PDF/A for long-term preservation | 🟠 PARTIAL | MS05-TRANSFORMER converts to PDF |
 | **Metadata Preservation** | Document metadata tracking | ✅ GOOD | MS06-AGGREGATOR + MS14-AUDIT |
 | **Integrity Verification** | Checksums (SHA-256) | ❌ MISSING | Requires implementation |
-| **Audit Trail** | Complete audit log | ✅ PRESENT | [MS14-AUDIT](docs/microservices/MS14-AUDIT/) |
-| **Encryption at Rest** | TDE + Azure encryption | ✅ PRESENT | [MS13-SECURITY](docs/microservices/MS13-SECURITY/SPECIFICATION.md) |
-| **Lifecycle Management** | Retention policies | 🟡 PARTIAL | [COMPLIANCE-MATRIX.md](docs/COMPLIANCE-MATRIX.md) - needs detail |
+| **Audit Trail** | Complete audit log | ✅ PRESENT | [MS14-AUDIT](microservices/MS14-AUDIT/) |
+| **Encryption at Rest** | TDE + Azure encryption | ✅ PRESENT | [MS13-SECURITY](microservices/MS13-SECURITY/SPECIFICATION.md) |
+| **Lifecycle Management** | Retention policies | 🟡 PARTIAL | [COMPLIANCE-MATRIX.md](COMPLIANCE-MATRIX.md) - needs detail |
 | **Backup Strategy** | Geo-redundant backups | ✅ PRESENT | Cloud provider native |
 
 **Status**: 🟠 PARTIAL - Infrastructure present, formal DPCM compliance documentation missing
@@ -117,9 +117,9 @@
 | Element | Requirement | Status | Reference |
 |---------|-------------|--------|-----------|
 | **Data Minimization** | Collect only necessary data | ✅ GOOD | MS07 distributes to ZenShareUp |
-| **Purpose Limitation** | Clear use restrictions | 🟡 PARTIAL | [ZENSHAREUP-ZENIA-INTEGRATION.md](docs/ZENSHAREUP-ZENIA-INTEGRATION.md) |
+| **Purpose Limitation** | Clear use restrictions | 🟡 PARTIAL | [ZENSHAREUP-ZENIA-INTEGRATION.md](ZENSHAREUP-ZENIA-INTEGRATION.md) |
 | **Consent Management** | Document user consent | ❌ MISSING | Requires consent layer |
-| **Data Subject Rights** | Right to access, erasure, portability | 🟠 PARTIAL | [COMPLIANCE-MATRIX.md](docs/COMPLIANCE-MATRIX.md) |
+| **Data Subject Rights** | Right to access, erasure, portability | 🟠 PARTIAL | [COMPLIANCE-MATRIX.md](COMPLIANCE-MATRIX.md) |
 | **Privacy by Design** | PbD principles in architecture | 🟠 PARTIAL | MS13-SECURITY, MS07 |
 | **DPIA Requirements** | Data Protection Impact Assessment | ❌ MISSING | Requires assessment |
 | **Breach Notification** | 72-hour breach reporting | ❌ MISSING | Requires incident response |
@@ -178,8 +178,8 @@
 
 | Component | Implementation | Status | Reference |
 |-----------|-----------------|--------|-----------|
-| **API Standards** | OpenAPI 3.0 compliance | 🟡 PARTIAL | [API.md](docs/microservices/MSxx/API.md) exists, needs formal validation |
-| **Data Format Standards** | XML, JSON standardization | ✅ GOOD | [ZENSHAREUP-ZENIA-INTEGRATION.md](docs/ZENSHAREUP-ZENIA-INTEGRATION.md) |
+| **API Standards** | OpenAPI 3.0 compliance | 🟡 PARTIAL | [API.md](microservices/MSxx/API.md) exists, needs formal validation |
+| **Data Format Standards** | XML, JSON standardization | ✅ GOOD | [ZENSHAREUP-ZENIA-INTEGRATION.md](ZENSHAREUP-ZENIA-INTEGRATION.md) |
 | **ANPR Integration** | ANPR directory integration | ❌ MISSING | Requires implementation |
 | **Service Discovery** | Service registry capability | 🟡 PARTIAL | MS15-REGISTRY present |
 | **Error Handling** | Standardized error responses | 🟡 PARTIAL | Needs standardization |
@@ -339,7 +339,7 @@
 #### Subtasks
 
 1. **I-7.1: OpenAPI 3.0 Validation** (8 ore)
-   - Validate all [MSxx/API.md](docs/microservices/MSxx/API.md) against OpenAPI spec
+   - Validate all [MSxx/API.md](microservices/MSxx/API.md) against OpenAPI spec
    - Generate OpenAPI schemas from code
    - Output: openapi.yaml for all services
 

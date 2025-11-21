@@ -80,7 +80,7 @@ MS14-AUDIT, MS15-CONFIG, MS16-REGISTRY
 
 **Impatto**: Navigazione manuale inefficiente, difficoltà seguire dipendenze.
 
-**Soluzione**: Convertire riferimenti testuali in markdown link `[SP02](../path/to/SP02.md)`.
+**Soluzione**: Convertire riferimenti testuali in markdown link `[SP02](path/to/SP02.md)`.
 
 ---
 
@@ -555,36 +555,6 @@ Vedi [COMPLIANCE-MATRIX.md](./COMPLIANCE-MATRIX.md#sp11) per dettagli implementa
 
 ## TIMELINE COMPLESSIVA
 
-```mermaid
-gantt
-    title Piano Refactoring Documentazione ZenIA
-    dateFormat YYYY-MM-DD
-
-    section Fase 1: Fondamenta
-    Script Verifica      :f1-1, 2025-11-20, 3d
-    Fix TROUBLESHOOTING  :f1-2, 2025-11-23, 1d
-    Doc Gap SP28         :f1-3, 2025-11-24, 1d
-
-    section Fase 2: Qualità
-    Flowchart vs Pseudo  :f2-1, 2025-11-25, 2d
-    Glossario            :f2-2, 2025-11-27, 2d
-    JSON Standard        :f2-3, 2025-11-29, 2d
-
-    section Fase 3: Navigazione
-    Link Automatici      :f3-1, 2025-12-01, 5d
-    Indici UC            :f3-2, 2025-12-06, 2d
-
-    section Fase 4: Avanzati
-    Badge MS             :f4-1, 2025-12-08, 2d
-    Changelog MS         :f4-2, 2025-12-10, 2d
-    Tracciabilità Norm   :f4-3, 2025-12-12, 3d
-
-    section Fase 5: Validazione
-    Verifiche Auto       :f5-1, 2025-12-15, 2d
-    Review Qualità       :f5-2, 2025-12-17, 3d
-    Update Checklist     :f5-3, 2025-12-20, 1d
-    Guida Manutenzione   :f5-4, 2025-12-21, 1d
-```
 
 **Durata Totale**: 9 settimane (20 Nov - 21 Dic 2025)
 **Effort Totale**: ~25 giorni/persona

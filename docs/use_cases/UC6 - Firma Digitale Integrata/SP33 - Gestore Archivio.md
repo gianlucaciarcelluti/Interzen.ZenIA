@@ -49,36 +49,6 @@ Il **SP33 Archive Manager** è il componente core del sistema di gestione archiv
 
 ## Architettura Interna
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    API GATEWAY LAYER                        │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │  REST API              GraphQL API          WebSocket   │ │
-│  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
-│  │  │  - CRUD Ops     │    │  - Complex Q  │   │  - RT    │ │
-│  │  │  - File Upload  │    │  - Analytics  │   │  - Notif │ │
-│  │  │  - Batch Import │    │  - Federation │   │  - Status│ │
-│  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
-└─────────────────────────────────────────────────────────────┘
-│                    BUSINESS LOGIC LAYER                     │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │  Lifecycle Manager     Classification Engine   Access   │ │
-│  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
-│  │  │  - Retention    │    │  - AI Class   │   │  - RBAC  │ │
-│  │  │  - Migration    │    │  - Metadata   │   │  - Audit │ │
-│  │  │  - Disposal     │    │  - Policy     │   │  - JWT   │ │
-│  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
-└─────────────────────────────────────────────────────────────┘
-│                    DATA ACCESS LAYER                        │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │  PostgreSQL             Redis Cache          MinIO      │ │
-│  │  ┌─────────────────┐    ┌────────────────┐   ┌─────────┐ │ │
-│  │  │  - Metadata     │    │  - Sessions    │   │  - Docs │ │
-│  │  │  - Policies     │    │  - ACL         │   │  - Index │ │
-│  │  │  - Audit        │    │  - Locks       │   │  - Vers  │ │
-│  │  └─────────────────┘    └────────────────┘   └─────────┘ │ │
-└─────────────────────────────────────────────────────────────┘
-```
 
 ## API Endpoints
 

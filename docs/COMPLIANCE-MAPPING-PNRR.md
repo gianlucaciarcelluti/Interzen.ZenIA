@@ -39,7 +39,9 @@
 
 ## Pilastri PNRR per Digitale
 
-### Context: Missione 1 "Digitalizzazione, innovazione e competitività nel sistema produttivo"
+```
+Context: Missione 1 "Digitalizzazione, innovazione e competitività nel sistema produttivo"
+```
 
 Il PNRR stanzia €48,6 miliardi per la digitalizzazione della PA, infrastrutture digitali, e innovazione. ZenIA rientra nel programma di **modernizzazione dei servizi di documentazione amministrativa**.
 
@@ -53,10 +55,10 @@ Il PNRR stanzia €48,6 miliardi per la digitalizzazione della PA, infrastruttur
 
 | Requirement | Implementation | ZenIA Status | Reference |
 |-------------|-----------------|--------------|-----------|
-| **Multi-Cloud Support** | Azure (primary) + S3 (failover) + Filesystem (dev) | ✅ EXCELLENT | [ZENSHAREUP-ARCHITECTURE.md](docs/ZENSHAREUP-ARCHITECTURE.md#storage-backends) |
+| **Multi-Cloud Support** | Azure (primary) + S3 (failover) + Filesystem (dev) | ✅ EXCELLENT | [ZENSHAREUP-ARCHITECTURE.md](ZENSHAREUP-ARCHITECTURE.md#storage-backends) |
 | **Cloud Provider Selection** | AGID-approved providers (Azure qualified) | ✅ EXCELLENT | Microsoft Azure (Trusted Cloud) |
 | **Data Sovereignty** | EU data residency (non-US data centers) | ✅ GOOD | EU-only Azure regions |
-| **Cost Optimization** | Reserved instances, spot pricing | 🟡 PARTIAL | [COSTI-HOSTING-SERVIZI.md](docs/COSTI-HOSTING-SERVIZI.md) - review needed |
+| **Cost Optimization** | Reserved instances, spot pricing | 🟡 PARTIAL | [COSTI-HOSTING-SERVIZI.md](COSTI-HOSTING-SERVIZI.md) - review needed |
 | **Service Level Agreements** | >99.9% uptime SLA | ✅ GOOD | Cloud provider SLA |
 | **Disaster Recovery** | RTO < 1 hour, RPO < 15 min | ✅ GOOD | Geo-redundant backups |
 
@@ -72,10 +74,10 @@ Il PNRR stanzia €48,6 miliardi per la digitalizzazione della PA, infrastruttur
 
 | Component | Requirement | Status | Reference |
 |-----------|-------------|--------|-----------|
-| **OpenAPI 3.0 Spec** | All APIs documented in OpenAPI 3.0 | 🟡 PARTIAL | [docs/microservices/MSxx/API.md](docs/microservices/) |
-| **Versioning Strategy** | Semantic versioning + backward compatibility | 🟡 PARTIAL | [DEVELOPMENT-GUIDE.md](docs/DEVELOPMENT-GUIDE.md) - needs explicit policy |
+| **OpenAPI 3.0 Spec** | All APIs documented in OpenAPI 3.0 | 🟡 PARTIAL | [docs/microservices/MSxx/API.md](microservices/) |
+| **Versioning Strategy** | Semantic versioning + backward compatibility | 🟡 PARTIAL | [DEVELOPMENT-GUIDE.md](DEVELOPMENT-GUIDE.md) - needs explicit policy |
 | **Error Handling** | Standardized HTTP status codes + error responses | 🟡 PARTIAL | Varies by service |
-| **Authentication** | OAuth 2.0 / OpenID Connect | ✅ GOOD | [MS13-SECURITY](docs/microservices/MS13-SECURITY/) |
+| **Authentication** | OAuth 2.0 / OpenID Connect | ✅ GOOD | [MS13-SECURITY](microservices/MS13-SECURITY/) |
 | **Rate Limiting** | API rate limits + quotas | 🟡 PARTIAL | Implemented per service, not documented |
 | **API Gateway** | Centralized API gateway | 🟡 PARTIAL | MS15-REGISTRY provides service discovery |
 | **Documentation** | Auto-generated API docs | 🟡 PARTIAL | Need Swagger UI integration |
@@ -116,14 +118,14 @@ Il PNRR stanzia €48,6 miliardi per la digitalizzazione della PA, infrastruttur
 
 | Component | Requirement | Status | Reference |
 |-----------|-------------|--------|-----------|
-| **Encryption at Rest** | TDE + Azure encryption | ✅ EXCELLENT | [MS13-SECURITY](docs/microservices/MS13-SECURITY/SPECIFICATION.md) |
+| **Encryption at Rest** | TDE + Azure encryption | ✅ EXCELLENT | [MS13-SECURITY](microservices/MS13-SECURITY/SPECIFICATION.md) |
 | **Encryption in Transit** | TLS 1.3 for all connections | ✅ EXCELLENT | MS13-SECURITY |
-| **Key Management** | HSM or Azure Key Vault | ✅ GOOD | [ZENSHAREUP-ARCHITECTURE.md](docs/ZENSHAREUP-ARCHITECTURE.md) |
+| **Key Management** | HSM or Azure Key Vault | ✅ GOOD | [ZENSHAREUP-ARCHITECTURE.md](ZENSHAREUP-ARCHITECTURE.md) |
 | **Authentication** | Multi-factor auth capability | ✅ GOOD | MS13-SECURITY + OAuth 2.0 |
-| **Authorization** | Role-based access control (RBAC) | ✅ GOOD | [ARCHITECTURE-OVERVIEW.md](docs/ARCHITECTURE-OVERVIEW.md) |
-| **Audit Logging** | Complete audit trail | ✅ EXCELLENT | [MS14-AUDIT](docs/microservices/MS14-AUDIT/) |
+| **Authorization** | Role-based access control (RBAC) | ✅ GOOD | [ARCHITECTURE-OVERVIEW.md](ARCHITECTURE-OVERVIEW.md) |
+| **Audit Logging** | Complete audit trail | ✅ EXCELLENT | [MS14-AUDIT](microservices/MS14-AUDIT/) |
 | **Vulnerability Management** | Regular security scanning | 🟡 PARTIAL | CI/CD integration needed |
-| **Incident Response** | Formal incident response plan | 🟡 PARTIAL | [DEVELOPMENT-GUIDE.md](docs/DEVELOPMENT-GUIDE.md) - needs detail |
+| **Incident Response** | Formal incident response plan | 🟡 PARTIAL | [DEVELOPMENT-GUIDE.md](DEVELOPMENT-GUIDE.md) - needs detail |
 
 **Status**: ✅ EXCELLENT - Security architecture solid
 
@@ -140,7 +142,7 @@ Il PNRR stanzia €48,6 miliardi per la digitalizzazione della PA, infrastruttur
 | **Availability** | >99.9% uptime | ✅ EXCELLENT | Geo-redundant |
 | **RTO (Recovery Time Objective)** | < 1 hour | ✅ GOOD | Cloud-native |
 | **RPO (Recovery Point Objective)** | < 15 minutes | ✅ GOOD | Continuous replication |
-| **Backup Strategy** | Daily automated backups | ✅ GOOD | [ZENSHAREUP-ARCHITECTURE.md](docs/ZENSHAREUP-ARCHITECTURE.md) |
+| **Backup Strategy** | Daily automated backups | ✅ GOOD | [ZENSHAREUP-ARCHITECTURE.md](ZENSHAREUP-ARCHITECTURE.md) |
 | **Backup Retention** | 30-day minimum retention | ✅ GOOD | Cloud provider native |
 | **Backup Testing** | Regular restore tests | 🟡 PARTIAL | Needs formalization |
 | **Failover Capability** | Automatic failover | ✅ GOOD | Cloud-native |
@@ -159,7 +161,7 @@ Il PNRR stanzia €48,6 miliardi per la digitalizzazione della PA, infrastruttur
 | Component | Requirement | Status | Action |
 |-----------|-------------|--------|--------|
 | **Data Center Efficiency** | Use efficient cloud providers | ✅ GOOD | Azure Green Regions |
-| **Code Efficiency** | Optimize algorithms & data structures | ✅ GOOD | [ARCHITECTURE-OVERVIEW.md](docs/ARCHITECTURE-OVERVIEW.md) |
+| **Code Efficiency** | Optimize algorithms & data structures | ✅ GOOD | [ARCHITECTURE-OVERVIEW.md](ARCHITECTURE-OVERVIEW.md) |
 | **Cloud Native** | Serverless where possible | 🟡 PARTIAL | Some services could be optimized |
 | **Resource Monitoring** | Track energy usage | 🟡 PARTIAL | Azure Monitor available |
 | **Carbon Reporting** | Annual carbon footprint | ❌ MISSING | Requires calculation framework |
@@ -180,8 +182,8 @@ Il PNRR stanzia €48,6 miliardi per la digitalizzazione della PA, infrastruttur
 | Component | Requirement | Status | Effort |
 |-----------|-------------|--------|--------|
 | **PA Staff Training** | Training materials for PA administrators | ❌ MISSING | 10 hours |
-| **Developer Documentation** | Technical documentation for developers | ✅ GOOD | [DEVELOPMENT-GUIDE.md](docs/DEVELOPMENT-GUIDE.md) |
-| **API Documentation** | Clear API usage guides | 🟡 PARTIAL | [API.md](docs/microservices/MSxx/API.md) exists |
+| **Developer Documentation** | Technical documentation for developers | ✅ GOOD | [DEVELOPMENT-GUIDE.md](DEVELOPMENT-GUIDE.md) |
+| **API Documentation** | Clear API usage guides | 🟡 PARTIAL | [API.md](microservices/MSxx/API.md) exists |
 | **Video Tutorials** | Recorded training videos | ❌ MISSING | 20+ hours |
 | **Certification Program** | Training certification | ❌ MISSING | Future scope |
 | **Community Support** | Community forums / help desk | ❌ MISSING | Future scope |
@@ -200,9 +202,9 @@ Il PNRR stanzia €48,6 miliardi per la digitalizzazione della PA, infrastruttur
 
 | Component | Requirement | Status | Reference |
 |-----------|-------------|--------|-----------|
-| **Application Monitoring** | Real-time performance metrics | ✅ GOOD | [MS08-MONITOR](docs/microservices/MS08-MONITOR/) |
+| **Application Monitoring** | Real-time performance metrics | ✅ GOOD | [MS08-MONITOR](microservices/MS08-MONITOR/) |
 | **Infrastructure Monitoring** | CPU, memory, disk, network | ✅ GOOD | Azure Monitor |
-| **Log Aggregation** | Centralized logging | ✅ GOOD | [MS11-GATEWAY](docs/microservices/MS11-GATEWAY/) |
+| **Log Aggregation** | Centralized logging | ✅ GOOD | [MS11-GATEWAY](microservices/MS11-GATEWAY/) |
 | **Alerting** | Automatic alerts on anomalies | ✅ GOOD | MS08-MONITOR + cloud provider alerts |
 | **SLA Monitoring** | Track SLA compliance | 🟡 PARTIAL | Need dashboard |
 | **Incident Management** | Ticket creation from alerts | 🟡 PARTIAL | Manual currently |
@@ -380,7 +382,7 @@ Action Items:
 
 ## Evidence Collection per PNRR
 
-1. **Cloud Infrastructure** → [ZENSHAREUP-ARCHITECTURE.md](docs/ZENSHAREUP-ARCHITECTURE.md) ✅ EXISTING
+1. **Cloud Infrastructure** → [ZENSHAREUP-ARCHITECTURE.md](ZENSHAREUP-ARCHITECTURE.md) ✅ EXISTING
 2. **API Standardization** → docs/OPENAPI-COMPLIANCE-REPORT.md (new)
 3. **Open Data Strategy** → docs/OPEN-DATA-STRATEGY.md (new)
 4. **Training Materials** → docs/TRAINING-MATERIALS/ (new)

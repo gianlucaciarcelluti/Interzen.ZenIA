@@ -124,87 +124,104 @@ sequenceDiagram
 
 ```json
 {
-  "quality_report": {
-    "overall_quality": "GOOD",
-    "score": 82,
-    "timestamp": "2025-10-08T10:26:15Z"
-  },
-  "grammar_check": {
-    "errors_found": 3,
-    "errors": [
-      {
-        "position": {"line": 23, "char": 145},
-        "type": "AGREEMENT",
-        "original": "i documentazione",
-        "suggestion": "la documentazione",
-        "rule_id": "IT_AGREEMENT_1"
-      },
-      {
-        "position": {"line": 45, "char": 78},
-        "type": "SPELLING",
-        "original": "urbanistco",
-        "suggestion": "urbanistico",
-        "rule_id": "IT_SPELLING"
-      },
-      {
-        "position": {"line": 67, "char": 234},
-        "type": "PUNCTUATION",
-        "original": "approvazione,in merito",
-        "suggestion": "approvazione, in merito",
-        "rule_id": "IT_SPACING"
-      }
-    ]
-  },
-  "style_check": {
-    "warnings": 5,
-    "issues": [
-      {
-        "type": "PASSIVE_VOICE",
-        "severity": "LOW",
-        "position": {"line": 34},
-        "sentence": "Il piano viene approvato dalla Giunta",
-        "suggestion": "Preferire forma attiva: La Giunta approva il piano"
-      },
-      {
-        "type": "LONG_SENTENCE",
-        "severity": "MEDIUM",
-        "position": {"line": 56},
-        "words": 42,
-        "suggestion": "Spezzare in frasi più brevi per migliorare leggibilità"
-      },
-      {
-        "type": "REDUNDANCY",
-        "severity": "LOW",
-        "position": {"line": 78},
-        "phrase": "assolutamente necessario",
-        "suggestion": "Rimuovere 'assolutamente' (pleonasmo)"
-      }
-    ]
-  },
-  "readability": {
-    "gulpease_index": 62,
-    "interpretation": "Testo difficile - livello universitario",
-    "avg_sentence_length": 28.5,
-    "avg_word_length": 5.2,
-    "passive_voice_ratio": 0.23,
-    "recommendation": "OK per atti amministrativi (target: 55-65)"
-  },
-  "terminology": {
-    "technical_terms_count": 45,
-    "consistency_score": 0.94,
-    "unknown_terms": [],
-    "terminologia_issues": [
-      {
-        "term": "PUC",
-        "first_use_line": 12,
-        "issue": "Acronimo non esplicitato alla prima occorrenza",
-        "suggestion": "Piano Urbanistico Comunale (PUC)"
-      }
-    ]
-  },
-  "corrections_applied": 0,
-  "corrections_suggested": 8,
-  "processing_time_ms": 320
+  "data": {
+    "quality_report": {
+      "overall_quality": "GOOD",
+      "score": 82,
+      "timestamp": "2025-10-08T10:26:15Z"
+    },
+    "grammar_check": {
+      "errors_found": 3,
+      "errors": [
+        {
+          "position": {
+            "line": 23,
+            "char": 145
+          },
+          "type": "AGREEMENT",
+          "original": "i documentazione",
+          "suggestion": "la documentazione",
+          "rule_id": "IT_AGREEMENT_1"
+        },
+        {
+          "position": {
+            "line": 45,
+            "char": 78
+          },
+          "type": "SPELLING",
+          "original": "urbanistco",
+          "suggestion": "urbanistico",
+          "rule_id": "IT_SPELLING"
+        },
+        {
+          "position": {
+            "line": 67,
+            "char": 234
+          },
+          "type": "PUNCTUATION",
+          "original": "approvazione,in merito",
+          "suggestion": "approvazione, in merito",
+          "rule_id": "IT_SPACING"
+        }
+      ]
+    },
+    "style_check": {
+      "warnings": 5,
+      "issues": [
+        {
+          "type": "PASSIVE_VOICE",
+          "severity": "LOW",
+          "position": {
+            "line": 34
+          },
+          "sentence": "Il piano viene approvato dalla Giunta",
+          "suggestion": "Preferire forma attiva: La Giunta approva il piano"
+        },
+        {
+          "type": "LONG_SENTENCE",
+          "severity": "MEDIUM",
+          "position": {
+            "line": 56
+          },
+          "words": 42,
+          "suggestion": "Spezzare in frasi più brevi per migliorare leggibilità"
+        },
+        {
+          "type": "REDUNDANCY",
+          "severity": "LOW",
+          "position": {
+            "line": 78
+          },
+          "phrase": "assolutamente necessario",
+          "suggestion": "Rimuovere 'assolutamente' (pleonasmo)"
+        }
+      ]
+    },
+    "readability": {
+      "gulpease_index": 62,
+      "interpretation": "Testo difficile - livello universitario",
+      "avg_sentence_length": 28.5,
+      "avg_word_length": 5.2,
+      "passive_voice_ratio": 0.23,
+      "recommendation": "OK per atti amministrativi (target: 55-65)"
+    },
+    "terminology": {
+      "technical_terms_count": 45,
+      "consistency_score": 0.94,
+      "unknown_terms": [],
+      "terminologia_issues": [
+        {
+          "term": "PUC",
+          "first_use_line": 12,
+          "issue": "Acronimo non esplicitato alla prima occorrenza",
+          "suggestion": "Piano Urbanistico Comunale (PUC)"
+        }
+      ]
+    },
+    "corrections_applied": 0,
+    "corrections_suggested": 8,
+    "processing_time_ms": 320
+  }
 }
 ```
 ## Gestione Errori

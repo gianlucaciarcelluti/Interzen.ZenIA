@@ -2,9 +2,6 @@
 
 ## Overview Dipendenze
 
-```mermaid
-graph TD
-    ```markdown
     # Matrice Dipendenze Sottoprogetti - UC5 Produzione Documentale Integrata
 
     ## Overview Dipendenze
