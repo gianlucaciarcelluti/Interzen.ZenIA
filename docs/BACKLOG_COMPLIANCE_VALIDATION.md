@@ -53,13 +53,13 @@ Analisi dei documenti normativi e delle linee guida presenti in `docs/fonti/txt_
 **Status**: Entrato in vigore 12 luglio 2024
 **Applicabilità**: Obbligatorio per i sistemi di IA nell'UE
 
-#### Principi Chiave
+#### Principi Chiave - AI Act
 - ✅ AI antropocentrica e affidabile
 - ✅ Protezione diritti fondamentali
 - ✅ Sicurezza e trasparenza
 - ⚠️ Classificazione per livello di rischio (proibito, alto, generale, minimo)
 
-#### Requisiti per ZenIA
+#### Requisiti per ZenIA - AI Act
 - [ ] Documentazione requisiti AI ad alto rischio
 - [ ] System card per ogni modello ML
 - [ ] Conformità diritti fondamentali
@@ -70,13 +70,13 @@ Analisi dei documenti normativi e delle linee guida presenti in `docs/fonti/txt_
 **Legge**: D. Lgs. 82/2005
 **Applicabilità**: Obbligatorio per PA italiana
 
-#### Principi Chiave
+#### Principi Chiave - CAD
 - ✅ Accessibilità digitale (WCAG 2.1)
 - ✅ Protezione dati (GDPR compliance)
 - ✅ Conservazione digitale
 - ✅ Firma digitale e autenticazione
 
-#### Requisiti per ZenIA
+#### Requisiti per ZenIA - CAD
 - [ ] Accessibilità interfacce (WCAG AA)
 - [ ] Conservazione digitale (DPCM 3.12.2013)
 - [ ] Protocollazione informatica
@@ -87,13 +87,13 @@ Analisi dei documenti normativi e delle linee guida presenti in `docs/fonti/txt_
 **Missione 1**: Digitalizzazione
 **Applicabilità**: Linee guida per progetti digitali PA
 
-#### Principi Chiave
+#### Principi Chiave - PNRR
 - ✅ Cloud-first (strategia cloud nazionale)
 - ✅ Interoperabilità
 - ✅ Sicurezza cibernetica
 - ✅ Open data e trasparenza
 
-#### Requisiti per ZenIA
+#### Requisiti per ZenIA - PNRR
 - [ ] Infrastruttura su cloud pubblica (Poli strategici nazionali)
 - [ ] API standard (REST/OpenAPI)
 - [ ] Sorgente aperta (dove possibile)
@@ -104,13 +104,13 @@ Analisi dei documenti normativi e delle linee guida presenti in `docs/fonti/txt_
 **Ente**: AgID (Agenzia per l'Italia Digitale)
 **Applicabilità**: Obbligatorio per infrastrutture PA
 
-#### Principi Chiave
+#### Principi Chiave - Piano Triennale
 - ✅ Centralizzazione infrastrutture (PaaSPA)
 - ✅ Razionalizzazione spese IT
 - ✅ Modernizzazione sistemi legacy
 - ✅ Interoperabilità ANPR
 
-#### Requisiti per ZenIA
+#### Requisiti per ZenIA - Piano Triennale
 - [ ] Compliance con modello PaaSPA
 - [ ] Allineamento con Linee Guida AgID
 - [ ] Integrazione servizi ANPR
@@ -121,13 +121,13 @@ Analisi dei documenti normativi e delle linee guida presenti in `docs/fonti/txt_
 **Status**: Pubblicate 2024
 **Applicabilità**: Recommended practice per PA
 
-#### Principi Chiave
+#### Principi Chiave - Linee Guida AgID IA
 - ✅ Principi etici (trasparenza, accountability)
 - ✅ Gestione rischi (MITRE ATT&CK framework)
 - ✅ Diritti fondamentali
 - ✅ Sostenibilità e inclusione
 
-#### Requisiti per ZenIA
+#### Requisiti per ZenIA - Linee Guida AgID IA
 - [ ] Valutazione etica per ogni modello ML
 - [ ] Risk assessment (security + fairness)
 - [ ] Bias testing e mitigation
@@ -138,13 +138,13 @@ Analisi dei documenti normativi e delle linee guida presenti in `docs/fonti/txt_
 **Status**: Linee guida operative per AI Act
 **Applicabilità**: Supporto implementazione AI Act
 
-#### Principi Chiave
+#### Principi Chiave - EU AI Regulation Guidelines
 - ✅ Conformity assessment procedures
 - ✅ Quality management systems
 - ✅ Post-market monitoring
 - ✅ Documentation requirements
 
-#### Requisiti per ZenIA
+#### Requisiti per ZenIA - EU AI Regulation Guidelines
 - [ ] QMS per sistemi high-risk
 - [ ] Post-market monitoring plan
 - [ ] Incident reporting procedure
@@ -155,13 +155,13 @@ Analisi dei documenti normativi e delle linee guida presenti in `docs/fonti/txt_
 **Status**: Best practice internazionale
 **Applicabilità**: Etica e sostenibilità IA
 
-#### Principi Chiave
+#### Principi Chiave - UNESCO AI Ethics
 - ✅ Dignità umana
 - ✅ Libertà e autonomia
 - ✅ Equità e non-discriminazione
 - ✅ Trasparenza e accountability
 
-#### Requisiti per ZenIA
+#### Requisiti per ZenIA - UNESCO AI Ethics
 - [ ] Ethical review board
 - [ ] Impact assessment template
 - [ ] Stakeholder engagement process

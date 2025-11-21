@@ -197,7 +197,7 @@
 **Sprint**: Q1 2026-1
 **Effort**: 25 ore
 
-#### Subtasks
+#### Subtasks - Accessibilità
 
 1. **A-1.1: Accessibility Audit** (8 ore)
    - Tools: WAVE, Axe DevTools, NVDA screen reader
@@ -224,7 +224,7 @@
 **Sprint**: Q4 2025-2 / Q1 2026-1
 **Effort**: 20 ore
 
-#### Subtasks
+#### Subtasks - Conservazione Digitale
 
 1. **C-2.1: DPCM Compliance Mapping** (8 ore)
    - Map DPCM 3/12/2013 requirements to ZenShareUp storage
@@ -250,7 +250,7 @@
 
 **Note**: Non critico per ZenIA (input processing), ma importante per interoperabilità.
 
-#### Subtasks
+#### Subtasks - Firma Digitale
 
 1. **S-3.1: eIDAS Certificate Validation** (15 ore)
    - Implement X.509 chain validation
@@ -269,7 +269,7 @@
 **Sprint**: Q4 2025-2 / Q1 2026-1
 **Effort**: 35 ore
 
-#### Subtasks
+#### Subtasks - GDPR Compliance
 
 1. **P-4.1: DPIA - Data Protection Impact Assessment** (10 ore)
    - Document data flows through ZenIA
@@ -301,7 +301,7 @@
 **Sprint**: Q4 2025-2
 **Effort**: 15 ore
 
-#### Subtasks
+#### Subtasks - Protocollazione
 
 1. **PR-5.1: Protocol Registry Documentation** (8 ore)
    - Document MS06-AGGREGATOR as protocol registry
@@ -321,7 +321,7 @@
 **Sprint**: Ongoing (already mostly done)
 **Effort**: 5 ore
 
-#### Subtasks
+#### Subtasks - Document Management
 
 1. **DM-6.1: Full-Text Search Index** (5 ore)
    - Add Elasticsearch integration
@@ -336,7 +336,7 @@
 **Sprint**: Q1 2026-1 / Q2 2026
 **Effort**: 30 ore
 
-#### Subtasks
+#### Subtasks - Interoperabilità
 
 1. **I-7.1: OpenAPI 3.0 Validation** (8 ore)
    - Validate all microservices API against OpenAPI spec

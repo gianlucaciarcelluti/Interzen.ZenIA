@@ -43,9 +43,9 @@ La piattaforma supporta l'intero ecosistema documentale: dall'acquisizione e cla
 | Supportare firma digitale qualificata | ✅ COMPLETATO | eIDAS compliant, non-ripudio garantito |
 | Implementare conservazione digitale certificata | ✅ COMPLETATO | Conformità DPCM 3.12.2013, integrità verificabile |
 
-## Metriche Progettuale
+## Metriche Progettuale (Fase Iniziale)
 
-### Copertura Funzionale
+### Copertura Funzionale - Iniziale
 
 | Componente | Realizzato | Target | Status |
 |-----------|-----------|--------|--------|
@@ -780,7 +780,7 @@ Tutti i 11 casi d'uso sono implementati e testati end-to-end:
 
 **Conformità**: Completa implementazione delle norme sulla digitalizzazione della PA italiana.
 
-### Requisiti Conformi
+### Requisiti Conformi - CAD
 
 | Requisito CAD | Implementazione | Verifica |
 |---------------|-----------------|----------|
@@ -798,7 +798,7 @@ Tutti i 11 casi d'uso sono implementati e testati end-to-end:
 
 **Conformità**: Ampia implementazione delle norme sulla protezione dati personali.
 
-### Requisiti Conformi
+### Requisiti Conformi - GDPR
 
 | Requisito GDPR | Implementazione | Copertura |
 |----------------|-----------------|-----------|
@@ -818,7 +818,7 @@ Tutti i 11 casi d'uso sono implementati e testati end-to-end:
 
 **Conformità**: Completa conformità alle normative europee su firma digitale.
 
-### Requisiti Conformi
+### Requisiti Conformi - eIDAS
 
 | Requisito eIDAS | Implementazione | Status |
 |-----------------|-----------------|--------|
@@ -900,9 +900,9 @@ La piattaforma integra con:
 
 ---
 
-## Metriche di Progetto
+## Metriche di Progetto (Fase Finale)
 
-### Copertura Funzionale
+### Copertura Funzionale - Finale
 
 | Aspetto | Realizzato | Target | Status |
 |---------|-----------|--------|--------|

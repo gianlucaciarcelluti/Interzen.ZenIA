@@ -31,8 +31,7 @@ git clone <repo-url>
 cd docs/microservices/MS01-CLASSIFIER
 ```
 
-## [Auto-generated heading level 2]
-### 2. Avvia con Docker Compose
+### 2. Avvia con Docker Compose (Installazione Base)
 ```bash
 # Avviare tutti i servizi (Classifier, PostgreSQL, Redis)
 docker-compose up -d
@@ -44,7 +43,6 @@ docker-compose ps
 docker-compose logs -f classifier
 ```
 
-## [Auto-generated heading level 2]
 ### 3. Controlla Salute Servizio
 ```bash
 # Classification API
@@ -56,7 +54,6 @@ curl http://localhost:8001/health
 ```
 ```
 
-## [Auto-generated heading level 2]
 ### 4. Testa Endpoint API
 ```bash
 # Classifica un documento
@@ -143,7 +140,6 @@ curl http://localhost:8001/api/v1/models/status
 # 6. Aggiorna API.md con documentazione completa
 ```
 
-## [Auto-generated heading level 2]
 ### Task 3: Cambiamenti Schema Database
 ```bash
 # 1. Rivedi DATABASE-SCHEMA.md diagramma ER
@@ -153,7 +149,6 @@ curl http://localhost:8001/api/v1/models/status
 # 5. Aggiungi note migrazione al troubleshooting
 ```
 
-## [Auto-generated heading level 2]
 ### Task 4: Deploy su Kubernetes
 ```bash
 # 1. Aggiorna versione immagine in kubernetes/deployment.yaml
@@ -181,7 +176,6 @@ pytest tests/ --cov=./ --cov-report=html
 # Target: 70%+ coverage
 ```
 
-## [Auto-generated heading level 2]
 ### Test Integrazione
 ```bash
 # Avvia docker-compose con database di test
@@ -194,7 +188,6 @@ pytest tests/integration/
 docker-compose -f docker-compose.test.yml down
 ```
 
-## [Auto-generated heading level 2]
 ### Test API
 ```bash
 # Usa Postman o curl con examples/
@@ -219,7 +212,6 @@ docker tag zenia/ms01-classifier:v1.0.0 registry/ms01-classifier:v1.0.0
 docker push registry/ms01-classifier:v1.0.0
 ```
 
-## [Auto-generated heading level 2]
 ### Pipeline CI/CD
 ```
 Code Push → GitHub → CI/CD Pipeline
@@ -259,7 +251,6 @@ kubectl logs -f deployment/ms01-classifier -n zenia
 kubectl logs -f pod/ms01-classifier-xxx -n zenia --previous  # Pod crashato
 ```
 
-## [Auto-generated heading level 2]
 ### Accesso Database
 ```bash
 # Docker Compose
@@ -269,7 +260,6 @@ docker-compose exec postgres psql -U classifier_service -d zenia_classifier
 kubectl exec -it postgres-0 -- psql -U classifier_service -d zenia_classifier
 ```
 
-## [Auto-generated heading level 2]
 ### Controlla Ambiente
 ```bash
 # Docker Compose
@@ -295,7 +285,6 @@ kubectl exec -it redis-0 -- redis-cli INFO stats | grep hit_rate
 curl http://ms01-classifier:9090/metrics | grep -i latency
 ```
 
-## [Auto-generated heading level 2]
 ### Checklist Ottimizzazione
 - [ ] Indici database ottimizzati (vedi DATABASE-SCHEMA.md)
 - [ ] Cache hit rate > 75% (controlla TROUBLESHOOTING.md)
@@ -323,7 +312,6 @@ env:
         key: database-url
 ```
 
-## [Auto-generated heading level 2]
 ### Code Security
 - Nessun secret nel code o file configurazione
 - Usa .gitignore per file sensibili (.env, config/*.local.yml)

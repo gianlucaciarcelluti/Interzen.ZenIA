@@ -39,17 +39,32 @@ class HeadingValidator:
         file_warnings = []
         heading_pattern = re.compile(r'^(#+)\s+(.+)$', re.MULTILINE)
 
-        # Estrai tutti gli heading
+        # Estrai tutti gli heading, escludendo quelli dentro code blocks
         headings = []
-        for match in heading_pattern.finditer(content):
-            level = len(match.group(1))
-            text = match.group(2).strip()
-            line_num = content[:match.start()].count('\n') + 1
-            headings.append({
-                "level": level,
-                "text": text,
-                "line": line_num,
-            })
+        in_code_block = False
+        lines = content.split('\n')
+        line_num = 0
+
+        for line_idx, line in enumerate(lines, 1):
+            # Traccia code block markers (triple backticks)
+            if line.strip().startswith('```'):
+                in_code_block = not in_code_block
+                continue
+
+            # Salta linee dentro code blocks
+            if in_code_block:
+                continue
+
+            # Estrai heading solo fuori code blocks
+            match = heading_pattern.match(line)
+            if match:
+                level = len(match.group(1))
+                text = match.group(2).strip()
+                headings.append({
+                    "level": level,
+                    "text": text,
+                    "line": line_idx,
+                })
 
         # Valida gerarchia
         if headings:
