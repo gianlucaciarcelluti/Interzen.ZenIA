@@ -772,7 +772,7 @@ sequenceDiagram
 
     User->>Web: Upload documento
     Web->>ZenDocs: POST /documents
-    ZenDocs->>ZenDocs: Save file in SFTPGo
+    ZenDocs->>ZenDocs: Save to cloud storage (Azure/S3)
     ZenDocs-->>Web: DocumentDTO
     Web-->>User: ✅ Documento salvato
 
@@ -826,7 +826,7 @@ sequenceDiagram
 
     ZenMail->>ZenDocs: POST /documents
     ZenDocs->>ZenDocs: Create document
-    ZenDocs->>ZenDocs: Store in SFTPGo
+    ZenDocs->>ZenDocs: Store in cloud storage (Azure/S3)
     ZenDocs-->>ZenMail: DocumentDTO
 
     ZenMail->>ZenProt: POST /protocols/register
