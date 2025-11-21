@@ -1,219 +1,152 @@
+--- Pagina 1 ---
 GUIDA PER LA REDAZIONE DEL PIANO TRIENNALE
 PER L'INFORMATICA NELLA PUBBLICA AMMINISTRAZIONE
 Indicazioni operative e note per la redazione
 
-Premessa
+--- Pagina 2 ---
+Premessa
 Questa guida propone alle Amministrazioni un modello standard per la redazione del Piano Triennale per
-l’informatica da parte delle PA, con i seguenti obiettivi:
-
-Uniformare
-e rendere omogenei i Piani
-triennali ICT delle diverse
-Amministrazioni e il Piano
+l’informaticadapartedellePA, coniseguentiobiettivi:
+Uniformare Facilitare Supportare
+e rendere omogenei i Piani le attività di redazione del il monitoraggio delle iniziative
+triennali ICT delle diverse Piano di ciascuna digitali previste all’interno del PT di
+Amministrazioni e il Piano Amministrazione ciascuna Amministrazione
 triennale AGID
-
-Facilitare
-le attività di redazione del
-Piano di ciascuna
-Amministrazione
-
 2
 
-Supportare
-il monitoraggio delle iniziative
-digitali previste all’interno del PT di
-ciascuna Amministrazione
-
-Struttura della Guida
-La Guida per la redazione del Piano Triennale per l’informatica nella Pubblica Amministrazione (PT) si articola in 3 parti:
+--- Pagina 3 ---
+Struttura della Guida
+LaGuida perlaredazionedelPianoTriennaleperl’informaticanella PubblicaAmministrazione(PT)si articolain3parti:
 1. Istruzioni generali: «Indicazioni per la pubblicazione» da adottare per la condivisione e la stesura del Piano e «Indicazioni
-operative» per la redazione del documento che rappresentano regole stilistiche a cui le PA devono attenersi.
-2. Elementi costitutivi del PT: note per la redazione delle sezioni che compongono il Piano:
+operative»perlaredazionedeldocumentoche rappresentanoregolestilisticheacuilePA devonoattenersi.
+2. Elementicostitutivi del PT:noteperlaredazionedellesezionichecompongonoilPiano:
 a) Componenti strategiche: dove dettagliare le modalità di governance adottate dal RTD e dall’ufficio RTD per la
-gestione e il monitoraggio delle iniziative in ambito ICT
-b) Componenti tecnologiche: dove specificare gli obiettivi e le linee d’azione per ciascun ambito individuato nel Piano
-triennale redatto da AGID
-3. Percorso di redazione: indicazioni sulla sequenza delle attività per la redazione del Piano.
-Istruzioni generali
-
-Introduzione
-
-I Parte
-Componenti strategiche
-
+gestionee ilmonitoraggiodelleiniziativeinambitoICT
+b) Componenti tecnologiche:dove specificare gli obiettivi e le linee d’azione perciascun ambito individuato nel Piano
+triennaleredattodaAGID
+3. Percorsodiredazione:indicazionisullasequenzadelleattivitàperlaredazionedelPiano.
+Istruzioni generali Introduzione I Parte II Parte Percorso di redazione
+Componenti strategiche Componenti tecnologiche
 3
 
-II Parte
-Componenti tecnologiche
+--- Pagina 4 ---
+Istruzioni generali
 
-Percorso di redazione
-
-Istruzioni generali
-
-Istruzioni generali
-Indicazioni per la pubblicazione
-
-Indicazioni operative
-Inserire il titolo e sottotitolo
+--- Pagina 5 ---
+Istruzioni generali
+Indicazioni per la pubblicazione Indicazioni operative
+Inserire il titoloe sottotitolo
 Titolo: «Piano Triennale per la transizione digitale 20XX-20XX di nome
 PA» | Sottotitolo: «Riferimento al Piano Triennale per l’informatica
 20XX-20XX pubblicato da AGID»
-
-Luogo di
-pubblicazione
-
-Logo Pubblica
-Amministrazione
-
-Prevedere una sezione
-nel sito istituzionale
-dell’Amministrazione
-in cui pubblicare il
-Piano e la
-documentazione
-correlata
-
-Inserire il logo
-dell’Amministrazione,
-nell’intestazione o a
-piè pagina del
-documento
-
-Indicare sempre la data di pubblicazione sulla copertina
-
-Formato
-Utilizzare un formato
-aperto e accessibile
-preferibilmente con un
-indice interattivo
-all’interno del
-documento
-
-Seguire preferibilmente la nomenclatura dei capitoli del Piano
+Luogo di Logo Pubblica
+Formato Indicare semprela data di pubblicazione sulla copertina
+pubblicazione Amministrazione
+Prevedere una sezione Inserire il logo Utilizzare un formato
+nel sito istituzionale dell’Amministrazione, aperto e accessibile
+Seguire preferibilmente la nomenclaturadei capitolidel Piano
+dell’Amministrazione nell’intestazione o a preferibilmente con un
 Triennale pubblicato da AGID
-
-Inserire un elenco di acronimi, all’inizio o alla fine del
+in cui pubblicare il piè paginadel indice interattivo
+Piano e la documento all’interno del
+documentazione documento
+Inserire un elenco di acronimi, all’inizio oalla finedel
+correlata
 documento
-
 5
 
-Istruzioni generali
+--- Pagina 6 ---
+Istruzioni generali
 Nomenclatura capitoli ed elenco acronimi (esempio)
-Di seguito riportiamo un esempio della nomenclatura capitoli e dell’elenco acronimi del Piano triennale
-
-Nomenclatura capitoli
-
-Elenco acronimi
-
+Di seguito riportiamo un esempiodella nomenclatura capitoli e dell’elenco acronimi del Piano triennale
+Nomenclaturacapitoli Elencoacronimi
 6
 
-Elementi costitutivi del Piano Triennale
+--- Pagina 7 ---
+Elementi costitutivi del Piano Triennale
 
-Introduzione
+--- Pagina 8 ---
+Introduzione
 PREMESSA
-Descrivere la struttura dell’Amministrazione e far riferimento al contesto normativo ed organizzativo sulle tematiche di digitalizzazione.
-
+Descrivere la strutturadell’Amministrazione e far riferimento al contesto normativo ed organizzativosulle tematiche di digitalizzazione.
 RUOLO DEL RESPONSABILE PER LA TRANSIZIONE AL DIGITALE
-Descrivere l’organizzazione dell’ufficio del Responsabile della Transizione Digitale dell’Amministrazione, specificando il contesto organizzativo in
+Descrivere l’organizzazione dell’ufficio del Responsabile della Transizione Digitaledell’Amministrazione, specificando il contesto organizzativo in
 cui si colloca tale figura e il suo team, evidenziando le attività e le responsabilità
-
 CONTESTO STRATEGICO
-Descrivere le strategie attuative per il raggiungimento degli obiettivi di breve e lungo periodo, utilizzando eventualmente strumenti di selfAssessment (es. SWOT Analysis) e sintetizzando anche il percorso di trasformazione digitale che l’Amministrazione ha intrapreso a livello di iniziative
-e/o progetti realizzati.
-
-OBIETTIVI DEL PIANO TRIENNALE
-Indicare gli obiettivi generali dell’Amministrazione in tema di digitalizzazione per il periodo di riferimento
-
-SPESA COMPLESSIVA PREVISTA PER OGNI ANNUALITÀ DEL PIANO
-Indicare i volumi della spesa complessiva prevista per ogni annualità
-
+Descrivere le strategie attuative per il raggiungimento degli obiettivi di breve e lungo periodo, utilizzando eventualmente strumenti di self-
+Assessment (es. SWOTAnalysis) esintetizzandoancheilpercorsoditrasformazionedigitale chel’Amministrazionehaintrapresoalivellodiiniziative
+e/oprogettirealizzati.
+OBIETTIVIDELPIANOTRIENNALE
+Indicaregliobiettivigeneralidell’Amministrazioneintemadidigitalizzazioneperilperiododiriferimento
+SPESACOMPLESSIVAPREVISTAPEROGNIANNUALITÀ DELPIANO
+Indicareivolumidellaspesacomplessivaprevistaperogniannualità
 8
 
-Struttura dei capitoli
+--- Pagina 9 ---
+Struttura dei capitoli
 La struttura dei capitoli per ciascuna componente strategica e tecnologica
-
 TITOLO CAPITOLO
-Utilizzare la nomenclatura dei capitoli del Piano Triennale di AGID.
-
+Utilizzarelanomenclatura deicapitolidelPianoTriennalediAGID.
 CONTESTO NORMATIVO E OBIETTIVI
-• Inserire per ognuna delle componenti i riferimenti normativi italiani ed europei e settoriali per la tipologia di Ente.
-• Descrivere gli obiettivi per ogni componente in linea con gli obiettivi generali del Piano Triennale AGID.
-• Definire un set di indicatori quali-quantitativi per verificare lo stato di avanzamento e per il monitoraggio dei risultati.
-
+• Inserire perognunadellecomponentiiriferimenti normativiitalianiedeuropei esettorialiperlatipologiadiEnte.
+• Descrivere gliobiettiviperognicomponenteinlineacongliobiettivigenerali delPianoTriennaleAGID.
+• Definireunsetdiindicatori quali-quantitativi perverificarelostatodiavanzamento eperilmonitoraggiodeirisultati.
 ROADMAP DELLE LINEE D’AZIONE
-Definire le linee d’azione previste da sviluppare nel triennio di riferimento del Piano triennale.
-
+Definirelelineed’azione previstedasviluppareneltrienniodiriferimentodelPianotriennale.
 STRUMENTI PER L’ATTUAZIONE DEL PIANO E RISORSE E FONTI DI FINANZIAMENTO
-Indicare gli strumenti operativi adottati per l’attuazione delle attività e le risorse e fonti di finanziamento per la loro realizzazione.
-
+Indicareglistrumentioperativi adottatiperl’attuazionedelleattivitàelerisorseefontidifinanziamentoperlalororealizzazione.
 9
 
-Struttura delle linee d’azione
+--- Pagina 10 ---
+Struttura delle linee d’azione
 La struttura della linea d’azione (dettaglio)
 Le linee d’azione rappresentano le attività da mettere in campo per il raggiungimento degli obiettivi.
 Di seguito si riporta la struttura per ciascuna di esse:
-
 DESCRIZIONE DELLA LINEA DI AZIONE
-Esempio: «Pubblicazione della dichiarazione di accessibilità per siti web e APP mobili»
-
+Esempio:«PubblicazionedelladichiarazionediaccessibilitàpersitiwebeAPPmobili»
 DEADLINE E PIANO DEI TEMPI
-Indicare un orizzonte temporale (da o entro mm/aaaa) della linea d’azione, in coerenza con i target e le tempistiche del Piano Triennale AGID
-
+Indicareunorizzonte temporale(daoentromm/aaaa)dellalinead’azione,incoerenzaconitargeteletempistichedelPianoTriennaleAGID
 STRUTTURE RESPONSABILI DELLA LINEA D’AZIONE
-Indicare le strutture o gli uffici responsabili delle attività previste
-
+Indicare le strutture o gli ufficiresponsabili delle attività previste
 10
 
-Percorso di redazione
+--- Pagina 11 ---
+Percorso di redazione
 
-Percorso di redazione
-Attraverso il percorso di redazione del Piano Triennale, l’amministrazione può individuare le macro fasi da adottare per la p redisposizione del
+--- Pagina 12 ---
+Percorso di redazione
+Attraverso il percorso di redazione del Piano Triennale, l’amministrazione può individuare le macro fasi da adottare per la predisposizione del
 documento. Le macro fasi sono soggette a modifiche in base alle esigenze della propria Amministrazione.
-
 0. SAL attività PT/altri documenti di pianificazione precedenti
 1. Definizione della gestione operativa redazione PT
-
 2. Prima stesura PT
-
 3. Condivisione e allineamento con gli organi di vertice
-
 4. Stesura finale PT
 5. Approvazione PT
-
+6. Pubblicazione PT sul sito istituzionale
 12
 
-6. Pubblicazione PT sul sito istituzionale
-
-Percorso di redazione | Dettaglio degli step
+--- Pagina 13 ---
+Percorso di redazione | Dettaglio degli step
 0. SAL attività PT/altri documenti di pianificazione precedenti
 Monitoraggio e aggiornamento dello stato attuale del lavoro della precedente pianificazione
-
 1.Definizione della gestione operativa redazione PT
 Recepimento delle indicazioni degli organi di vertice; individuazione principali attori interni ed esterni coinvolti; definizione modalità
 operative, strumenti di stesura ed organizzazione contenuti; organizzazione del gruppo di redazione
-
 2. Prima stesura PT
 Analisi SAL; raccolta esigenze delle strutture interne; elaborazione dei contenuti
-
 3. Condivisione e allineamento con gli organi di vertice
 Condivisione ed acquisizione feedback; definizione degli aspetti di comunicazione
-
 4. Stesura finale PT
 Revisione finale dei contenuti; elaborazione veste grafica per la pubblicazione
-
 5. Approvazione PT
 Attuazione dell’iter di approvazione formale
-
 6. Pubblicazione PT sul sito web istituzionale
 Pubblicazione e avvio delle attività di comunicazione
-
 13
 
-Il Paese che cambia passa da qui.
-
+--- Pagina 14 ---
+Il Paese che cambia passa da qui.
 redazionepianotriennale@agid.gov.it
-
 https//www.agid.gov.it
 14
-
-

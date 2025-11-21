@@ -1,8 +1,9 @@
 # 🎯 Backlog: Validazione Conformità ZenIA vs Normative e Linee Guida
 
 **Data Creazione**: 21 novembre 2025
-**Versione**: 1.0 - DRAFT
-**Status**: SOTTO REVISIONE
+**Ultimo Aggiornamento**: 21 novembre 2025 (10:34 UTC - Rigeneration verificata)
+**Versione**: 1.1 - UNDER REVIEW (Post-Rigeneration)
+**Status**: VALIDAZIONE COMPLETATA ✅
 **Priorità Progetto**: ALTA
 
 ---
@@ -26,15 +27,22 @@ Analisi dei documenti normativi e delle linee guida presenti in `docs/fonti/txt_
 
 | Documento | Dimensione | Tipo | Status |
 |-----------|-----------|------|--------|
-| **AI_Act.txt** | 643 KB | 🇪🇺 Regolamento EU | ✅ Estratto |
-| **CAD.txt** | 92 KB | 🇮🇹 Legge Italiana | ⚠️ Corrotto |
-| **PNRR.txt** | 785 KB | 🇮🇹 Piano Nazionale | ✅ Estratto |
-| **Piano_Triennale_2024-2026.txt** | 563 KB | 🇮🇹 Piano AgID | ✅ Estratto |
-| **Linee_Guida_AgID_AI.txt** | 39 KB | 🇮🇹 Linee Guida | ⚠️ Corrotto |
-| **Guidelines_Secure_AI.txt** | 38 KB | 🌐 Linee Guida EU | ✅ Estratto |
-| **Libro_Bianco_AI.txt** | 107 KB | 📊 Analisi EU | ✅ Estratto |
-| **Recommendation_UNESCO.txt** | 6.9 KB | 🌐 Raccomandazioni | ✅ Estratto |
-| **Specifiche_Interoperabilita.txt** | 39 KB | 🇮🇹 Linee Guida | ⚠️ Corrotto |
+| **AI_Act.txt** | 643 KB | 🇪🇺 Regolamento EU | ✅ Valido |
+| **CAD.txt** | 162 KB | 🇮🇹 Legge Italiana | ✅ Valido |
+| **PNRR.txt** | 790 KB | 🇮🇹 Piano Nazionale | ✅ Valido |
+| **Piano_Triennale_2024-2026.txt** | 566 KB | 🇮🇹 Piano AgID | ✅ Valido |
+| **Linee_Guida_AgID_AI.txt** | 125 KB | 🇮🇹 Linee Guida (Scuola) | ✅ Valido |
+| **Guidelines-for-secure-AI.txt** | 38 KB | 🌐 Linee Guida EU | ✅ Valido |
+| **Libro_Bianco_AI.txt** | 107 KB | 📊 Analisi EU | ✅ Valido |
+| **Recommendation_UNESCO_Ethics_AI.txt** | 18 KB | 🌐 Raccomandazioni | ✅ Valido |
+| **Degalogo AgID IA nella PA.txt** | 1.9 KB | 🇮🇹 Decalogo | ✅ Valido |
+| **DPCM_Approvazione_Piano_Triennale.txt** | 7.2 KB | 🇮🇹 Decreto | ✅ Valido |
+| **Guida_Compilazione_Piano_Triennale.txt** | 7.0 KB | 🇮🇹 Guida | ✅ Valido |
+
+**Rigeneration Status**: ✅ COMPLETATO (21 Nov 2025, 10:34 UTC)
+- Documenti validi: 11/11 (100%)
+- Qualità estrazione: MIGLIORATA
+- Specifiche_Interoperabilita_AgID.txt: Rimosso (fallback a Degalogo + Linee Guida)
 
 ---
 

@@ -1,9 +1,8 @@
+--- Pagina 1 ---
 Il Presidente del Consiglio dei Ministri
 VISTO il decreto legislativo 7 marzo 2005, n. 82, recante "Codice dell'amministrazione digitale" e
-
 successive modifiche ed integrazioni;
 VISTO in particolare, l'articolo 14-bis, comma 2, lettera b), del decreto legislativo 7 marzo 2005, n.
-
 82, recante "Codice dell'amministrazione digitale" e successive modifiche ed integrazioni ai sensi
 del quale l'Agenzia per 1'Italia Digitale (AgID) svolge le funzioni di "programmazione e
 coordinamento delle attività delle amministrazioni per l'uso delle tecnologie dell'informazione e
@@ -15,34 +14,28 @@ delle informazioni acquisiti dai soggetti di cui all'articolo 2, comma 2, ed è 
 Presidente del Consiglio dei ministri o dal Ministro delegato entro il 30 settembre di ogni
 anno";
 VISTO il decreto-legge 9 febbraio 2012, n. 5, convertito, con modificazioni, dalla legge 4 aprile
-
 2012, n. 35, recante "Disposizioni urgenti in materia di semplificazione e sviluppo" e, in particolar
 modo, l'articolo 47, concernente I’ “Agenda digitale italiana”;
 VISTO il decreto-legge 22 giugno 2012, n. 83, recante "Misure urgenti per la crescita del Paese",
-
 convertito, con modificazioni, dalla legge 7 agosto 2012, n. 134, e, in particolare, gli articoli 19, 21
 e 22, riguardanti l'Agenzia per l'Italia Digitale;
 VISTO il decreto-legge 18 ottobre 2012, n. 179, convertito, con modificazioni, dalla legge 17
-
 dicembre 2012, n. 221, recante "Ulteriori misure urgenti per la crescita del Paese";
 VISTO il decreto legislativo 26 agosto 2016, n. 179, recante "Modifiche ed integrazioni al Codice
-
 dell'amministrazione digitale, di cui al decreto legislativo 7 marzo 2005, n. 82, ai sensi dell’articolo
 1 della legge 7 agosto 2015, n. 124, in materia di riorganizzazione delle amministrazioni pubbliche";
 VISTO lo Statuto dell'Agenzia per l'Italia Digitale, approvato con decreto del Presidente del
-
 Consiglio dei Ministri dell'8 gennaio 2014;
 VISTO il decreto-legge 24 giugno 2014, n. 90, convertito, con modificazioni, dalla legge 11 agosto
-
 2014, n. 114, recante "Misure urgenti per la semplificazione e la trasparenza amministrativa e per
 l'efficienza degli uffici giudiziari", e, in particolare, l'articolo 24-ter, concernente "Regole tecniche
 per l'attuazione dell'Agenda digitale italiana";
 VISTO il decreto del Presidente della Repubblica 31 ottobre 2022, con il quale il Sen. Alessio Butti
 
-Il Presidente del Consiglio dei Ministri
+--- Pagina 2 ---
+Il Presidente del Consiglio dei Ministri
 è stato nominato Sottosegretario di Stato alla Presidenza del Consiglio dei Ministri;
 VISTO il decreto del Presidente del Consiglio dei Ministri 25 novembre 2022, con il quale al predetto
-
 Sottosegretario di Stato sono state assegnate le deleghe in materia di innovazione tecnologica e
 transizione digitale e, in particolare, le funzioni attribuite al Presidente del Consiglio dei Ministri
 relative all'Agenzia per l'Italia digitale;
@@ -69,10 +62,12 @@ Senatore Alessio Butti, del 19 marzo 2025 di adozione della Direttiva di definiz
 dell’Agenzia per l’Italia Digitale per l’anno 2025;
 VISTA la nota AgID n. prot. 14143 del 7 agosto 2025, acquisita al protocollo del Dipartimento in
 pari data al n. 5073-A, con la quale il direttore dell'Agenzia per l'Italia Digitale ha trasmesso
-l’Aggiornamento 2026 del Piano triennale per l'informatica nella pubblica amministrazione 20242026, consolidato a seguito del confronto avviato all'inizio del mese di maggio 2025 con il
+l’Aggiornamento 2026 del Piano triennale per l'informatica nella pubblica amministrazione 2024-
+2026, consolidato a seguito del confronto avviato all'inizio del mese di maggio 2025 con il
 Dipartimento per la Trasformazione Digitale (DTD), l'Agenzia per la Cybersicurezza Nazionale
 
-Il Presidente del Consiglio dei Ministri
+--- Pagina 3 ---
+Il Presidente del Consiglio dei Ministri
 (ACN), Associazione Nazionale Comuni Italiani (ANCI), la Commissione per l'Innovazione
 tecnologica e la Digitalizzazione della Conferenza delle Regioni e delle Province autonome, il
 Dipartimento della Funzione Pubblica (DFP), l’Istituto nazionale Assicurazione Infortuni sul Lavoro
@@ -93,16 +88,6 @@ istituzionali del Dipartimento per la Trasformazione Digitale e dell'Agenzia per
 Dell'avvenuta approvazione è data notizia mediante pubblicazione di un comunicato nella Gazzetta
 ufficiale della Repubblica italiana.
 Il presente decreto è trasmesso ai competenti organi di controllo.
-
 p. Il Presidente del Consiglio dei Ministri
 Il Sottosegretario di Stato
 Sen. Alessio Butti
-BUTTI ALESSIO
-PRESIDENZA
-CONSIGLIO
-DEI MINISTRI
-04.09.2025
-12:56:18
-GMT+02:00
-
-

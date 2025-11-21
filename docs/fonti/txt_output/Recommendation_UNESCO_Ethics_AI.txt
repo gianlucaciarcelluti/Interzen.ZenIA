@@ -1,1 +1,526 @@
-<!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{box-sizing:border-box;margin:0;padding:0}html{line-height:1.15;-webkit-text-size-adjust:100%;color:#313131;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"}body{display:flex;flex-direction:column;height:100vh;min-height:100vh}.main-content{margin:8rem auto;padding-left:1.5rem;max-width:60rem}@media (width <= 720px){.main-content{margin-top:4rem}}.h2{line-height:2.25rem;font-size:1.5rem;font-weight:500}@media (width <= 720px){.h2{line-height:1.5rem;font-size:1.25rem}}#challenge-error-text{background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI0IyMEYwMyIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjQjIwRjAzIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+");background-repeat:no-repeat;background-size:contain;padding-left:34px}@media (prefers-color-scheme: dark){body{background-color:#222;color:#d9d9d9}}</style><meta http-equiv="refresh" content="360"></head><body><div class="main-wrapper" role="main"><div class="main-content"><noscript><div class="h2"><span id="challenge-error-text">Enable JavaScript and cookies to continue</span></div></noscript></div></div><script>(function(){window._cf_chl_opt = {cvId: '3',cZone: 'unesdoc.unesco.org',cType: 'managed',cRay: '99fdbb460ce3dd1f',cH: 'XUCQhKInZuDWpBenVYapUXjiQlfZLC_Qq0r0jheM3VU-1763366815-1.2.1.1-_F7UX4OJAS65X1Ono6ZkD3zreCYb1tigby6asAGmPRtcY0sLNsW5vRVC86Z3eyOj',cUPMDTk:"\/ark:\/48223\/pf0000380456\/PDF\/380456eng.pdf.multi?__cf_chl_tk=CORKB5B_LHlDL9zfU.pcoEYOsl8_Q1b2fdEW_8MlVV8-1763366815-1.0.1.1-zPphfBbaPnSwThuBnhMnHI.URMjGv51Du.LTaXgBWro",cFPWv: 'b',cITimeS: '1763366815',cTplC:0,cTplV:5,cTplB: '0',fa:"\/ark:\/48223\/pf0000380456\/PDF\/380456eng.pdf.multi?__cf_chl_f_tk=CORKB5B_LHlDL9zfU.pcoEYOsl8_Q1b2fdEW_8MlVV8-1763366815-1.0.1.1-zPphfBbaPnSwThuBnhMnHI.URMjGv51Du.LTaXgBWro",md: '1y2bd5jRpvnaNRtTZ2oZzY56S89WMEWctV.7n4huihI-1763366815-1.2.1.1-TRmkyRygmxC5qDvlQlquUiE0UnXSKfB1Vj4YpfX_yQnios9w_p3e6aH1m8nnoWBa2DUKYBZh8AGKpfawIB_RYG21vM9ImzLDr1yqyKZhFHaCFzOXSCU47heorZxnGadkqTHRkkAbsW8EssZOVkkfq8O7kx9knXAobfRTN3dL1HwEabo6dPBANO0GQhjJkGmpH3KOX3NSOu5FyYMd.CJbQUZNh3jwKedLhekYL8z6p6dZ6OR1jPqEaK51a6L.6SB5Q0a1SRE7zWLWdZElY81WLblNQ0ygogH6XMSyaLWUz9z46HYkvsO7F8HdkRlld46_0MMXi638PQg8KpnCwyEyfLerUT326KGvf5aU.vEAX6jvrDMtgk3zi.VH4JHXzjNSFS2ULIi.6Ch3OrNec34xyP3R19VIPNC1a28doYS9dNJqzAHpOL4YGe6nJOwfqgMKulu7ARV2NSpfIHXMT.Yyvr5KqVEIudOlAPS6XidVejlaI.1tSQzVQ6Hs9rJFuTHEoowNppYxxBCrAR6a379AxvvP2HJ6ycYdWkEwbwftQ1jFiflfyfPT7Tva5HjNWwax4kTInhHS7OwR1cKA96lQKmo4mTkG5y6okRFjBiwLO5l9ZuFIaPmmcOQK6Wphl5nFv0bMYw6fw2b3srwpFVZsA6GsN7hnyfr.AmqS_LDZdwW1621UVIROZx5UqU7drBX7qxtJ0.3kgJcwmxF8PokuO1xvhNBDExEEYfZq9u5n5t3G8iVJqkK6oYHt3jW9.25.lELVMmGtNeLcEPcwYZpwP74fBEuUTy3gvaSMsgTok3T2iX9q7DCy.ka9h5jmT0a4cVgUrUv7bJsAWF257yfciqWLWaL7RkJE1o.i2wVlC.ve1TeIgl_i3rN4d7xoBSskUcql.S7cnuBm4iR0xA6XoXReFnRmqTKf0tsapFbDRc_S9Xqx5UcuKMZJy7mFFJi_PqvtcXjX.v4yPZy7SymAnQ',mdrd: 'fGjh4zMh87WhQfGAWC5hWTfdNURUXItDQjLroB.mT7Y-1763366815-1.2.1.1-.kaMF.pDkw1yIe9.EkaLRgjwVxjjtvnE7moQfOqH3rTI5Lx2GSBJAAH9jy13kpke3OK19pj94mOC0o54ZI8.D6a8CnOGIP2z0i9rx.gXsrj4NMFzsw1FNb2zPO.4YaGCbn1NzGKUD2UzBF7upA26P7SRbHasOQsuhlkzxzSIOver0UcBeU0hIa4gheln099hrfcGPTV0KugxlDYFDtB75e1w72ERhn.XvginW32d6TkbSCfQo6KhkfdU5N5__3ViB7SfHTjRgPV0r3L1e25Z9ZVdZVqoIxI.vAeRYaD9YJzYW3u0PCp.MI3csVyTWqfizDTU..nP5xG8mHCdXP.aVcYz7OSef9uQnBaP4G5OwrjvhVKSOQuEE7ARyaPYpVTxNfmbTa6IX2bMHwuOncYXEj8rty7iRotu6sy7veC8lwMKGn7UzbPMLlTDg2Mw.fpsADdmU6dplQx3vCY88By88uUr8w9lBrIAc3To6JZgPLIKMJGQEd_kdUMAN2NUEyHEVle.lLFzH408RSivFi0i7bXKc9YLyIIg1QHSHQtPz1x_p6RcfQcxgSrGdi3BggI1IU2k.kl8loPqfJ_sEjpLn155KOsyXfpf_MNec7PyVe.Ed0aib2KrLVyjn1de.FABxWsGBH0U8PHXKr5pAE8tHBz5Bf8o8cwNb9MVtYVTJ0YhQekL_l25yVM6z2syjGaifUGHReoeSpzWFFTkE_kukpJtiDfOkjHnttqFxd71GGOTnRRdGqBk8YyIoewWxuVCkqWvYHkvjy.YJsZaJZK9WwickY_GusTlPvtzbFnad.cUkzlCOuBROGfZ6QH7evyJAGjOOOPZnJdRGzkC6E6mNhMB1Ra9dexfy_ZBIkQ52Rf1DSrY6m8FUC5qMMaDAnSbWy04PkHNnO8Ub5I.GEFEftIvaaK9G_AG5zdRMxrXGsnNOXOl8UXiJvIZaGzcWVAmqUPCt9r9bGu2xmHion7G2RQYj.g6b3vxDa7PKt2jaQdH38AUK8tMwoitwq49BvV9KXaXB1q_37RX144Y69O4yxDzy8uosXX8YrhGsCBLg6Q5jonRsPRAkGVu4E76YZSqRCT2K2cBCfhFpAoemxiyDFvvK4QrsYn6TcdXnIqAcFsyVEEnXc2159d8Uld903UO9jS_EjgbVADdyhclPcwpcRtlXTG.sm1zwMg7LRnm6XQDekxmjhQMiDwrUV29R2Lbtno11R.AGxqcNIQcQIyF9_B4jfRmxDL2vLJ6Bokbsq.p_T4FYd5bW2TOg5MSDIjQmMkWDFoS.pZeTv2_baQkHDpQZq_FzDa7FBhpBOlR7BuPX3drmNVrp5IkOKSAyGnqyxrWVggOZNH9krKFmEqe7yl4DtPXfgsoaOuUGNJGLuzHvkABPhw.GZZhOleghIX5CUsxtof7Lk2YhDXBiJ7LX_8KSP4Cd6RLSW2_yXABvU_pAh3QygMVa_pBJJ8fuy43DSFyWkGZJIIq36o1Pwq3Zhkv8ImitpbnkFrsmeCF3idZQvJVDNG0.pmnfpS3pFjjwNbG6.VkxE3VpqS_2wctgSYdsdvnA8jTdLBmxNXrJt3xj5.g4yPfhTGy_6A1CU79lhkGDW33hX0rH2XBEgLKGsVM6kQjaj0o3byg3kZnZTWk7PHh8vTYyJF.xJimDqqR_AihN7BAPzty9vfXESHP8aPaaNpeLp8mJlZheIghAKX9__JgWctAja0dX7B.kPNKeSnbGfkC_jYBadG4tVA2IORv6EtUV0DN_U9AVcLNJ6W86NS19OtkwD0TtujYFp84e1q7seN2w4ueERGgjsWpLJlPJbVVuW8F1FE6TTUVrZF1JJpQSYm8hvjTLp0oVE6aX_TOdyzv9bIOR7bVnUNxuehEIUTRq8LkWLWBX358NuOwtjRGenoiiB2K6jsc4p854e2DjaCnWG9T.z4J28VA2RjzcdLWFpZ4jiy9XSPWaRe2BeLvnBy25aJToWLGDgT9ObArRQCaQ.UKE22nwhj8IB2Q5CJZXmbbHsDFBMm15nNIZP9N0Oj.EfMsp6YeeYw93B78TTFb64lDIdQZY2OzelavnLVsAacuJzKhBo17pHg9VzYfQ.8htZMi0KgFmoYkGUvgHIy.wWFQceeWi9yZDuvb5gfom5RozMwxq7fwSIezPrr9DNeQ3irIayTZ7yjT5FTYTX3gFFJQIz5t08.7tPJBcJ0A1nT7U4km2FoPr_d0XMQLf_GO_XTlkZM5zcVEZZVxTSWluEPLoc0ZSj1w1ZpTfX4sQ7p1zDEix2BPuG5sPcqatvOLJcmAry697wmlMP9LArBJ0hVOMpSlhHh9.MPimAYAnn8._3Tq8VSpuEk',};var a = document.createElement('script');a.src = '/cdn-cgi/challenge-platform/h/b/orchestrate/chl_page/v1?ray=99fdbb460ce3dd1f';window._cf_chl_opt.cOgUHash = location.hash === '' && location.href.indexOf('#') !== -1 ? '#' : location.hash;window._cf_chl_opt.cOgUQuery = location.search === '' && location.href.slice(0, location.href.length - window._cf_chl_opt.cOgUHash.length).indexOf('?') !== -1 ? '?' : location.search;if (window.history && window.history.replaceState) {var ogU = location.pathname + window._cf_chl_opt.cOgUQuery + window._cf_chl_opt.cOgUHash;history.replaceState(null, null,"\/ark:\/48223\/pf0000380456\/PDF\/380456eng.pdf.multi?__cf_chl_rt_tk=CORKB5B_LHlDL9zfU.pcoEYOsl8_Q1b2fdEW_8MlVV8-1763366815-1.0.1.1-zPphfBbaPnSwThuBnhMnHI.URMjGv51Du.LTaXgBWro"+ window._cf_chl_opt.cOgUHash);a.onload = function() {history.replaceState(null, null, ogU);}}document.getElementsByTagName('head')[0].appendChild(a);}());</script></body></html>
+--- Pagina 1 ---
+Raccomandazione
+UNESCO su
+L’etica dell’IA:
+Modellare il
+futuro delle
+nostre
+società
+
+--- Pagina 3 ---
+Raccomandazione
+UNESCO
+su L’etica dell’IA:
+Modellare il futuro
+delle nostre società
+
+--- Pagina 4 ---
+àteicoS
+ertson
+elled
+orutuf
+li
+eralledoM
+AI‘lled
+acitE‘llus
+OCSENU
+enoizadnamoccaR
+La Raccomandazione
+UNESCO
+in sintesi
+La Raccomandazione nità di raggiungere un livello
+UNESCO su L’etica dell’intel- adeguato di alfabetizzazione
+ligenza artificiale (IA) è un in materia;
+documento con valore lega-
+le concordato a livello inter-
+nazionale al fine di assicura- La Raccomandazione funge
+re che ogni organizzazione, pertanto da linea guida per
+azienda o persona fisica che tutti i governi per la crea-
+sviluppi o implementi l’intel- zione di leggi e strategie
+ligenza artificiale agisca in sull’intelligenza artificiale;
+modo etico e in linea con i
+diritti umani;
+L’UNESCO emana regolar-
+mente delle Raccomanda-
+Etica nell’intelligenza artifi- zioni. Si tratta di strumenti
+ciale significa assicurarsi normativi nei quali ogni
+che le nostre interazioni con termine viene concordato
+i sistemi di IA non siano da tutti i 193 Stati membri;
+dannose, ma contribuiscano
+alla pace, alla dignità um-
+ana, alla sostenibilità e alla Dopo l’adozione di una
+sicurezza; Raccomandazione, gli Stati
+membri devono riferire alla
+comunità globale su quanto
+Sarà possibile ottenere fatto per assicurarsi che la
+questo risultato solo se i politica concordata venga
+bambini e gli adulti di tutto implementata nel loro Pae-
+il mondo avranno l’opportu- se.
+4
+
+--- Pagina 5 ---
+Perché è necessario un → L’intelligenza artificiale è entrata a far parte
+accordo globale sull’in- della nostra quotidianità. Ha un potenziale enorme
+telligenza artificiale per il bene sociale e può contribuire al raggiungi-
+incentrato sulla mento degli Obiettivi di sviluppo sostenibile. Ad
+persona? esempio, può essere impiegata per predire il
+rendimento dei raccolti, contribuendo così ad
+assicurare la sicurezza alimentare. Il suo uso
+comporta tuttavia anche dei rischi. In diverse
+occasioni, i sistemi di IA hanno fatto sorgere
+preoccupazioni di natura etica - essi potrebbero in
+effetti contribuire ad incrementare il divario di
+genere, impattare sulla privacy delle persone o
+facilitare la manipolazione di contenuti mediatici.
+Dal momento che tutti i Paesi si trovano ad
+affrontare queste questioni e, al contempo, quasi
+tutti i sistemi di IA vengono impiegati su scala
+globale, dobbiamo avere una prospettiva che
+travalichi le frontiere per quanto riguarda lo
+sviluppo e l’uso etico dell’intelligenza artificiale. In
+novembre del 2021, i 193 Stati membri dell’UN-
+ESCO hanno adottato il primo accordo globale
+sull’intelligenza artificiale antropocentrica, la
+Raccomandazione sull’Etica dell’IA.
+Quali sono gli obiettivi → La Raccomandazione è concepita come un
+fondamentali della modello per i sistemi di IA in modo tale che questi
+Raccomandazione? abbiano un impatto positivo sull’umanità e sull’am-
+biente e prevengano eventuali danni. Si tratta di un
+documento con valore legale accettato a livello
+globale che articola valori e principi, oltre alle
+modalità per metterli in pratica. E lo fa suggerendo
+agli Stati membri dell’UNESCO compiti concreti in
+undici aree politiche, tra cui la salute, l’ambiente e
+il genere. Attraverso questo approccio, la Racco-
+mandazione mira a proteggere e promuovere i
+diritti umani e le libertà fondamentali, unitamente
+alla dignità umana e all’uguaglianza. Le questioni
+etiche riguardanti i sistemi di Intelligenza artifi-
+ciale sono rilevanti per tutti gli stadi del ciclo di
+vita dei sistemi di Intelligenza Artificiale: dalla
+ricerca, la progettazione e lo sviluppo fino alla
+installazione e utilizzo, inclusi manutenzione,
+funzionamento, monitoraggio, valutazione e
+dismissione.
+5
+
+--- Pagina 6 ---
+àteicoS
+ertson
+elled
+orutuf
+li
+eralledoM
+AI‘lled
+acitE‘llus
+OCSENU
+enoizadnamoccaR
+Cosa contraddistingue → La Raccomandazione è stata approvata con il
+la Raccomandazione? consenso di tutti i 193 Stati membri dell’UNESCO.
+Essa pone particolare enfasi sui bisogni e sui
+contributi dei Paesi a basso/medio reddito in
+termini di sviluppo e uso etico dell’intelligenza
+artificiale.
+Al contempo, lo sviluppo di sistemi di IA antrop-
+ocentrici viene definito come compito della società
+nel suo complesso, che va ben oltre la semplice
+regolamentazione della tecnologia. La Raccoman-
+dazione evidenzia che il rispetto e la promozione
+dei diritti umani devono essere le basi di ogni
+regolamentazione in materia di intelligenza
+artificiale.
+→ La Raccomandazione si caratterizza per il fatto
+di trattare in modo completo tutte le aree della
+vita umana che sono influenzate dall’intelligenza
+artificiale.
+Così facendo, si concentra in particolare sulle aree
+che sono state fino ad ora trascurate nelle discus-
+sioni sull’intelligenza artificiale, come …
+… i diversi
+livelli di sviluppo
+dei Paesi,
+6
+
+--- Pagina 7 ---
+… i bisogni
+del Sud
+del mondo,
+… gli interessi
+dei gruppi
+vulnerabili e
+marginalizzati
+… il pregiudizio
+e la
+discriminazione
+di genere,
+… e la
+sostenibilità.
+7
+
+--- Pagina 8 ---
+àteicoS
+ertson
+elled
+orutuf
+li
+eralledoM
+AI‘lled
+acitE‘llus
+OCSENU
+enoizadnamoccaR
+Raccomandazione
+sull’Etica dell’intelligenza
+artificiale, adottata
+il 23 novembre 2021
+Cosa si intende con “IA”?
+→ I sistemi di intelligenza artificiale sono in grado di elaborare dati
+e informazioni con modalità che assomigliano o sembrano imitare i
+processi mentali umani, compresi gli aspetti del ragionamento,
+dell’apprendimento, della percezione, della previsione, della pianifi-
+cazione o del controllo.
+Funzionano, in parte, attraverso quanto è stato definito come
+apprendimento e ragionamento automatico.
+8
+
+--- Pagina 9 ---
+Quali sono i Per assicurare lo sviluppo e l’uso etico dell’intelli-
+requisiti chiave della genza artificiale, la Raccomandazione stabilisce i
+Raccomandazione? requisiti in undici aree della linea politica. Gli
+esempi riportati di seguito rappresentano una
+selezione delle disposizioni ivi contenute, a
+dimostrazione del campo di applicazione della
+Raccomandazione.
+1 L e leggi e le strategie sulla governance dei
+dati devono proteggere il diritto alla privacy,
+affrontare preoccupazioni come la sorvegli-
+anza (basata su IA) e assicurare che le persone
+mantengano i diritti sui propri dati.
+2 Bisogna intensificare la collaborazione e la
+cooperazione internazionale sull’intelligenza
+artificiale per far fronte alle urgenti sfide in
+tema di sviluppo e ridurre il divario digitale tra
+il Sud e il Nord del mondo.
+3 I sistemi di IA devono essere sottoposti a
+Valutazione etica dell’impatto per l’intero ciclo
+di vita al fine di prevenire eventuali danni agli
+essere umani e assicurare la promozione dei
+diritti umani attraverso l’intelligenza artificiale.
+4 Bisogna mettere in atto meccanismi di gover-
+nance, come la nomina di Funzionari per
+l’Etica dell’IA, al fine di indagare i potenziali
+danni causati con i sistemi di IA, garantirne il
+rispetto e assicurare azioni di risarcimento e
+correzione.
+5 Devono essere introdotti degli incentivi per
+sviluppare applicazioni assistite da IA per il
+monitoraggio, la protezione e la rigenerazione
+dell’ambiente e degli ecosistemi.
+6 L’intelligenza artificiale deve essere sviluppata
+e usata in modo tale da massimizzare i bene-
+fici per la diversità e l’inclusività, compresa la
+diversità culturale, salvaguardando la non
+discriminazione, promuovendo la libertà di
+espressione e raggiungendo la parità di genere.
+9
+
+--- Pagina 10 ---
+àteicoS
+ertson
+elled
+orutuf
+li
+eralledoM
+AI‘lled
+acitE‘llus
+OCSENU
+enoizadnamoccaR
+7 Le politiche devono essere finalizzate a fornire
+alle persone un livello adeguato di alfabetizza-
+zione in materia di intelligenza artificiale, al
+fine di rafforzare le loro competenze e ridurre
+il divario digitale.
+8 I sistemi di IA devono migliorare l’accesso alle
+informazioni e alla conoscenza.
+9 I governi e le aziende del settore privato
+devono assicurare una transizione equa per i
+dipendenti le cui occupazioni siano a rischio a
+causa delle nuove tecnologie e dei nuovi
+sistemi di IA.
+10 Bisogna sviluppare linee guida per le inter-
+azioni umano-robot e per il loro impatto sulle
+relazioni umano-umano, tenendo in particolare
+a mente la salute mentale e fisica degli esseri
+umani.
+10
+
+--- Pagina 11 ---
+Invito ad agire
+in cinque aree
+politiche chiave
+La Raccomandazione presenta un quadro eti-
+co chiaro affinché i governi nazionali sviluppino
+politiche concrete di attuazione. In questo pro-
+cesso di traduzione a livello nazionale in norme
+imperative e norme derogabili, sia la società
+civile che il settore privato rivestono un ruolo
+cruciale. I paragrafi seguenti mettono in luce
+cinque delle undici aree politiche della Racco-
+mandazione di rilevanza generale per la società.
+Nell’ambito di queste aree, vengono presentati
+mandati concreti affinché le politiche raggiun-
+gano lo sviluppo e l’uso etico dell’intelligenza
+artificiale.
+11
+
+--- Pagina 12 ---
+àteicoS
+ertson
+elled
+orutuf
+li
+eralledoM
+AI‘lled
+acitE‘llus
+OCSENU
+enoizadnamoccaR
+Salute
+Nel settore sanitario, i rischi e le opportunità potenziali
+dell’intelligenza artificiale sono più tangibili che in altre
+aree. Già ora l’intelligenza artificiale sta rivoluzionando la
+diagnosi precoce delle malattie, presenta nuove opzioni
+di trattamento e potrebbe essere un’opportunità per
+affrontare la crescente carenza di personale del settore.
+Tuttavia, vi sono anche importanti questioni etiche a cui
+il settore deve far fronte, come la protezione dei dati
+sulla salute delle persone e l’uso di interfacce cervello-
+computer. Il personale amministrativo degli istituti di
+cura, i pazienti e i dottori saranno tutti direttamente
+interessati da queste questioni.
+I governi e i portatori di interessi del settore sanitario
+sono invitati a lavorare sulle seguenti questioni:
+• Sviluppare linee guida per le interazioni umano-robot
+e per il loro impatto sulle relazioni umano-umano, con
+particolare attenzione alla salute mentale e fisica degli
+esseri umani, in modo tale che queste interazioni
+umano-robot rispettino i diritti umani, le libertà
+fondamentali, la promozione della diversità e la
+protezione delle persone vulnerabili. E questo
+soprattutto quando si usano sistemi assistiti da IA per
+le neurotecnologie e le interfacce cervello-computer;
+• Impiegare i sistemi di IA in modo tale che questi
+abbiano un impatto positivo sulla salute umana,
+monitorando la comparsa della malattia, e per
+condividere i dati su scala globale;
+• Promuovere ricerche d’equipe sugli effetti delle
+interazioni a lungo termine delle persone con i sistemi
+di IA, prestando particolare attenzione all’impatto
+psicologico e cognitivo che questi sistemi possono
+avere sui bambini e sui giovani.
+12
+
+--- Pagina 13 ---
+Cultura
+L’intelligenza artificiale ha un impatto significativo sul
+modo in cui “produciamo” cultura, su quanto i consuma-
+tori pagano per la cultura e sul modo in cui gli artisti si
+guadagnano da vivere con il loro lavoro. Gli algoritmi
+stanno già influenzando e decidendo il nostro “consumo”
+di cultura, persino modellando, ad esempio, la musica
+che ascoltiamo.
+Alcune delle responsabilità principali degli Stati membri
+dell’UNESCO sono:
+• Coinvolgere le aziende tecnologiche e altri portatori di
+interessi per promuovere un’offerta varia di espres-
+sioni culturali, oltre che una pluralità di accesso ad
+esse, assicurando, al contempo, la visibilità e la
+reperibilità di contenuti locali;
+• Promuovere nuove ricerche nel punto di intersezione
+tra intelligenza artificiale e proprietà intellettuale per
+stabilire se e in che modo le opere assistite da IA
+debbano essere protette dai diritti di proprietà
+intellettuale;
+• Affrontare l’impatto dei sistemi di IA - specialmente le
+applicazioni di elaborazione del linguaggio naturale,
+come la traduzione automatica e gli assistenti vocali
+- sulle sfumature del linguaggio umano e dell’espres-
+sione culturale.
+13
+
+--- Pagina 14 ---
+àteicoS
+ertson
+elled
+orutuf
+li
+eralledoM
+AI‘lled
+acitE‘llus
+OCSENU
+enoizadnamoccaR
+Genere
+L’applicazione di sistemi di IA può introdurre o rafforzare
+il pregiudizio. Quando le organizzazioni usano software
+di traduzione, potrebbero tradurre espressioni di genere
+neutro (“the doctor”) con espressioni connotate in
+termini di genere (“il dottore”). Analogamente, quando
+aziende operanti in un settore dominato da maschi
+assumono nuovi candidati sulla base di insiemi di dati
+da CV esistenti, con ogni probabilità riprodurranno un
+pregiudizio rispetto alle candidate di sesso femminile.
+Un principio importante sancito nella Raccomandazione
+è quello di minimizzare ed evitare di rafforzare o
+perpetuare applicazioni e risultati discriminatori o
+fondati sul pregiudizio per l’intero ciclo di vita dei
+sistemi di IA.
+I politici, le aziende che operano nel settore della ricerca
+e dello sviluppo dell’intelligenza artificiale e gli altri
+attori attivi in questo campo dovrebbero lavorare per:
+• Includere nelle politiche digitali nazionali un piano
+d’azione di genere;
+• Aumentare gli investimenti nelle aree politiche chiave
+come l’educazione finalizzata al lavoro, ad esempio,
+per promuovere lo sviluppo della carriera delle donne
+in discipline STEM (scienza, tecnologia, ingegneria e
+matematica) e ICT (tecnologia dell’informazione e
+della comunicazione);
+• Assicurare che la stereotipizzazione di genere e i
+pregiudizi discriminatori non si traducano nei sistemi
+di IA (ad esempio, contribuendo a creare “insiemi di
+dati gold standard” eterogenei, aperti e affidabili).
+14
+
+--- Pagina 15 ---
+Educazione
+e ricerca
+Le scuole e gli ambienti di formazione extra-scolare
+sono cruciali per promuovere la consapevolezza
+dell’etica dell’IA e rappresentano parte dell’impegno per
+colmare il divario digitale. La Raccomandazione presenta
+l’educazione come un importante veicolo per assicurare
+che i bambini e gli adulti di tutto il mondo sviluppino un
+livello adeguato di alfabetismo in materia di intelligenza
+artificiale - che deve riguardare sia la dimensione
+tecnologica che etica dell’IA. Al contempo, l’applicazione
+dell’e-learning nelle scuole dà adito essa stessa a
+dilemmi etici.
+Ad esempio, l’uso dei dati personali degli studenti
+dovrebbe rispettare i principi pertinenti di protezione dei
+dati personali.
+Gli Stati membri, ma anche le aziende attive nel settore
+dell’educazione, i docenti e le ONG sono chiamati a:
+• Promuovere programmi di consapevolezza generale
+sugli sviluppi dell’intelligenza artificiale e sul loro
+impatto sui diritti umani dei bambini;
+• Incoraggiare la collaborazione trasversale tra l’educa-
+zione alle competenze tecniche e l’educazione
+all’etica dell’IA e promuovere ricerche interdisciplinari
+includendo discipline diverse dalle STEM (scienza,
+tecnologia, ingegneria e matematica);
+• Sostenere la consulenza scientifico-politica per lo
+sviluppo di politiche sull’intelligenza artificiale e
+contribuire a coltivare la consapevolezza dell’etica
+dell’IA.
+15
+
+--- Pagina 16 ---
+àteicoS
+ertson
+elled
+orutuf
+li
+eralledoM
+AI‘lled
+acitE‘llus
+OCSENU
+enoizadnamoccaR
+Ambiente
+ed ecosistemi
+L’intelligenza artificiale contribuisce già a proteggere
+l’ambiente. Ad esempio, è usata per monitorare e
+migliorare la biodiversità attraverso l’analisi di immagini
+satellitari e ottenute con droni. I sistemi di IA possono
+tuttavia avere anche effetti negativi sull’ambiente, ad
+esempio in conseguenza della significativa domanda di
+energia di cui necessitano per soddisfare la loro potenza
+computazionale.
+La Raccomandazione invita ad agire, tra l’altro, sulle
+seguenti questioni:
+• Valutare l’impatto ambientale diretto e indiretto
+durante il ciclo di vita del sistema di IA e assicurare il
+rispetto delle regolamentazioni ambientali;
+• Assicurare lo sviluppo e l’adozione di applicazioni per
+la resilienza al rischio di catastrofe basate sul diritto e
+assistite dall’etica della IA; il monitoraggio, la prote-
+zione e la rigenerazione dell’ambiente e degli ecosis-
+temi, e la preservazione del pianeta;
+• Vietare i sistemi di IA per i quali vi sia una probabilità
+alta di impatti negativi sproporzionati sull’ambiente.
+16
+
+--- Pagina 17 ---
+È giunto il momento
+di sostenere uno
+sviluppo dell’intelli-
+genza artificiale eti-
+co e incentrato sulla
+persona
+Ambiente
+La Raccomandazione UNESCO si prefigge di
+assicurare che l’intelligenza artificiale sia svilup-
+ed ecosistemi
+pata a beneficio delle società. Per essere certi
+che lo sviluppo antropocentrico dell’intelligenza
+artificiale divenga e continui ad essere la norma,
+sono necessari input da parte di tutti i portatori
+di interessi: non solo i politici, ma anche le orga-
+nizzazioni della società civile, le aziende private
+e il pubblico in generale. Nonostante gli inviti
+all’azione concreta, la Raccomandazione sottoli-
+nea la necessità di uno sforzo collettivo. Tutti gli
+attori attivi nel campo dell’intelligenza artificiale,
+non solo quelli del settore sanitario, della cultura
+o dell’educazione, dovrebbero cogliere l’oppor-
+tunità di co-creare sistemi che assicurino lo
+sviluppo e l’impiego antropocentrico ed etico
+dell’IA. C’è ancora molto lavoro da fare!
+17
+
+--- Pagina 18 ---
+àteicoS
+ertson
+elled
+orutuf
+li
+eralledoM
+AI‘lled
+acitE‘llus
+OCSENU
+enoizadnamoccaR
+Nota tipografica
+Pubblicato da Status
+Commissione Nazionale Italiana per Ottobre 2023
+l‘UNESCO
+La versione originale di questa brochure è
+Diritto d’autore
+stata pubblicata dalle Commissioni Nazionali
+per l‘UNESCO di Germania, Paesi Bassi e
+Slovenia ed è disponibile al seguente link:
+I testi della presente pubblicazione sono con-
+https://ircai.org/wp-content/ cessi in licenza da Creative Commons License
+uploads/2023/07/Recommendation_bro- Attribution ShareAlike 4.0 International
+chure_A5_web_doublepage.pdf (CC BY-SA 4.0). www.creativecommons.org/
+licenses/by-sa/4.0/
+Contatti
+Commissione Nazionale Italiana per Progettazione e layout
+l‘UNESCO
+Via di Sant‘Apollinare 8, 00186 Roma
+Panatom
+segretariato.cniu@unesco.it
+www.unesco.it
+Editori
+Traduzione italiana a cura di
+Way2Global S.r.l SB
+18
+
+--- Pagina 20 ---
+con il sostegno di
