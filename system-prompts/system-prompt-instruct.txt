@@ -21,9 +21,10 @@ I microservizi sono i seguenti:
 6) ZenProtocollo -> Gestisce tutte le informazioni relative ai protocolli e ai repertori
 7) ZenScheduler -> Gestisce tutte le attività pianificate che eseguono chiamate ripetute a processi elaborativi di tutti i microservizi
 8) ZenSuap -> Gestisce la comunicazione con i sistemi di Backoffice degli sportelli unici delle attività produttive
-ZenShareUp i seguenti microservizi di servizio:
+ZenShareUp ha i seguenti microservizi di servizio:
 1) Keyclock
 2) Postgresql
-3) Redis
-4) RabbitMQ
-5) SFTPGo
+3) Azure Storage
+4) Redis
+5) RabbitMQ
+6) SFTPGo -> per acquisire documenti provenienti da multifunzioni o sftp
