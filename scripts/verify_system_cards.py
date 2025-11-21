@@ -1,9 +1,18 @@
 #!/usr/bin/env python3
 
 """
-Script per verificare la presenza di System Card per ogni Microservice (MS)
+Script per verificare la presenza di System Card per Microservices con ML (AI Act)
 
-Verifica:
+LOGICA:
+- Solo 4 MS richiedono System Card per conformità AI Act 2024/1689:
+  • MS01-CLASSIFIER (HIGH-RISK ML)
+  • MS02-ANALYZER (MEDIUM-RISK ML)
+  • MS04-VALIDATOR (MEDIUM-RISK ML)
+  • MS05-TRANSFORMER (LOW-RISK deterministic)
+
+- I rimanenti 12 MS sono utility/infrastruttura senza decisioni automatizzate
+
+Verifica per i 4 MS obbligatori:
 1. Presenza di SYSTEM-CARD.md (versione inglese)
 2. Presenza di SYSTEM-CARD-ITA.md (versione italiana)
 3. Completezza della documentazione (sezioni richieste)
@@ -15,7 +24,6 @@ Output: JSON report in scripts/reports/system_cards_validation.json
 import os
 import json
 import re
-import time
 from datetime import datetime
 from pathlib import Path
 
@@ -28,11 +36,32 @@ REPORTS_DIR = SCRIPT_DIR / "reports"
 # Ensure reports directory exists
 REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
-# Expected MS pattern: MS##-NAME
-MS_PATTERN = re.compile(r'^MS\d{2}-')
+# Microservices che RICHIEDONO System Card per AI Act compliance
+# Sono solo quelli con Machine Learning o decisioni automatizzate
+REQUIRES_SYSTEM_CARD = {
+    'MS01-CLASSIFIER': 'HIGH-RISK (Document Classification)',
+    'MS02-ANALYZER': 'MEDIUM-RISK (Entity Extraction & NLP)',
+    'MS04-VALIDATOR': 'MEDIUM-RISK (ML Validation)',
+    'MS05-TRANSFORMER': 'LOW-RISK (Deterministic Transformation)',
+}
+
+# Microservices che NON richiedono System Card (utility/infrastruttura)
+NON_ML_MICROSERVICES = {
+    'MS03-ORCHESTRATOR': 'Workflow Orchestration',
+    'MS06-AGGREGATOR': 'Data Aggregation',
+    'MS07-DISTRIBUTOR': 'Document Distribution',
+    'MS08-MONITOR': 'Infrastructure Monitoring',
+    'MS09-MANAGER': 'Service Management',
+    'MS10-LOGGER': 'Logging Service',
+    'MS11-GATEWAY': 'API Gateway',
+    'MS12-CACHE': 'Caching Layer',
+    'MS13-SECURITY': 'Security Module',
+    'MS14-AUDIT': 'Audit Trail',
+    'MS15-CONFIG': 'Configuration Service',
+    'MS16-REGISTRY': 'Service Registry',
+}
 
 # Required sections in System Card (minimum)
-# Sono presenti varianti inglesi e italiane
 REQUIRED_SECTIONS = {
     'Model Identity': ['Model Identity', 'Identità del Modello', 'Identità e Versionamento', 'Identificazione Modello'],
     'Intended Use': ['Intended Use', 'Uso Previsto'],
@@ -41,18 +70,6 @@ REQUIRED_SECTIONS = {
     'Risk Assessment': ['Risk Assessment', 'Valutazione Rischi', 'Risk'],
     'Approvals': ['Approvals', 'Approvazioni', 'Approval']
 }
-
-def find_microservices():
-    """Trova tutti i microservices nella struttura"""
-    if not MICROSERVICES_DIR.exists():
-        return []
-
-    ms_dirs = []
-    for item in MICROSERVICES_DIR.iterdir():
-        if item.is_dir() and MS_PATTERN.match(item.name):
-            ms_dirs.append(item)
-
-    return sorted(ms_dirs)
 
 def check_system_card_file(ms_dir, language='en'):
     """Verifica la presenza e qualità della System Card"""
@@ -96,11 +113,6 @@ def check_system_card_file(ms_dir, language='en'):
             else:
                 result['missing_sections'].append(section_name)
 
-        # Estrai livello rischio
-        risk_match = re.search(r'Risk Level["\s:]*[=:]*\s*([🔴🟠🟢]?\s*(?:HIGH|MEDIUM|LOW|ALTO|MEDIO|BASSO))', content, re.IGNORECASE)
-        if risk_match:
-            result['risk_level'] = risk_match.group(1).strip()
-
         # Estrai status approvazioni
         if '✅ Executive Approval' in content or '✅ Executive Review' in content:
             result['approval_status'] = 'APPROVED'
@@ -115,109 +127,138 @@ def check_system_card_file(ms_dir, language='en'):
     return result
 
 def validate_system_cards():
-    """Valida tutte le System Card presenti"""
-    ms_dirs = find_microservices()
+    """Valida System Card solo per i 4 MS che richiedono AI Act compliance"""
+    microservices_dir = MICROSERVICES_DIR
 
     report = {
         'timestamp': datetime.now().isoformat(),
-        'total_microservices': len(ms_dirs),
-        'microservices': {},
+        'scope': 'AI Act 2024/1689 Compliance (ML Systems Only)',
+        'required_count': len(REQUIRES_SYSTEM_CARD),
+        'non_ml_count': len(NON_ML_MICROSERVICES),
+        'total_microservices': len(REQUIRES_SYSTEM_CARD) + len(NON_ML_MICROSERVICES),
+        'required_microservices': {},
+        'non_ml_microservices': NON_ML_MICROSERVICES,
         'summary': {
-            'english_cards': 0,
-            'italian_cards': 0,
-            'both_languages': 0,
+            'english_cards_present': 0,
+            'italian_cards_present': 0,
+            'both_languages_complete': 0,
             'missing_english': 0,
             'missing_italian': 0,
-            'complete_coverage': 0
+            'compliance_score': 0  # percentage
         },
         'issues': []
     }
 
-    for ms_dir in ms_dirs:
-        ms_name = ms_dir.name
+    # Valida solo i 4 MS che richiedono System Card
+    for ms_name, risk_level in REQUIRES_SYSTEM_CARD.items():
+        ms_dir = microservices_dir / ms_name
+
+        if not ms_dir.exists():
+            continue
 
         # Verifica entrambe le versioni
         en_card = check_system_card_file(ms_dir, 'en')
         it_card = check_system_card_file(ms_dir, 'it')
 
-        report['microservices'][ms_name] = {
+        report['required_microservices'][ms_name] = {
+            'risk_level': risk_level,
             'english': en_card,
             'italian': it_card
         }
 
         # Aggiorna summary
         if en_card['present']:
-            report['summary']['english_cards'] += 1
+            report['summary']['english_cards_present'] += 1
         else:
             report['summary']['missing_english'] += 1
             report['issues'].append({
-                'type': 'MISSING_ENGLISH_CARD',
+                'type': 'MISSING_REQUIRED_CARD',
+                'severity': 'CRITICAL',
                 'microservice': ms_name,
-                'message': f'{ms_name} manca SYSTEM-CARD.md (versione inglese)'
+                'language': 'english',
+                'message': f'{ms_name} ({risk_level}): manca SYSTEM-CARD.md',
+                'required': True
             })
 
         if it_card['present']:
-            report['summary']['italian_cards'] += 1
+            report['summary']['italian_cards_present'] += 1
         else:
             report['summary']['missing_italian'] += 1
             report['issues'].append({
-                'type': 'MISSING_ITALIAN_CARD',
+                'type': 'MISSING_REQUIRED_CARD',
+                'severity': 'CRITICAL',
                 'microservice': ms_name,
-                'message': f'{ms_name} manca SYSTEM-CARD-ITA.md (versione italiana)'
+                'language': 'italian',
+                'message': f'{ms_name} ({risk_level}): manca SYSTEM-CARD-ITA.md',
+                'required': True
             })
 
         if en_card['present'] and it_card['present']:
-            report['summary']['both_languages'] += 1
-            report['summary']['complete_coverage'] += 1
+            report['summary']['both_languages_complete'] += 1
 
         # Verifica sezioni mancanti
         if en_card['present'] and en_card['missing_sections']:
             for section in en_card['missing_sections']:
                 report['issues'].append({
                     'type': 'MISSING_SECTION',
+                    'severity': 'WARNING',
                     'microservice': ms_name,
                     'language': 'english',
                     'section': section,
-                    'message': f'{ms_name} SYSTEM-CARD.md: manca sezione "{section}"'
+                    'message': f'{ms_name} SYSTEM-CARD.md: manca sezione "{section}"',
+                    'required': True
                 })
 
         if it_card['present'] and it_card['missing_sections']:
             for section in it_card['missing_sections']:
                 report['issues'].append({
                     'type': 'MISSING_SECTION',
+                    'severity': 'WARNING',
                     'microservice': ms_name,
                     'language': 'italian',
                     'section': section,
-                    'message': f'{ms_name} SYSTEM-CARD-ITA.md: manca sezione "{section}"'
+                    'message': f'{ms_name} SYSTEM-CARD-ITA.md: manca sezione "{section}"',
+                    'required': True
                 })
+
+    # Calcola compliance score
+    both_langs_required = report['summary']['both_languages_complete']
+    required_total = len(REQUIRES_SYSTEM_CARD)
+    compliance_score = int((both_langs_required / required_total * 100)) if required_total > 0 else 0
+    report['summary']['compliance_score'] = compliance_score
 
     return report
 
 def print_results(report):
     """Stampa risultati in console"""
-    total_ms = report['total_microservices']
-    english_cards = report['summary']['english_cards']
-    italian_cards = report['summary']['italian_cards']
-    both_langs = report['summary']['both_languages']
+    required_ms = report['required_count']
+    english_cards = report['summary']['english_cards_present']
+    italian_cards = report['summary']['italian_cards_present']
+    both_langs = report['summary']['both_languages_complete']
+    compliance = report['summary']['compliance_score']
     issues_count = len(report['issues'])
+    critical_issues = len([i for i in report['issues'] if i['severity'] == 'CRITICAL'])
 
-    print(f"\n📋 System Cards Validation Report")
+    print(f"\n📋 AI Act System Card Validation")
     print(f"{'='*60}")
-    print(f"Total Microservices: {total_ms}")
-    print(f"English Cards (SYSTEM-CARD.md): {english_cards}/{total_ms}")
-    print(f"Italian Cards (SYSTEM-CARD-ITA.md): {italian_cards}/{total_ms}")
-    print(f"Complete Coverage (both languages): {both_langs}/{total_ms}")
+    print(f"Required (AI Act ML Systems): {required_ms}")
+    print(f"English Cards: {english_cards}/{required_ms}")
+    print(f"Italian Cards: {italian_cards}/{required_ms}")
+    print(f"Complete (Both Languages): {both_langs}/{required_ms}")
+    print(f"AI Act Compliance Score: {compliance}%")
     print()
 
-    if issues_count == 0:
-        print("✅ ALL SYSTEM CARDS PRESENT - PERFECT")
+    if compliance == 100:
+        print("✅ AI ACT COMPLIANCE COMPLETE")
+        print("   All required System Cards present (EN + IT)")
         return 0
-    else:
-        print(f"⚠️ ISSUES FOUND: {issues_count}\n")
+    elif critical_issues > 0:
+        print(f"⚠️ INCOMPLETE COVERAGE: {critical_issues} missing required System Cards\n")
 
         # Raggruppa per tipo di problema
-        missing_english = [i for i in report['issues'] if i['type'] == 'MISSING_ENGLISH_CARD']
-        missing_italian = [i for i in report['issues'] if i['type'] == 'MISSING_ITALIAN_CARD']
+        missing_cards = [i for i in report['issues'] if i['type'] == 'MISSING_REQUIRED_CARD']
+        missing_english = [i for i in missing_cards if i['language'] == 'english']
+        missing_italian = [i for i in missing_cards if i['language'] == 'italian']
         missing_sections = [i for i in report['issues'] if i['type'] == 'MISSING_SECTION']
 
         if missing_english:
@@ -231,11 +272,14 @@ def print_results(report):
                 print(f"  • {issue['microservice']}")
 
         if missing_sections:
-            print(f"\nMissing Sections ({len(missing_sections)}):")
+            print(f"\nIncomplete Sections ({len(missing_sections)}):")
             for issue in missing_sections:
                 print(f"  • {issue['microservice']} ({issue['language']}): {issue['section']}")
 
         return 1
+    else:
+        print(f"✅ AI ACT COMPLIANCE - Minor issues ({len([i for i in report['issues'] if i['severity'] == 'WARNING'])} warnings)")
+        return 0
 
 def main():
     report = validate_system_cards()
