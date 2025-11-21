@@ -249,7 +249,7 @@ def print_results(report):
     print()
 
     if compliance == 100:
-        print("✅ AI ACT COMPLIANCE COMPLETE")
+        print("✅ AI ACT COMPLIANCE COMPLETE - PASS")
         print("   All required System Cards present (EN + IT)")
         return 0
     elif critical_issues > 0:
